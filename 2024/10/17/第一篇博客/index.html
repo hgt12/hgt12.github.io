@@ -29,7 +29,7 @@
 <meta property="og:image" content="http://example.com/img/%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%88%AA%E5%9B%BE.png">
 <meta property="og:image" content="http://example.com/img/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20241017112610.png">
 <meta property="article:published_time" content="2024-10-17T01:42:45.000Z">
-<meta property="article:modified_time" content="2024-10-17T06:01:06.295Z">
+<meta property="article:modified_time" content="2024-10-17T12:43:31.997Z">
 <meta property="article:author" content="云梦泽">
 <meta property="article:tag" content="日常">
 <meta property="article:tag" content="文章">
@@ -331,7 +331,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年10月17日 下午
+                    本文最后更新于 2024年10月17日 晚上
                   
                 
               </p>
@@ -465,6 +465,30 @@
   
     <article id="comments">
       
+  <div id="twikoo"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/twikoo/1.6.8/twikoo.all.min.js', function() {
+        var options = Object.assign(
+          {"envId":"https://mi-manchi-ovo.netlify.app/.netlify/functions/twikoo","region":"ap-shanghai","path":"window.location.pathname"},
+          {
+            el: '#twikoo',
+            path: 'window.location.pathname',
+            onCommentLoaded: function() {
+              Fluid.utils.listenDOMLoaded(function() {
+                var imgSelector = '#twikoo .tk-content img:not(.tk-owo-emotion)';
+                Fluid.plugins.imageCaption(imgSelector);
+                Fluid.plugins.fancyBox(imgSelector);
+              });
+            }
+          }
+        )
+        twikoo.init(options)
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
 
     </article>
   
