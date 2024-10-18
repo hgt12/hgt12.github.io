@@ -66,8 +66,10 @@
 // snow();
 
 
-function snow() {
-  // 1.定义 Snowflake 模板
+function snow()
+{
+  // 1.定义雪花模板
+  // 雪花字符 ❄❉❅❆✻✼❇❈❊✥✺
   var flake = document.createElement('div');
   flake.innerHTML = '❅';
   flake.style.position = 'absolute'; //改成 absolute
@@ -82,7 +84,8 @@ function snow() {
   var millisec = 200; //经过调整以提高能见度
 
   // 创建函数以生成雪花
-  function createSnowflake() {
+  function createSnowflake()
+  {
     // Random values for snowflake characteristics
     var startLeft = Math.random() * documentWidth;
     var endLeft = Math.random() * documentWidth;
@@ -94,7 +97,7 @@ function snow() {
     //克隆雪花模板
     var cloneFlake = flake.cloneNode(true);
 
-    // Set initial style for clone
+    //设置克隆的初始样式
     cloneFlake.style.left = `${startLeft}px`;
     cloneFlake.style.opacity = startOpacity;
     cloneFlake.style.fontSize = `${flakeSize}px`;
@@ -105,13 +108,15 @@ function snow() {
     document.body.appendChild(cloneFlake);
 
     //触发动画
-    requestAnimationFrame(() => {
+    requestAnimationFrame(() =>
+    {
       cloneFlake.style.left = `${endLeft}px`;
       cloneFlake.style.top = `${documentHeight}px`;
       cloneFlake.style.opacity = endOpacity;
 
       //在持续时间后移除
-      setTimeout(() => {
+      setTimeout(() =>
+      {
         cloneFlake.remove();
       }, durationTime);
     });
@@ -124,7 +129,8 @@ function snow() {
 snow();
 
 //调整窗口大小以确保响应生成
-window.addEventListener('resize', () => {
+window.addEventListener('resize', () =>
+{
   documentHeight = window.innerHeight;
   documentWidth = window.innerWidth;
 });
