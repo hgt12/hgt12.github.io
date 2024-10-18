@@ -105,7 +105,7 @@ function snow()
     cloneFlake.style.transition = `top ${durationTime}ms linear, opacity ${durationTime}ms linear`;
 
     //添加到页面上
-    document.body.appendChild(cloneFlake);
+    //document.body.appendChild(cloneFlake);
 
     //触发动画
     requestAnimationFrame(() =>
