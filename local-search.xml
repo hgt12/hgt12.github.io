@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>关于怎么将自定义js用hexo注入的方法加到自定义html中的ä¸一点理解</title>
+    <link href="/2024/10/19/%E5%85%B3%E4%BA%8E%E6%80%8E%E4%B9%88%E5%B0%86%E8%87%AA%E5%AE%9A%E4%B9%89js%E7%94%A8hexo%E6%B3%A8%E5%85%A5%E7%9A%84%E6%96%B9%E6%B3%95%E5%8A%A0%E5%88%B0%E8%87%AA%E5%AE%9A%E4%B9%89html%E4%B8%AD%E7%9A%84a%C2%B8%E4%B8%80%E7%82%B9%E7%90%86%E8%A7%A3/"/>
+    <url>/2024/10/19/%E5%85%B3%E4%BA%8E%E6%80%8E%E4%B9%88%E5%B0%86%E8%87%AA%E5%AE%9A%E4%B9%89js%E7%94%A8hexo%E6%B3%A8%E5%85%A5%E7%9A%84%E6%96%B9%E6%B3%95%E5%8A%A0%E5%88%B0%E8%87%AA%E5%AE%9A%E4%B9%89html%E4%B8%AD%E7%9A%84a%C2%B8%E4%B8%80%E7%82%B9%E7%90%86%E8%A7%A3/</url>
+    
+    <content type="html"><![CDATA[<h1 align="center" ><strong>关于自定义html的想管配置</strong></h1><br><h5 style="color: #b7a0e0">起因</h5><p>今天尝试着创建一个自定义的html来搭建一个留言板页面并给这个页面设置特殊的雪花降落效果</p><h5 style="color: #b7a0e0">发现问题</h5><p>但我在研究新建html文件和hexo注入的时候遇到无法将自己的js注入到自定义的html文件中的问题</p><img src="/themes/fluid/source/img/hexo注入.png" srcset="/img/loading_1.gif" lazyload alt=""><h5 style="color: #b7a0e0">寻找解决方法</h5><p>找了好久的问题，有趣翻阅了官方的API文档</p><p>但还是看的云里雾里的</p><p><strong>我看到他里面给的提示说是</strong></p><hr><p>default: 注入到每个页面（默认值<p> home: 只注入到主页（is_home() 为 true 的页面）</p><p> post: 只注入到文章页面（is_post() 为 true 的页面）</p><p> page: 只注入到独立页面（is_page() 为 true 的页面）</p><p> archive: 只注入到归档页面（is_archive() 为 true 的页面）</p><p> category: 只注入到分类页面（is_category() 为 true 的页面）</p><p> tag: 只注入到标签页面（is_tag() 为 true 的页面）</p><p> messages: 只注入到留言板页面（is_messages() 为 true 的页面）<br> 或是其他自定义 layout 名称，例如在Fluid 主题中 about 对应关于页、links 对应友联页</p></p><hr><p><strong>结果看完我更蒙了</strong></p><p>然后就是各种找解决方法</p><h5 style="color: #b7a0e0">出现头绪</h5><p>然后我在翻项目文件的时候在.ejs文件里发现了有关layout的代码</p><img src="/themes/fluid/source/img/hexo注入1.png" srcset="/img/loading_1.gif" lazyload alt=""><img src="/themes/fluid/source/img/hexo注入2.png" srcset="/img/loading_1.gif" lazyload alt=""><p>上面就是在about.ejs文件中的layout属性是和about页面里的设置是关联的</p><p>然后发现在layout文件夹下的文件是属于是布局文件</p><p><strong>而且有一些布局文件还没有这些属性，原来是有一些布局是不能拥有这个属性的</strong></p><p>我自己的理解是只有一些大的页面才会有这个属性，但小页面不会有，比如一下post文章页面就没有</p><h5 style="color: #b7a0e0">尝试解决</h5><p>知道问题出在那就很好解决了</p><p>先在layout文件夹下新建一个和自己新建的html相关联的.ejs文件（最好是同名的）</p><p>里面的内容可以先复制其他类似的文件来用</p><p><strong>需要注意的是，你复制用的哪些界面的布局，你自己自定义界面的布局也会和他一样</strong></p><img src="/themes/fluid/source/img/hexo注入3.png" srcset="/img/loading_1.gif" lazyload alt=""><p>我这里就照搬了page.ejs文件</p><p><strong>要注意你上面的layout属于要改成你自己自定义的名称</strong></p><p>然后再到项目目录下新建scripts文件夹用于存放我们的hexo注入代码js文件</p><img src="/themes/fluid/source/img/hexo注入4.png" srcset="/img/loading_1.gif" lazyload alt=""><p>然后再写一段你要注入到页面的js文件和要关联的layout属性加上去问题就完美解决了</p><img src="/themes/fluid/source/img/hexo注入5.png" srcset="/img/loading_1.gif" lazyload alt=""><h5 style="color: #b7a0e0">后记</h5><p>要注意的是你新建页面的布局你想自己设计的话要自己去该，源码中的page.ejs是属于默认布局来的了</p><br><p><strong>问题解决终于可以睡个好觉了</strong></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>笔记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>日常</tag>
+      
+      <tag>自定义</tag>
+      
+      <tag>随笔</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>我的第一篇博客</title>
     <link href="/2024/10/17/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
     <url>/2024/10/17/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
