@@ -75,6 +75,7 @@ function snow()
   flake.style.position = 'absolute'; //改成 absolute
   flake.style.color = 'rgb(168,230,230)';
   flake.style.pointerEvents = 'none'; //阻止交互
+  flake.style.whiteSpace = 'nowrap'; //防止换行
 
   //获取视区高度和宽度
   var documentHeight = window.innerHeight;
@@ -105,7 +106,7 @@ function snow()
     cloneFlake.style.transition = `top ${durationTime}ms linear, opacity ${durationTime}ms linear`;
 
     //添加到页面上
-    //document.body.appendChild(cloneFlake);
+    document.body.appendChild(cloneFlake);
 
     //触发动画
     requestAnimationFrame(() =>
@@ -129,8 +130,15 @@ function snow()
 snow();
 
 //调整窗口大小以确保响应生成
-window.addEventListener('resize', () =>
-{
+window.onresize = () => {
+  //调整大小时，获取最新尺寸
   documentHeight = window.innerHeight;
   documentWidth = window.innerWidth;
-});
+};
+
+// //调整窗口大小以确保响应生成
+// window.addEventListener('resize', () =>
+// {
+//   documentHeight = window.innerHeight;
+//   documentWidth = window.innerWidth;
+// });
