@@ -25,9 +25,11 @@ document.addEventListener("DOMContentLoaded", function()
       updateSize();
       window.addEventListener('resize', updateSize, false);
       loop();
+      //下面是几个监听函数，用于捕获鼠标按下和松开，还有长按
       window.addEventListener("mousedown", function(e)
       {
-        pushBalls(randBetween(10, 20), e.clientX, e.clientY);
+        //每次点击生成球的数量基础数值25-35
+        pushBalls(randBetween(25, 35), e.clientX, e.clientY);
         document.body.classList.add("is-pressed");
         longPress = setTimeout(function()
         {
@@ -35,7 +37,6 @@ document.addEventListener("DOMContentLoaded", function()
           longPressed = true;
         }, 500);
       }, false);
-      //下面是几个监听函数，用于捕获鼠标按下和松开，还有长按
       window.addEventListener("mouseup", function(e)
       {
         clearInterval(longPress);
@@ -78,26 +79,27 @@ document.addEventListener("DOMContentLoaded", function()
 
     class Ball//这里存储了每个球的基本属性
     {
-      constructor(x = origin.x, y = origin.y) {
+      constructor(x = origin.x, y = origin.y)
+      {
         this.x = x;
         this.y = y;
         this.angle = Math.PI * 2 * Math.random();
         if (longPressed == true) {
           this.multiplier = randBetween(14 + multiplier, 15 + multiplier);
         } else {
-          this.multiplier = randBetween(6, 12);
+          this.multiplier = randBetween(6, 8);//数值越大球的扩散速度越大
         }
         this.vx = (this.multiplier + Math.random() * 0.5) * Math.cos(this.angle);
         this.vy = (this.multiplier + Math.random() * 0.5) * Math.sin(this.angle);
         this.r = randBetween(8, 12) + 3 * Math.random();
         this.color = colours[Math.floor(Math.random() * colours.length)];
-        this.color = colours[Math.floor(Math.random() * colours.length)] + "75"; // 加入透明度
+        this.color = colours[Math.floor(Math.random() * colours.length)] + "80"; // 加入透明度数值越小越不透明
       }
       update() //更新球位置的方法
       {
         this.x += this.vx;
         this.y += this.vy;
-        this.vy += 0.1; // 添加简单的重力效果
+        this.vy += 0.15; // 添加简单的重力效果数值越大越明显
 
         this.x += this.vx - normal.x;
         this.y += this.vy - normal.y;
@@ -116,7 +118,8 @@ document.addEventListener("DOMContentLoaded", function()
     //   }
     // }
 
-    function pushBalls(count = 1, x = origin.x, y = origin.y)
+    //每次生成球的基础数量是5，
+    function pushBalls(count = 5, x = origin.x, y = origin.y)
     {
       for (let i = 0; i < count; i++)
       {
