@@ -28,19 +28,6 @@ h6:hover > .anchorjs-link {
   -webkit-backface-visibility: hidden;
   transition: transform 0.05s ease-out;
 }
-@media (max-width: 100vh) {
-  .header-inner {
-    max-height: 100vw;
-  }
-  #board {
-    margin-top: -1rem !important;
-  }
-}
-@media (max-width: 79.99vh) {
-  .scroll-down-bar {
-    display: none;
-  }
-}
 #board {
   position: relative;
   margin-top: -2rem;
@@ -847,7 +834,7 @@ i.iconfont {
 :root {
   --color-mode: "light";
   --body-bg-color: #a5dff9;
-  --board-bg-color: #fff;
+  --board-bg-color: #f5fffa;
   --text-color: #3c4858;
   --sec-text-color: #718096;
   --post-text-color: #2c3e50;
