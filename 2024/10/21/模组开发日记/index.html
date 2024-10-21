@@ -19,28 +19,28 @@
   <meta name="author" content="云梦泽">
   <meta name="keywords" content="js html">
   
-    <meta name="description" content="关于自定义html的相关配置  起因 今天尝试着创建一个自定义的html来搭建一个留言板页面并给这个页面设置特殊的雪花降落效果 发现问题 但我在研究新建html文件和hexo注入的时候遇到无法将自己的js注入到自定义的html文件中的问题  寻找解决方法 找了好久的问题，又去翻阅了官方的API文档 但还是看的云里雾里的 我看到他里面给的提示说是  default: 注入到每个页面（默认值   ho">
+    <meta name="description" content="暗晶钻装备正式加入世界     引言   因为我是模组开发一半才开始着手开发个人博客， 所有没有从一开始就记录自己的模组开发过程， 不过从现在开始就可以正式记录啦   需要提到特点的是暗晶钻的来源 关于暗晶钻  暗晶钻是由一个暗晶碎片加上四个钻石合成的来 关于暗晶碎片  暗晶碎片是开采暗晶簇得来，这是在生存中唯一能得到暗晶碎片的方法  暗晶簇的生成 在主世界的紫水晶洞中，由于环境的不同，紫水晶簇在">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于怎么将自定义js用hexo注入的方法加到自定义html中的一点理解">
-<meta property="og:url" content="http://example.com/2024/10/19/%E5%85%B3%E4%BA%8E%E6%80%8E%E4%B9%88%E5%B0%86%E8%87%AA%E5%AE%9A%E4%B9%89js%E7%94%A8hexo%E6%B3%A8%E5%85%A5%E7%9A%84%E6%96%B9%E6%B3%95%E5%8A%A0%E5%88%B0%E8%87%AA%E5%AE%9A%E4%B9%89html%E4%B8%AD%E7%9A%84a%C2%B8%E4%B8%80%E7%82%B9%E7%90%86%E8%A7%A3/index.html">
+<meta property="og:title" content="『模组开发日记』之暗晶钻套装与工具的加入">
+<meta property="og:url" content="http://example.com/2024/10/21/%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0/index.html">
 <meta property="og:site_name" content="云梦泽的个人博客">
-<meta property="og:description" content="关于自定义html的相关配置  起因 今天尝试着创建一个自定义的html来搭建一个留言板页面并给这个页面设置特殊的雪花降落效果 发现问题 但我在研究新建html文件和hexo注入的时候遇到无法将自己的js注入到自定义的html文件中的问题  寻找解决方法 找了好久的问题，又去翻阅了官方的API文档 但还是看的云里雾里的 我看到他里面给的提示说是  default: 注入到每个页面（默认值   ho">
+<meta property="og:description" content="暗晶钻装备正式加入世界     引言   因为我是模组开发一半才开始着手开发个人博客， 所有没有从一开始就记录自己的模组开发过程， 不过从现在开始就可以正式记录啦   需要提到特点的是暗晶钻的来源 关于暗晶钻  暗晶钻是由一个暗晶碎片加上四个钻石合成的来 关于暗晶碎片  暗晶碎片是开采暗晶簇得来，这是在生存中唯一能得到暗晶碎片的方法  暗晶簇的生成 在主世界的紫水晶洞中，由于环境的不同，紫水晶簇在">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/suibi.jpg">
-<meta property="article:published_time" content="2024-10-18T17:08:43.000Z">
-<meta property="article:modified_time" content="2024-10-19T12:41:56.558Z">
+<meta property="og:image" content="http://example.com/img/mc.png">
+<meta property="article:published_time" content="2024-10-21T12:46:45.000Z">
+<meta property="article:modified_time" content="2024-10-21T14:53:55.450Z">
 <meta property="article:author" content="云梦泽">
-<meta property="article:tag" content="自定义">
-<meta property="article:tag" content="随笔">
-<meta property="article:tag" content="日常">
+<meta property="article:tag" content="MC">
+<meta property="article:tag" content="代码">
+<meta property="article:tag" content="游戏">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/suibi.jpg">
+<meta name="twitter:image" content="http://example.com/img/mc.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>关于怎么将自定义js用hexo注入的方法加到自定义html中的一点理解 - 云梦泽的个人博客</title>
+  <title>『模组开发日记』之暗晶钻套装与工具的加入 - 云梦泽的个人博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -235,13 +235,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/frieren.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/mc_index.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="关于怎么将自定义js用hexo注入的方法加到自定义html中的一点理解"></span>
+            <span id="subtitle" data-typed-text="『模组开发日记』之暗晶钻套装与工具的加入"></span>
           
         </div>
 
@@ -257,8 +257,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-10-19 01:08" pubdate>
-          2024年10月19日 凌晨
+        <time datetime="2024-10-21 20:46" pubdate>
+          2024年10月21日 晚上
         </time>
       </span>
     
@@ -269,7 +269,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          761 字
+          969 字
         
       </span>
     
@@ -280,7 +280,7 @@
         
         
         
-          7 分钟
+          9 分钟
         
       </span>
     
@@ -338,17 +338,17 @@
     
     <div class="category row nomargin-x">
       <a class="category-item 
-          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="笔记"
-        id="heading-7051dc52c184c205e39aa54b4664ae9b" role="tab" data-toggle="collapse" href="#collapse-7051dc52c184c205e39aa54b4664ae9b"
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="模组开发"
+        id="heading-8edf9fd34b93de4b5595e30a2135d7e8" role="tab" data-toggle="collapse" href="#collapse-8edf9fd34b93de4b5595e30a2135d7e8"
         aria-expanded="true"
       >
-        笔记
+        模组开发
         <span class="list-group-count">(1)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse show" id="collapse-7051dc52c184c205e39aa54b4664ae9b"
-           role="tabpanel" aria-labelledby="heading-7051dc52c184c205e39aa54b4664ae9b">
+      <div class="category-collapse collapse show" id="collapse-8edf9fd34b93de4b5595e30a2135d7e8"
+           role="tabpanel" aria-labelledby="heading-8edf9fd34b93de4b5595e30a2135d7e8">
         
         
           
@@ -357,10 +357,10 @@
     
       
       
-        <a href="/2024/10/19/%E5%85%B3%E4%BA%8E%E6%80%8E%E4%B9%88%E5%B0%86%E8%87%AA%E5%AE%9A%E4%B9%89js%E7%94%A8hexo%E6%B3%A8%E5%85%A5%E7%9A%84%E6%96%B9%E6%B3%95%E5%8A%A0%E5%88%B0%E8%87%AA%E5%AE%9A%E4%B9%89html%E4%B8%AD%E7%9A%84a%C2%B8%E4%B8%80%E7%82%B9%E7%90%86%E8%A7%A3/" title="关于怎么将自定义js用hexo注入的方法加到自定义html中的一点理解"
+        <a href="/2024/10/21/%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0/" title="『模组开发日记』之暗晶钻套装与工具的加入"
            class="list-group-item list-group-item-action
            active">
-          <span class="category-post">关于怎么将自定义js用hexo注入的方法加到自定义html中的一点理解</span>
+          <span class="category-post">『模组开发日记』之暗晶钻套装与工具的加入</span>
         </a>
       
     
@@ -382,12 +382,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">关于怎么将自定义js用hexo注入的方法加到自定义html中的一点理解</h1>
+            <h1 id="seo-header">『模组开发日记』之暗晶钻套装与工具的加入</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年10月19日 晚上
+                    本文最后更新于 2024年10月21日 晚上
                   
                 
               </p>
@@ -395,58 +395,116 @@
             
               <div class="markdown-body">
                 
-                <h1 align="center"><span id="关于自定义html的相关配置">关于自定义html的相关配置</span></h1>
-<br>
-<h2 style="color: #b7a0e0"><span id="起因">起因</span></h2>
-<p>今天尝试着创建一个自定义的html来搭建一个留言板页面并给这个页面设置特殊的雪花降落效果</p>
-<h2 style="color: #b7a0e0"><span id="发现问题">发现问题</span></h2>
-<p>但我在研究新建html文件和hexo注入的时候遇到无法将自己的js注入到自定义的html文件中的问题</p>
-<img src="/img/hexo注入.png" srcset="/img/loading_1.gif" lazyload alt>
-<h2 style="color: #b7a0e0"><span id="寻找解决方法">寻找解决方法</span></h2>
-<p>找了好久的问题，又去翻阅了官方的API文档</p>
-<p>但还是看的云里雾里的</p>
-<p><strong>我看到他里面给的提示说是</strong></p>
+                <h1 align="center"><span id="暗晶钻装备正式加入世界"><span style="color: cadetblue;">暗晶钻装备正式加入世界</span></span></h1>
+
 <hr>
-<p>default: 注入到每个页面（默认值
-
-</p><p> home: 只注入到主页（is_home() 为 true 的页面）</p>
-<p> post: 只注入到文章页面（is_post() 为 true 的页面）</p>
-<p> page: 只注入到独立页面（is_page() 为 true 的页面）</p>
-<p> archive: 只注入到归档页面（is_archive() 为 true 的页面）</p>
-<p> category: 只注入到分类页面（is_category() 为 true 的页面）</p>
-<p> tag: 只注入到标签页面（is_tag() 为 true 的页面）</p>
-<p> messages: 只注入到留言板页面（is_messages() 为 true 的页面）<br> 或是其他自定义 layout 名称，例如在Fluid 主题中 about 对应关于页、links 对应友联页</p>
-<p></p>
 <hr>
-<p><strong>结果看完我更蒙了</strong></p>
-<p>然后就是各种找解决方法</p>
-<h2 style="color: #b7a0e0"><span id="出现头绪">出现头绪</span></h2>
-<p>然后我在翻项目文件的时候在.ejs文件里发现了有关layout的代码</p>
-<img src="/img/hexo注入1.png" srcset="/img/loading_1.gif" lazyload alt>
-<img src="/img/hexo注入2.png" srcset="/img/loading_1.gif" lazyload alt>
-<p>上面就是在about.ejs文件中的layout属性是和about页面里的设置是关联的</p>
-<p>然后发现在layout文件夹下的文件是属于是布局文件</p>
-<p><strong>而且有一些布局文件还没有这些属性，原来是有一些布局是不能拥有这个属性的</strong></p>
-<p>我自己的理解是只有一些大的页面才会有这个属性，但小页面不会有，比如一下post文章页面就没有</p>
-<h2 style="color: #b7a0e0"><span id="尝试解决">尝试解决</span></h2>
-<p>知道问题出在那就很好解决了</p>
-<p>先在layout文件夹下新建一个和自己新建的html相关联的.ejs文件（最好是同名的）</p>
-<p>里面的内容可以先复制其他类似的文件来用</p>
-<p><strong>需要注意的是，你复制用的哪些界面的布局，你自己自定义界面的布局也会和他一样</strong></p>
-<img src="/img/hexo注入3.png" srcset="/img/loading_1.gif" lazyload alt>
-<p>我这里就照搬了page.ejs文件</p>
-<p><strong>要注意你上面的layout属于要改成你自己自定义的名称</strong></p>
-<p>然后再到项目目录下新建scripts文件夹用于存放我们的hexo注入代码js文件</p>
-<img src="/img/hexo注入4.png" srcset="/img/loading_1.gif" lazyload alt>
-<p>然后再写一段你要注入到页面的js文件和要关联的layout属性加上去问题就完美解决了</p>
-<img src="/img/hexo注入5.png" srcset="/img/loading_1.gif" lazyload alt>
-<h2 style="color: #b7a0e0"><span id="后记">后记</span></h2>
-<p>我的理解是这玩意在/layout路径下面某些文件（或者你自己新建的文件要自己写ejs）的 page.layout = "about" 里如果文件第一行是about，则下面填about会有js效果则表示注入成功</p>
-<p>要注意的是你新建页面的布局你想自己设计的话要自己去该，源码中的page.ejs是属于默认布局来的了</p>
+
+<h2 style="color: #b7a0e0"><span id="引言">引言</span></h2>  
+<p>因为我是模组开发一半才开始着手开发个人博客，</p>
+<p>所有没有从一开始就记录自己的模组开发过程，</p>
+<p>不过从现在开始就可以正式记录啦</p>
+
 <br>
-<p><strong>问题解决终于可以睡个好觉了</strong></p>
+<p align="center" style="color: #a5dff9">需要提到特点的是暗晶钻的来源</p>
+<h2 style="color: #b7a0e0"><span id="关于暗晶钻">关于暗晶钻</span></h2>
+<img src="/img/暗晶钻合成.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻的合成">
+<p>暗晶钻是由一个暗晶碎片加上四个钻石合成的来</p>
+<h3 style="color: #b7a0e0"><span id="关于暗晶碎片">关于暗晶碎片</span></h3>
+<img src="/img/暗晶碎片.png" srcset="/img/loading_1.gif" lazyload alt="暗晶碎片">
+<p>暗晶碎片是开采暗晶簇得来，这是在生存中唯一能得到暗晶碎片的方法</p>
+<img src="/img/暗晶簇.png" srcset="/img/loading_1.gif" lazyload alt="暗晶簇">
+<h4 style="color: #b7a0e0"><span id="暗晶簇的生成">暗晶簇的生成</span></h4>
+<p>在主世界的紫水晶洞中，由于环境的不同，紫水晶簇在生长过程中会发生变质而生成一种奇怪又神秘的褪色水晶簇【暗晶簇】</p>
+<img src="/img/暗晶簇生成.png" srcset="/img/loading_1.gif" lazyload alt="暗晶簇在水晶洞中的状态">
+<p>玩家在探索矿洞过程中如果幸运的话可以在紫水晶洞中发现这种神秘的矿石</p>
+<p>需要知道的是，这种矿物有且只会在紫水晶洞中生成，且它不会像紫水晶那样会在母岩上再重新长出来</p>
+<p style="color: #735c0f">看来是一种很神秘的矿物呢</p>
+<p>通过打破暗晶簇可以得到1-3块暗晶碎片</p>
+<hr>
+<p>通过上面的合成就可以得到暗晶钻啦</p>
 
+<br>
+<h2 style="color: #b7a0e0"><span id="暗晶钻装备">暗晶钻装备</span></h2>
+<h3 style="color: #b7a0e0"><span id="合成">合成</span></h3>
+<p>暗晶钻装备的合成和钻石装备合成一模一样</p>
+<p align="center">如下所示</p>
+<img src="/img/暗晶钻头盔.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻头盔的合成">
+<p>暗晶钻头盔为玩家提供：+3护甲值，+3.5盔甲韧性，+2击退抗性</p>
+<img src="/img/暗晶钻胸甲.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻胸甲的合成">
+<p>暗晶钻头盔为玩家提供：+8护甲值，+3.5盔甲韧性，+2击退抗性</p>
+<img src="/img/暗晶钻裤腿.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻裤腿的合成">
+<p>暗晶钻头盔为玩家提供：+6护甲值，+3.5盔甲韧性，+2击退抗性</p>
+<img src="/img/暗晶钻靴子.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻靴子的合成">
+<p>暗晶钻头盔为玩家提供：+3护甲值，+3.5盔甲韧性，+2击退抗性</p>
+<p>这样就可以得到暗晶钻四件套了</p>
+<p style="color: #dd8888">四件套穿身上会让玩家每15秒获得6颗心的伤害吸收效果</p>
+<img src="/img/暗晶钻四件套.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻四件套效果">
+<hr>
+<br>
+<p align="center">下面是工具类用品的合成</p>
+<img src="/img/暗晶钻剑.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻剑的合成">
+<p>在使用暗晶钻剑攻击生物时会有吸血效果，一般来说每攻击到一个生物会有吸血效果，为自身增加两点生命值，同时攻击多个生物恢复生命值数则按 2*受攻击生物数 来计算</p>
+<p>具体代码实现效果如下</p>
 
+<pre><code class="hljs">private long lastHealTime = 0; // 上次回复生命的时间
+private static final long HEAL_COOLDOWN = 2000; // 2秒冷却，单位是毫秒
+private int enemyHitCount = 0; // 记录击中的敌人数量
+
+public DarkCrystalDiamondSwordItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings)
+&#123;
+    super(toolMaterial, attackDamage, attackSpeed, settings);
+&#125;
+
+@Override//每次攻击后，剑会损坏1点 durability，并向玩家发送装备破损状态,并且给玩家回复两点生命值
+public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker)
+&#123;
+
+    stack.damage(1, attacker, e -&gt; e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
+    enemyHitCount++; // 每次击中敌人时增加计数
+
+    long currentTime = System.currentTimeMillis();
+
+    // 检查冷却时间
+    if (currentTime - lastHealTime &gt;= HEAL_COOLDOWN)
+    &#123;
+        healMultipleFromEnemies(attacker, enemyHitCount);
+        lastHealTime = currentTime; // 更新最后一次回复生命的时间
+        enemyHitCount = 0; // 重置敌人数量计数
+    &#125;
+
+    return true;
+
+&#125;
+
+// 用于实现多次攻击回复生命值的逻辑
+public void healMultipleFromEnemies(LivingEntity attacker, int enemyCount)
+&#123;
+    // 每个敌人回复1点生命值
+    float healAmount = Math.min(enemyCount * 2, 20 - attacker.getHealth()); // 确保不超过最大生命值
+    attacker.heal(healAmount);
+&#125;
+</code></pre>
+<img src="/img/暗晶钻斧.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻斧的合成">
+<p>暗晶钻斧头每次使用可以砍伐6格方块的木头（目前正在开发中。。。）</p>
+<img src="/img/暗晶钻镐.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻镐的合成">
+<p>暗晶钻镐使用时长按右键可以蓄力，蓄力后可以挖掘3*3范围内的方块（目前正在开发中。。。）</p>
+<img src="/img/暗晶钻铲.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻铲的合成">
+<p>暗晶钻铲使用时长按右键可以蓄力，蓄力后可以挖掘3*3*3范围内的方块（目前正在开发中。。。）</p>
+<img src="/img/暗晶钻锄.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻锄的合成">
+<p>暗晶钻锄使用时可以一次性耕种3*3的农田（目前正在开发中。。。）</p>
+<br>
+<hr>
+<hr>
+<h2 style="color: #b7a0e0"><span id="总结">总结</span></h2>  
+<p>该套装开发进程已经完成90%，后续还会更新</p>  
+
+<blockquote>  
+<p style="color: #bbbbee">“一花一世界，一叶一菩提”</p>  
+</blockquote>
+
+<hr>
+<p>版权所有 © 2023 云梦泽<br>欢迎访问我的个人网站：<a href="hgt12.github.io">hgt12.github.io</a></p>
 
                 
               </div>
@@ -465,7 +523,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
+  <a href="/categories/%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91/" class="category-chain-item">模组开发</a>
   
   
 
@@ -480,11 +538,11 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/" class="print-no-link">#自定义</a>
+        <a href="/tags/MC/" class="print-no-link">#MC</a>
       
-        <a href="/tags/%E9%9A%8F%E7%AC%94/" class="print-no-link">#随笔</a>
+        <a href="/tags/%E4%BB%A3%E7%A0%81/" class="print-no-link">#代码</a>
       
-        <a href="/tags/%E6%97%A5%E5%B8%B8/" class="print-no-link">#日常</a>
+        <a href="/tags/%E6%B8%B8%E6%88%8F/" class="print-no-link">#游戏</a>
       
     </div>
   
@@ -496,8 +554,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>关于怎么将自定义js用hexo注入的方法加到自定义html中的一点理解</div>
-      <div>http://example.com/2024/10/19/关于怎么将自定义js用hexo注入的方法加到自定义html中的a¸一点理解/</div>
+      <div>『模组开发日记』之暗晶钻套装与工具的加入</div>
+      <div>http://example.com/2024/10/21/模组开发日记/</div>
     </div>
     <div class="license-meta">
       
@@ -509,13 +567,13 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年10月19日</div>
+          <div>2024年10月21日</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2024年10月19日</div>
+          <div>2024年10月21日</div>
         </div>
       
       
@@ -546,18 +604,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/10/21/%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0/" title="『模组开发日记』之暗晶钻套装与工具的加入">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">『模组开发日记』之暗晶钻套装与工具的加入</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/10/17/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" title="我的第一篇博客">
-                        <span class="hidden-mobile">我的第一篇博客</span>
+                      <a href="/2024/10/19/%E5%85%B3%E4%BA%8E%E6%80%8E%E4%B9%88%E5%B0%86%E8%87%AA%E5%AE%9A%E4%B9%89js%E7%94%A8hexo%E6%B3%A8%E5%85%A5%E7%9A%84%E6%96%B9%E6%B3%95%E5%8A%A0%E5%88%B0%E8%87%AA%E5%AE%9A%E4%B9%89html%E4%B8%AD%E7%9A%84a%C2%B8%E4%B8%80%E7%82%B9%E7%90%86%E8%A7%A3/" title="关于怎么将自定义js用hexo注入的方法加到自定义html中的一点理解">
+                        <span class="hidden-mobile">关于怎么将自定义js用hexo注入的方法加到自定义html中的一点理解</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

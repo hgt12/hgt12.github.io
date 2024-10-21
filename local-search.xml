@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>『模组开发日记』之暗晶钻套装与工具的加入</title>
+    <link href="/2024/10/21/%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0/"/>
+    <url>/2024/10/21/%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0/</url>
+    
+    <content type="html"><![CDATA[<h1 align="center"><span id="暗晶钻装备正式加入世界"><span style="color: cadetblue;">暗晶钻装备正式加入世界</span></span></h1><hr><hr><h2 style="color: #b7a0e0"><span id="引言">引言</span></h2>  <p>因为我是模组开发一半才开始着手开发个人博客，</p><p>所有没有从一开始就记录自己的模组开发过程，</p><p>不过从现在开始就可以正式记录啦</p><br><p align="center" style="color: #a5dff9">需要提到特点的是暗晶钻的来源</p><h2 style="color: #b7a0e0"><span id="关于暗晶钻">关于暗晶钻</span></h2><img src="/img/暗晶钻合成.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻的合成"><p>暗晶钻是由一个暗晶碎片加上四个钻石合成的来</p><h3 style="color: #b7a0e0"><span id="关于暗晶碎片">关于暗晶碎片</span></h3><img src="/img/暗晶碎片.png" srcset="/img/loading_1.gif" lazyload alt="暗晶碎片"><p>暗晶碎片是开采暗晶簇得来，这是在生存中唯一能得到暗晶碎片的方法</p><img src="/img/暗晶簇.png" srcset="/img/loading_1.gif" lazyload alt="暗晶簇"><h4 style="color: #b7a0e0"><span id="暗晶簇的生成">暗晶簇的生成</span></h4><p>在主世界的紫水晶洞中，由于环境的不同，紫水晶簇在生长过程中会发生变质而生成一种奇怪又神秘的褪色水晶簇【暗晶簇】</p><img src="/img/暗晶簇生成.png" srcset="/img/loading_1.gif" lazyload alt="暗晶簇在水晶洞中的状态"><p>玩家在探索矿洞过程中如果幸运的话可以在紫水晶洞中发现这种神秘的矿石</p><p>需要知道的是，这种矿物有且只会在紫水晶洞中生成，且它不会像紫水晶那样会在母岩上再重新长出来</p><p style="color: #735c0f">看来是一种很神秘的矿物呢</p><p>通过打破暗晶簇可以得到1-3块暗晶碎片</p><hr><p>通过上面的合成就可以得到暗晶钻啦</p><br><h2 style="color: #b7a0e0"><span id="暗晶钻装备">暗晶钻装备</span></h2><h3 style="color: #b7a0e0"><span id="合成">合成</span></h3><p>暗晶钻装备的合成和钻石装备合成一模一样</p><p align="center">如下所示</p><img src="/img/暗晶钻头盔.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻头盔的合成"><p>暗晶钻头盔为玩家提供：+3护甲值，+3.5盔甲韧性，+2击退抗性</p><img src="/img/暗晶钻胸甲.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻胸甲的合成"><p>暗晶钻头盔为玩家提供：+8护甲值，+3.5盔甲韧性，+2击退抗性</p><img src="/img/暗晶钻裤腿.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻裤腿的合成"><p>暗晶钻头盔为玩家提供：+6护甲值，+3.5盔甲韧性，+2击退抗性</p><img src="/img/暗晶钻靴子.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻靴子的合成"><p>暗晶钻头盔为玩家提供：+3护甲值，+3.5盔甲韧性，+2击退抗性</p><p>这样就可以得到暗晶钻四件套了</p><p style="color: #dd8888">四件套穿身上会让玩家每15秒获得6颗心的伤害吸收效果</p><img src="/img/暗晶钻四件套.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻四件套效果"><hr><br><p align="center">下面是工具类用品的合成</p><img src="/img/暗晶钻剑.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻剑的合成"><p>在使用暗晶钻剑攻击生物时会有吸血效果，一般来说每攻击到一个生物会有吸血效果，为自身增加两点生命值，同时攻击多个生物恢复生命值数则按 2*受攻击生物数 来计算</p><p>具体代码实现效果如下</p><pre><code class="hljs">private long lastHealTime = 0; // 上次回复生命的时间private static final long HEAL_COOLDOWN = 2000; // 2秒冷却，单位是毫秒private int enemyHitCount = 0; // 记录击中的敌人数量public DarkCrystalDiamondSwordItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings)&#123;    super(toolMaterial, attackDamage, attackSpeed, settings);&#125;@Override//每次攻击后，剑会损坏1点 durability，并向玩家发送装备破损状态,并且给玩家回复两点生命值public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker)&#123;    stack.damage(1, attacker, e -&gt; e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));    enemyHitCount++; // 每次击中敌人时增加计数    long currentTime = System.currentTimeMillis();    // 检查冷却时间    if (currentTime - lastHealTime &gt;= HEAL_COOLDOWN)    &#123;        healMultipleFromEnemies(attacker, enemyHitCount);        lastHealTime = currentTime; // 更新最后一次回复生命的时间        enemyHitCount = 0; // 重置敌人数量计数    &#125;    return true;&#125;// 用于实现多次攻击回复生命值的逻辑public void healMultipleFromEnemies(LivingEntity attacker, int enemyCount)&#123;    // 每个敌人回复1点生命值    float healAmount = Math.min(enemyCount * 2, 20 - attacker.getHealth()); // 确保不超过最大生命值    attacker.heal(healAmount);&#125;</code></pre><img src="/img/暗晶钻斧.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻斧的合成"><p>暗晶钻斧头每次使用可以砍伐6格方块的木头（目前正在开发中。。。）</p><img src="/img/暗晶钻镐.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻镐的合成"><p>暗晶钻镐使用时长按右键可以蓄力，蓄力后可以挖掘3*3范围内的方块（目前正在开发中。。。）</p><img src="/img/暗晶钻铲.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻铲的合成"><p>暗晶钻铲使用时长按右键可以蓄力，蓄力后可以挖掘3*3*3范围内的方块（目前正在开发中。。。）</p><img src="/img/暗晶钻锄.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻锄的合成"><p>暗晶钻锄使用时可以一次性耕种3*3的农田（目前正在开发中。。。）</p><br><hr><hr><h2 style="color: #b7a0e0"><span id="总结">总结</span></h2>  <p>该套装开发进程已经完成90%，后续还会更新</p>  <blockquote>  <p style="color: #bbbbee">“一花一世界，一叶一菩提”</p>  </blockquote><hr><p>版权所有 © 2023 云梦泽<br>欢迎访问我的个人网站：<a href="hgt12.github.io">hgt12.github.io</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>模组开发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>MC</tag>
+      
+      <tag>代码</tag>
+      
+      <tag>游戏</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>关于怎么将自定义js用hexo注入的方法加到自定义html中的一点理解</title>
     <link href="/2024/10/19/%E5%85%B3%E4%BA%8E%E6%80%8E%E4%B9%88%E5%B0%86%E8%87%AA%E5%AE%9A%E4%B9%89js%E7%94%A8hexo%E6%B3%A8%E5%85%A5%E7%9A%84%E6%96%B9%E6%B3%95%E5%8A%A0%E5%88%B0%E8%87%AA%E5%AE%9A%E4%B9%89html%E4%B8%AD%E7%9A%84a%C2%B8%E4%B8%80%E7%82%B9%E7%90%86%E8%A7%A3/"/>
     <url>/2024/10/19/%E5%85%B3%E4%BA%8E%E6%80%8E%E4%B9%88%E5%B0%86%E8%87%AA%E5%AE%9A%E4%B9%89js%E7%94%A8hexo%E6%B3%A8%E5%85%A5%E7%9A%84%E6%96%B9%E6%B3%95%E5%8A%A0%E5%88%B0%E8%87%AA%E5%AE%9A%E4%B9%89html%E4%B8%AD%E7%9A%84a%C2%B8%E4%B8%80%E7%82%B9%E7%90%86%E8%A7%A3/</url>
