@@ -19,28 +19,28 @@
   <meta name="author" content="云梦泽">
   <meta name="keywords" content="js html">
   
-    <meta name="description" content="关于自定义html的相关配置  起因 今天尝试着创建一个自定义的html来搭建一个留言板页面并给这个页面设置特殊的雪花降落效果 发现问题 但我在研究新建html文件和hexo注入的时候遇到无法将自己的js注入到自定义的html文件中的问题  寻找解决方法 找了好久的问题，又去翻阅了官方的API文档 但还是看的云里雾里的 我看到他里面给的提示说是  default: 注入到每个页面（默认值   ho">
+    <meta name="description" content="金丝楠树加入世界   金丝楠树 一种很粗大的树木 主要生成在雨林群系 是一种树干为3*3大小的高大乔木  长得不是很好看，因为树木生成的函数我还没研究好   金丝楠树的衍生物品 下面是一些金丝楠类的物品    衍生物品展示 下面是一些展示         还有金丝楠木船与箱船哟    有关金丝楠木的一些描述就这么多啦   预告   后面将会开发一个樱花树的变种   郁金樱     “风不怜，雨不惜">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于怎么将自定义js用hexo注入的方法加到自定义html中的一点理解">
-<meta property="og:url" content="http://example.com/2024/10/19/%E5%85%B3%E4%BA%8E%E6%80%8E%E4%B9%88%E5%B0%86%E8%87%AA%E5%AE%9A%E4%B9%89js%E7%94%A8hexo%E6%B3%A8%E5%85%A5%E7%9A%84%E6%96%B9%E6%B3%95%E5%8A%A0%E5%88%B0%E8%87%AA%E5%AE%9A%E4%B9%89html%E4%B8%AD%E7%9A%84a%C2%B8%E4%B8%80%E7%82%B9%E7%90%86%E8%A7%A3/index.html">
+<meta property="og:title" content="『模组开发日记』之金丝楠树与其衍生物品的加入">
+<meta property="og:url" content="http://example.com/2024/10/29/%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-1/index.html">
 <meta property="og:site_name" content="云梦泽的个人博客">
-<meta property="og:description" content="关于自定义html的相关配置  起因 今天尝试着创建一个自定义的html来搭建一个留言板页面并给这个页面设置特殊的雪花降落效果 发现问题 但我在研究新建html文件和hexo注入的时候遇到无法将自己的js注入到自定义的html文件中的问题  寻找解决方法 找了好久的问题，又去翻阅了官方的API文档 但还是看的云里雾里的 我看到他里面给的提示说是  default: 注入到每个页面（默认值   ho">
+<meta property="og:description" content="金丝楠树加入世界   金丝楠树 一种很粗大的树木 主要生成在雨林群系 是一种树干为3*3大小的高大乔木  长得不是很好看，因为树木生成的函数我还没研究好   金丝楠树的衍生物品 下面是一些金丝楠类的物品    衍生物品展示 下面是一些展示         还有金丝楠木船与箱船哟    有关金丝楠木的一些描述就这么多啦   预告   后面将会开发一个樱花树的变种   郁金樱     “风不怜，雨不惜">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/suibi.png">
-<meta property="article:published_time" content="2024-10-18T17:08:43.000Z">
-<meta property="article:modified_time" content="2024-10-23T12:46:43.794Z">
+<meta property="og:image" content="http://example.com/img/%E9%87%91%E4%B8%9D%E6%A5%A0%E5%91%8A%E7%A4%BA%E7%89%8C.png">
+<meta property="article:published_time" content="2024-10-29T04:51:18.000Z">
+<meta property="article:modified_time" content="2024-10-29T05:44:30.004Z">
 <meta property="article:author" content="云梦泽">
-<meta property="article:tag" content="自定义">
-<meta property="article:tag" content="随笔">
-<meta property="article:tag" content="日常">
+<meta property="article:tag" content="MC">
+<meta property="article:tag" content="技术向">
+<meta property="article:tag" content="原创">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/suibi.png">
+<meta name="twitter:image" content="http://example.com/img/%E9%87%91%E4%B8%9D%E6%A5%A0%E5%91%8A%E7%A4%BA%E7%89%8C.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>关于怎么将自定义js用hexo注入的方法加到自定义html中的一点理解 - 云梦泽的个人博客</title>
+  <title>『模组开发日记』之金丝楠树与其衍生物品的加入 - 云梦泽的个人博客</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css" />
 
@@ -235,13 +235,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/frieren.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/mc_index1.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="关于怎么将自定义js用hexo注入的方法加到自定义html中的一点理解"></span>
+            <span id="subtitle" data-typed-text="『模组开发日记』之金丝楠树与其衍生物品的加入"></span>
           
         </div>
 
@@ -257,8 +257,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-10-19 01:08" pubdate>
-          2024年10月19日 凌晨
+        <time datetime="2024-10-29 12:51" pubdate>
+          2024年10月29日 下午
         </time>
       </span>
     
@@ -269,7 +269,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          761 字
+          197 字
         
       </span>
     
@@ -280,7 +280,7 @@
         
         
         
-          7 分钟
+          2 分钟
         
       </span>
     
@@ -338,17 +338,17 @@
     
     <div class="category row nomargin-x">
       <a class="category-item 
-          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="笔记"
-        id="heading-7051dc52c184c205e39aa54b4664ae9b" role="tab" data-toggle="collapse" href="#collapse-7051dc52c184c205e39aa54b4664ae9b"
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="模组开发"
+        id="heading-8edf9fd34b93de4b5595e30a2135d7e8" role="tab" data-toggle="collapse" href="#collapse-8edf9fd34b93de4b5595e30a2135d7e8"
         aria-expanded="true"
       >
-        笔记
-        <span class="list-group-count">(1)</span>
+        模组开发
+        <span class="list-group-count">(2)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse show" id="collapse-7051dc52c184c205e39aa54b4664ae9b"
-           role="tabpanel" aria-labelledby="heading-7051dc52c184c205e39aa54b4664ae9b">
+      <div class="category-collapse collapse show" id="collapse-8edf9fd34b93de4b5595e30a2135d7e8"
+           role="tabpanel" aria-labelledby="heading-8edf9fd34b93de4b5595e30a2135d7e8">
         
         
           
@@ -357,10 +357,19 @@
     
       
       
-        <a href="/2024/10/19/%E5%85%B3%E4%BA%8E%E6%80%8E%E4%B9%88%E5%B0%86%E8%87%AA%E5%AE%9A%E4%B9%89js%E7%94%A8hexo%E6%B3%A8%E5%85%A5%E7%9A%84%E6%96%B9%E6%B3%95%E5%8A%A0%E5%88%B0%E8%87%AA%E5%AE%9A%E4%B9%89html%E4%B8%AD%E7%9A%84a%C2%B8%E4%B8%80%E7%82%B9%E7%90%86%E8%A7%A3/" title="关于怎么将自定义js用hexo注入的方法加到自定义html中的一点理解"
+        <a href="/2024/10/21/%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0/" title="『模组开发日记』之暗晶钻套装与工具的加入"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『模组开发日记』之暗晶钻套装与工具的加入</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/10/29/%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-1/" title="『模组开发日记』之金丝楠树与其衍生物品的加入"
            class="list-group-item list-group-item-action
            active">
-          <span class="category-post">关于怎么将自定义js用hexo注入的方法加到自定义html中的一点理解</span>
+          <span class="category-post">『模组开发日记』之金丝楠树与其衍生物品的加入</span>
         </a>
       
     
@@ -382,12 +391,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">关于怎么将自定义js用hexo注入的方法加到自定义html中的一点理解</h1>
+            <h1 id="seo-header">『模组开发日记』之金丝楠树与其衍生物品的加入</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年10月23日 晚上
+                    本文最后更新于 2024年10月29日 下午
                   
                 
               </p>
@@ -395,58 +404,50 @@
             
               <div class="markdown-body">
                 
-                <h1 align="center"><span id="关于自定义html的相关配置">关于自定义html的相关配置</span></h1>
-<br>
-<h2 style="color: #b7a0e0"><span id="起因">起因</span></h2>
-<p>今天尝试着创建一个自定义的html来搭建一个留言板页面并给这个页面设置特殊的雪花降落效果</p>
-<h2 style="color: #b7a0e0"><span id="发现问题">发现问题</span></h2>
-<p>但我在研究新建html文件和hexo注入的时候遇到无法将自己的js注入到自定义的html文件中的问题</p>
-<img src="/img/hexo注入.png" srcset="/img/loading_1.gif" lazyload alt>
-<h2 style="color: #b7a0e0"><span id="寻找解决方法">寻找解决方法</span></h2>
-<p>找了好久的问题，又去翻阅了官方的API文档</p>
-<p>但还是看的云里雾里的</p>
-<p><strong>我看到他里面给的提示说是</strong></p>
+                <h1 align="center"><span id="金丝楠树加入世界"><span style="color: cadetblue;">金丝楠树加入世界</span></span></h1>
 <hr>
-<p>default: 注入到每个页面（默认值
 
-</p><p> home: 只注入到主页（is_home() 为 true 的页面）</p>
-<p> post: 只注入到文章页面（is_post() 为 true 的页面）</p>
-<p> page: 只注入到独立页面（is_page() 为 true 的页面）</p>
-<p> archive: 只注入到归档页面（is_archive() 为 true 的页面）</p>
-<p> category: 只注入到分类页面（is_category() 为 true 的页面）</p>
-<p> tag: 只注入到标签页面（is_tag() 为 true 的页面）</p>
-<p> messages: 只注入到留言板页面（is_messages() 为 true 的页面）<br> 或是其他自定义 layout 名称，例如在Fluid 主题中 about 对应关于页、links 对应友联页</p>
-<p></p>
-<hr>
-<p><strong>结果看完我更蒙了</strong></p>
-<p>然后就是各种找解决方法</p>
-<h2 style="color: #b7a0e0"><span id="出现头绪">出现头绪</span></h2>
-<p>然后我在翻项目文件的时候在.ejs文件里发现了有关layout的代码</p>
-<img src="/img/hexo注入1.png" srcset="/img/loading_1.gif" lazyload alt>
-<img src="/img/hexo注入2.png" srcset="/img/loading_1.gif" lazyload alt>
-<p>上面就是在about.ejs文件中的layout属性是和about页面里的设置是关联的</p>
-<p>然后发现在layout文件夹下的文件是属于是布局文件</p>
-<p><strong>而且有一些布局文件还没有这些属性，原来是有一些布局是不能拥有这个属性的</strong></p>
-<p>我自己的理解是只有一些大的页面才会有这个属性，但小页面不会有，比如一下post文章页面就没有</p>
-<h2 style="color: #b7a0e0"><span id="尝试解决">尝试解决</span></h2>
-<p>知道问题出在那就很好解决了</p>
-<p>先在layout文件夹下新建一个和自己新建的html相关联的.ejs文件（最好是同名的）</p>
-<p>里面的内容可以先复制其他类似的文件来用</p>
-<p><strong>需要注意的是，你复制用的哪些界面的布局，你自己自定义界面的布局也会和他一样</strong></p>
-<img src="/img/hexo注入3.png" srcset="/img/loading_1.gif" lazyload alt>
-<p>我这里就照搬了page.ejs文件</p>
-<p><strong>要注意你上面的layout属于要改成你自己自定义的名称</strong></p>
-<p>然后再到项目目录下新建scripts文件夹用于存放我们的hexo注入代码js文件</p>
-<img src="/img/hexo注入4.png" srcset="/img/loading_1.gif" lazyload alt>
-<p>然后再写一段你要注入到页面的js文件和要关联的layout属性加上去问题就完美解决了</p>
-<img src="/img/hexo注入5.png" srcset="/img/loading_1.gif" lazyload alt>
-<h2 style="color: #b7a0e0"><span id="后记">后记</span></h2>
-<p>我的理解是这玩意在/layout路径下面某些文件（或者你自己新建的文件要自己写ejs）的 page.layout = "about" 里如果文件第一行是about，则下面填about会有js效果则表示注入成功</p>
-<p>要注意的是你新建页面的布局你想自己设计的话要自己去该，源码中的page.ejs是属于默认布局来的了</p>
+<h2 style="color: #b7a0e0"><span id="金丝楠树">金丝楠树</span></h2>
+<p>一种很粗大的树木</p>
+<p>主要生成在雨林群系</p>
+<p>是一种树干为3*3大小的高大乔木</p>
+<img src="/img/金丝楠树的生成.png" srcset="/img/loading_1.gif" lazyload alt="金丝楠树的生成">
+<p>长得不是很好看，因为树木生成的函数我还没研究好</p>
 <br>
-<p><strong>问题解决终于可以睡个好觉了</strong></p>
 
+<h3 style="color: #b7a0e0"><span id="金丝楠树的衍生物品">金丝楠树的衍生物品</span></h3>
+<p>下面是一些金丝楠类的物品</p>
+<img src="/img/金丝楠木与其制作品.png" srcset="/img/loading_1.gif" lazyload alt="金丝楠树的衍生物品">
+<br>
 
+<h3 style="color: #b7a0e0"><span id="衍生物品展示">衍生物品展示</span></h3>
+<p>下面是一些展示</p>
+<img src="/img/金丝楠展示1.png" srcset="/img/loading_1.gif" lazyload alt="物品展示">
+<br>
+<img src="/img/金丝楠展示2.png" srcset="/img/loading_1.gif" lazyload alt="物品展示">
+<br>
+<img src="/img/金丝楠展示3.png" srcset="/img/loading_1.gif" lazyload alt="物品展示">
+<br>
+<img src="/img/金丝楠展示4.png" srcset="/img/loading_1.gif" lazyload alt="物品展示">
+<br>
+<h3 style="color: #b7a0e0"><span id="还有金丝楠木船与箱船哟">还有金丝楠木船与箱船哟</span></h3>
+
+<img src="/img/金丝楠木船与箱船.png" srcset="/img/loading_1.gif" lazyload alt="金丝楠木船与箱船">
+<br>
+<p align="center" style="color: hotpink;font-size: 20px"><strong>有关金丝楠木的一些描述就这么多啦</strong></p>
+
+<hr>
+<h2 style="color: #b7a0e0"><span id="预告">预告</span></h2>  
+<p>后面将会开发一个樱花树的变种</p>  
+<p>郁金樱</p>
+
+<blockquote>  
+<p style="color: #bbbbee">“风不怜，雨不惜，残荷败叶秋叙凄。
+云不离，雾不散，细雨清风春忆漫。——云梦泽”</p>
+</blockquote>
+
+<hr>
+<p>版权所有 © 2023 云梦泽<br>欢迎访问我的个人网站：<a target="_blank" rel="noopener" href="https://hgt12.github.io/">https://hgt12.github.io/</a></p>
 
                 
               </div>
@@ -465,7 +466,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
+  <a href="/categories/%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91/" class="category-chain-item">模组开发</a>
   
   
 
@@ -480,11 +481,11 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/" class="print-no-link">#自定义</a>
+        <a href="/tags/MC/" class="print-no-link">#MC</a>
       
-        <a href="/tags/%E9%9A%8F%E7%AC%94/" class="print-no-link">#随笔</a>
+        <a href="/tags/%E6%8A%80%E6%9C%AF%E5%90%91/" class="print-no-link">#技术向</a>
       
-        <a href="/tags/%E6%97%A5%E5%B8%B8/" class="print-no-link">#日常</a>
+        <a href="/tags/%E5%8E%9F%E5%88%9B/" class="print-no-link">#原创</a>
       
     </div>
   
@@ -496,8 +497,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>关于怎么将自定义js用hexo注入的方法加到自定义html中的一点理解</div>
-      <div>http://example.com/2024/10/19/关于怎么将自定义js用hexo注入的方法加到自定义html中的a¸一点理解/</div>
+      <div>『模组开发日记』之金丝楠树与其衍生物品的加入</div>
+      <div>http://example.com/2024/10/29/模组开发日记-1/</div>
     </div>
     <div class="license-meta">
       
@@ -509,13 +510,13 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年10月19日</div>
+          <div>2024年10月29日</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2024年10月23日</div>
+          <div>2024年10月29日</div>
         </div>
       
       
@@ -546,18 +547,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/10/21/%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0/" title="『模组开发日记』之暗晶钻套装与工具的加入">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">『模组开发日记』之暗晶钻套装与工具的加入</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/10/17/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" title="我的第一篇博客">
-                        <span class="hidden-mobile">我的第一篇博客</span>
+                      <a href="/2024/10/21/%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0/" title="『模组开发日记』之暗晶钻套装与工具的加入">
+                        <span class="hidden-mobile">『模组开发日记』之暗晶钻套装与工具的加入</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
