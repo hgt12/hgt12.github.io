@@ -1,0 +1,1008 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/mi_manchi.png">
+  <link rel="icon" href="/img/mi_manchi.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="云梦泽">
+  <meta name="keywords" content="js html">
+  
+    <meta name="description" content="暗晶钻装备正式加入世界   引言   因为我是模组开发一半才开始着手开发个人博客， 所有没有从一开始就记录自己的模组开发过程， 不过从现在开始就可以正式记录啦   需要提到一点的是暗晶钻的来源 关于暗晶钻   暗晶钻的合成  暗晶钻是由一个暗晶碎片加上四个钻石合成的来  关于暗晶碎片   暗晶碎片  暗晶碎片是开采暗晶簇得来，这是在生存中唯一能得到暗晶碎片的方法   暗晶簇  暗晶簇的生成  在主">
+<meta property="og:type" content="article">
+<meta property="og:title" content="『模组开发日记』之暗晶钻套装与工具的加入">
+<meta property="og:url" content="http://example.com/2024/10/21/%E3%80%8E%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%9A%97%E6%99%B6%E9%92%BB%E5%A5%97%E8%A3%85%E4%B8%8E%E5%B7%A5%E5%85%B7%E7%9A%84%E5%8A%A0%E5%85%A5/index.html">
+<meta property="og:site_name" content="云梦泽的个人博客">
+<meta property="og:description" content="暗晶钻装备正式加入世界   引言   因为我是模组开发一半才开始着手开发个人博客， 所有没有从一开始就记录自己的模组开发过程， 不过从现在开始就可以正式记录啦   需要提到一点的是暗晶钻的来源 关于暗晶钻   暗晶钻的合成  暗晶钻是由一个暗晶碎片加上四个钻石合成的来  关于暗晶碎片   暗晶碎片  暗晶碎片是开采暗晶簇得来，这是在生存中唯一能得到暗晶碎片的方法   暗晶簇  暗晶簇的生成  在主">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/mc.png">
+<meta property="article:published_time" content="2024-10-21T12:46:45.000Z">
+<meta property="article:modified_time" content="2024-11-10T09:20:47.623Z">
+<meta property="article:author" content="云梦泽">
+<meta property="article:tag" content="MC">
+<meta property="article:tag" content="技术向">
+<meta property="article:tag" content="原创">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/mc.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>『模组开发日记』之暗晶钻套装与工具的加入 - 云梦泽的个人博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":7},"lazyload":{"enable":true,"loading_img":"/img/loading_1.gif","onlypost":true,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<!-- hexo injector head_end start --><script src="/js/firework_click.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 80vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>云梦泽</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/messages/" target="_self">
+                <i class="iconfont icon-comment"></i>
+                <span>留言板</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/mc_index.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="『模组开发日记』之暗晶钻套装与工具的加入"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        云梦泽
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-10-21 20:46" pubdate>
+          2024年10月21日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          18 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="模组开发"
+        id="heading-8edf9fd34b93de4b5595e30a2135d7e8" role="tab" data-toggle="collapse" href="#collapse-8edf9fd34b93de4b5595e30a2135d7e8"
+        aria-expanded="true"
+      >
+        模组开发
+        <span class="list-group-count">(6)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-8edf9fd34b93de4b5595e30a2135d7e8"
+           role="tabpanel" aria-labelledby="heading-8edf9fd34b93de4b5595e30a2135d7e8">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/10/21/%E3%80%8E%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%9A%97%E6%99%B6%E9%92%BB%E5%A5%97%E8%A3%85%E4%B8%8E%E5%B7%A5%E5%85%B7%E7%9A%84%E5%8A%A0%E5%85%A5/" title="『模组开发日记』之暗晶钻套装与工具的加入"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">『模组开发日记』之暗晶钻套装与工具的加入</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/11/01/%E3%80%8E%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%9B%B4%E5%A5%BD%E7%9C%8B%E7%9A%84%E9%87%91%E4%B8%9D%E6%A5%A0%E6%A0%91/" title="『模组开发日记』之更好看的金丝楠树"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『模组开发日记』之更好看的金丝楠树</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/11/10/%E3%80%8E%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%9E%AB%E6%A0%91%E6%AD%A3%E5%BC%8F%E5%8A%A0%E5%85%A5%E4%B8%96%E7%95%8C/" title="『模组开发日记』之枫树正式加入世界"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『模组开发日记』之枫树正式加入世界</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/11/13/%E3%80%8E%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%B2%89%E8%9D%B6%E8%8A%B1%E4%B8%8E%E7%B2%89%E7%8E%AB%E7%91%B0%E5%8A%A0%E5%85%A5%E4%B8%96%E7%95%8C/" title="『模组开发日记』之粉蝶花与粉玫瑰加入世界"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『模组开发日记』之粉蝶花与粉玫瑰加入世界</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/11/04/%E3%80%8E%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%83%81%E9%87%91%E6%A8%B1%E5%8A%A0%E5%85%A5%E4%B8%96%E7%95%8C/" title="『模组开发日记』之郁金樱加入世界"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『模组开发日记』之郁金樱加入世界</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/10/29/%E3%80%8E%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%87%91%E4%B8%9D%E6%A5%A0%E6%A0%91%E4%B8%8E%E5%85%B6%E8%A1%8D%E7%94%9F%E7%89%A9%E5%93%81%E7%9A%84%E5%8A%A0%E5%85%A5/" title="『模组开发日记』之金丝楠树与其衍生物品的加入"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『模组开发日记』之金丝楠树与其衍生物品的加入</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">『模组开发日记』之暗晶钻套装与工具的加入</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2024年11月10日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 align="center"><span id="暗晶钻装备正式加入世界"><span style="color: cadetblue;">暗晶钻装备正式加入世界</span></span></h1>
+<hr>
+
+<h2 style="color: #b7a0e0"><span id="引言">引言</span></h2>  
+<p>因为我是模组开发一半才开始着手开发个人博客，</p>
+<p>所有没有从一开始就记录自己的模组开发过程，</p>
+<p>不过从现在开始就可以正式记录啦</p>
+
+<br>
+<p align="center" style="color: #dd8888">需要提到一点的是暗晶钻的来源</p>
+<h2 style="color: #b7a0e0"><span id="关于暗晶钻">关于暗晶钻</span></h2>
+<br>
+
+<p>暗晶钻的合成</p>
+<img src="/img/暗晶钻合成.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻的合成">
+<p>暗晶钻是由一个暗晶碎片加上四个钻石合成的来</p>
+<br>
+<h3 style="color: #b7a0e0"><span id="关于暗晶碎片">关于暗晶碎片</span></h3>
+<br>
+
+<p>暗晶碎片</p>
+<img src="/img/暗晶碎片.png" srcset="/img/loading_1.gif" lazyload alt="暗晶碎片">
+<p>暗晶碎片是开采暗晶簇得来，这是在生存中唯一能得到暗晶碎片的方法</p>
+<br>
+
+<p>暗晶簇</p>
+<img src="/img/暗晶簇.png" srcset="/img/loading_1.gif" lazyload alt="暗晶簇">
+<h4 style="color: #b7a0e0"><span id="暗晶簇的生成">暗晶簇的生成</span></h4>
+<br>
+<p>在主世界的紫水晶洞中，由于环境的不同，紫水晶簇在生长过程中会发生变质而生成一种奇怪又神秘的褪色水晶簇【暗晶簇】</p>
+<br>
+
+<p>暗晶簇在水晶洞中的状态</p>
+<img src="/img/暗晶簇生成.png" srcset="/img/loading_1.gif" lazyload alt="暗晶簇在水晶洞中的状态">
+<p>玩家在探索矿洞过程中如果幸运的话可以在紫水晶洞中发现这种神秘的矿石</p>
+<p>需要知道的是，这种矿物有且只会在紫水晶洞中生成，且它不会像紫水晶那样会在母岩上再重新长出来</p>
+<p style="color: #735c0f">看来是一种很神秘的矿物呢</p>
+<p>通过打破暗晶簇可以得到1-3块暗晶碎片</p>
+<br>
+<hr>
+<p>通过上面的合成就可以得到暗晶钻啦</p>
+
+<br>
+<h2 style="color: #b7a0e0"><span id="暗晶钻装备">暗晶钻装备</span></h2>
+<h3 style="color: #b7a0e0"><span id="合成">合成</span></h3>
+<p>暗晶钻装备的合成和钻石装备合成一模一样</p>
+<p align="center">如下所示</p>
+
+<p>暗晶钻头盔的合成</p>
+<img src="/img/暗晶钻头盔.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻头盔的合成">
+<p>暗晶钻头盔为玩家提供：+3护甲值，+3.5盔甲韧性，+2击退抗性</p>
+<br>
+
+<p>暗晶钻胸甲的合成</p>
+<img src="/img/暗晶钻胸甲.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻胸甲的合成">
+<p>暗晶钻头盔为玩家提供：+8护甲值，+3.5盔甲韧性，+2击退抗性</p>
+<br>
+
+<p>暗晶钻裤腿的合成</p>
+<img src="/img/暗晶钻裤腿.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻裤腿的合成">
+<p>暗晶钻头盔为玩家提供：+6护甲值，+3.5盔甲韧性，+2击退抗性</p>
+<br>
+
+<p>暗晶钻靴子的合成</p>
+<img src="/img/暗晶钻靴子.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻靴子的合成">
+<p>暗晶钻头盔为玩家提供：+3护甲值，+3.5盔甲韧性，+2击退抗性</p>
+<br>
+
+<p>这样就可以得到暗晶钻四件套了</p>
+<p style="color: #dd8888">集齐四件套穿身上会让玩家每15秒获得6颗心的伤害吸收效果</p>
+<img src="/img/暗晶钻四件套.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻四件套效果">
+<hr>
+<br>
+
+<p align="center">下面是工具类用品的合成</p>
+<p>暗晶钻剑的合成</p>
+<img src="/img/暗晶钻剑.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻剑的合成">
+<p>在使用暗晶钻剑攻击生物时会有吸血效果，一般来说每攻击到一个生物会有吸血效果，为自身增加两点生命值，同时攻击多个生物恢复生命值数则按 2*受攻击生物数 来计算</p>
+<br>
+<p>具体代码实现效果如下</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DarkCrystalDiamondSwordItem</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">SwordItem</span><br>&#123;<br><br>    <span class="hljs-comment">// 增加冷却时间</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">long</span> <span class="hljs-variable">lastHealTime</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; <span class="hljs-comment">// 上次回复生命的时间</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">long</span> <span class="hljs-variable">HEAL_COOLDOWN</span> <span class="hljs-operator">=</span> <span class="hljs-number">2000</span>; <span class="hljs-comment">// 2秒冷却，单位是毫秒</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-variable">enemyHitCount</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; <span class="hljs-comment">// 记录击中的敌人数量</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">COOLDOWN_TIME</span> <span class="hljs-operator">=</span> <span class="hljs-number">40</span>; <span class="hljs-comment">// 设置物品冷却时间，单位是tick（1秒=20tick）</span><br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">DarkCrystalDiamondSwordItem</span><span class="hljs-params">(ToolMaterial toolMaterial, <span class="hljs-type">int</span> attackDamage, <span class="hljs-type">float</span> attackSpeed, Settings settings)</span><br>    &#123;<br>        <span class="hljs-built_in">super</span>(toolMaterial, attackDamage, attackSpeed, settings);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">postHit</span><span class="hljs-params">(ItemStack stack, LivingEntity target, LivingEntity attacker)</span><br>    &#123;<br>        <span class="hljs-comment">//可以在if语句块里引用PlayerEntity user</span><br>        <span class="hljs-keyword">if</span> (attacker <span class="hljs-keyword">instanceof</span> PlayerEntity user)<br>        &#123;<br>            <span class="hljs-comment">//检查冷却时间</span><br>            <span class="hljs-keyword">if</span> (user.getItemCooldownManager().isCoolingDown(stack.getItem()))<br>            &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>; <span class="hljs-comment">//如果正在冷却，直接返回</span><br>            &#125;<br><br>            stack.damage(<span class="hljs-number">1</span>, attacker, e -&gt; e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));<br>            enemyHitCount++; <span class="hljs-comment">//每次击中敌人时增加计数</span><br><br>            <span class="hljs-type">long</span> <span class="hljs-variable">currentTime</span> <span class="hljs-operator">=</span> System.currentTimeMillis();<br><br>            <span class="hljs-comment">//检查冷却时间</span><br>            <span class="hljs-keyword">if</span> (currentTime - lastHealTime &gt;= HEAL_COOLDOWN)<br>            &#123;<br>                healMultipleFromEnemies(attacker, enemyHitCount);<br>                lastHealTime = currentTime; <span class="hljs-comment">//更新最后一次回复生命的时间</span><br>                enemyHitCount = <span class="hljs-number">0</span>; <span class="hljs-comment">//重置敌人数量计数</span><br>            &#125;<br><br>            <span class="hljs-comment">//设置物品冷却(用物品冷却管理器来设置)</span><br>            user.getItemCooldownManager().set(stack.getItem(), COOLDOWN_TIME);<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br><br>    <span class="hljs-comment">//用于实现多次攻击回复生命值的逻辑</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">healMultipleFromEnemies</span><span class="hljs-params">(LivingEntity attacker, <span class="hljs-type">int</span> enemyCount)</span><br>    &#123;<br>        <span class="hljs-comment">//每个敌人回复1点生命值</span><br>        <span class="hljs-type">float</span> <span class="hljs-variable">healAmount</span> <span class="hljs-operator">=</span> Math.min(enemyCount * <span class="hljs-number">2</span>, <span class="hljs-number">20</span> - attacker.getHealth()); <span class="hljs-comment">//确保不超过最大生命值</span><br>        attacker.heal(healAmount);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<br>
+<p>暗晶钻斧的合成</p>
+<img src="/img/暗晶钻斧.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻斧的合成">
+<p>暗晶钻斧头每次使用可以砍伐目标木头上方所有的木头，并且在使用斧头攻击生物时会将生物打出重伤效果(冷却时间五秒钟)</p>
+<br>
+<p>具体代码实现效果如下</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DarkCrystalDiamondAxeItem</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">AxeItem</span><br>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">COOLDOWN_TIME</span> <span class="hljs-operator">=</span> <span class="hljs-number">100</span>; <span class="hljs-comment">//冷却时间，单位是tick（1秒=20tick）</span><br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">DarkCrystalDiamondAxeItem</span><span class="hljs-params">(ToolMaterial material, <span class="hljs-type">float</span> attackDamage, <span class="hljs-type">float</span> attackSpeed, Settings settings)</span> &#123;<br>        <span class="hljs-built_in">super</span>(material, attackDamage, attackSpeed, settings);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">postMine</span><span class="hljs-params">(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner)</span><br>    &#123;<br>        <span class="hljs-keyword">if</span> (!(miner <span class="hljs-keyword">instanceof</span> PlayerEntity player))<br>        &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; <span class="hljs-comment">//只有玩家可以使用</span><br>        &#125;<br><br>        <span class="hljs-comment">//检查当前方块是否是木头</span><br>        <span class="hljs-keyword">if</span> (state.isIn(BlockTags.OVERWORLD_NATURAL_LOGS))<br>        &#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">brokenBlocks</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; <span class="hljs-comment">//记录破坏的木头块数</span><br>            <span class="hljs-keyword">if</span> (!world.isClient)<br>            &#123;<br>                <span class="hljs-comment">//服务器端处理</span><br>                showWoodInVertical(world, player);<br><br>                <span class="hljs-comment">//打破当前的木头</span><br>                brokenBlocks++;<br>                world.breakBlock(pos, <span class="hljs-literal">true</span>, player);<br>                <span class="hljs-comment">//检查并破坏上方的木头</span><br>                brokenBlocks += checkAndBreakAbove(world, pos.up(), state, player);<br><br>                <span class="hljs-comment">//减少斧头耐久</span><br>                stack.damage(brokenBlocks, player, (p) -&gt; p.sendToolBreakStatus(Hand.MAIN_HAND));<br>            &#125;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; <span class="hljs-comment">//如果不是木头，返回 false</span><br>    &#125;<br><br>    <span class="hljs-comment">//检查并破坏上方的木头</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-title function_">checkAndBreakAbove</span><span class="hljs-params">(World world, BlockPos pos, BlockState originalState, PlayerEntity player)</span><br>    &#123;<br>        <span class="hljs-type">BlockState</span> <span class="hljs-variable">aboveState</span> <span class="hljs-operator">=</span> world.getBlockState(pos);<br><br>        <span class="hljs-comment">//用来计数破坏了多少个方块</span><br>        <span class="hljs-type">int</span> <span class="hljs-variable">brokenCount</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br><br>        <span class="hljs-keyword">if</span> (aboveState.isIn(BlockTags.OVERWORLD_NATURAL_LOGS) &amp;&amp; aboveState.equals(originalState)) &#123;<br>            <span class="hljs-comment">//破坏上方的木头</span><br>            world.breakBlock(pos, <span class="hljs-literal">true</span>, player);<br>            brokenCount++;<br><br>            <span class="hljs-comment">//递归检查上方的木头</span><br>            brokenCount += checkAndBreakAbove(world, pos.up(), originalState, player);<br>        &#125;<br>        <span class="hljs-keyword">return</span> brokenCount;<br>    &#125;<br>    <br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">showWoodInVertical</span><span class="hljs-params">(World world, PlayerEntity player)</span><br>    &#123;<br>        <span class="hljs-type">BlockPos</span> <span class="hljs-variable">playerPos</span> <span class="hljs-operator">=</span> player.getBlockPos();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">5</span>; i++)<br>        &#123;<br>            <span class="hljs-type">BlockPos</span> <span class="hljs-variable">checkPos</span> <span class="hljs-operator">=</span> playerPos.up(i);<br>            <span class="hljs-type">BlockState</span> <span class="hljs-variable">blockState</span> <span class="hljs-operator">=</span> world.getBlockState(checkPos); <span class="hljs-comment">//获取当前检查的方块状态</span><br>            <span class="hljs-keyword">if</span> (blockState.isIn(BlockTags.OVERWORLD_NATURAL_LOGS))<br>            &#123;<br>                world.playSound(<span class="hljs-literal">null</span>, checkPos, SoundEvents.BLOCK_WOOD_PLACE, SoundCategory.BLOCKS, <span class="hljs-number">1.0f</span>, <span class="hljs-number">1.0f</span>);<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">postHit</span><span class="hljs-params">(ItemStack stack, LivingEntity target, LivingEntity attacker)</span><br>    &#123;<br>        <span class="hljs-comment">//可以在if语句块里引用PlayerEntity user</span><br>        <span class="hljs-keyword">if</span> (attacker <span class="hljs-keyword">instanceof</span> PlayerEntity user)<br>        &#123;<br>            <span class="hljs-comment">//检查冷却时间</span><br>            <span class="hljs-keyword">if</span> (user.getItemCooldownManager().isCoolingDown(stack.getItem()))<br>            &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>            &#125;<br><br>            <span class="hljs-comment">//扣除斧头耐久</span><br>            stack.damage(<span class="hljs-number">1</span>, attacker, e -&gt; e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));<br><br>            <span class="hljs-comment">//用斧头打中人之后会给对方重伤效果</span><br>            target.addStatusEffect(<span class="hljs-keyword">new</span> <span class="hljs-title class_">StatusEffectInstance</span>(ModStatusEffects.BADLY_WOUNDED, <span class="hljs-number">80</span>, <span class="hljs-number">0</span>)); <span class="hljs-comment">// 4秒中重伤</span><br><br>            <span class="hljs-comment">//这是使用后的冷却冷却</span><br>            user.getItemCooldownManager().set(stack.getItem(), COOLDOWN_TIME);<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<br>
+<p>暗晶钻镐的合成</p>
+<img src="/img/暗晶钻镐.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻镐的合成">
+<p>暗晶钻镐使用时右键可以瞬间破坏3*3*3范围内的方块（冷却时间四秒钟）</p>
+<br>
+<p>具体代码实现效果如下</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DarkCrystalDiamondPickaxeItem</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">MiningToolItem</span><br>&#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">COOLDOWN_TIME</span> <span class="hljs-operator">=</span> <span class="hljs-number">80</span>; <span class="hljs-comment">//冷却时间，单位是tick（1秒=20tick）</span><br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">DarkCrystalDiamondPickaxeItem</span><span class="hljs-params">(ToolMaterial material, <span class="hljs-type">int</span> attackDamage, <span class="hljs-type">float</span> attackSpeed, Item.Settings settings)</span><br>    &#123;<br>        <span class="hljs-built_in">super</span>(attackDamage, attackSpeed, material, BlockTags.PICKAXE_MINEABLE, settings);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> TypedActionResult&lt;ItemStack&gt; <span class="hljs-title function_">use</span><span class="hljs-params">(World world, PlayerEntity user, Hand hand)</span><br>    &#123;<br>        <span class="hljs-type">ItemStack</span> <span class="hljs-variable">stack</span> <span class="hljs-operator">=</span> user.getStackInHand(hand);<br><br>        <span class="hljs-comment">//检查玩家是否在创造模式（先检查再判断）</span><br>        <span class="hljs-type">boolean</span> <span class="hljs-variable">isCreative</span> <span class="hljs-operator">=</span> user.isCreative();<br><br>        <span class="hljs-comment">//检查冷却状态（如果不在创造模式下）</span><br>        <span class="hljs-keyword">if</span> (!isCreative &amp;&amp; user.getItemCooldownManager().isCoolingDown(stack.getItem()))<br>        &#123;<br>            <span class="hljs-keyword">return</span> TypedActionResult.fail(stack);<br>        &#125;<br><br>        <span class="hljs-comment">//获取玩家当前瞄准的方块</span><br>        <span class="hljs-type">HitResult</span> <span class="hljs-variable">hitResult</span> <span class="hljs-operator">=</span> user.raycast(<span class="hljs-number">5.0</span>, <span class="hljs-number">1.0F</span>, <span class="hljs-literal">false</span>);<br><br>        <span class="hljs-comment">//检查瞄准的方块类型</span><br>        <span class="hljs-keyword">if</span> (hitResult.getType() == HitResult.Type.BLOCK)<br>        &#123;<br>            <span class="hljs-type">BlockHitResult</span> <span class="hljs-variable">blockHitResult</span> <span class="hljs-operator">=</span> (BlockHitResult) hitResult;<br>            <span class="hljs-type">BlockPos</span> <span class="hljs-variable">targetedBlockPos</span> <span class="hljs-operator">=</span> blockHitResult.getBlockPos();<br>            <span class="hljs-type">BlockState</span> <span class="hljs-variable">state</span> <span class="hljs-operator">=</span> world.getBlockState(targetedBlockPos);<br><br>            <span class="hljs-comment">//检查方块是否可以被挖掘</span><br>            <span class="hljs-keyword">if</span> (!state.isAir() &amp;&amp; canMine(state))<br>            &#123;<br>                <span class="hljs-comment">//确保玩家可以破坏瞄准的位置</span><br>                <span class="hljs-keyword">if</span> (user.canModifyAt(world, targetedBlockPos))<br>                &#123;<br>                    <span class="hljs-comment">//挖掘 3x3x3 区域</span><br>                    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">x</span> <span class="hljs-operator">=</span> -<span class="hljs-number">1</span>; x &lt;= <span class="hljs-number">1</span>; x++)<br>                    &#123;<br>                        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">y</span> <span class="hljs-operator">=</span> -<span class="hljs-number">1</span>; y &lt;= <span class="hljs-number">1</span>; y++)<br>                        &#123;<br>                            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">z</span> <span class="hljs-operator">=</span> -<span class="hljs-number">1</span>; z &lt;= <span class="hljs-number">1</span>; z++)<br>                            &#123;<br>                                <span class="hljs-type">BlockPos</span> <span class="hljs-variable">blockToBreak</span> <span class="hljs-operator">=</span> targetedBlockPos.add(x, y, z);<br>                                <span class="hljs-type">BlockState</span> <span class="hljs-variable">blockState</span> <span class="hljs-operator">=</span> world.getBlockState(blockToBreak);<br><br>                                <span class="hljs-comment">// 检查每个方块是否可以被挖掘</span><br>                                <span class="hljs-keyword">if</span> (!blockState.isAir() &amp;&amp; canMine(blockState))<br>                                &#123;<br>                                    <span class="hljs-comment">// 进行方块破坏，设置进度</span><br>                                    world.breakBlock(blockToBreak, <span class="hljs-literal">true</span>, user);<br>                                &#125;<br>                            &#125;<br>                        &#125;<br>                    &#125;<br><br>                    <span class="hljs-keyword">if</span> (!isCreative)<br>                    &#123;<br>                        <span class="hljs-comment">//播放音效</span><br>                        world.playSound(<span class="hljs-literal">null</span>, user.getX(), user.getY(), user.getZ(), SoundEvents.ITEM_AXE_STRIP, user.getSoundCategory(), <span class="hljs-number">1.0F</span>, <span class="hljs-number">1.0F</span>);<br><br>                        <span class="hljs-comment">//设置物品冷却（用物品冷却管理器来设置）</span><br>                        user.getItemCooldownManager().set(stack.getItem(), COOLDOWN_TIME);<br><br>                        <span class="hljs-comment">//消耗耐久，假设挖掘了 26 个方块</span><br>                        stack.damage(<span class="hljs-number">26</span>, user, (entity) -&gt; entity.sendToolBreakStatus(hand));<br>                    &#125;<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> TypedActionResult.success(stack);<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">canMine</span><span class="hljs-params">(BlockState state)</span><br>    &#123;<br>        <span class="hljs-comment">// 检查方块是否可以被挖掘</span><br>        <span class="hljs-keyword">return</span> state.isIn(BlockTags.PICKAXE_MINEABLE); <span class="hljs-comment">// 请替换为实际可挖掘方块的检查条件</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<br>
+<p>暗晶钻锄的合成</p>
+<img src="/img/暗晶钻锄.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻锄的合成">
+<p>暗晶钻锄使用时可以一次性耕种3*3的农田</p>
+<br>
+<p>具体代码实现效果如下</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DarkCrystalDiamondHoeItem</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">HoeItem</span><br>&#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">DarkCrystalDiamondHoeItem</span><span class="hljs-params">(ToolMaterial material, <span class="hljs-type">int</span> attackDamage, <span class="hljs-type">float</span> attackSpeed, Settings settings)</span><br>    &#123;<br>        <span class="hljs-built_in">super</span>(material, attackDamage, attackSpeed, settings);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> ActionResult <span class="hljs-title function_">useOnBlock</span><span class="hljs-params">(ItemUsageContext context)</span> &#123;<br>        <span class="hljs-type">BlockPos</span> <span class="hljs-variable">blockPos</span> <span class="hljs-operator">=</span> context.getBlockPos();<br>        <span class="hljs-type">World</span> <span class="hljs-variable">world</span> <span class="hljs-operator">=</span> context.getWorld();<br>        <span class="hljs-type">PlayerEntity</span> <span class="hljs-variable">playerEntity</span> <span class="hljs-operator">=</span> context.getPlayer();<br><br>        <span class="hljs-type">int</span> <span class="hljs-variable">startX</span> <span class="hljs-operator">=</span> -<span class="hljs-number">1</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">startZ</span> <span class="hljs-operator">=</span> -<span class="hljs-number">1</span>;<br><br>        <span class="hljs-type">int</span> <span class="hljs-variable">tillCount</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">x</span> <span class="hljs-operator">=</span> startX; x &lt;= <span class="hljs-number">1</span>; x++) &#123;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">z</span> <span class="hljs-operator">=</span> startZ; z &lt;= <span class="hljs-number">1</span>; z++)<br>            &#123;<br>                <span class="hljs-type">BlockPos</span> <span class="hljs-variable">currentPos</span> <span class="hljs-operator">=</span> blockPos.add(x, <span class="hljs-number">0</span>, z);<br>                <span class="hljs-type">BlockState</span> <span class="hljs-variable">currentState</span> <span class="hljs-operator">=</span> world.getBlockState(currentPos);<br>                Pair&lt;Predicate&lt;ItemUsageContext&gt;, Consumer&lt;ItemUsageContext&gt;&gt; pair = TILLING_ACTIONS.get(currentState.getBlock());<br><br>                <span class="hljs-keyword">if</span> (pair != <span class="hljs-literal">null</span>)<br>                &#123;<br>                    Predicate&lt;ItemUsageContext&gt; predicate = pair.getFirst();<br>                    Consumer&lt;ItemUsageContext&gt; consumer = pair.getSecond();<br><br>                    <span class="hljs-type">BlockHitResult</span> <span class="hljs-variable">hitResult</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BlockHitResult</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Vec3d</span>(currentPos.getX(), currentPos.getY(), currentPos.getZ()), Direction.UP, currentPos, <span class="hljs-literal">false</span>);<br>                    <span class="hljs-type">ItemUsageContext</span> <span class="hljs-variable">newContext</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ItemUsageContext</span>(world,playerEntity, context.getHand(), context.getStack(), hitResult);<br><br>                    <span class="hljs-comment">// 在客户端上执行操作 如果是（!world.isClient）则在服务端执行操作</span><br>                    <span class="hljs-keyword">if</span> (world.isClient)<br>                    &#123;<br>                        <span class="hljs-keyword">if</span> (predicate.test(newContext))<br>                        &#123;<br>                            <span class="hljs-comment">// 播放声音效果</span><br>                            world.playSound(playerEntity, currentPos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, <span class="hljs-number">1.0f</span>, <span class="hljs-number">1.0f</span>);<br>                            consumer.accept(newContext); <span class="hljs-comment">//在客户端添加动作的效果</span><br>                            tillCount++;<br>                        &#125;<br>                    &#125;<br>                    <span class="hljs-keyword">else</span><br>                    &#123;<br>                        <span class="hljs-keyword">if</span> (predicate.test(newContext))<br>                        &#123;<br>                            consumer.accept(newContext);<br>                            tillCount++;<br>                        &#125;<br>                    &#125;<br>                &#125;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-comment">// 如果成功耕作的方块数大于 0，处理耐久</span><br>        <span class="hljs-keyword">if</span> (tillCount &gt; <span class="hljs-number">0</span>)<br>        &#123;<br>            <span class="hljs-keyword">if</span> (playerEntity != <span class="hljs-literal">null</span>)<br>            &#123;<br>                context.getStack().damage(<span class="hljs-number">9</span>, playerEntity, p -&gt; p.sendToolBreakStatus(context.getHand()));<br>            &#125;<br>            <span class="hljs-keyword">return</span> ActionResult.success(world.isClient);<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> ActionResult.PASS;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<br>
+<p>暗晶钻铲的合成</p>
+<img src="/img/暗晶钻铲.png" srcset="/img/loading_1.gif" lazyload alt="暗晶钻铲的合成">
+<p>暗晶钻铲暂无特殊功能</p>
+<br>
+
+<p align="center" style="color: hotpink;font-size: 20px"><strong>以上代码仅供参考，若想摘抄请在下方留言</strong></p>
+<hr>
+<hr>
+<h2 style="color: #b7a0e0"><span id="总结">总结</span></h2>  
+<p>该套装开发进程已经完成，后续还会更新</p>  
+
+<blockquote>  
+<p style="color: #bbbbee">“一花一世界，一叶一菩提”</p>  
+</blockquote>
+
+<hr>
+<p>版权所有 © 2024 云梦泽<br>欢迎访问我的个人网站：<a target="_blank" rel="noopener" href="https://hgt12.github.io/">https://hgt12.github.io/</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91/" class="category-chain-item">模组开发</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/MC/" class="print-no-link">#MC</a>
+      
+        <a href="/tags/%E6%8A%80%E6%9C%AF%E5%90%91/" class="print-no-link">#技术向</a>
+      
+        <a href="/tags/%E5%8E%9F%E5%88%9B/" class="print-no-link">#原创</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>『模组开发日记』之暗晶钻套装与工具的加入</div>
+      <div>http://example.com/2024/10/21/『模组开发日记』之暗晶钻套装与工具的加入/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>云梦泽</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年10月21日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2024年11月10日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/10/29/%E3%80%8E%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%87%91%E4%B8%9D%E6%A5%A0%E6%A0%91%E4%B8%8E%E5%85%B6%E8%A1%8D%E7%94%9F%E7%89%A9%E5%93%81%E7%9A%84%E5%8A%A0%E5%85%A5/" title="『模组开发日记』之金丝楠树与其衍生物品的加入">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">『模组开发日记』之金丝楠树与其衍生物品的加入</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/10/19/%E5%85%B3%E4%BA%8E%E6%80%8E%E4%B9%88%E5%B0%86%E8%87%AA%E5%AE%9A%E4%B9%89js%E7%94%A8hexo%E6%B3%A8%E5%85%A5%E7%9A%84%E6%96%B9%E6%B3%95%E5%8A%A0%E5%88%B0%E8%87%AA%E5%AE%9A%E4%B9%89html%E4%B8%AD%E7%9A%84a%C2%B8%E4%B8%80%E7%82%B9%E7%90%86%E8%A7%A3/" title="关于怎么将自定义js用hexo注入的方法加到自定义html中的一点理解">
+                        <span class="hidden-mobile">关于怎么将自定义js用hexo注入的方法加到自定义html中的一点理解</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments">
+      
+  <div id="twikoo"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/twikoo/1.6.8/twikoo.all.min.js', function() {
+        var options = Object.assign(
+          {"envId":"https://mi-manchi-ovo.netlify.app/.netlify/functions/twikoo","region":"ap-shanghai","path":"window.location.pathname"},
+          {
+            el: '#twikoo',
+            path: 'window.location.pathname',
+            onCommentLoaded: function() {
+              Fluid.utils.listenDOMLoaded(function() {
+                var imgSelector = '#twikoo .tk-content img:not(.tk-owo-emotion)';
+                Fluid.plugins.imageCaption(imgSelector);
+                Fluid.plugins.fancyBox(imgSelector);
+              });
+            }
+          }
+        )
+        twikoo.init(options)
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hgt12.github.io/" target="_blank" rel="nofollow noopener"><span>云梦泽</span></a> <i class="iconfont icon-love"></i> <a target="_blank" href="https://hgt12.github.io/"_blank" rel="nofollow noopener noopener"><span>Mi Manchi</span></a> <br> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    
+      <script  src="/js/img-lazyload.js" ></script>
+    
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.staticfile.org/anchor-js/4.2.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
