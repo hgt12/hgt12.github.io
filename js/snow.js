@@ -1,4 +1,5 @@
-function snow() {
+function snow()
+{
   //  1、定义一片雪花模板
   var flake = document.createElement('div');
   // 雪花字符 ❄❉❅❆✻✼❇❈❊✥✺
