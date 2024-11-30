@@ -1,0 +1,945 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/mi_manchi.png">
+  <link rel="icon" href="/img/mi_manchi.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="云梦泽">
+  <meta name="keywords" content="js html">
+  
+    <meta name="description" content="如何生成挂在树上的果子     前言 在我的世界中有一些树在生成的时候会附带例如藤蔓，可可果，蜂巢等一起生成   这是由 TreeDecorator 树木装饰器类来实现的。 这不是教程，仅是笔记，如果当作教程来看则默认你会模组开发的基本物品添加和注册功能的实现 树木装饰器可以为树木添加额外的块状物，如藤蔓或蜂巢。  具体实现 创建芒果果实 下面以长在树上的芒果为例 首先需要创建一个芒果果实方块,该">
+<meta property="og:type" content="article">
+<meta property="og:title" content="『模组开发日记』之关于如何生成挂在树上的果子">
+<meta property="og:url" content="http://example.com/2024/11/30/%E3%80%8E%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%85%B3%E4%BA%8E%E5%A6%82%E4%BD%95%E7%94%9F%E6%88%90%E6%8C%82%E5%9C%A8%E6%A0%91%E4%B8%8A%E7%9A%84%E6%9E%9C%E5%AD%90/index.html">
+<meta property="og:site_name" content="云梦泽的个人博客">
+<meta property="og:description" content="如何生成挂在树上的果子     前言 在我的世界中有一些树在生成的时候会附带例如藤蔓，可可果，蜂巢等一起生成   这是由 TreeDecorator 树木装饰器类来实现的。 这不是教程，仅是笔记，如果当作教程来看则默认你会模组开发的基本物品添加和注册功能的实现 树木装饰器可以为树木添加额外的块状物，如藤蔓或蜂巢。  具体实现 创建芒果果实 下面以长在树上的芒果为例 首先需要创建一个芒果果实方块,该">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/suibi.png">
+<meta property="article:published_time" content="2024-11-30T15:25:35.000Z">
+<meta property="article:modified_time" content="2024-11-30T17:12:32.017Z">
+<meta property="article:author" content="云梦泽">
+<meta property="article:tag" content="MC">
+<meta property="article:tag" content="技术向">
+<meta property="article:tag" content="原创">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/suibi.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>『模组开发日记』之关于如何生成挂在树上的果子 - 云梦泽的个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":80,"cursorChar":"✨","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":7},"lazyload":{"enable":true,"loading_img":"/img/loading_1.gif","onlypost":true,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<!-- hexo injector head_end start --><script src="/js/firework_click.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 80vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>云梦泽</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/messages/" target="_self">
+                <i class="iconfont icon-comment"></i>
+                <span>留言板</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/frieren.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="『模组开发日记』之关于如何生成挂在树上的果子"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        云梦泽
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-11-30 23:25" pubdate>
+          2024年11月30日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          12 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="笔记"
+        id="heading-7051dc52c184c205e39aa54b4664ae9b" role="tab" data-toggle="collapse" href="#collapse-7051dc52c184c205e39aa54b4664ae9b"
+        aria-expanded="true"
+      >
+        笔记
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-7051dc52c184c205e39aa54b4664ae9b"
+           role="tabpanel" aria-labelledby="heading-7051dc52c184c205e39aa54b4664ae9b">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/11/30/%E3%80%8E%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%85%B3%E4%BA%8E%E5%A6%82%E4%BD%95%E7%94%9F%E6%88%90%E6%8C%82%E5%9C%A8%E6%A0%91%E4%B8%8A%E7%9A%84%E6%9E%9C%E5%AD%90/" title="『模组开发日记』之关于如何生成挂在树上的果子"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">『模组开发日记』之关于如何生成挂在树上的果子</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/10/19/%E5%85%B3%E4%BA%8E%E6%80%8E%E4%B9%88%E5%B0%86%E8%87%AA%E5%AE%9A%E4%B9%89js%E7%94%A8hexo%E6%B3%A8%E5%85%A5%E7%9A%84%E6%96%B9%E6%B3%95%E5%8A%A0%E5%88%B0%E8%87%AA%E5%AE%9A%E4%B9%89html%E4%B8%AD%E7%9A%84a%C2%B8%E4%B8%80%E7%82%B9%E7%90%86%E8%A7%A3/" title="关于怎么将自定义js用hexo注入的方法加到自定义html中的一点理解"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">关于怎么将自定义js用hexo注入的方法加到自定义html中的一点理解</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">『模组开发日记』之关于如何生成挂在树上的果子</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2024年12月1日 凌晨
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 align="center"><span id="如何生成挂在树上的果子"><span style="color: cadetblue;">如何生成挂在树上的果子</span></span></h1>
+<hr>
+
+<p></p>
+
+<h2 style="color: #b7a0e0"><span id="前言">前言</span></h2>
+<p>在我的世界中有一些树在生成的时候会附带例如藤蔓，可可果，蜂巢等一起生成</p>
+<img src="/img/藤蔓的生成.png" srcset="/img/loading_1.gif" lazyload alt>
+<br>
+<p>这是由 TreeDecorator 树木装饰器类来实现的。</p>
+<p align="center" style="color: hotpink;font-size: 20px"><strong>这不是教程，仅是笔记，如果当作教程来看则默认你会模组开发的基本物品添加和注册功能的实现</strong></p>
+<p>树木装饰器可以为树木添加额外的块状物，如藤蔓或蜂巢。</p>
+<br>
+<h2 style="color: #b7a0e0"><span id="具体实现">具体实现</span></h2>
+<h3 style="color: #b7a0e0"><span id="创建芒果果实">创建芒果果实</span></h3>
+<p>下面以长在树上的芒果为例</p>
+<p>首先需要创建一个芒果果实方块,该方块以 MangoBlock 类来实现其基本功能，并且复制与我先前所写的ModBlocks.MANGO_LEAVES_HARVESTED</p>
+<br>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Block</span> <span class="hljs-variable">MANGO_BLOCK</span> <span class="hljs-operator">=</span> registerBlocks(<span class="hljs-string">&quot;mango_block&quot;</span>,<br>            <span class="hljs-keyword">new</span> <span class="hljs-title class_">MangoBlock</span>(FabricBlockSettings.copyOf(ModBlocks.MANGO_LEAVES_HARVESTED)<br>                    .nonOpaque().pistonBehavior(PistonBehavior.DESTROY)));<br></code></pre></td></tr></table></figure>
+<br>
+<p>然后创建 MangoBlock 类并继承 PlantBlock 类，在该类里面实现芒果果实基本的放置前提条件</p>
+<p>在该类中创建 VoxelShape SHAPE 字段用于创建芒果的模型体积大小</p>
+<p>并使用 Stream.of(...) 来创建该形状的几个组成部分，并通过 reduce 方法来组合它们。</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">VoxelShape</span> <span class="hljs-variable">SHAPE</span> <span class="hljs-operator">=</span> Stream.of(<br>            <span class="hljs-comment">//在这里面自行设计你想要的形状大小，例如</span><br>        Block.createCuboidShape(<span class="hljs-number">7</span>, -<span class="hljs-number">0.5</span>, <span class="hljs-number">11</span>, <span class="hljs-number">8</span>, <span class="hljs-number">0.5</span>, <span class="hljs-number">12</span>)<br>    ).reduce((v1, v2) -&gt; VoxelShapes.combineAndSimplify(v1, v2, BooleanBiFunction.OR)).get();<br></code></pre></td></tr></table></figure>
+<br>
+<p>接下来创建 MangoBlock 类构造函数并接受类型为 Settings 的参数，在方法内调用父类的构造函数，传入 settings 参数</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-title function_">MangoBlock</span><span class="hljs-params">(Settings settings)</span><br>    &#123;<br>        <span class="hljs-built_in">super</span>(settings);<br>    &#125;<br></code></pre></td></tr></table></figure>
+<br>
+<p>接下来分别重写 onUse，canPlaceAt，getOutlineShape，getCollisionShape，getPlacementState，getStateForNeighborUpdate和canPathfindThrough方法</p>
+<br>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> ActionResult <span class="hljs-title function_">onUse</span><span class="hljs-params">(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit)</span><br>    &#123;<br>        <span class="hljs-comment">// 掉落一个指定的果子</span><br>        MangoBlock.dropStack(world, pos, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ItemStack</span>(ModItems.MANGO, <span class="hljs-number">1</span>));<br>        world.playSound(player, pos, SoundEvents.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES, SoundCategory.BLOCKS, <span class="hljs-number">1.0F</span>, <span class="hljs-number">1.0F</span>);<br>        <span class="hljs-comment">// 移除方块</span><br>        world.removeBlock(pos, <span class="hljs-literal">false</span>);<br>        <span class="hljs-keyword">return</span> ActionResult.SUCCESS;<br>    &#125;<br></code></pre></td></tr></table></figure>
+<p>上面方法是当玩家右键点击芒果果实时会掉落一个芒果</p>
+<br>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">canPlaceAt</span><span class="hljs-params">(BlockState state, WorldView world, BlockPos pos)</span><br>    &#123;<br>        <span class="hljs-type">BlockState</span> <span class="hljs-variable">blockState</span> <span class="hljs-operator">=</span> world.getBlockState(pos.up(<span class="hljs-number">1</span>));<br>        <span class="hljs-type">BlockState</span> <span class="hljs-variable">blockStateBelow</span> <span class="hljs-operator">=</span> world.getBlockState(pos.down());<br>        <span class="hljs-type">BlockState</span> <span class="hljs-variable">blockStateAbove</span> <span class="hljs-operator">=</span> world.getBlockState(pos.up(<span class="hljs-number">1</span>)); <span class="hljs-comment">//目标方块上方方块不是空气</span><br><br>        <span class="hljs-keyword">return</span> blockState.isOf(ModBlocks.MANGO_LEAVES)<br>                &amp;&amp; blockStateBelow.isAir()<br>                &amp;&amp; !blockStateAbove.isAir(); <span class="hljs-comment">//确保上方一格不是空气</span><br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>上面代码是芒果果实放置的条件，通过检测当放置方块的上方为 ModBlocks.MANGO_LEAVES 且下方一格为空气和上方一格不为空气是才能放置芒果果实</p>
+<br>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> VoxelShape <span class="hljs-title function_">getOutlineShape</span><span class="hljs-params">(BlockState state, BlockView world, BlockPos pos, ShapeContext context)</span><br>    &#123;<br>        <span class="hljs-keyword">return</span> SHAPE; <br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> VoxelShape <span class="hljs-title function_">getCollisionShape</span><span class="hljs-params">(BlockState state, BlockView world, BlockPos pos, ShapeContext context)</span><br>    &#123;<br>        <span class="hljs-keyword">return</span> SHAPE; <br>    &#125;<br></code></pre></td></tr></table></figure>
+<p>重写上面两个方法来实现芒果果实的形状和碰撞箱体积，其中 SHAPE 传入的为上面自己设计的方块形状</p>
+<br>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br>    <span class="hljs-meta">@Nullable</span><br>    <span class="hljs-keyword">public</span> BlockState <span class="hljs-title function_">getPlacementState</span><span class="hljs-params">(ItemPlacementContext ctx)</span><br>    &#123;<br>        <span class="hljs-type">BlockState</span> <span class="hljs-variable">blockState</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.getDefaultState();<br>        <span class="hljs-type">World</span> <span class="hljs-variable">worldView</span> <span class="hljs-operator">=</span> ctx.getWorld();<br>        <span class="hljs-type">BlockPos</span> <span class="hljs-variable">blockPos</span> <span class="hljs-operator">=</span> ctx.getBlockPos();<br>        <span class="hljs-comment">// 仅检查是否可以放置</span><br>        <span class="hljs-keyword">if</span> (blockState.canPlaceAt(worldView, blockPos)) <br>        &#123;<br>            <span class="hljs-keyword">return</span> blockState;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>    &#125;<br></code></pre></td></tr></table></figure>
+<p>上面代码用于检查芒果果实是否可以放置，若无法放置则返回空</p>
+<br>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> BlockState <span class="hljs-title function_">getStateForNeighborUpdate</span><span class="hljs-params">(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos)</span><br>    &#123;<br>        <span class="hljs-keyword">if</span> (direction == Direction.UP &amp;&amp; !state.canPlaceAt(world, pos))<br>        &#123;<br>            <span class="hljs-keyword">return</span> Blocks.AIR.getDefaultState();<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);<br>    &#125;<br></code></pre></td></tr></table></figure>
+<p>判断芒果果实上方是否为空气，如果是空气则移除芒果果实</p>
+<br>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">canPathfindThrough</span><span class="hljs-params">(BlockState state, BlockView world, BlockPos pos, NavigationType type)</span><br>    &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br></code></pre></td></tr></table></figure>
+<p>默认如何实体无法穿过该方块</p>
+<br>
+<h3 style="color: #b7a0e0"><span id="创建树木装饰器">创建树木装饰器</span></h3>
+<p>首先创建 ModTreeDecoratorType 类来记录你有哪些树木装饰器</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">record</span> <span class="hljs-title class_">ModTreeDecoratorType</span>&lt;P <span class="hljs-keyword">extends</span> <span class="hljs-title class_">TreeDecorator</span>&gt;(Codec&lt;P&gt; codec)<br>&#123;<br>    <span class="hljs-comment">//声明自定义植物装饰生成器</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> TreeDecoratorType&lt;MangoTreeDecorator&gt; MANGO_TREE_DECORATOR_TYPE = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TreeDecoratorType</span>&lt;&gt;(MangoTreeDecorator.CODEC);<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">modTreeDecoratorTypeRegistry</span><span class="hljs-params">()</span><br>    &#123;<br>        <span class="hljs-comment">// 使用命名空间和路径创建Identifier并注册植物装饰生成器</span><br>        Registry.register(Registries.TREE_DECORATOR_TYPE, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Identifier</span>(<span class="hljs-string">&quot;test-mod&quot;</span>, <span class="hljs-string">&quot;mango_tree_decorator_type&quot;</span>), MANGO_TREE_DECORATOR_TYPE);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<br>
+<p>然后在模组主类中的初始化方法中调用 modTreeDecoratorTypeRegistry 方法</p>
+<img src="/img/调用 modTreeDecoratorTypeRegistry.png" srcset="/img/loading_1.gif" lazyload alt>
+<br>
+
+<p>再创建一个 MangoTreeDecorator 芒果树装饰器（名字可以随便取），它继承于 TreeDecorator </p>
+<p>在该类里定义 Codec，用于序列化和反序列化 MangoTreeDecorator 对象</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Codec&lt;MangoTreeDecorator&gt; CODEC = RecordCodecBuilder.create(instance -&gt;<br>        instance.group(<br>                Codec.FLOAT.fieldOf(<span class="hljs-string">&quot;probability&quot;</span>).forGetter(decorator -&gt; decorator.probability)<br>        ).apply(instance, MangoTreeDecorator::<span class="hljs-keyword">new</span>)<br>);<br></code></pre></td></tr></table></figure>
+<br>
+<p>定义 probability 属性并在构造函数中接受该属性</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">float</span> probability;<br><br><span class="hljs-keyword">public</span> <span class="hljs-title function_">MangoTreeDecorator</span><span class="hljs-params">(<span class="hljs-type">float</span> probability)</span><br>&#123;<br>    <span class="hljs-built_in">this</span>.probability = probability;<br>&#125;<br></code></pre></td></tr></table></figure>
+<br>
+<p>接着重写 getType 方法并返回返回在 ModTreeDecoratorType 类中定义的自定义的 mango 树装饰器类型。</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> TreeDecoratorType&lt;?&gt; getType()<br>    &#123;<br>        <span class="hljs-keyword">return</span> ModTreeDecoratorType.MANGO_TREE_DECORATOR_TYPE;<br>    &#125;<br></code></pre></td></tr></table></figure>
+<br>
+<p>然后重写 generate 用来实现芒果树装饰器的具体实现效果</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">generate</span><span class="hljs-params">(Generator generator)</span><br>    &#123;<br>        <span class="hljs-type">Random</span> <span class="hljs-variable">random</span> <span class="hljs-operator">=</span> generator.getRandom();<br>        <span class="hljs-keyword">if</span> (random.nextFloat() &gt;= <span class="hljs-built_in">this</span>.probability)<br>        &#123;<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br><br>        ObjectArrayList&lt;BlockPos&gt; list = generator.getLeavesPositions();<br>        <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> list.get(<span class="hljs-number">0</span>).getY(); <span class="hljs-comment">// 获取第一个叶子块的 Y 值</span><br><br>        list.stream().filter(pos -&gt; Math.abs(pos.getY() - i) &lt;= <span class="hljs-number">1</span>).forEach(pos -&gt;<br>        &#123;<br>            <span class="hljs-keyword">for</span> (Direction direction : Direction.Type.HORIZONTAL)<br>            &#123;<br>                <span class="hljs-type">Direction</span> <span class="hljs-variable">oppositeDirection</span> <span class="hljs-operator">=</span> direction.getOpposite();<br>                <span class="hljs-type">BlockPos</span> <span class="hljs-variable">blockPos</span> <span class="hljs-operator">=</span> pos.add(oppositeDirection.getOffsetX(), <span class="hljs-number">0</span>, oppositeDirection.getOffsetZ());<br><br>                <span class="hljs-comment">// 检查上方是否是指定的树叶</span><br>                <span class="hljs-type">boolean</span> <span class="hljs-variable">isAboveLeaves</span> <span class="hljs-operator">=</span> generator.getWorld().testBlockState(pos.up(), state -&gt; state.isOf(ModBlocks.MANGO_LEAVES));<br>                <span class="hljs-comment">//检查下方的方块是否为空气</span><br>                <span class="hljs-type">boolean</span> <span class="hljs-variable">isBelowAir</span> <span class="hljs-operator">=</span> generator.getWorld().testBlockState(pos.down(), AbstractBlock.AbstractBlockState::isAir);<br><br>                <span class="hljs-comment">//检查生成条件</span><br>                <span class="hljs-keyword">if</span> (!(random.nextFloat() &lt;= <span class="hljs-number">0.25f</span>) || !generator.isAir(blockPos) || !isAboveLeaves || !isBelowAir)<br>                &#123;<br>                    <span class="hljs-keyword">continue</span>; <span class="hljs-comment">//如果不满足条件则跳过</span><br>                &#125;<br>                generator.replace(blockPos, ModBlocks.MANGO_BLOCK.getDefaultState());<br>            &#125;<br>        &#125;);<br>    &#125;<br></code></pre></td></tr></table></figure>
+<br>
+<p>做完上面步骤之后就可以在树木生成时创建 MangoTreeDecorator 实例来实现果子生成的效果了</p>
+<h3 style="color: #b7a0e0"><span id="在树生成时创建-mangotreedecorator-示例">在树生成时创建 MangoTreeDecorator 示例</span></h3>
+<img src="/img/调用 MangoTreeDecorator.png" srcset="/img/loading_1.gif" lazyload alt>
+<p>上面通过创建一个 MangoTreeDecorator(0.75f) 的实例并作为装饰器添加到树的特征配置中</p>
+<p>原版中还有其他很多的树装饰器可以用，也能根据设定的概率和逻辑添加额外的装饰效果</p>
+<br>
+<h2 style="color: #b7a0e0"><span id="总结">总结</span></h2>
+<p>树上长果子的效果就是通过树木装饰器来实现。</p>
+<p>可以通过创建各种不同的树木装饰器来实现果子，藤蔓等伴随树木生成而生成的效果</p>
+<p align="center" style="color: hotpink;font-size: 20px"><strong>以上代码用于 Fabric-1.20 版本模组开发</strong></p>
+<p align="center" style="color: hotpink;font-size: 20px"><strong>仅供参考，若想摘抄请在下方留言</strong></p>
+<hr>
+<hr>
+<blockquote>  
+<p style="color: #bbbbee">“一花一世界，一叶一菩提”</p>
+</blockquote>
+
+<hr>
+<p>版权所有 © 2024 云梦泽<br>欢迎访问我的个人网站：<a target="_blank" rel="noopener" href="https://hgt12.github.io/">https://hgt12.github.io/</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/MC/" class="print-no-link">#MC</a>
+      
+        <a href="/tags/%E6%8A%80%E6%9C%AF%E5%90%91/" class="print-no-link">#技术向</a>
+      
+        <a href="/tags/%E5%8E%9F%E5%88%9B/" class="print-no-link">#原创</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>『模组开发日记』之关于如何生成挂在树上的果子</div>
+      <div>http://example.com/2024/11/30/『模组开发日记』之关于如何生成挂在树上的果子/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>云梦泽</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年11月30日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2024年12月1日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/11/29/%E3%80%8E%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E8%8A%92%E6%9E%9C%E6%A0%91%E5%8A%A0%E5%85%A5%E4%B8%96%E7%95%8C/" title="『模组开发日记』之芒果树加入世界">
+                        <span class="hidden-mobile">『模组开发日记』之芒果树加入世界</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments">
+      
+  <div id="twikoo"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/twikoo/1.6.8/twikoo.all.min.js', function() {
+        var options = Object.assign(
+          {"envId":"https://mi-manchi-ovo.netlify.app/.netlify/functions/twikoo","region":"ap-shanghai","path":"window.location.pathname"},
+          {
+            el: '#twikoo',
+            path: 'window.location.pathname',
+            onCommentLoaded: function() {
+              Fluid.utils.listenDOMLoaded(function() {
+                var imgSelector = '#twikoo .tk-content img:not(.tk-owo-emotion)';
+                Fluid.plugins.imageCaption(imgSelector);
+                Fluid.plugins.fancyBox(imgSelector);
+              });
+            }
+          }
+        )
+        twikoo.init(options)
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hgt12.github.io/" target="_blank" rel="nofollow noopener"><span>云梦泽</span></a> <i class="iconfont icon-love"></i> <a target="_blank" href="https://hgt12.github.io/"_blank" rel="nofollow noopener noopener"><span>Mi Manchi</span></a> <br> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    
+      <script  src="/js/img-lazyload.js" ></script>
+    
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
