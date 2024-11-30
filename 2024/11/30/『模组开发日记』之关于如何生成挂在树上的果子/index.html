@@ -19,16 +19,16 @@
   <meta name="author" content="云梦泽">
   <meta name="keywords" content="js html">
   
-    <meta name="description" content="如何生成挂在树上的果子     前言 在我的世界中有一些树在生成的时候会附带例如藤蔓，可可果，蜂巢等一起生成   这是由 TreeDecorator 树木装饰器类来实现的。 这不是教程，仅是笔记，如果当作教程来看则默认你会模组开发的基本物品添加和注册功能的实现 树木装饰器可以为树木添加额外的块状物，如藤蔓或蜂巢。  具体实现 创建芒果果实 下面以长在树上的芒果为例 首先需要创建一个芒果果实方块,该">
+    <meta name="description" content="如何生成挂在树上的果子     前言 在我的世界中有一些树在生成的时候会附带例如藤蔓，可可果，蜂巢等一起生成   这是由 TreeDecorator 树木装饰器类来实现的。 树木装饰器可以为树木添加额外的块状物，如藤蔓或蜂巢。 这不是教程，仅是笔记，如果当作教程来看则默认你会模组开发的基本物品添加和注册功能的实现  具体实现 创建芒果果实 下面以长在树上的芒果为例 首先需要创建一个芒果果实方块,该">
 <meta property="og:type" content="article">
 <meta property="og:title" content="『模组开发日记』之关于如何生成挂在树上的果子">
 <meta property="og:url" content="http://example.com/2024/11/30/%E3%80%8E%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%85%B3%E4%BA%8E%E5%A6%82%E4%BD%95%E7%94%9F%E6%88%90%E6%8C%82%E5%9C%A8%E6%A0%91%E4%B8%8A%E7%9A%84%E6%9E%9C%E5%AD%90/index.html">
 <meta property="og:site_name" content="云梦泽的个人博客">
-<meta property="og:description" content="如何生成挂在树上的果子     前言 在我的世界中有一些树在生成的时候会附带例如藤蔓，可可果，蜂巢等一起生成   这是由 TreeDecorator 树木装饰器类来实现的。 这不是教程，仅是笔记，如果当作教程来看则默认你会模组开发的基本物品添加和注册功能的实现 树木装饰器可以为树木添加额外的块状物，如藤蔓或蜂巢。  具体实现 创建芒果果实 下面以长在树上的芒果为例 首先需要创建一个芒果果实方块,该">
+<meta property="og:description" content="如何生成挂在树上的果子     前言 在我的世界中有一些树在生成的时候会附带例如藤蔓，可可果，蜂巢等一起生成   这是由 TreeDecorator 树木装饰器类来实现的。 树木装饰器可以为树木添加额外的块状物，如藤蔓或蜂巢。 这不是教程，仅是笔记，如果当作教程来看则默认你会模组开发的基本物品添加和注册功能的实现  具体实现 创建芒果果实 下面以长在树上的芒果为例 首先需要创建一个芒果果实方块,该">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/suibi.png">
 <meta property="article:published_time" content="2024-11-30T15:25:35.000Z">
-<meta property="article:modified_time" content="2024-11-30T17:12:32.017Z">
+<meta property="article:modified_time" content="2024-11-30T17:35:10.488Z">
 <meta property="article:author" content="云梦泽">
 <meta property="article:tag" content="MC">
 <meta property="article:tag" content="技术向">
@@ -414,13 +414,13 @@
 <img src="/img/藤蔓的生成.png" srcset="/img/loading_1.gif" lazyload alt>
 <br>
 <p>这是由 TreeDecorator 树木装饰器类来实现的。</p>
-<p align="center" style="color: hotpink;font-size: 20px"><strong>这不是教程，仅是笔记，如果当作教程来看则默认你会模组开发的基本物品添加和注册功能的实现</strong></p>
 <p>树木装饰器可以为树木添加额外的块状物，如藤蔓或蜂巢。</p>
+<p align="center" style="color: hotpink;font-size: 20px"><strong>这不是教程，仅是笔记，如果当作教程来看则默认你会模组开发的基本物品添加和注册功能的实现</strong></p>
 <br>
 <h2 style="color: #b7a0e0"><span id="具体实现">具体实现</span></h2>
 <h3 style="color: #b7a0e0"><span id="创建芒果果实">创建芒果果实</span></h3>
 <p>下面以长在树上的芒果为例</p>
-<p>首先需要创建一个芒果果实方块,该方块以 MangoBlock 类来实现其基本功能，并且复制与我先前所写的ModBlocks.MANGO_LEAVES_HARVESTED</p>
+<p>首先需要创建一个芒果果实方块,该方块以 MangoBlock 类来实现其基本功能，并且复制于我先前所写的ModBlocks.MANGO_LEAVES_HARVESTED</p>
 <br>
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Block</span> <span class="hljs-variable">MANGO_BLOCK</span> <span class="hljs-operator">=</span> registerBlocks(<span class="hljs-string">&quot;mango_block&quot;</span>,<br>            <span class="hljs-keyword">new</span> <span class="hljs-title class_">MangoBlock</span>(FabricBlockSettings.copyOf(ModBlocks.MANGO_LEAVES_HARVESTED)<br>                    .nonOpaque().pistonBehavior(PistonBehavior.DESTROY)));<br></code></pre></td></tr></table></figure>
