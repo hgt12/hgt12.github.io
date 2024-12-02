@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>『模组开发日记』之柠檬树加入世界</title>
+    <link href="/2024/12/02/%E3%80%8E%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%9F%A0%E6%AA%AC%E6%A0%91%E5%8A%A0%E5%85%A5%E4%B8%96%E7%95%8C/"/>
+    <url>/2024/12/02/%E3%80%8E%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%9F%A0%E6%AA%AC%E6%A0%91%E5%8A%A0%E5%85%A5%E4%B8%96%E7%95%8C/</url>
+    
+    <content type="html"><![CDATA[<h1 align="center"><span id="柠檬树加入世界"><span style="color: cadetblue;">柠檬树加入世界</span></span></h1><hr><h2 style="color: #b7a0e0"><span id="柠檬">柠檬</span></h2><p>总所周知柠檬长在柠檬树上</p><p>柠檬树</p><img src="/img/柠檬树.png" srcset="/img/loading_1.gif" lazyload alt><br><p>柠檬树会自然生成在游戏里的平原，森林和稀疏丛林群系中</p><br><p>下面是一些有关柠檬相关物品的展示</p><img src="/img/柠檬树物品展示.png" srcset="/img/loading_1.gif" lazyload alt="柠檬树物品展示"><br><p>玩家每食用一个柠檬会恢复1点饥饿值和1点饱食度</p><br><p>下面是有关柠檬的物品在物品栏中的展示</p><img src="/img/柠檬相关.png" srcset="/img/loading_1.gif" lazyload alt="柠檬相关"><p>ps：挂在树上的柠檬果实是可以通过精准采集附魔直接采摘下来的</p><p>而且采摘下来的柠檬果实可以悬挂在柠檬树叶下</p><br><hr><h2 style="color: #b7a0e0"><span id="预告">预告</span></h2>  <p>后面将会开发银杏树</p><p>后续将会开发橘子灌木丛</p><p>后续将会开发果园群系</p><p>更远大的目标是将更多一些植物加到模组里去</p><blockquote>  <p style="color: #bbbbee">“一花一世界，一叶一菩提”</p></blockquote><hr><p>版权所有 © 2024 云梦泽<br>欢迎访问我的个人网站：<a href="https://hgt12.github.io/">https://hgt12.github.io/</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>模组开发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>MC</tag>
+      
+      <tag>技术向</tag>
+      
+      <tag>原创</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>『模组开发日记』之关于如何生成挂在树上的果子</title>
     <link href="/2024/11/30/%E3%80%8E%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%85%B3%E4%BA%8E%E5%A6%82%E4%BD%95%E7%94%9F%E6%88%90%E6%8C%82%E5%9C%A8%E6%A0%91%E4%B8%8A%E7%9A%84%E6%9E%9C%E5%AD%90/"/>
     <url>/2024/11/30/%E3%80%8E%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%85%B3%E4%BA%8E%E5%A6%82%E4%BD%95%E7%94%9F%E6%88%90%E6%8C%82%E5%9C%A8%E6%A0%91%E4%B8%8A%E7%9A%84%E6%9E%9C%E5%AD%90/</url>
