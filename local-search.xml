@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>『模组开发日记』之修复在游戏中合成物品无法在配方书中解锁配方的bug</title>
+    <link href="/2025/09/14/%E3%80%8E%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BF%AE%E5%A4%8D%E5%9C%A8%E6%B8%B8%E6%88%8F%E4%B8%AD%E5%90%88%E6%88%90%E7%89%A9%E5%93%81%E6%97%A0%E6%B3%95%E5%9C%A8%E9%85%8D%E6%96%B9%E4%B9%A6%E4%B8%AD%E8%A7%A3%E9%94%81%E9%85%8D%E6%96%B9%E7%9A%84bug/"/>
+    <url>/2025/09/14/%E3%80%8E%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BF%AE%E5%A4%8D%E5%9C%A8%E6%B8%B8%E6%88%8F%E4%B8%AD%E5%90%88%E6%88%90%E7%89%A9%E5%93%81%E6%97%A0%E6%B3%95%E5%9C%A8%E9%85%8D%E6%96%B9%E4%B9%A6%E4%B8%AD%E8%A7%A3%E9%94%81%E9%85%8D%E6%96%B9%E7%9A%84bug/</url>
+    
+    <content type="html"><![CDATA[<h1 align="center"><span id="关于如何解决游戏中配方书解锁的问题">关于如何解决游戏中配方书解锁的问题</span></h1><br><h2 style="color: #b7a0e0"><span id="发现问题">发现问题</span></h2><p>由于在模组开发过程中遇到在配方书中无法解锁配方的问题</p><img src="/img/配方书无法解锁.png" srcset="/img/loading_1.gif" lazyload alt><h2 style="color: #b7a0e0"><span id="寻找解决办法">寻找解决办法</span></h2><p>但是在我测试很多次之后还是找不到解决办法</p><p>最终在群友的点拨下终于知道是怎么回事了</p><h2 style="color: #b7a0e0"><span id="问题解决过程">问题解决过程</span></h2><p>问题出在配方编写的程序中，因为我使用的是自动数据生成（这样比较方便不用自己手搓json）</p><p>在我原本的配方编写中是这样的</p><img src="/img/原本的配方生成程序.png" srcset="/img/loading_1.gif" lazyload alt><p>这样写导致数据生成的时候json文件中的recipe和recipes中的id显示是minecraft</p><img src="/img/原本的配方json.png" srcset="/img/loading_1.gif" lazyload alt><p>这就是导致配方书中无法解锁我的模组配方的罪魁祸首</p><p>在我问问题过程中有人说我这个Identifier里都都没有namespace</p><p>后来我翻了一下源码之后发现</p><p>原来在下面的offerTo方法里的Identifier有俩构造方法，一个是没指定namespace，那生成的json文件中的recipe和recipes就是默认minecraft，所以指定namespace就是行了，namespace就是mod_id</p><img src="/img/修改后的配方生成程序.png" srcset="/img/loading_1.gif" lazyload alt><p>修改之后问题完美解决，游戏中拾取模组物品也会解锁相应配方了</p><img src="/img/后来的配方json.png" srcset="/img/loading_1.gif" lazyload alt><hr><h2 style="color: #b7a0e0"><span id="后续代码优化">后续代码优化</span></h2><p>但有一些配方不是像上面那样工作台合成的，比如熔炉，或者是九合一配方</p><p>这些配方原版是通过自定义了特殊的方法来给熔炉这些特殊配方</p><p>解决办法也很简单，只要重写原版的方法然后修改其Identifier中的namespace为自己的模组id再调用重写的方法就行了（下面以九合一的配方示例）</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//9&gt;1</span><br>        ShapedRecipeJsonBuilder.create(compactingCategory, compactItem)<br>                .input(Character.valueOf(<span class="hljs-string">&#x27;#&#x27;</span>), baseItem)<br>                .pattern(<span class="hljs-string">&quot;###&quot;</span>)<br>                .pattern(<span class="hljs-string">&quot;###&quot;</span>)<br>                .pattern(<span class="hljs-string">&quot;###&quot;</span>)<br>                .group(compactingGroup)<br>                .criterion(RecipeProvider.hasItem(baseItem), RecipeProvider.conditionsFromItem(baseItem))<br>                .offerTo(exporter, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Identifier</span>(<span class="hljs-string">&quot;test-mod&quot;</span>, compactingId));<br></code></pre></td></tr></table></figure><p>这样再调用该方法就可以生成正确的json文件了</p><hr><h2 style="color: #b7a0e0"><span id="后记">后记</span></h2><p>其实自己后面想想这个问题其实也不是很难，就没看懂Identifier中的两个构造方法的含义是什么</p><p>也是被自己蠢到了</p><blockquote>  <p style="color: #bbbbee">“一花一世界，一叶一菩提”</p></blockquote><hr><p>版权所有 © 2024 云梦泽<br>欢迎访问我的个人网站：<a href="https://hgt12.github.io/">https://hgt12.github.io/</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>模组开发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>MC</tag>
+      
+      <tag>技术向</tag>
+      
+      <tag>原创</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>『模组开发日记』之芦荻花加入世界</title>
     <link href="/2024/12/23/%E3%80%8E%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E8%8A%A6%E8%8D%BB%E8%8A%B1%E5%8A%A0%E5%85%A5%E4%B8%96%E7%95%8C/"/>
     <url>/2024/12/23/%E3%80%8E%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E8%8A%A6%E8%8D%BB%E8%8A%B1%E5%8A%A0%E5%85%A5%E4%B8%96%E7%95%8C/</url>

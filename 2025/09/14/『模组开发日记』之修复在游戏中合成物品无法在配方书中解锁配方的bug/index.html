@@ -19,28 +19,28 @@
   <meta name="author" content="云梦泽">
   <meta name="keywords" content="js html">
   
-    <meta name="description" content="芒果树加入世界   芒果 芒果树上长芒果 芒果树   芒果树会自然生成在游戏里的繁花森林，森林，草甸和稀疏丛林群系中  下面是一些有关芒果相关物品的展示   玩家每食用一个芒果会恢复4点饥饿值和2点饱食度  下面是有关芒果的物品在物品栏中的展示  ps：挂在树上的芒果果实是可以通过精准采集附魔直接采摘下来的 而且采摘下来的芒果果实可以悬挂在芒果树叶下    预告   后面将会开发银杏树 后续将会开">
+    <meta name="description" content="关于如何解决游戏中配方书解锁的问题  发现问题 由于在模组开发过程中遇到在配方书中无法解锁配方的问题  寻找解决办法 但是在我测试很多次之后还是找不到解决办法 最终在群友的点拨下终于知道是怎么回事了 问题解决过程 问题出在配方编写的程序中，因为我使用的是自动数据生成（这样比较方便不用自己手搓json） 在我原本的配方编写中是这样的  这样写导致数据生成的时候json文件中的recipe和recip">
 <meta property="og:type" content="article">
-<meta property="og:title" content="『模组开发日记』之芒果树加入世界">
-<meta property="og:url" content="http://example.com/2024/11/29/%E3%80%8E%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E8%8A%92%E6%9E%9C%E6%A0%91%E5%8A%A0%E5%85%A5%E4%B8%96%E7%95%8C/index.html">
+<meta property="og:title" content="『模组开发日记』之修复在游戏中合成物品无法在配方书中解锁配方的bug">
+<meta property="og:url" content="http://example.com/2025/09/14/%E3%80%8E%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BF%AE%E5%A4%8D%E5%9C%A8%E6%B8%B8%E6%88%8F%E4%B8%AD%E5%90%88%E6%88%90%E7%89%A9%E5%93%81%E6%97%A0%E6%B3%95%E5%9C%A8%E9%85%8D%E6%96%B9%E4%B9%A6%E4%B8%AD%E8%A7%A3%E9%94%81%E9%85%8D%E6%96%B9%E7%9A%84bug/index.html">
 <meta property="og:site_name" content="云梦泽的个人博客">
-<meta property="og:description" content="芒果树加入世界   芒果 芒果树上长芒果 芒果树   芒果树会自然生成在游戏里的繁花森林，森林，草甸和稀疏丛林群系中  下面是一些有关芒果相关物品的展示   玩家每食用一个芒果会恢复4点饥饿值和2点饱食度  下面是有关芒果的物品在物品栏中的展示  ps：挂在树上的芒果果实是可以通过精准采集附魔直接采摘下来的 而且采摘下来的芒果果实可以悬挂在芒果树叶下    预告   后面将会开发银杏树 后续将会开">
+<meta property="og:description" content="关于如何解决游戏中配方书解锁的问题  发现问题 由于在模组开发过程中遇到在配方书中无法解锁配方的问题  寻找解决办法 但是在我测试很多次之后还是找不到解决办法 最终在群友的点拨下终于知道是怎么回事了 问题解决过程 问题出在配方编写的程序中，因为我使用的是自动数据生成（这样比较方便不用自己手搓json） 在我原本的配方编写中是这样的  这样写导致数据生成的时候json文件中的recipe和recip">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/%E8%8A%92%E6%9E%9C.png">
-<meta property="article:published_time" content="2024-11-29T00:25:42.000Z">
-<meta property="article:modified_time" content="2024-11-30T15:24:41.014Z">
+<meta property="og:image" content="http://example.com/img/suibi.png">
+<meta property="article:published_time" content="2025-09-14T05:37:51.000Z">
+<meta property="article:modified_time" content="2025-09-14T06:28:38.818Z">
 <meta property="article:author" content="云梦泽">
 <meta property="article:tag" content="MC">
 <meta property="article:tag" content="技术向">
 <meta property="article:tag" content="原创">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/%E8%8A%92%E6%9E%9C.png">
+<meta name="twitter:image" content="http://example.com/img/suibi.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>『模组开发日记』之芒果树加入世界 - 云梦泽的个人博客</title>
+  <title>『模组开发日记』之修复在游戏中合成物品无法在配方书中解锁配方的bug - 云梦泽的个人博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -235,13 +235,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/%E5%A3%81%E7%BA%B86.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/%E5%A3%81%E7%BA%B810.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="『模组开发日记』之芒果树加入世界"></span>
+            <span id="subtitle" data-typed-text="『模组开发日记』之修复在游戏中合成物品无法在配方书中解锁配方的bug"></span>
           
         </div>
 
@@ -257,8 +257,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-11-29 08:25" pubdate>
-          2024年11月29日 早上
+        <time datetime="2025-09-14 13:37" pubdate>
+          2025年9月14日 下午
         </time>
       </span>
     
@@ -269,7 +269,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          224 字
+          563 字
         
       </span>
     
@@ -280,7 +280,7 @@
         
         
         
-          2 分钟
+          5 分钟
         
       </span>
     
@@ -359,7 +359,7 @@
       
         <a href="/2025/09/14/%E3%80%8E%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BF%AE%E5%A4%8D%E5%9C%A8%E6%B8%B8%E6%88%8F%E4%B8%AD%E5%90%88%E6%88%90%E7%89%A9%E5%93%81%E6%97%A0%E6%B3%95%E5%9C%A8%E9%85%8D%E6%96%B9%E4%B9%A6%E4%B8%AD%E8%A7%A3%E9%94%81%E9%85%8D%E6%96%B9%E7%9A%84bug/" title="『模组开发日记』之修复在游戏中合成物品无法在配方书中解锁配方的bug"
            class="list-group-item list-group-item-action
-           ">
+           active">
           <span class="category-post">『模组开发日记』之修复在游戏中合成物品无法在配方书中解锁配方的bug</span>
         </a>
       
@@ -431,7 +431,7 @@
       
         <a href="/2024/11/29/%E3%80%8E%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E8%8A%92%E6%9E%9C%E6%A0%91%E5%8A%A0%E5%85%A5%E4%B8%96%E7%95%8C/" title="『模组开发日记』之芒果树加入世界"
            class="list-group-item list-group-item-action
-           active">
+           ">
           <span class="category-post">『模组开发日记』之芒果树加入世界</span>
         </a>
       
@@ -508,12 +508,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">『模组开发日记』之芒果树加入世界</h1>
+            <h1 id="seo-header">『模组开发日记』之修复在游戏中合成物品无法在配方书中解锁配方的bug</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年11月30日 晚上
+                    本文最后更新于 2025年9月14日 下午
                   
                 
               </p>
@@ -521,32 +521,40 @@
             
               <div class="markdown-body">
                 
-                <h1 align="center"><span id="芒果树加入世界"><span style="color: cadetblue;">芒果树加入世界</span></span></h1>
+                <h1 align="center"><span id="关于如何解决游戏中配方书解锁的问题">关于如何解决游戏中配方书解锁的问题</span></h1>
+<br>
+<h2 style="color: #b7a0e0"><span id="发现问题">发现问题</span></h2>
+<p>由于在模组开发过程中遇到在配方书中无法解锁配方的问题</p>
+<img src="/img/配方书无法解锁.png" srcset="/img/loading_1.gif" lazyload alt>
+<h2 style="color: #b7a0e0"><span id="寻找解决办法">寻找解决办法</span></h2>
+<p>但是在我测试很多次之后还是找不到解决办法</p>
+<p>最终在群友的点拨下终于知道是怎么回事了</p>
+<h2 style="color: #b7a0e0"><span id="问题解决过程">问题解决过程</span></h2>
+<p>问题出在配方编写的程序中，因为我使用的是自动数据生成（这样比较方便不用自己手搓json）</p>
+<p>在我原本的配方编写中是这样的</p>
+<img src="/img/原本的配方生成程序.png" srcset="/img/loading_1.gif" lazyload alt>
+<p>这样写导致数据生成的时候json文件中的recipe和recipes中的id显示是minecraft</p>
+<img src="/img/原本的配方json.png" srcset="/img/loading_1.gif" lazyload alt>
+<p>这就是导致配方书中无法解锁我的模组配方的罪魁祸首</p>
+<p>在我问问题过程中有人说我这个Identifier里都都没有namespace</p>
+<p>后来我翻了一下源码之后发现</p>
+<p>原来在下面的offerTo方法里的Identifier有俩构造方法，一个是没指定namespace，那生成的json文件中的recipe和recipes就是默认minecraft，所以指定namespace就是行了，namespace就是mod_id</p>
+<img src="/img/修改后的配方生成程序.png" srcset="/img/loading_1.gif" lazyload alt>
+<p>修改之后问题完美解决，游戏中拾取模组物品也会解锁相应配方了</p>
+<img src="/img/后来的配方json.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+<h2 style="color: #b7a0e0"><span id="后续代码优化">后续代码优化</span></h2>
+<p>但有一些配方不是像上面那样工作台合成的，比如熔炉，或者是九合一配方</p>
+<p>这些配方原版是通过自定义了特殊的方法来给熔炉这些特殊配方</p>
+<p>解决办法也很简单，只要重写原版的方法然后修改其Identifier中的namespace为自己的模组id再调用重写的方法就行了（下面以九合一的配方示例）</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//9&gt;1</span><br>        ShapedRecipeJsonBuilder.create(compactingCategory, compactItem)<br>                .input(Character.valueOf(<span class="hljs-string">&#x27;#&#x27;</span>), baseItem)<br>                .pattern(<span class="hljs-string">&quot;###&quot;</span>)<br>                .pattern(<span class="hljs-string">&quot;###&quot;</span>)<br>                .pattern(<span class="hljs-string">&quot;###&quot;</span>)<br>                .group(compactingGroup)<br>                .criterion(RecipeProvider.hasItem(baseItem), RecipeProvider.conditionsFromItem(baseItem))<br>                .offerTo(exporter, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Identifier</span>(<span class="hljs-string">&quot;test-mod&quot;</span>, compactingId));<br></code></pre></td></tr></table></figure>
+<p>这样再调用该方法就可以生成正确的json文件了</p>
 <hr>
 
-<h2 style="color: #b7a0e0"><span id="芒果">芒果</span></h2>
-<p>芒果树上长芒果</p>
-<p>芒果树</p>
-<img src="/img/芒果树.png" srcset="/img/loading_1.gif" lazyload alt>
-<br>
-<p>芒果树会自然生成在游戏里的繁花森林，森林，草甸和稀疏丛林群系中</p>
-<br>
-<p>下面是一些有关芒果相关物品的展示</p>
-<img src="/img/芒果树物品展示.png" srcset="/img/loading_1.gif" lazyload alt="芒果树物品展示">
-<br>
-<p>玩家每食用一个芒果会恢复4点饥饿值和2点饱食度</p>
-<br>
-<p>下面是有关芒果的物品在物品栏中的展示</p>
-<img src="/img/芒果相关.png" srcset="/img/loading_1.gif" lazyload alt="芒果相关">
-<p>ps：挂在树上的芒果果实是可以通过精准采集附魔直接采摘下来的</p>
-<p>而且采摘下来的芒果果实可以悬挂在芒果树叶下</p>
-<br>
-
-<hr>
-<h2 style="color: #b7a0e0"><span id="预告">预告</span></h2>  
-<p>后面将会开发银杏树</p>
-<p>后续将会开发柠檬树</p>
-<p>更远大的目标是将更多一些植物加到模组里去</p>
+<h2 style="color: #b7a0e0"><span id="后记">后记</span></h2>
+<p>其实自己后面想想这个问题其实也不是很难，就没看懂Identifier中的两个构造方法的含义是什么</p>
+<p>也是被自己蠢到了</p>
 
 <blockquote>  
 <p style="color: #bbbbee">“一花一世界，一叶一菩提”</p>
@@ -603,8 +611,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>『模组开发日记』之芒果树加入世界</div>
-      <div>http://example.com/2024/11/29/『模组开发日记』之芒果树加入世界/</div>
+      <div>『模组开发日记』之修复在游戏中合成物品无法在配方书中解锁配方的bug</div>
+      <div>http://example.com/2025/09/14/『模组开发日记』之修复在游戏中合成物品无法在配方书中解锁配方的bug/</div>
     </div>
     <div class="license-meta">
       
@@ -616,13 +624,13 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年11月29日</div>
+          <div>2025年9月14日</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2024年11月30日</div>
+          <div>2025年9月14日</div>
         </div>
       
       
@@ -653,18 +661,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/11/30/%E3%80%8E%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%85%B3%E4%BA%8E%E5%A6%82%E4%BD%95%E7%94%9F%E6%88%90%E6%8C%82%E5%9C%A8%E6%A0%91%E4%B8%8A%E7%9A%84%E6%9E%9C%E5%AD%90/" title="『模组开发日记』之关于如何生成挂在树上的果子">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">『模组开发日记』之关于如何生成挂在树上的果子</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/11/27/%E3%80%8E%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%A0%87%E7%93%9C%E6%A0%91%E5%8A%A0%E5%85%A5%E4%B8%96%E7%95%8C/" title="『模组开发日记』之堇瓜树加入世界">
-                        <span class="hidden-mobile">『模组开发日记』之堇瓜树加入世界</span>
+                      <a href="/2024/12/23/%E3%80%8E%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E8%8A%A6%E8%8D%BB%E8%8A%B1%E5%8A%A0%E5%85%A5%E4%B8%96%E7%95%8C/" title="『模组开发日记』之芦荻花加入世界">
+                        <span class="hidden-mobile">『模组开发日记』之芦荻花加入世界</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
