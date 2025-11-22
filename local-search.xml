@@ -4,6 +4,68 @@
   
   
   <entry>
+    <title>『博客开发日记』之前台系统的搭建</title>
+    <link href="/2025/11/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%89%8D%E5%8F%B0%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%90%AD%E5%BB%BA/"/>
+    <url>/2025/11/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%89%8D%E5%8F%B0%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%90%AD%E5%BB%BA/</url>
+    
+    <content type="html"><![CDATA[<h1 align="center"><span id="博客项目搭建"><span style="color: cadetblue;">博客项目搭建</span></span></h1><hr><h2 style="color: #b7a0e0"><span id="前台系统需求">前台系统需求</span></h2><h3 style="color: #b7a0e0"><span id="热门文章列表">热门文章列表</span></h3><h4 style="color: #b7a0e0"><span id="热门文章列表分析">热门文章列表分析</span></h4><p>要先想好文章表中有那些字段是需要设计的，这更想产品经理要干的活，要有产品思维</p><p>通过想好有那些必要的字段来设计有关文章页的数据库表</p><p>每个页面都会有其对应的数据库表，所以要提前设计好</p><p>这就是静态博客和动态前后端分离博客最大的区别</p><img src="/img/设计有关文章页的数据库表.png" srcset="/img/loading_1.gif" lazyload alt><hr><h4 style="color: #b7a0e0"><span id="需求分析">需求分析</span></h4><p>关于文章页面的相关产品需求如下：</p><p>1.需要查询浏览量最高的前10篇文章的信息</p><p>2.要求展示文章标题和浏览量</p><p>3.把能让用户自己点击跳转到具体的文章详情进行浏览</p><p>4.要按照浏览量进行降序排列</p><p>注意:不能把草稿展示出来，不能把删除了的文章查询出来</p><hr><p>这些需求会涉及到前端和后端两部分</p><p>前端会去请求接口来返回对应的数据（如文章的标题，浏览量等），当前端获取到数据后就会进行渲染</p><p>后端要干是就是要把前端会去请求的接口的数据查询出来（主要查询文章表，注意不能把草稿和已删除的文章查询出来（这在数据库表单中的status字段的状态必须是0（已发布）才能查询出来））</p><hr><h4 style="color: #b7a0e0"><span id="接口设计">接口设计</span></h4><p>需要设计前后端在交互时要用上什么接口，后端需要给前端传什么参数，要响应什么数据给前端，这就是设计接口所要想的</p><p>创建统一响应类和响应枚举</p><p>因为统一响应类在前台和后台都会使用到所以将该类写在mengze-framework模块下</p><img src="/img/统一响应类.png" srcset="/img/loading_1.gif" lazyload alt><hr><p>通过枚举类对code和msg进行封装</p><img src="/img/创建枚举类.png" srcset="/img/loading_1.gif" lazyload alt><hr><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><hr><p align="center" style="color: hotpink;font-size: 20px"><strong>PS:该系列只做为作者学习开发项目做的笔记用</strong></p><p align="center" style="color: hotpink;font-size: 20px"><strong>不一定符合读者来学习，仅供参考</strong></p><hr><h2 style="color: #b7a0e0"><span id="预告">预告</span></h2>  <p>后续会记录博客的开发过程</p><p>每次学习会做一份笔记来进行发表</p><blockquote>  <p style="color: #bbbbee">“一花一世界，一叶一菩提”</p></blockquote><hr><p>版权所有 © 2025 云梦泽<br>欢迎访问我的个人网站：<a href="https://hgt12.github.io/">https://hgt12.github.io/</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>博客开发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>技术向</tag>
+      
+      <tag>个人博客</tag>
+      
+      <tag>前端</tag>
+      
+      <tag>后端</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>『博客开发日记』之项目搭建</title>
+    <link href="/2025/11/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/"/>
+    <url>/2025/11/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/</url>
+    
+    <content type="html"><![CDATA[<h1 align="center"><span id="博客项目搭建"><span style="color: cadetblue;">博客项目搭建</span></span></h1><hr><h2 style="color: #b7a0e0"><span id="起因">起因</span></h2><p>因为一直以来本博客都是以Hexo为框架来搭建的，而本人又想试着自己搭建一个真正的前后端分离的博客出来。</p><p>这样对于我来说使用博客可以更加灵活，想修改博客页面也更加方便。</p><p>同时也是对我学的专业知识的一个考验。</p><p>所以就萌生了这个真真正正自己开发博客的一个想法。</p><p>虽然我知道这条路困难肯定会很多</p><p>但是我会坚持下去的</p><br><h3 style="color: #b7a0e0"><span id="说明">说明</span></h3><p>本次学习主要巩固我的后端知识</p><p>本次学习是跟着B站 三更草堂 老师学习</p><p>如果对这方面感兴趣也可以去B站学习</p><br><h2 style="color: #b7a0e0"><span id="搭建项目">搭建项目</span></h2><h3 style="color: #b7a0e0"><span id="maven父子模块的构建">Maven父子模块的构建</span></h3><p>这次开发的博客会有前台与后台两个系统，前台用于展示博客文章与个人信息，后台用于用户发布博客文章</p><p>由于其前后端分离的性质，同时会有登录功能提供给游客登录</p><p>使用到的主要技术栈有</p><p>后端：SpringBoot,MybatisPlus,SpringSecurity,EasyExcel,swagger2,Redis等</p><p>前端：Echarts,Vue,ElementUI</p><p>因为前后端两套系统中有很多内容是重复的，为了提高代码的可复用性和系统的可维护性</p><p>本次开发会使用多模块项目的方式来开发</p><p>使得两套系统中可能会重复用到的代码写到一个公共模块中</p><p>让前台系统和后台系统分别在公共模块中去取依赖来使用</p><p>会使用到父子模块的概念，Maven的聚合工程</p><img src="/img/博客项目前期Maven父子模块搭建.png" srcset="/img/loading_1.gif" lazyload alt><p></p><br><h3 style="color: #b7a0e0"><span id="配置springboot和mybatispuls">配置SpringBoot和MybatisPuls</span></h3><p>先配置启动类</p><img src="/img/配置启动类.png" srcset="/img/loading_1.gif" lazyload alt><hr><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//SpringBoot启动类</span><br><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MengZeBlogApplication</span><br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        SpringApplication.run(MengZeBlogApplication.class, args);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><hr><p>创建数据库和配置application.yml文件</p><img src="/img/创建数据库.png" srcset="/img/loading_1.gif" lazyload alt><img src="/img/配置application.yml文件.png" srcset="/img/loading_1.gif" lazyload alt><hr><p>有关EasyCode插件的使用</p><img src="/img/有关EasyCode插件的使用.png" srcset="/img/loading_1.gif" lazyload alt><hr><p>在设置中可以自定义模板</p><img src="/img/自定义模板.png" srcset="/img/loading_1.gif" lazyload alt><hr><p>在实际开发中mengze-blog和mengze-admin模块中的一些表单有可能重复（entity,mapper,service）</p><p>所以将这些实体类的和相关的代码写在mengze-framework模块里，目的是提高整个项目代码的可复用性</p><img src="/img/entity,mapper,service的创建.png" srcset="/img/loading_1.gif" lazyload alt><hr><p>而controller作为具体的接口，写在mengze-blog模块中</p><img src="/img/测试接口.png" srcset="/img/loading_1.gif" lazyload alt><hr><p>成功访问http://localhost:7777/article/list</p><img src="/img/访问成功.png" srcset="/img/loading_1.gif" lazyload alt><hr><p align="center" style="color: hotpink;font-size: 20px"><strong>PS:该系列只做为作者学习开发项目做的笔记用</strong></p><p align="center" style="color: hotpink;font-size: 20px"><strong>不一定符合读者来学习，仅供参考</strong></p><hr><h2 style="color: #b7a0e0"><span id="预告">预告</span></h2>  <p>后续会记录博客的开发过程</p><p>每次学习会做一份笔记来进行发表</p><blockquote>  <p style="color: #bbbbee">“一花一世界，一叶一菩提”</p></blockquote><hr><p>版权所有 © 2025 云梦泽<br>欢迎访问我的个人网站：<a href="https://hgt12.github.io/">https://hgt12.github.io/</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>博客开发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>技术向</tag>
+      
+      <tag>个人博客</tag>
+      
+      <tag>前端</tag>
+      
+      <tag>后端</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>生日快乐！白鹭公主</title>
     <link href="/2025/09/28/%E7%94%9F%E6%97%A5%E5%BF%AB%E4%B9%90%EF%BC%81%E7%99%BD%E9%B9%AD%E5%85%AC%E4%B8%BB/"/>
     <url>/2025/09/28/%E7%94%9F%E6%97%A5%E5%BF%AB%E4%B9%90%EF%BC%81%E7%99%BD%E9%B9%AD%E5%85%AC%E4%B8%BB/</url>

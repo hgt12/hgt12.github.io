@@ -19,28 +19,29 @@
   <meta name="author" content="云梦泽">
   <meta name="keywords" content="js html">
   
-    <meta name="description" content="绫华生日快乐！  樱落初见时,生辰寄绫华 今日是你的生辰,首先祝你生辰快乐 可我提笔在即竟迷茫该用怎样的字句 才能配得上你的这份如白梅映雪般的清雅     回想在稻妻的樱花林下与你相逢时 远看着你在笼着一层薄纱的月光下 看着一发间簪着的白梅衬着和服下摆的流云纹 看着身为神里家大小姐的你 给人一种触不可及的距离感     在和你相处的日子里 或是在神里屋敷的庭院共赏落雪 或是听你谈起对稻妻百姓的牵挂">
+    <meta name="description" content="博客项目搭建   前台系统需求 热门文章列表 热门文章列表分析 要先想好文章表中有那些字段是需要设计的，这更想产品经理要干的活，要有产品思维 通过想好有那些必要的字段来设计有关文章页的数据库表 每个页面都会有其对应的数据库表，所以要提前设计好 这就是静态博客和动态前后端分离博客最大的区别    需求分析 关于文章页面的相关产品需求如下： 1.需要查询浏览量最高的前10篇文章的信息 2.要求展示文章">
 <meta property="og:type" content="article">
-<meta property="og:title" content="生日快乐！白鹭公主">
-<meta property="og:url" content="http://example.com/2025/09/28/%E7%94%9F%E6%97%A5%E5%BF%AB%E4%B9%90%EF%BC%81%E7%99%BD%E9%B9%AD%E5%85%AC%E4%B8%BB/index.html">
+<meta property="og:title" content="『博客开发日记』之前台系统的搭建">
+<meta property="og:url" content="http://example.com/2025/11/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%89%8D%E5%8F%B0%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%90%AD%E5%BB%BA/index.html">
 <meta property="og:site_name" content="云梦泽的个人博客">
-<meta property="og:description" content="绫华生日快乐！  樱落初见时,生辰寄绫华 今日是你的生辰,首先祝你生辰快乐 可我提笔在即竟迷茫该用怎样的字句 才能配得上你的这份如白梅映雪般的清雅     回想在稻妻的樱花林下与你相逢时 远看着你在笼着一层薄纱的月光下 看着一发间簪着的白梅衬着和服下摆的流云纹 看着身为神里家大小姐的你 给人一种触不可及的距离感     在和你相处的日子里 或是在神里屋敷的庭院共赏落雪 或是听你谈起对稻妻百姓的牵挂">
+<meta property="og:description" content="博客项目搭建   前台系统需求 热门文章列表 热门文章列表分析 要先想好文章表中有那些字段是需要设计的，这更想产品经理要干的活，要有产品思维 通过想好有那些必要的字段来设计有关文章页的数据库表 每个页面都会有其对应的数据库表，所以要提前设计好 这就是静态博客和动态前后端分离博客最大的区别    需求分析 关于文章页面的相关产品需求如下： 1.需要查询浏览量最高的前10篇文章的信息 2.要求展示文章">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/%E7%BB%AB%E5%8D%8E2025.jpg">
-<meta property="article:published_time" content="2025-09-28T10:18:57.000Z">
-<meta property="article:modified_time" content="2025-09-28T12:14:42.030Z">
+<meta property="og:image" content="http://example.com/img/suibi.png">
+<meta property="article:published_time" content="2025-11-22T09:18:51.000Z">
+<meta property="article:modified_time" content="2025-11-22T11:21:03.911Z">
 <meta property="article:author" content="云梦泽">
-<meta property="article:tag" content="日常">
-<meta property="article:tag" content="朋友圈">
-<meta property="article:tag" content="神里绫华">
+<meta property="article:tag" content="技术向">
+<meta property="article:tag" content="个人博客">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="后端">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/%E7%BB%AB%E5%8D%8E2025.jpg">
+<meta name="twitter:image" content="http://example.com/img/suibi.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>生日快乐！白鹭公主 - 云梦泽的个人博客</title>
+  <title>『博客开发日记』之前台系统的搭建 - 云梦泽的个人博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -235,13 +236,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/%E7%A5%9E%E9%87%8C%E7%BB%AB%E5%8D%8E.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/%E5%A3%81%E7%BA%B810.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="生日快乐！白鹭公主"></span>
+            <span id="subtitle" data-typed-text="『博客开发日记』之前台系统的搭建"></span>
           
         </div>
 
@@ -257,8 +258,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-09-28 18:18" pubdate>
-          2025年9月28日 晚上
+        <time datetime="2025-11-22 17:18" pubdate>
+          2025年11月22日 下午
         </time>
       </span>
     
@@ -269,7 +270,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          427 字
+          579 字
         
       </span>
     
@@ -280,7 +281,7 @@
         
         
         
-          4 分钟
+          5 分钟
         
       </span>
     
@@ -338,17 +339,17 @@
     
     <div class="category row nomargin-x">
       <a class="category-item 
-          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="日常"
-        id="heading-943e6d3324693188a3f1955a7f921a69" role="tab" data-toggle="collapse" href="#collapse-943e6d3324693188a3f1955a7f921a69"
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="博客开发"
+        id="heading-82ca913bdcd63a1c254ebc1bbfb52228" role="tab" data-toggle="collapse" href="#collapse-82ca913bdcd63a1c254ebc1bbfb52228"
         aria-expanded="true"
       >
-        日常
+        博客开发
         <span class="list-group-count">(2)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse show" id="collapse-943e6d3324693188a3f1955a7f921a69"
-           role="tabpanel" aria-labelledby="heading-943e6d3324693188a3f1955a7f921a69">
+      <div class="category-collapse collapse show" id="collapse-82ca913bdcd63a1c254ebc1bbfb52228"
+           role="tabpanel" aria-labelledby="heading-82ca913bdcd63a1c254ebc1bbfb52228">
         
         
           
@@ -357,19 +358,19 @@
     
       
       
-        <a href="/2024/10/17/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" title="我的第一篇博客"
+        <a href="/2025/11/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%89%8D%E5%8F%B0%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%90%AD%E5%BB%BA/" title="『博客开发日记』之前台系统的搭建"
            class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">我的第一篇博客</span>
+           active">
+          <span class="category-post">『博客开发日记』之前台系统的搭建</span>
         </a>
       
     
       
       
-        <a href="/2025/09/28/%E7%94%9F%E6%97%A5%E5%BF%AB%E4%B9%90%EF%BC%81%E7%99%BD%E9%B9%AD%E5%85%AC%E4%B8%BB/" title="生日快乐！白鹭公主"
+        <a href="/2025/11/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/" title="『博客开发日记』之项目搭建"
            class="list-group-item list-group-item-action
-           active">
-          <span class="category-post">生日快乐！白鹭公主</span>
+           ">
+          <span class="category-post">『博客开发日记』之项目搭建</span>
         </a>
       
     
@@ -391,12 +392,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">生日快乐！白鹭公主</h1>
+            <h1 id="seo-header">『博客开发日记』之前台系统的搭建</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年9月28日 晚上
+                    本文最后更新于 2025年11月22日 晚上
                   
                 
               </p>
@@ -404,63 +405,61 @@
             
               <div class="markdown-body">
                 
-                <h1 align="center"><span id="绫华生日快乐"><span style="color: #6ac3d6;">绫华生日快乐！</span></span></h1>
+                <h1 align="center"><span id="博客项目搭建"><span style="color: cadetblue;">博客项目搭建</span></span></h1>
 <hr>
-<h2 style="color: #6ac3d6"><span id="樱落初见时生辰寄绫华">樱落初见时,生辰寄绫华</span></h2>
-<p align="center">今日是你的生辰,首先祝你生辰快乐</p>
-<p align="center">可我提笔在即竟迷茫该用怎样的字句</p>
-<p align="center">才能配得上你的这份如白梅映雪般的清雅</p>
-<div style="text-align: center;">
-<img src="/img/绫华2021.png" srcset="/img/loading_1.gif" lazyload alt="绫华2021" width="250" height="250">
-</div>
+
+<h2 style="color: #b7a0e0"><span id="前台系统需求">前台系统需求</span></h2>
+<h3 style="color: #b7a0e0"><span id="热门文章列表">热门文章列表</span></h3>
+<h4 style="color: #b7a0e0"><span id="热门文章列表分析">热门文章列表分析</span></h4>
+<p>要先想好文章表中有那些字段是需要设计的，这更想产品经理要干的活，要有产品思维</p>
+<p>通过想好有那些必要的字段来设计有关文章页的数据库表</p>
+<p>每个页面都会有其对应的数据库表，所以要提前设计好</p>
+<p>这就是静态博客和动态前后端分离博客最大的区别</p>
+<img src="/img/设计有关文章页的数据库表.png" srcset="/img/loading_1.gif" lazyload alt>
 <hr>
-<p align="center">回想在稻妻的樱花林下与你相逢时</p>
-<p align="center">远看着你在笼着一层薄纱的月光下</p>
-<p align="center">看着一发间簪着的白梅衬着和服下摆的流云纹</p>
-<p align="center">看着身为神里家大小姐的你</p>
-<p align="center">给人一种触不可及的距离感</p>
-<div style="text-align: center;">
-<img src="/img/绫华2022.png" srcset="/img/loading_1.gif" lazyload alt="绫华2022" width="250" height="250">
-</div>
+
+<h4 style="color: #b7a0e0"><span id="需求分析">需求分析</span></h4>
+<p>关于文章页面的相关产品需求如下：</p>
+<p>1.需要查询浏览量最高的前10篇文章的信息</p>
+<p>2.要求展示文章标题和浏览量</p>
+<p>3.把能让用户自己点击跳转到具体的文章详情进行浏览</p>
+<p>4.要按照浏览量进行降序排列</p>
+<p>注意:不能把草稿展示出来，不能把删除了的文章查询出来</p>
 <hr>
-<p align="center">在和你相处的日子里</p>
-<p align="center">或是在神里屋敷的庭院共赏落雪</p>
-<p align="center">或是听你谈起对稻妻百姓的牵挂</p>
-<p align="center">亦或是看你执剑时那份从容又坚定的模样</p>
-<p align="center">我才发现</p>
-<p align="center">可后来才慢慢发现,这份“距离感”背后</p>
-<p align="center">是你作为神里家大小姐所独有的气质，是作为“白鹭公主”所散发出来的气质</p>
-<p align="center">而“白鹭公主”这四个字</p>
-<p align="center">不仅是身份的象征，更是你温柔与担当的写照</p>
-<div style="text-align: center;">
-<img src="/img/绫华2023.png" srcset="/img/loading_1.gif" lazyload alt="绫华2023" width="250" height="250">
-</div>
+
+<p>这些需求会涉及到前端和后端两部分</p>
+<p>前端会去请求接口来返回对应的数据（如文章的标题，浏览量等），当前端获取到数据后就会进行渲染</p>
+<p>后端要干是就是要把前端会去请求的接口的数据查询出来（主要查询文章表，注意不能把草稿和已删除的文章查询出来（这在数据库表单中的status字段的状态必须是0（已发布）才能查询出来））</p>
 <hr>
-<img src="/img/绫华生日贺信.png" srcset="/img/loading_1.gif" lazyload alt="绫华生日贺信">
-<p align="center">谢谢你能在百忙中为我编制围巾</p>
-<p align="center">收到贺信的我更能感受到你端庄之下的细腻</p>
-<p align="center">但秋意渐浓，风雪终会来临</p>
-<p align="center">但愿你我心中的光与暖，能抵御寒夜的寒意</p>
-<div style="text-align: center;">
-<img src="/img/绫华2024.png" srcset="/img/loading_1.gif" lazyload alt="绫华2024" width="250" height="250">
-</div>
+
+<h4 style="color: #b7a0e0"><span id="接口设计">接口设计</span></h4>
+<p>需要设计前后端在交互时要用上什么接口，后端需要给前端传什么参数，要响应什么数据给前端，这就是设计接口所要想的</p>
+<p>创建统一响应类和响应枚举</p>
+<p>因为统一响应类在前台和后台都会使用到所以将该类写在mengze-framework模块下</p>
+<img src="/img/统一响应类.png" srcset="/img/loading_1.gif" lazyload alt>
 <hr>
-<p align="center">愿往后的日子里樱花常伴你左右</p>
-<p align="center">更愿你能多些属于自己的时光</p>
-<p align="center">去做喜欢的事，去见想看的风景</p>
-<p align="center"></p>
-<div style="text-align: center;">
-<img src="/img/绫华2025.jpg" srcset="/img/loading_1.gif" lazyload alt="绫华2025" width="250" height="250">
-</div>
+
+<p>通过枚举类对code和msg进行封装</p>
+<img src="/img/创建枚举类.png" srcset="/img/loading_1.gif" lazyload alt>
 <hr>
-<h2 align="center"><span id="薄樱初绽时寄君予相思"><span style="color: #6ac3d6;">薄樱初绽时,寄君予相思</span></span></h2>
-<h2><span id="手绘"><span style="color: #6ac3d6;">手绘</span></span></h2>
-<div style="text-align: center;">
-<img src="/img/神里绫华手绘.jpg" srcset="/img/loading_1.gif" lazyload alt="神里绫华手绘">
-</div>
+
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+
 <hr>
-<h2 style="color: #b7a0e0"><span id="后记">后记</span></h2>
-<p>祝绫华生日快乐</p>
+
+<p align="center" style="color: hotpink;font-size: 20px"><strong>PS:该系列只做为作者学习开发项目做的笔记用</strong></p>
+<p align="center" style="color: hotpink;font-size: 20px"><strong>不一定符合读者来学习，仅供参考</strong></p>
+<hr>
+<h2 style="color: #b7a0e0"><span id="预告">预告</span></h2>  
+<p>后续会记录博客的开发过程</p>
+<p>每次学习会做一份笔记来进行发表</p>
 
 <blockquote>  
 <p style="color: #bbbbee">“一花一世界，一叶一菩提”</p>
@@ -486,7 +485,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%97%A5%E5%B8%B8/" class="category-chain-item">日常</a>
+  <a href="/categories/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/" class="category-chain-item">博客开发</a>
   
   
 
@@ -501,11 +500,13 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%97%A5%E5%B8%B8/" class="print-no-link">#日常</a>
+        <a href="/tags/%E6%8A%80%E6%9C%AF%E5%90%91/" class="print-no-link">#技术向</a>
       
-        <a href="/tags/%E6%9C%8B%E5%8F%8B%E5%9C%88/" class="print-no-link">#朋友圈</a>
+        <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" class="print-no-link">#个人博客</a>
       
-        <a href="/tags/%E7%A5%9E%E9%87%8C%E7%BB%AB%E5%8D%8E/" class="print-no-link">#神里绫华</a>
+        <a href="/tags/%E5%89%8D%E7%AB%AF/" class="print-no-link">#前端</a>
+      
+        <a href="/tags/%E5%90%8E%E7%AB%AF/" class="print-no-link">#后端</a>
       
     </div>
   
@@ -517,8 +518,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>生日快乐！白鹭公主</div>
-      <div>http://example.com/2025/09/28/生日快乐！白鹭公主/</div>
+      <div>『博客开发日记』之前台系统的搭建</div>
+      <div>http://example.com/2025/11/22/『博客开发日记』之前台系统的搭建/</div>
     </div>
     <div class="license-meta">
       
@@ -530,13 +531,13 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年9月28日</div>
+          <div>2025年11月22日</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2025年9月28日</div>
+          <div>2025年11月22日</div>
         </div>
       
       
@@ -567,18 +568,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/11/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/" title="『博客开发日记』之项目搭建">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">『博客开发日记』之项目搭建</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/09/23/%E3%80%8E%E6%A8%A1%E7%BB%84%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%9D%92%E9%87%91%E9%93%9C%E5%A5%97%E4%B8%8E%E5%85%8D%E6%AD%BB%E6%95%88%E6%9E%9C/" title="『模组开发日记』之青金铜套与免死效果">
-                        <span class="hidden-mobile">『模组开发日记』之青金铜套与免死效果</span>
+                      <a href="/2025/11/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/" title="『博客开发日记』之项目搭建">
+                        <span class="hidden-mobile">『博客开发日记』之项目搭建</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
