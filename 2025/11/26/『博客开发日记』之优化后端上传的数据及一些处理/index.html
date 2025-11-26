@@ -19,29 +19,29 @@
   <meta name="author" content="云梦泽">
   <meta name="keywords" content="js html">
   
-    <meta name="description" content="基础代码实现   对文章的查询功能 先在在文章控制器层创建热门文档查询接口    然后在ArticleServiceImpl类中用方法实现查询热门文章封装成ResponseResult返回  调试成功  通过http:&#x2F;&#x2F;localhost:7777&#x2F;article&#x2F;hotArticleList接口调试成功  至此热门文章页面的接口测试完成 接下来结合前端工程一起进行测试   结合前端工程进行测试">
+    <meta name="description" content="优化后端上传的数据及一些处理   使用VO对后端上传的字段进行限制 目前的响应格式其实是不符合接口文档的标准的 因为他多返回了很多字段 这是因为我们查询出来的结果是Article来封装的 而Article中字段比较多 所有要用VO类来规范多少字段可以传到前端 在项目中要把VO来接受查询出来的结果用一个接口对应一个VO 这样即使接口响应字段要修改也只要改VO即可    先在Service中编写后续，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="『博客开发日记』之基础代码实现">
-<meta property="og:url" content="http://example.com/2025/11/23/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%9F%BA%E7%A1%80%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:title" content="『博客开发日记』之优化后端上传的数据及一些处理">
+<meta property="og:url" content="http://example.com/2025/11/26/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BC%98%E5%8C%96%E5%90%8E%E7%AB%AF%E4%B8%8A%E4%BC%A0%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8F%8A%E4%B8%80%E4%BA%9B%E5%A4%84%E7%90%86/index.html">
 <meta property="og:site_name" content="云梦泽的个人博客">
-<meta property="og:description" content="基础代码实现   对文章的查询功能 先在在文章控制器层创建热门文档查询接口    然后在ArticleServiceImpl类中用方法实现查询热门文章封装成ResponseResult返回  调试成功  通过http:&#x2F;&#x2F;localhost:7777&#x2F;article&#x2F;hotArticleList接口调试成功  至此热门文章页面的接口测试完成 接下来结合前端工程一起进行测试   结合前端工程进行测试">
+<meta property="og:description" content="优化后端上传的数据及一些处理   使用VO对后端上传的字段进行限制 目前的响应格式其实是不符合接口文档的标准的 因为他多返回了很多字段 这是因为我们查询出来的结果是Article来封装的 而Article中字段比较多 所有要用VO类来规范多少字段可以传到前端 在项目中要把VO来接受查询出来的结果用一个接口对应一个VO 这样即使接口响应字段要修改也只要改VO即可    先在Service中编写后续，">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/%E5%A3%81%E7%BA%B816.png">
-<meta property="article:published_time" content="2025-11-23T02:54:19.000Z">
-<meta property="article:modified_time" content="2025-11-26T04:56:55.324Z">
+<meta property="og:image" content="http://example.com/img/%E5%A3%81%E7%BA%B817.jpg">
+<meta property="article:published_time" content="2025-11-26T04:57:11.000Z">
+<meta property="article:modified_time" content="2025-11-26T10:02:09.443Z">
 <meta property="article:author" content="云梦泽">
 <meta property="article:tag" content="技术向">
 <meta property="article:tag" content="个人博客">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="后端">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/%E5%A3%81%E7%BA%B816.png">
+<meta name="twitter:image" content="http://example.com/img/%E5%A3%81%E7%BA%B817.jpg">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>『博客开发日记』之基础代码实现 - 云梦泽的个人博客</title>
+  <title>『博客开发日记』之优化后端上传的数据及一些处理 - 云梦泽的个人博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -236,13 +236,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/%E5%A3%81%E7%BA%B816.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/%E5%A3%81%E7%BA%B817.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="『博客开发日记』之基础代码实现"></span>
+            <span id="subtitle" data-typed-text="『博客开发日记』之优化后端上传的数据及一些处理"></span>
           
         </div>
 
@@ -258,8 +258,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-11-23 10:54" pubdate>
-          2025年11月23日 上午
+        <time datetime="2025-11-26 12:57" pubdate>
+          2025年11月26日 下午
         </time>
       </span>
     
@@ -270,7 +270,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          273 字
+          704 字
         
       </span>
     
@@ -281,7 +281,7 @@
         
         
         
-          3 分钟
+          6 分钟
         
       </span>
     
@@ -360,7 +360,7 @@
       
         <a href="/2025/11/26/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BC%98%E5%8C%96%E5%90%8E%E7%AB%AF%E4%B8%8A%E4%BC%A0%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8F%8A%E4%B8%80%E4%BA%9B%E5%A4%84%E7%90%86/" title="『博客开发日记』之优化后端上传的数据及一些处理"
            class="list-group-item list-group-item-action
-           ">
+           active">
           <span class="category-post">『博客开发日记』之优化后端上传的数据及一些处理</span>
         </a>
       
@@ -387,7 +387,7 @@
       
         <a href="/2025/11/23/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%9F%BA%E7%A1%80%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之基础代码实现"
            class="list-group-item list-group-item-action
-           active">
+           ">
           <span class="category-post">『博客开发日记』之基础代码实现</span>
         </a>
       
@@ -419,12 +419,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">『博客开发日记』之基础代码实现</h1>
+            <h1 id="seo-header">『博客开发日记』之优化后端上传的数据及一些处理</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年11月26日 下午
+                    本文最后更新于 2025年11月26日 晚上
                   
                 
               </p>
@@ -432,35 +432,47 @@
             
               <div class="markdown-body">
                 
-                <h1 align="center"><span id="基础代码实现"><span style="color: cadetblue;">基础代码实现</span></span></h1>
+                <h1 align="center"><span id="优化后端上传的数据及一些处理"><span style="color: cadetblue;">优化后端上传的数据及一些处理</span></span></h1>
 <hr>
 
-<h2 style="color: #b7a0e0"><span id="对文章的查询功能">对文章的查询功能</span></h2>
-<p>先在在文章控制器层创建热门文档查询接口</p>
-<img src="/img/在文章控制器层创建热门文档查询接口.png" srcset="/img/loading_1.gif" lazyload alt>
+<h2 style="color: #b7a0e0"><span id="使用vo对后端上传的字段进行限制">使用VO对后端上传的字段进行限制</span></h2>
+<p>目前的响应格式其实是不符合接口文档的标准的</p>
+<p>因为他多返回了很多字段</p>
+<p>这是因为我们查询出来的结果是Article来封装的</p>
+<p>而Article中字段比较多</p>
+<p>所有要用VO类来规范多少字段可以传到前端</p>
+<p>在项目中要把VO来接受查询出来的结果用一个接口对应一个VO</p>
+<p>这样即使接口响应字段要修改也只要改VO即可</p>
+<img src="/img/用Vo来限制字段传输.png" srcset="/img/loading_1.gif" lazyload alt>
 <hr>
 
-<p>然后在ArticleServiceImpl类中用方法实现查询热门文章封装成ResponseResult返回</p>
-<img src="/img/在ArticleServiceImpl类中用方法实现查询热门文章封装成ResponseResult返回.png" srcset="/img/loading_1.gif" lazyload alt>
-<hr>调试成功
-
-<p>通过http://localhost:7777/article/hotArticleList接口调试成功</p>
-<img src="/img/调试成功.png" srcset="/img/loading_1.gif" lazyload alt>
-<p>至此热门文章页面的接口测试完成</p>
-<p>接下来结合前端工程一起进行测试</p>
+<p>先在Service中编写后续，再把循环封装调整</p>
+<img src="/img/现在Service中编写后续再调整.png" srcset="/img/loading_1.gif" lazyload alt>
 <hr>
 
-<h2 style="color: #b7a0e0"><span id="结合前端工程进行测试">结合前端工程进行测试</span></h2>
-<p>前端部署成功</p>
-<img src="/img/前端启动成功1.png" srcset="/img/loading_1.gif" lazyload alt>
-<img src="/img/前端启动成功2.png" srcset="/img/loading_1.gif" lazyload alt>
+<h2 style="color: #b7a0e0"><span id="对字面值的处理">对字面值的处理</span></h2>
+<p>实际项目中都不允许直接在代码中使用字面值</p>
+<p>都需要定义成常量来使用</p>
+<p>这种方式有利于提高代码的可维护性</p>
+<img src="/img/字面值.png" srcset="/img/loading_1.gif" lazyload alt>
 <hr>
 
-<p>由于网站跨域问题导致前端热门文章中无法获取后端传过来的数据，所以要编写WebConfig类来解决跨域问题</p>
-<img src="/img/跨域问题成功解决.png" srcset="/img/loading_1.gif" lazyload alt>
+<p>通过定义一个常量类来解决这个问题</p>
+<img src="/img/创建常量类.png" srcset="/img/loading_1.gif" lazyload alt>
 <hr>
-<p>跨域问题解决后前端热门文章页面成功显示</p>
-<img src="/img/热门文章接口成功连接.png" srcset="/img/loading_1.gif" lazyload alt>
+
+<h2 style="color: #b7a0e0"><span id="封装bean工具类">封装Bean工具类</span></h2>
+<p>创建工具包，以后要使用的工具类都放在这个包下</p>
+<p>对上面的Vo进行封装</p>
+<img src="/img/创建工具包.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>因为有一些实体类只涉及一个字段而有些涉及多个字段，所以要分情况写</p>
+<p>期望是在方法内部自己去创建Vo对象，通过传入参数来实现(通过Class字节码的反射方式来创建目标对象，然后再实现拷贝)</p>
+<p>创建BeanCopyUtils工具类来对bean进行封装</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//Bean封装工具类</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">BeanCopyUtils</span><br>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-title function_">BeanCopyUtils</span><span class="hljs-params">()</span>&#123;<br>    &#125;<br><br>    <span class="hljs-comment">//因为有一些实体类只涉及一个字段而有些涉及多个字段，所以要分情况写</span><br>    <span class="hljs-comment">//期望是在方法内部自己去创建Vo对象，通过传入参数来实现(通过Class字节码的反射方式来创建目标对象，然后再实现拷贝)</span><br>    <span class="hljs-comment">//通过泛型来实现对象相同类型的返回</span><br><br>    <span class="hljs-comment">//涉及单个字段的拷贝</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;V&gt; V <span class="hljs-title function_">copyBean</span><span class="hljs-params">(Object source, Class&lt;V&gt; clazz)</span><br>    &#123;<br>        <span class="hljs-comment">//创建目标对对象</span><br>        V result;<br>        <span class="hljs-keyword">try</span> &#123;<br>            result = clazz.newInstance();<br>            <span class="hljs-comment">//实现属性拷贝</span><br>            BeanUtils.copyProperties(source, result);<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(e);<br>        &#125;<br>        <span class="hljs-comment">//返回结果</span><br>        <span class="hljs-keyword">return</span> result;<br>    &#125;<br><br>    <span class="hljs-comment">//如果要实现多个字段的拷贝，例如列表的拷贝</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;O,V&gt; List&lt;V&gt; <span class="hljs-title function_">copyBeanList</span><span class="hljs-params">(List&lt;O&gt; list, Class&lt;V&gt; clazz)</span><br>    &#123;<br>        <span class="hljs-comment">//通过遍历list集合来调用上面的copyBean方法来实现（不用for循环，使用stream流来实现）</span><br>        <span class="hljs-keyword">return</span> list.stream()<br>                .map(o -&gt; copyBean(o,clazz))<br>                .collect(Collectors.toList());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<hr>
 
 <hr>
 
@@ -528,8 +540,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>『博客开发日记』之基础代码实现</div>
-      <div>http://example.com/2025/11/23/『博客开发日记』之基础代码实现/</div>
+      <div>『博客开发日记』之优化后端上传的数据及一些处理</div>
+      <div>http://example.com/2025/11/26/『博客开发日记』之优化后端上传的数据及一些处理/</div>
     </div>
     <div class="license-meta">
       
@@ -541,7 +553,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年11月23日</div>
+          <div>2025年11月26日</div>
         </div>
       
       
@@ -578,9 +590,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/11/26/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BC%98%E5%8C%96%E5%90%8E%E7%AB%AF%E4%B8%8A%E4%BC%A0%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8F%8A%E4%B8%80%E4%BA%9B%E5%A4%84%E7%90%86/" title="『博客开发日记』之优化后端上传的数据及一些处理">
+                      <a href="/2025/11/26/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%88%86%E7%B1%BB%E5%88%97%E8%A1%A8%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之分类列表的实现">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">『博客开发日记』之优化后端上传的数据及一些处理</span>
+                        <span class="hidden-mobile">『博客开发日记』之分类列表的实现</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -588,8 +600,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/11/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%89%8D%E5%8F%B0%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%90%AD%E5%BB%BA/" title="『博客开发日记』之前台系统的搭建">
-                        <span class="hidden-mobile">『博客开发日记』之前台系统的搭建</span>
+                      <a href="/2025/11/23/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%9F%BA%E7%A1%80%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之基础代码实现">
+                        <span class="hidden-mobile">『博客开发日记』之基础代码实现</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

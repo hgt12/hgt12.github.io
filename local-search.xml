@@ -4,6 +4,68 @@
   
   
   <entry>
+    <title>『博客开发日记』之分类列表的实现</title>
+    <link href="/2025/11/26/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%88%86%E7%B1%BB%E5%88%97%E8%A1%A8%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
+    <url>/2025/11/26/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%88%86%E7%B1%BB%E5%88%97%E8%A1%A8%E7%9A%84%E5%AE%9E%E7%8E%B0/</url>
+    
+    <content type="html"><![CDATA[<h1 align="center"><span id="分类列表的实现"><span style="color: cadetblue;">分类列表的实现</span></span></h1><hr><h2 style="color: #b7a0e0"><span id="分类列表的需求">分类列表的需求</span></h2><p>页面上需要展示分类列表，用户可以点击具体的分类查看该分类下的文章列表</p><p>注意： </p><p>①要求只展示有发布正式文章的分类</p><p>②必须是正常状态的分类</p><h2 style="color: #b7a0e0"><span id="分类列表接口分析设计">分类列表接口分析设计</span></h2><p>在前端分类列表中需要返回的数据应该有： </p><p>分类名称：前端显示用</p><p>分类id：用户点击分类名称时需要根据分类id来进行跳转到相应的分类列表</p><h2 style="color: #b7a0e0"><span id="代码实现">代码实现</span></h2>一键生成对应类于接口<p>首先要实现这个功能，就会涉及到数据库的多表查询，会用到先前数据库中的article表</p><p>先一键生成对应的类和接口</p><img src="/img/一键生成对应类于接口.png" srcset="/img/loading_1.gif" lazyload alt><hr><p>然后在CategoryServiceImpl中编写需要实现的业务代码</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Service(&quot;categoryService&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CategoryServiceImpl</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ServiceImpl</span>&lt;CategoryMapper, Category&gt; <span class="hljs-keyword">implements</span> <span class="hljs-title class_">CategoryService</span> &#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> ArticleService articleService;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> ResponseResult <span class="hljs-title function_">getCategoryList</span><span class="hljs-params">()</span><br>    &#123;<br>        <span class="hljs-comment">//先去查询文章表状态为已发布的</span><br>        LambdaQueryWrapper&lt;Article&gt; articleWrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaQueryWrapper</span>&lt;&gt;();<br>        articleWrapper.eq(Article::getStatus, SystemConstants.ARTICLE_STATUS_NORMAL);<span class="hljs-comment">//查询文章状态</span><br>        List&lt;Article&gt; articleList =  articleService.list(articleWrapper);<br>        <span class="hljs-comment">//获取文章的分类id，并且去重</span><br>        Set&lt;Long&gt; categoryId = articleList.stream()<br>                .map(Article::getCategoryId)<br>                .collect(Collectors.toSet());<br>        <span class="hljs-comment">//查询分类表</span><br>        List&lt;Category&gt; categories = listByIds(categoryId);<br>        <span class="hljs-comment">//保证是正常状态的分类</span><br>        categories =  categories.stream()<br>                .filter(category -&gt; SystemConstants.STATUS_NORMAL.equals(category.getStatus()))<br>                .collect(Collectors.toList());<br>        <span class="hljs-comment">// 封装成Vo</span><br>        <span class="hljs-keyword">final</span> List&lt;CategoryVo&gt; categoryVos = BeanCopyUtils.copyBeanList(categories, CategoryVo.class);<br>        <span class="hljs-keyword">return</span> ResponseResult.okResult(categoryVos);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>最后封装CategoryVo类</p><img src="/img/封装CategoryVo类.png" srcset="/img/loading_1.gif" lazyload alt><hr><p>测试接口成功</p><img src="/img/测试接口成功.png" srcset="/img/loading_1.gif" lazyload alt><hr><p>前端返回数据成功</p><img src="/img/前端返回数据成功.png" srcset="/img/loading_1.gif" lazyload alt><hr><hr><p align="center" style="color: hotpink;font-size: 20px"><strong>PS:该系列只做为作者学习开发项目做的笔记用</strong></p><p align="center" style="color: hotpink;font-size: 20px"><strong>不一定符合读者来学习，仅供参考</strong></p><hr><h2 style="color: #b7a0e0"><span id="预告">预告</span></h2>  <p>后续会记录博客的开发过程</p><p>每次学习会做一份笔记来进行发表</p><blockquote>  <p style="color: #bbbbee">“一花一世界，一叶一菩提”</p></blockquote><hr><p>版权所有 © 2025 云梦泽<br>欢迎访问我的个人网站：<a href="https://hgt12.github.io/">https://hgt12.github.io/</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>博客开发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>技术向</tag>
+      
+      <tag>个人博客</tag>
+      
+      <tag>前端</tag>
+      
+      <tag>后端</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>『博客开发日记』之优化后端上传的数据及一些处理</title>
+    <link href="/2025/11/26/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BC%98%E5%8C%96%E5%90%8E%E7%AB%AF%E4%B8%8A%E4%BC%A0%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8F%8A%E4%B8%80%E4%BA%9B%E5%A4%84%E7%90%86/"/>
+    <url>/2025/11/26/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BC%98%E5%8C%96%E5%90%8E%E7%AB%AF%E4%B8%8A%E4%BC%A0%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8F%8A%E4%B8%80%E4%BA%9B%E5%A4%84%E7%90%86/</url>
+    
+    <content type="html"><![CDATA[<h1 align="center"><span id="优化后端上传的数据及一些处理"><span style="color: cadetblue;">优化后端上传的数据及一些处理</span></span></h1><hr><h2 style="color: #b7a0e0"><span id="使用vo对后端上传的字段进行限制">使用VO对后端上传的字段进行限制</span></h2><p>目前的响应格式其实是不符合接口文档的标准的</p><p>因为他多返回了很多字段</p><p>这是因为我们查询出来的结果是Article来封装的</p><p>而Article中字段比较多</p><p>所有要用VO类来规范多少字段可以传到前端</p><p>在项目中要把VO来接受查询出来的结果用一个接口对应一个VO</p><p>这样即使接口响应字段要修改也只要改VO即可</p><img src="/img/用Vo来限制字段传输.png" srcset="/img/loading_1.gif" lazyload alt><hr><p>先在Service中编写后续，再把循环封装调整</p><img src="/img/现在Service中编写后续再调整.png" srcset="/img/loading_1.gif" lazyload alt><hr><h2 style="color: #b7a0e0"><span id="对字面值的处理">对字面值的处理</span></h2><p>实际项目中都不允许直接在代码中使用字面值</p><p>都需要定义成常量来使用</p><p>这种方式有利于提高代码的可维护性</p><img src="/img/字面值.png" srcset="/img/loading_1.gif" lazyload alt><hr><p>通过定义一个常量类来解决这个问题</p><img src="/img/创建常量类.png" srcset="/img/loading_1.gif" lazyload alt><hr><h2 style="color: #b7a0e0"><span id="封装bean工具类">封装Bean工具类</span></h2><p>创建工具包，以后要使用的工具类都放在这个包下</p><p>对上面的Vo进行封装</p><img src="/img/创建工具包.png" srcset="/img/loading_1.gif" lazyload alt><hr><p>因为有一些实体类只涉及一个字段而有些涉及多个字段，所以要分情况写</p><p>期望是在方法内部自己去创建Vo对象，通过传入参数来实现(通过Class字节码的反射方式来创建目标对象，然后再实现拷贝)</p><p>创建BeanCopyUtils工具类来对bean进行封装</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//Bean封装工具类</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">BeanCopyUtils</span><br>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-title function_">BeanCopyUtils</span><span class="hljs-params">()</span>&#123;<br>    &#125;<br><br>    <span class="hljs-comment">//因为有一些实体类只涉及一个字段而有些涉及多个字段，所以要分情况写</span><br>    <span class="hljs-comment">//期望是在方法内部自己去创建Vo对象，通过传入参数来实现(通过Class字节码的反射方式来创建目标对象，然后再实现拷贝)</span><br>    <span class="hljs-comment">//通过泛型来实现对象相同类型的返回</span><br><br>    <span class="hljs-comment">//涉及单个字段的拷贝</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;V&gt; V <span class="hljs-title function_">copyBean</span><span class="hljs-params">(Object source, Class&lt;V&gt; clazz)</span><br>    &#123;<br>        <span class="hljs-comment">//创建目标对对象</span><br>        V result;<br>        <span class="hljs-keyword">try</span> &#123;<br>            result = clazz.newInstance();<br>            <span class="hljs-comment">//实现属性拷贝</span><br>            BeanUtils.copyProperties(source, result);<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(e);<br>        &#125;<br>        <span class="hljs-comment">//返回结果</span><br>        <span class="hljs-keyword">return</span> result;<br>    &#125;<br><br>    <span class="hljs-comment">//如果要实现多个字段的拷贝，例如列表的拷贝</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;O,V&gt; List&lt;V&gt; <span class="hljs-title function_">copyBeanList</span><span class="hljs-params">(List&lt;O&gt; list, Class&lt;V&gt; clazz)</span><br>    &#123;<br>        <span class="hljs-comment">//通过遍历list集合来调用上面的copyBean方法来实现（不用for循环，使用stream流来实现）</span><br>        <span class="hljs-keyword">return</span> list.stream()<br>                .map(o -&gt; copyBean(o,clazz))<br>                .collect(Collectors.toList());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><hr><hr><p align="center" style="color: hotpink;font-size: 20px"><strong>PS:该系列只做为作者学习开发项目做的笔记用</strong></p><p align="center" style="color: hotpink;font-size: 20px"><strong>不一定符合读者来学习，仅供参考</strong></p><hr><h2 style="color: #b7a0e0"><span id="预告">预告</span></h2>  <p>后续会记录博客的开发过程</p><p>每次学习会做一份笔记来进行发表</p><blockquote>  <p style="color: #bbbbee">“一花一世界，一叶一菩提”</p></blockquote><hr><p>版权所有 © 2025 云梦泽<br>欢迎访问我的个人网站：<a href="https://hgt12.github.io/">https://hgt12.github.io/</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>博客开发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>技术向</tag>
+      
+      <tag>个人博客</tag>
+      
+      <tag>前端</tag>
+      
+      <tag>后端</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>『博客开发日记』之基础代码实现</title>
     <link href="/2025/11/23/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%9F%BA%E7%A1%80%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/"/>
     <url>/2025/11/23/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%9F%BA%E7%A1%80%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/</url>
