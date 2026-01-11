@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/%E5%A3%81%E7%BA%B822.png">
 <meta property="article:published_time" content="2026-01-07T02:28:26.000Z">
-<meta property="article:modified_time" content="2026-01-07T14:36:36.116Z">
+<meta property="article:modified_time" content="2026-01-11T11:40:25.965Z">
 <meta property="article:author" content="云梦泽">
 <meta property="article:tag" content="技术向">
 <meta property="article:tag" content="个人博客">
@@ -270,7 +270,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          1.7k 字
         
       </span>
     
@@ -281,7 +281,7 @@
         
         
         
-          11 分钟
+          14 分钟
         
       </span>
     
@@ -344,7 +344,7 @@
         aria-expanded="true"
       >
         博客开发
-        <span class="list-group-count">(9)</span>
+        <span class="list-group-count">(11)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -421,6 +421,24 @@
     
       
       
+        <a href="/2026/01/11/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%A0%87%E7%AD%BE%E5%88%97%E8%A1%A8%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之标签列表的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之标签列表的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/11/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%99%BB%E5%87%BA%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之登出接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之登出接口的实现</span>
+        </a>
+      
+    
+      
+      
         <a href="/2026/01/07/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%99%BB%E5%BD%95%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之登录接口的实现"
            class="list-group-item list-group-item-action
            active">
@@ -460,7 +478,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年1月7日 晚上
+                    本文最后更新于 2026年1月11日 晚上
                   
                 
               </p>
@@ -554,23 +572,30 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//jwt认证过滤器</span><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">JwtAuthenticationTokenFilter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">OncePerRequestFilter</span><br>&#123;<br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> RedisCache redisCache;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">doFilterInternal</span><span class="hljs-params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain)</span> <span class="hljs-keyword">throws</span> ServletException, IOException<br>    &#123;<br>        <span class="hljs-comment">//获取请求头中的token</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">token</span> <span class="hljs-operator">=</span> httpServletRequest.getHeader(<span class="hljs-string">&quot;token&quot;</span>);<br>        <span class="hljs-keyword">if</span> (!StringUtils.hasText(token))&#123;<br>            <span class="hljs-comment">//如果没有token，说明该接口不需要登录，直接放行</span><br>            filterChain.doFilter(httpServletRequest, httpServletResponse);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-comment">//解析获取userId</span><br>        <span class="hljs-type">Claims</span> <span class="hljs-variable">claims</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            claims = JwtUtil.parseJWT(token);<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            e.printStackTrace();<br>            <span class="hljs-comment">//token 超时，token 非法</span><br>            <span class="hljs-comment">//响应告诉前端要重新登录</span><br>            <span class="hljs-type">ResponseResult</span> <span class="hljs-variable">responseResult</span> <span class="hljs-operator">=</span> ResponseResult.errorResult(AppHttpCodeEnum.NEED_LOGIN);<br>            WebUtils.renderString(httpServletResponse, JSON.toJSONString(responseResult));<span class="hljs-comment">//将传入的数据转化为json格式</span><br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">userId</span> <span class="hljs-operator">=</span> claims.getSubject();<br>        <span class="hljs-comment">//从redis中获取用户信息</span><br>        <span class="hljs-type">LoginUser</span> <span class="hljs-variable">loginUser</span> <span class="hljs-operator">=</span> redisCache.getCacheObject(<span class="hljs-string">&quot;bloglogin:&quot;</span> + userId);<br>        <span class="hljs-comment">//如果获取不到,提示重新登录</span><br>        <span class="hljs-keyword">if</span> (Objects.isNull(loginUser))&#123;<br>            <span class="hljs-type">ResponseResult</span> <span class="hljs-variable">responseResult</span> <span class="hljs-operator">=</span> ResponseResult.errorResult(AppHttpCodeEnum.NEED_LOGIN);<br>            WebUtils.renderString(httpServletResponse, JSON.toJSONString(responseResult));<span class="hljs-comment">//将传入的数据转化为json格式</span><br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br><br>        <span class="hljs-comment">//存入SecurityContextHolder</span><br>        <span class="hljs-type">UsernamePasswordAuthenticationToken</span> <span class="hljs-variable">authentication</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UsernamePasswordAuthenticationToken</span>(loginUser, <span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>);<span class="hljs-comment">//已认证过，传三个参数</span><br>        SecurityContextHolder.getContext().setAuthentication(authentication);<br><br>        <span class="hljs-comment">//放行</span><br>        filterChain.doFilter(httpServletRequest, httpServletResponse);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <hr>
 
-<p>还没。。。。。。</p>
-<img src="/img/.png" srcset="/img/loading_1.gif" lazyload alt>
+<h3 style="color: #b7a0e0"><span id="认证授权异常处理">认证授权异常处理</span></h3>
+<p>通过自定义异常处理器来实现符合项目接口规范的响应的格式</p>
+<p>自定义以下两种处理器</p>
+<img src="/img/自定义处理器.png" srcset="/img/loading_1.gif" lazyload alt>
+<p>AuthenticationEntryPoint 认证失败处理器</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//认证失败处理器</span><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">AuthenticationEntryPointImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">AuthenticationEntryPoint</span><br>&#123;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">commence</span><span class="hljs-params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e)</span> <span class="hljs-keyword">throws</span> IOException, ServletException<br>    &#123;<br>        e.printStackTrace();<span class="hljs-comment">//打印异常信息</span><br>        <span class="hljs-comment">//.InsufficientAuthenticationException，权限不足，或需要登录</span><br>        <span class="hljs-comment">//.BadCredentialsException，用户名或密码错误</span><br>        <span class="hljs-type">ResponseResult</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>        <span class="hljs-keyword">if</span>(e <span class="hljs-keyword">instanceof</span> BadCredentialsException)&#123;<br>            result = ResponseResult.errorResult(AppHttpCodeEnum.LOGIN_ERROR.getCode(), e.getMessage());<span class="hljs-comment">//登录错误</span><br>        &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(e <span class="hljs-keyword">instanceof</span> InsufficientAuthenticationException)&#123;<br>            result = ResponseResult.errorResult(AppHttpCodeEnum.NEED_LOGIN);<span class="hljs-comment">//权限不足，或需要登录</span><br>        &#125;<span class="hljs-keyword">else</span> &#123;<br>            result = ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR.getCode(), <span class="hljs-string">&quot;认证或授权失败&quot;</span>);<br>    &#125;<br>        <span class="hljs-comment">//响应给前端</span><br>        WebUtils.renderString(httpServletResponse, JSON.toJSONString(result));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>AccessDeniedHandler 授权失败处理器</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//授权失败处理器</span><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">AccessDeniedHandlerImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">AccessDeniedHandler</span><br>&#123;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">handle</span><span class="hljs-params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e)</span> <span class="hljs-keyword">throws</span> IOException, ServletException<br>    &#123;<br>        e.printStackTrace();<span class="hljs-comment">//打印异常信息</span><br>        <span class="hljs-type">ResponseResult</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> ResponseResult.errorResult(AppHttpCodeEnum.NO_OPERATOR_AUTH);<span class="hljs-comment">//授权失败</span><br>        <span class="hljs-comment">//响应给前端</span><br>        WebUtils.renderString(httpServletResponse, JSON.toJSONString(result));<br><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
 <hr>
 
-<p></p>
-<img src="/img/.png" srcset="/img/loading_1.gif" lazyload alt>
+<h3 style="color: #b7a0e0"><span id="统一异常处理">统一异常处理</span></h3>
+<p>开发过程中可能需要做很多的判断校验，如果出现了非法情况需要响应对应的提示</p>
+<p>但是如果我们每次都自己手动去处理就会非常麻烦</p>
+<p>所以可以选择直接抛出异常的方式对异常进行统一处理</p>
+<p>把异常中的信息封装成ResponseResult响应给前端</p>
 <hr>
+<p>自定义异常抛出处理类SystemException</p>
+<img src="/img/统一异常处理类.png" srcset="/img/loading_1.gif" lazyload alt>
 
-<p></p>
-<img src="/img/.png" srcset="/img/loading_1.gif" lazyload alt>
-<hr>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//全局异常处理类</span><br><span class="hljs-meta">@RestControllerAdvice</span><br><span class="hljs-meta">@Slf4j</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">GlobalExceptionHandler</span><br>&#123;<br>    <span class="hljs-meta">@ExceptionHandler(SecurityException.class)</span><br>    <span class="hljs-keyword">public</span> ResponseResult <span class="hljs-title function_">systemExceptionHandler</span><span class="hljs-params">(SystemException exception)</span><br>    &#123;<br>        <span class="hljs-comment">//打印异常信息</span><br>        log.error(<span class="hljs-string">&quot;出现异常！！！ &#123;&#125;&quot;</span>, exception);<br>        <span class="hljs-comment">//从异常对象中获取异常提示信息并封装返回</span><br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(exception.getCode(), exception.getMessage());<br>    &#125;<br><br>    <span class="hljs-comment">//对其他异常进行处理</span><br>    <span class="hljs-meta">@ExceptionHandler(Exception.class)</span><br>    <span class="hljs-keyword">public</span> ResponseResult <span class="hljs-title function_">exceptionHandler</span><span class="hljs-params">(Exception exception)</span><br>    &#123;<br>        <span class="hljs-comment">//打印异常信息</span><br>        log.error(<span class="hljs-string">&quot;出现异常！！！ &#123;&#125;&quot;</span>, exception);<br>        <span class="hljs-comment">//从异常对象中获取异常提示信息并封装返回</span><br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR.getCode(), exception.getMessage());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p></p>
-<img src="/img/.png" srcset="/img/loading_1.gif" lazyload alt>
-<hr>
-
-<p></p>
 <hr>
 
 <p align="center" style="color: hotpink;font-size: 20px"><strong>PS:该系列只做为作者学习开发项目做的笔记用</strong></p>
@@ -656,7 +681,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2026年1月7日</div>
+          <div>2026年1月11日</div>
         </div>
       
       
@@ -686,6 +711,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2026/01/11/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%A0%87%E7%AD%BE%E5%88%97%E8%A1%A8%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之标签列表的实现">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">『博客开发日记』之标签列表的实现</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

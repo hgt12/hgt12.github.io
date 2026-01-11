@@ -19,29 +19,29 @@
   <meta name="author" content="云梦泽">
   <meta name="keywords" content="js html">
   
-    <meta name="description" content="友链查询接口的实现   友链查询接口的需求 通过需求去分析需要有哪些字段（address，description，id，logo，name） 根据字段设计数据库表 在友链页面要查询出所有的审核通过的友链  接口设计与代码实现 先创建link控制类    在根据数据表创建相关类    在LinkController中添加添加接口  1234567891011121314&#x2F;&#x2F;友链列表接口@RestCo">
+    <meta name="description" content="登出接口的实现  登出接口的需求 删除redis中的用户信息  代码实现 先创建logout接口    在BlogLoginServiceImpl类中实现代码  123456789101112@Override    public ResponseResult logout()    &#123;        &#x2F;&#x2F;获取token，解析获取userid(在哪获取token呢，去之前将token封装">
 <meta property="og:type" content="article">
-<meta property="og:title" content="『博客开发日记』之友链查询接口的实现">
-<meta property="og:url" content="http://example.com/2025/12/28/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8F%8B%E9%93%BE%E6%9F%A5%E8%AF%A2%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:title" content="『博客开发日记』之登出接口的实现">
+<meta property="og:url" content="http://example.com/2026/01/11/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%99%BB%E5%87%BA%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/index.html">
 <meta property="og:site_name" content="云梦泽的个人博客">
-<meta property="og:description" content="友链查询接口的实现   友链查询接口的需求 通过需求去分析需要有哪些字段（address，description，id，logo，name） 根据字段设计数据库表 在友链页面要查询出所有的审核通过的友链  接口设计与代码实现 先创建link控制类    在根据数据表创建相关类    在LinkController中添加添加接口  1234567891011121314&#x2F;&#x2F;友链列表接口@RestCo">
+<meta property="og:description" content="登出接口的实现  登出接口的需求 删除redis中的用户信息  代码实现 先创建logout接口    在BlogLoginServiceImpl类中实现代码  123456789101112@Override    public ResponseResult logout()    &#123;        &#x2F;&#x2F;获取token，解析获取userid(在哪获取token呢，去之前将token封装">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/%E5%A3%81%E7%BA%B821.png">
-<meta property="article:published_time" content="2025-12-28T07:46:26.000Z">
-<meta property="article:modified_time" content="2026-01-07T02:28:13.208Z">
+<meta property="og:image" content="http://example.com/img/%E5%A3%81%E7%BA%B823.png">
+<meta property="article:published_time" content="2026-01-11T11:40:44.000Z">
+<meta property="article:modified_time" content="2026-01-11T12:08:11.810Z">
 <meta property="article:author" content="云梦泽">
 <meta property="article:tag" content="技术向">
 <meta property="article:tag" content="个人博客">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="后端">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/%E5%A3%81%E7%BA%B821.png">
+<meta name="twitter:image" content="http://example.com/img/%E5%A3%81%E7%BA%B823.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>『博客开发日记』之友链查询接口的实现 - 云梦泽的个人博客</title>
+  <title>『博客开发日记』之登出接口的实现 - 云梦泽的个人博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -236,13 +236,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/%E5%A3%81%E7%BA%B821.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/%E5%A3%81%E7%BA%B823.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="『博客开发日记』之友链查询接口的实现"></span>
+            <span id="subtitle" data-typed-text="『博客开发日记』之登出接口的实现"></span>
           
         </div>
 
@@ -258,8 +258,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-12-28 15:46" pubdate>
-          2025年12月28日 下午
+        <time datetime="2026-01-11 19:40" pubdate>
+          2026年1月11日 晚上
         </time>
       </span>
     
@@ -270,7 +270,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          312 字
+          194 字
         
       </span>
     
@@ -281,7 +281,7 @@
         
         
         
-          3 分钟
+          2 分钟
         
       </span>
     
@@ -396,7 +396,7 @@
       
         <a href="/2025/12/28/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8F%8B%E9%93%BE%E6%9F%A5%E8%AF%A2%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之友链查询接口的实现"
            class="list-group-item list-group-item-action
-           active">
+           ">
           <span class="category-post">『博客开发日记』之友链查询接口的实现</span>
         </a>
       
@@ -432,7 +432,7 @@
       
         <a href="/2026/01/11/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%99%BB%E5%87%BA%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之登出接口的实现"
            class="list-group-item list-group-item-action
-           ">
+           active">
           <span class="category-post">『博客开发日记』之登出接口的实现</span>
         </a>
       
@@ -473,12 +473,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">『博客开发日记』之友链查询接口的实现</h1>
+            <h1 id="seo-header">『博客开发日记』之登出接口的实现</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年1月7日 上午
+                    本文最后更新于 2026年1月11日 晚上
                   
                 
               </p>
@@ -486,38 +486,19 @@
             
               <div class="markdown-body">
                 
-                <h1 align="center"><span id="友链查询接口的实现"><span style="color: cadetblue;">友链查询接口的实现</span></span></h1>
+                <h1 align="center"><span id="登出接口的实现"><span style="color: cadetblue;">登出接口的实现</span></span></h1>
+<hr>
+<h2 style="color: #b7a0e0"><span id="登出接口的需求">登出接口的需求</span></h2>
+<p>删除redis中的用户信息</p>
+
+<h2 style="color: #b7a0e0"><span id="代码实现">代码实现</span></h2>
+<p>先创建logout接口</p>
+<img src="/img/创建logout接口.png" srcset="/img/loading_1.gif" lazyload alt>
 <hr>
 
-<h2 style="color: #b7a0e0"><span id="友链查询接口的需求">友链查询接口的需求</span></h2>
-<p>通过需求去分析需要有哪些字段（address，description，id，logo，name）</p>
-<p>根据字段设计数据库表</p>
-<p>在友链页面要查询出所有的审核通过的友链</p>
+<p>在BlogLoginServiceImpl类中实现代码</p>
 
-<h2 style="color: #b7a0e0"><span id="接口设计与代码实现">接口设计与代码实现</span></h2>
-<p>先创建link控制类</p>
-<img src="/img/创建link控制类.png" srcset="/img/loading_1.gif" lazyload alt>
-<hr>
-
-<p>在根据数据表创建相关类</p>
-<img src="/img/根据数据表创建相关类.png" srcset="/img/loading_1.gif" lazyload alt>
-<hr>
-
-<p>在LinkController中添加添加接口</p>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//友链列表接口</span><br><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@RequestMapping(&quot;/link&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">LinkController</span><br>&#123;<br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> LinkService linkService;<br><br>    <span class="hljs-meta">@GetMapping(&quot;getAllLink&quot;)</span><br>    <span class="hljs-keyword">public</span> ResponseResult <span class="hljs-title function_">getAllLink</span><span class="hljs-params">()</span><br>    &#123;<br>        <span class="hljs-keyword">return</span> linkService.getAllLink();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>在服务类中添加getAllLink方法</p>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> ResponseResult <span class="hljs-title function_">getAllLink</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">//查询所有审核通过的友链</span><br>        LambdaQueryWrapper&lt;Link&gt; queryWrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaQueryWrapper</span>&lt;&gt;();<br>        queryWrapper.eq(Link::getStatus, SystemConstants.LINK_STATUS_NORMAL);<br>        List&lt;Link&gt; links = list(queryWrapper);<br>        <span class="hljs-comment">//转化成Vo</span><br>        List&lt;LinkVo&gt; linkVos = BeanCopyUtils.copyBeanList(links, LinkVo.class);<br>        <span class="hljs-comment">//封装返回</span><br>        <span class="hljs-keyword">return</span> ResponseResult.okResult(linkVos);<br>    &#125;<br></code></pre></td></tr></table></figure>
-
-<p>允许友链接口对所有人可以访问的权限</p>
-<img src="/img/允许友链接口对所有人可以访问的权限.png" srcset="/img/loading_1.gif" lazyload alt>
-<hr>
-
-<p>测试查询友链接口正常</p>
-<img src="/img/测试查询友链接口.png" srcset="/img/loading_1.gif" lazyload alt>
-<hr>
-
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> ResponseResult <span class="hljs-title function_">logout</span><span class="hljs-params">()</span><br>    &#123;<br>        <span class="hljs-comment">//获取token，解析获取userid(在哪获取token呢，去之前将token封装存储在SecurityContextHolder里面拿)</span><br>        <span class="hljs-type">Authentication</span> <span class="hljs-variable">authentication</span> <span class="hljs-operator">=</span> SecurityContextHolder.getContext().getAuthentication();<br>        <span class="hljs-type">LoginUser</span> <span class="hljs-variable">loginUser</span> <span class="hljs-operator">=</span> (LoginUser) authentication.getPrincipal();<br>        <span class="hljs-comment">//获取uesrid</span><br>        <span class="hljs-type">Long</span> <span class="hljs-variable">userId</span> <span class="hljs-operator">=</span> loginUser.getUser().getId();<br>        <span class="hljs-comment">//删除redis中的用户信息</span><br>        redisCache.deleteObject(<span class="hljs-string">&quot;bloglogin:&quot;</span> + userId);<br>        <span class="hljs-keyword">return</span> ResponseResult.okResult();<br>    &#125;<br></code></pre></td></tr></table></figure>
 <hr>
 
 <p align="center" style="color: hotpink;font-size: 20px"><strong>PS:该系列只做为作者学习开发项目做的笔记用</strong></p>
@@ -584,8 +565,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>『博客开发日记』之友链查询接口的实现</div>
-      <div>http://example.com/2025/12/28/『博客开发日记』之友链查询接口的实现/</div>
+      <div>『博客开发日记』之登出接口的实现</div>
+      <div>http://example.com/2026/01/11/『博客开发日记』之登出接口的实现/</div>
     </div>
     <div class="license-meta">
       
@@ -597,13 +578,13 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年12月28日</div>
+          <div>2026年1月11日</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2026年1月7日</div>
+          <div>2026年1月11日</div>
         </div>
       
       
@@ -634,18 +615,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2026/01/07/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%99%BB%E5%BD%95%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之登录接口的实现">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">『博客开发日记』之登录接口的实现</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/12/28/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%96%87%E7%AB%A0%E8%AF%A6%E6%83%85%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之文章详情接口的实现">
-                        <span class="hidden-mobile">『博客开发日记』之文章详情接口的实现</span>
+                      <a href="/2026/01/11/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%A0%87%E7%AD%BE%E5%88%97%E8%A1%A8%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之标签列表的实现">
+                        <span class="hidden-mobile">『博客开发日记』之标签列表的实现</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
