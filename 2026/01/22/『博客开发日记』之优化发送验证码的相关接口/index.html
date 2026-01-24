@@ -21,14 +21,14 @@
   
     <meta name="description" content="优化验证码发送的接口  前言 由于先前的接口设计有缺陷 导致发送验证码的方式多样化时会需要一堆接口 先前就设计了有关验证码发送的接口就有五个 现在将五个接口改为一个 后端只需要验证前端发来的参数account和type（手机号&#x2F;邮箱，登录&#x2F;注册&#x2F;修改密码） 然后通过判断类型来发送不同类型的验证码  包含 @ → 邮箱 符合 1[3-9]\d{9} → 手机号 其他 → 返回错误提示  前端的工作只">
 <meta property="og:type" content="article">
-<meta property="og:title" content="『博客开发日记』之优化发送验证码的相关接口 『博客开发日记』之添加评论会给个人发送邮箱通知功能">
+<meta property="og:title" content="『博客开发日记』之优化发送验证码的相关接口">
 <meta property="og:url" content="http://example.com/2026/01/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BC%98%E5%8C%96%E5%8F%91%E9%80%81%E9%AA%8C%E8%AF%81%E7%A0%81%E7%9A%84%E7%9B%B8%E5%85%B3%E6%8E%A5%E5%8F%A3/index.html">
 <meta property="og:site_name" content="云梦泽的个人博客">
 <meta property="og:description" content="优化验证码发送的接口  前言 由于先前的接口设计有缺陷 导致发送验证码的方式多样化时会需要一堆接口 先前就设计了有关验证码发送的接口就有五个 现在将五个接口改为一个 后端只需要验证前端发来的参数account和type（手机号&#x2F;邮箱，登录&#x2F;注册&#x2F;修改密码） 然后通过判断类型来发送不同类型的验证码  包含 @ → 邮箱 符合 1[3-9]\d{9} → 手机号 其他 → 返回错误提示  前端的工作只">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/%E5%A3%81%E7%BA%B833.png">
 <meta property="article:published_time" content="2026-01-22T06:52:43.000Z">
-<meta property="article:modified_time" content="2026-01-24T12:08:14.349Z">
+<meta property="article:modified_time" content="2026-01-24T12:34:53.335Z">
 <meta property="article:author" content="云梦泽">
 <meta property="article:tag" content="技术向">
 <meta property="article:tag" content="个人博客">
@@ -41,7 +41,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>『博客开发日记』之优化发送验证码的相关接口 『博客开发日记』之添加评论会给个人发送邮箱通知功能 - 云梦泽的个人博客</title>
+  <title>『博客开发日记』之优化发送验证码的相关接口 - 云梦泽的个人博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -242,7 +242,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="『博客开发日记』之优化发送验证码的相关接口 『博客开发日记』之添加评论会给个人发送邮箱通知功能"></span>
+            <span id="subtitle" data-typed-text="『博客开发日记』之优化发送验证码的相关接口"></span>
           
         </div>
 
@@ -376,10 +376,10 @@
     
       
       
-        <a href="/2026/01/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BC%98%E5%8C%96%E5%8F%91%E9%80%81%E9%AA%8C%E8%AF%81%E7%A0%81%E7%9A%84%E7%9B%B8%E5%85%B3%E6%8E%A5%E5%8F%A3/" title="『博客开发日记』之优化发送验证码的相关接口 『博客开发日记』之添加评论会给个人发送邮箱通知功能"
+        <a href="/2026/01/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BC%98%E5%8C%96%E5%8F%91%E9%80%81%E9%AA%8C%E8%AF%81%E7%A0%81%E7%9A%84%E7%9B%B8%E5%85%B3%E6%8E%A5%E5%8F%A3/" title="『博客开发日记』之优化发送验证码的相关接口"
            class="list-group-item list-group-item-action
            active">
-          <span class="category-post">『博客开发日记』之优化发送验证码的相关接口 『博客开发日记』之添加评论会给个人发送邮箱通知功能</span>
+          <span class="category-post">『博客开发日记』之优化发送验证码的相关接口</span>
         </a>
       
     
@@ -572,7 +572,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">『博客开发日记』之优化发送验证码的相关接口 『博客开发日记』之添加评论会给个人发送邮箱通知功能</h1>
+            <h1 id="seo-header">『博客开发日记』之优化发送验证码的相关接口</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
@@ -696,7 +696,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>『博客开发日记』之优化发送验证码的相关接口 『博客开发日记』之添加评论会给个人发送邮箱通知功能</div>
+      <div>『博客开发日记』之优化发送验证码的相关接口</div>
       <div>http://example.com/2026/01/22/『博客开发日记』之优化发送验证码的相关接口/</div>
     </div>
     <div class="license-meta">
