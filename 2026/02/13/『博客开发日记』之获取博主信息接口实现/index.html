@@ -19,29 +19,29 @@
   <meta name="author" content="云梦泽">
   <meta name="keywords" content="js html">
   
-    <meta name="description" content="重置密码接口的实现  重置密码接口的需求 通过邮箱验证码验证通过后可以修改密码 修改前后两个密码不能相同  主要记录录服务类怎么写 在BlogLoginServiceImpl中添加验证验证码和修改密码的方法  12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152">
+    <meta name="description" content="获取博主信息接口  获取博主信息接口需求 在关于页面中，需要对博主的个人信息进行展示 不能将用户id暴露给前端 通过这个接口可以实现头像和昵称的同步更新 代码实现 在UserController类中创建获取博主信息的接口方法    在服务类里实现接口  12345678910111213141516171819202122232425&#x2F;&#x2F;获取博主信息（公开接口，无需登录）@Overridepubl">
 <meta property="og:type" content="article">
-<meta property="og:title" content="『博客开发日记』之重置密码相关接口的实现">
-<meta property="og:url" content="http://example.com/2026/01/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%87%8D%E7%BD%AE%E5%AF%86%E7%A0%81%E7%9B%B8%E5%85%B3%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:title" content="『博客开发日记』之获取博主信息接口实现">
+<meta property="og:url" content="http://example.com/2026/02/13/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E5%8D%9A%E4%B8%BB%E4%BF%A1%E6%81%AF%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0/index.html">
 <meta property="og:site_name" content="云梦泽的个人博客">
-<meta property="og:description" content="重置密码接口的实现  重置密码接口的需求 通过邮箱验证码验证通过后可以修改密码 修改前后两个密码不能相同  主要记录录服务类怎么写 在BlogLoginServiceImpl中添加验证验证码和修改密码的方法  12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152">
+<meta property="og:description" content="获取博主信息接口  获取博主信息接口需求 在关于页面中，需要对博主的个人信息进行展示 不能将用户id暴露给前端 通过这个接口可以实现头像和昵称的同步更新 代码实现 在UserController类中创建获取博主信息的接口方法    在服务类里实现接口  12345678910111213141516171819202122232425&#x2F;&#x2F;获取博主信息（公开接口，无需登录）@Overridepubl">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/%E5%A3%81%E7%BA%B832.png">
-<meta property="article:published_time" content="2026-01-22T06:28:01.000Z">
-<meta property="article:modified_time" content="2026-01-22T06:52:36.545Z">
+<meta property="og:image" content="http://example.com/img/%E5%A3%81%E7%BA%B840.png">
+<meta property="article:published_time" content="2026-02-13T12:14:22.000Z">
+<meta property="article:modified_time" content="2026-02-13T12:48:13.741Z">
 <meta property="article:author" content="云梦泽">
 <meta property="article:tag" content="技术向">
 <meta property="article:tag" content="个人博客">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="后端">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/%E5%A3%81%E7%BA%B832.png">
+<meta name="twitter:image" content="http://example.com/img/%E5%A3%81%E7%BA%B840.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>『博客开发日记』之重置密码相关接口的实现 - 云梦泽的个人博客</title>
+  <title>『博客开发日记』之获取博主信息接口实现 - 云梦泽的个人博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -236,13 +236,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/%E5%A3%81%E7%BA%B832.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/%E5%A3%81%E7%BA%B840.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="『博客开发日记』之重置密码相关接口的实现"></span>
+            <span id="subtitle" data-typed-text="『博客开发日记』之获取博主信息接口实现"></span>
           
         </div>
 
@@ -258,8 +258,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2026-01-22 14:28" pubdate>
-          2026年1月22日 下午
+        <time datetime="2026-02-13 20:14" pubdate>
+          2026年2月13日 晚上
         </time>
       </span>
     
@@ -270,7 +270,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          649 字
+          300 字
         
       </span>
     
@@ -281,7 +281,7 @@
         
         
         
-          6 分钟
+          3 分钟
         
       </span>
     
@@ -549,7 +549,7 @@
       
         <a href="/2026/02/13/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E5%8D%9A%E4%B8%BB%E4%BF%A1%E6%81%AF%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之获取博主信息接口实现"
            class="list-group-item list-group-item-action
-           ">
+           active">
           <span class="category-post">『博客开发日记』之获取博主信息接口实现</span>
         </a>
       
@@ -585,7 +585,7 @@
       
         <a href="/2026/01/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%87%8D%E7%BD%AE%E5%AF%86%E7%A0%81%E7%9B%B8%E5%85%B3%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之重置密码相关接口的实现"
            class="list-group-item list-group-item-action
-           active">
+           ">
           <span class="category-post">『博客开发日记』之重置密码相关接口的实现</span>
         </a>
       
@@ -626,12 +626,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">『博客开发日记』之重置密码相关接口的实现</h1>
+            <h1 id="seo-header">『博客开发日记』之获取博主信息接口实现</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年1月22日 下午
+                    本文最后更新于 2026年2月13日 晚上
                   
                 
               </p>
@@ -639,23 +639,24 @@
             
               <div class="markdown-body">
                 
-                <h1 align="center"><span id="重置密码接口的实现"><span style="color: cadetblue;">重置密码接口的实现</span></span></h1>
+                <h1 align="center"><span id="获取博主信息接口"><span style="color: cadetblue;">获取博主信息接口</span></span></h1>
 <hr>
-<h2 style="color: #b7a0e0"><span id="重置密码接口的需求">重置密码接口的需求</span></h2>
-<p>通过邮箱验证码验证通过后可以修改密码</p>
-<p>修改前后两个密码不能相同</p>
-
-<p>主要记录录服务类怎么写</p>
-<p>在BlogLoginServiceImpl中添加验证验证码和修改密码的方法</p>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><code class="hljs java"><br><span class="hljs-comment">//验证重置验证码</span><br><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> ResponseResult <span class="hljs-title function_">verifyResetCode</span><span class="hljs-params">(VerifyResetCodeDto dto)</span><br>&#123;<br>    <span class="hljs-comment">//邮箱不能为空</span><br>    <span class="hljs-keyword">if</span> (!StringUtils.hasText(dto.getEmail())) &#123;<br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.EMAIL_NOT_NULL);<br>    &#125;<br><br>    <span class="hljs-comment">//验证码不能为空</span><br>    <span class="hljs-keyword">if</span> (!StringUtils.hasText(dto.getCode())) &#123;<br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR, <span class="hljs-string">&quot;验证码不能为空&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">//从Redis获取验证码</span><br>    <span class="hljs-type">String</span> <span class="hljs-variable">redisKey</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;forgot:code:email:&quot;</span> + dto.getEmail();<br>    <span class="hljs-type">String</span> <span class="hljs-variable">redisCode</span> <span class="hljs-operator">=</span> redisCache.getCacheObject(redisKey);<br><br>    <span class="hljs-comment">//验证码不存在或已过期</span><br>    <span class="hljs-keyword">if</span> (!StringUtils.hasText(redisCode)) &#123;<br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.VERIFICATION_CODE_ERROR, <span class="hljs-string">&quot;验证码错误或已过期&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">//验证码错误</span><br>    <span class="hljs-keyword">if</span> (!dto.getCode().equals(redisCode)) &#123;<br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.VERIFICATION_CODE_ERROR, <span class="hljs-string">&quot;验证码错误&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> ResponseResult.okResult(<span class="hljs-string">&quot;验证成功&quot;</span>);<br>&#125;<br><br><span class="hljs-comment">//重置密码</span><br><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> ResponseResult <span class="hljs-title function_">resetPassword</span><span class="hljs-params">(ResetPasswordDto dto)</span><br>&#123;<br>    <span class="hljs-comment">//邮箱不能为空</span><br>    <span class="hljs-keyword">if</span> (!StringUtils.hasText(dto.getEmail())) &#123;<br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.EMAIL_NOT_NULL);<br>    &#125;<br><br>    <span class="hljs-comment">//验证码不能为空</span><br>    <span class="hljs-keyword">if</span> (!StringUtils.hasText(dto.getCode())) &#123;<br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR, <span class="hljs-string">&quot;验证码不能为空&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">//新密码不能为空</span><br>    <span class="hljs-keyword">if</span> (!StringUtils.hasText(dto.getNewPassword())) &#123;<br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.PASSWORD_NOT_NULL);<br>    &#125;<br><br>    <span class="hljs-comment">//新密码至少6位</span><br>    <span class="hljs-keyword">if</span> (dto.getNewPassword().length() &lt; <span class="hljs-number">6</span>) &#123;<br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR, <span class="hljs-string">&quot;密码至少6位&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">//从Redis获取验证码</span><br>    <span class="hljs-type">String</span> <span class="hljs-variable">redisKey</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;forgot:code:email:&quot;</span> + dto.getEmail();<br>    <span class="hljs-type">String</span> <span class="hljs-variable">redisCode</span> <span class="hljs-operator">=</span> redisCache.getCacheObject(redisKey);<br><br>    <span class="hljs-comment">//验证码不存在或已过期</span><br>    <span class="hljs-keyword">if</span> (!StringUtils.hasText(redisCode)) &#123;<br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.VERIFICATION_CODE_ERROR, <span class="hljs-string">&quot;验证码错误或已过期&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">//验证码错误</span><br>    <span class="hljs-keyword">if</span> (!dto.getCode().equals(redisCode)) &#123;<br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.VERIFICATION_CODE_ERROR, <span class="hljs-string">&quot;验证码错误&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">//查询用户是否存在</span><br>    LambdaQueryWrapper&lt;User&gt; queryWrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaQueryWrapper</span>&lt;&gt;();<br>    queryWrapper.eq(User::getEmail, dto.getEmail());<br>    <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> userMapper.selectOne(queryWrapper);<br><br>    <span class="hljs-keyword">if</span> (user == <span class="hljs-literal">null</span>) &#123;<br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR, <span class="hljs-string">&quot;该邮箱未注册&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">//验证新密码不能与旧密码相同</span><br>    <span class="hljs-keyword">if</span> (passwordEncoder.matches(dto.getNewPassword(), user.getPassword())) &#123;<br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR, <span class="hljs-string">&quot;新密码不能与旧密码相同&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">//加密新密码</span><br>    <span class="hljs-type">String</span> <span class="hljs-variable">encodePassword</span> <span class="hljs-operator">=</span> passwordEncoder.encode(dto.getNewPassword());<br><br>    <span class="hljs-comment">//更新密码</span><br>    LambdaUpdateWrapper&lt;User&gt; updateWrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaUpdateWrapper</span>&lt;&gt;();<br>    updateWrapper.eq(User::getId, user.getId())<br>            .set(User::getPassword, encodePassword);<br><br>    <span class="hljs-type">int</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> userMapper.update(<span class="hljs-literal">null</span>, updateWrapper);<br><br>    <span class="hljs-keyword">if</span> (result == <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR, <span class="hljs-string">&quot;密码重置失败&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">//密码重置成功后，删除Redis中的验证码（防止重复使用）</span><br>    redisCache.deleteObject(redisKey);<br><br>    <span class="hljs-keyword">return</span> ResponseResult.okResult(<span class="hljs-string">&quot;密码重置成功&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>新建ResetPasswordDto和VerifyResetCodeDto类</p>
-
-<img src="/img/ResetPasswordDto.png" srcset="/img/loading_1.gif" lazyload alt>
+<h2 style="color: #b7a0e0"><span id="获取博主信息接口需求">获取博主信息接口需求</span></h2>
+<p>在关于页面中，需要对博主的个人信息进行展示</p>
+<p>不能将用户id暴露给前端</p>
+<p>通过这个接口可以实现头像和昵称的同步更新</p>
+<h2 style="color: #b7a0e0"><span id="代码实现">代码实现</span></h2>
+<p>在UserController类中创建获取博主信息的接口方法</p>
+<img src="/img/创建获取博主信息的接口方法.png" srcset="/img/loading_1.gif" lazyload alt>
 <hr>
-<img src="/img/VerifyResetCodeDto.png" srcset="/img/loading_1.gif" lazyload alt>
+
+<p>在服务类里实现接口</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><br><span class="hljs-comment">//获取博主信息（公开接口，无需登录）</span><br><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> ResponseResult <span class="hljs-title function_">getBloggerInfo</span><span class="hljs-params">()</span><br>&#123;<br>    <span class="hljs-comment">// 查询 user_type = 1 的用户（博主）</span><br>    LambdaQueryWrapper&lt;User&gt; queryWrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaQueryWrapper</span>&lt;&gt;();<br>    queryWrapper.eq(User::getUserType, <span class="hljs-string">&quot;1&quot;</span>)<br>            .select(User::getNickname, User::getAvatar)<br>            .last(<span class="hljs-string">&quot;LIMIT 1&quot;</span>);<br>    <br>    <span class="hljs-type">User</span> <span class="hljs-variable">blogger</span> <span class="hljs-operator">=</span> getOne(queryWrapper);<br>    <br>    <span class="hljs-keyword">if</span> (blogger == <span class="hljs-literal">null</span>) &#123;<br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.SELECT_ERROR, <span class="hljs-string">&quot;未找到博主信息&quot;</span>);<br>    &#125;<br>    <br>    <span class="hljs-comment">// 封装成 BloggerInfoVo</span><br>    com.mengze.domain.vo.<span class="hljs-type">BloggerInfoVo</span> <span class="hljs-variable">vo</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">com</span>.mengze.domain.vo.BloggerInfoVo(<br>        blogger.getNickname(),<br>        blogger.getAvatar()<br>    );<br>    <br>    <span class="hljs-keyword">return</span> ResponseResult.okResult(vo);<br>&#125;<br></code></pre></td></tr></table></figure>
 <hr>
+
+<p>最后Vo里只需要返回头像和昵称就行了</p>
+<p></p>
 <p></p>
 
 <hr>
@@ -724,8 +725,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>『博客开发日记』之重置密码相关接口的实现</div>
-      <div>http://example.com/2026/01/22/『博客开发日记』之重置密码相关接口的实现/</div>
+      <div>『博客开发日记』之获取博主信息接口实现</div>
+      <div>http://example.com/2026/02/13/『博客开发日记』之获取博主信息接口实现/</div>
     </div>
     <div class="license-meta">
       
@@ -737,13 +738,13 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2026年1月22日</div>
+          <div>2026年2月13日</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2026年1月22日</div>
+          <div>2026年2月13日</div>
         </div>
       
       
@@ -774,18 +775,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2026/01/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BC%98%E5%8C%96%E5%8F%91%E9%80%81%E9%AA%8C%E8%AF%81%E7%A0%81%E7%9A%84%E7%9B%B8%E5%85%B3%E6%8E%A5%E5%8F%A3/" title="『博客开发日记』之优化发送验证码的相关接口">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">『博客开发日记』之优化发送验证码的相关接口</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2026/01/19/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%AA%8C%E8%AF%81%E7%A0%81%E5%8F%91%E9%80%81%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之验证码发送接口的实现">
-                        <span class="hidden-mobile">『博客开发日记』之验证码发送接口的实现</span>
+                      <a href="/2026/02/10/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%94%9F%E6%88%90%E8%AF%84%E8%AE%BA%E5%A4%B4%E5%83%8F%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之生成评论头像接口的实现">
+                        <span class="hidden-mobile">『博客开发日记』之生成评论头像接口的实现</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
