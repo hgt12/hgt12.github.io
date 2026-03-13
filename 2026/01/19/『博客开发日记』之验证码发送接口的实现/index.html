@@ -103,11 +103,14 @@
 
 
   
-<!-- hexo injector head_end start --><script src="/js/firework_click.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+<!-- hexo injector head_end start --><script src="/js/click.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
   
+
+  <!-- Canvas for click effect -->
+  <div id="clickCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999;"></div>
 
   <header>
     
@@ -344,7 +347,7 @@
         aria-expanded="true"
       >
         博客开发
-        <span class="list-group-count">(28)</span>
+        <span class="list-group-count">(29)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -479,6 +482,15 @@
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">『博客开发日记』之归档接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/13/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%90%9C%E7%B4%A2%E7%9B%B8%E5%85%B3%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之搜索相关接口实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之搜索相关接口实现</span>
         </a>
       
     
@@ -1152,6 +1164,10 @@
   <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
 
+
+
+  
+<script src="/js/click.js"></script>
 
 
 

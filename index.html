@@ -87,11 +87,14 @@
 
 
   
-<!-- hexo injector head_end start --><script src="/js/firework_click.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+<!-- hexo injector head_end start --><script src="/js/click.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
   
+
+  <!-- Canvas for click effect -->
+  <div id="clickCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999;"></div>
 
   <header>
     
@@ -257,6 +260,79 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2026/03/13/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%90%9C%E7%B4%A2%E7%9B%B8%E5%85%B3%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0/" target="_self">
+          <img src="/img/%E5%A3%81%E7%BA%B840.png" alt="『博客开发日记』之搜索相关接口实现">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/03/13/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%90%9C%E7%B4%A2%E7%9B%B8%E5%85%B3%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0/" target="_self">
+          『博客开发日记』之搜索相关接口实现
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2026/03/13/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%90%9C%E7%B4%A2%E7%9B%B8%E5%85%B3%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0/" target="_self">
+        <div>
+          搜索接口  搜索接口需求 要有分页搜索功能 搜索出来 排序：置顶文章优先，然后按创建时间降序 只能搜索出已发布的文章 根据搜索关键字实现模糊查询匹配  代码实现 一下主要写服务层实现类如何写  1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-03-13 21:13" pubdate>
+              2026-03-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/" class="category-chain-item">博客开发</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%8A%80%E6%9C%AF%E5%90%91/">#技术向</a>
+            
+              <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">#个人博客</a>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
+            
+              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
 
   <div class="row mx-auto index-card">
     
@@ -915,84 +991,11 @@
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2026/01/19/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%AA%8C%E8%AF%81%E7%A0%81%E5%8F%91%E9%80%81%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
-          <img src="/img/%E5%A3%81%E7%BA%B831.png" alt="『博客开发日记』之验证码发送接口的实现">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2026/01/19/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%AA%8C%E8%AF%81%E7%A0%81%E5%8F%91%E9%80%81%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
-          『博客开发日记』之验证码发送接口的实现
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2026/01/19/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%AA%8C%E8%AF%81%E7%A0%81%E5%8F%91%E9%80%81%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
-        <div>
-          验证码发送接口的实现  验证码发送接口的需求 目前一共有五个接口，分别为： 发送邮箱登录验证码 发送手机登录验证码 发送邮箱注册验证码 发送手机注册验证码 发送邮箱忘记密码的验证码 1.验证码发送通过手机或者邮箱的方式发送 手机号收取信息通过阿里云的号码认证服务实现 邮箱验证码通过Spring Boot Mail 邮件服务 + QQ邮箱发送验证码的方式实现  2.要检测用户是通过那种方式登录/注册
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2026-01-19 15:25" pubdate>
-              2026-01-19
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/" class="category-chain-item">博客开发</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%8A%80%E6%9C%AF%E5%90%91/">#技术向</a>
-            
-              <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">#个人博客</a>
-            
-              <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
-            
-              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/#board">5</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/#board">6</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 
@@ -1128,6 +1131,10 @@
   <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
 
+
+
+  
+<script src="/js/click.js"></script>
 
 
 
