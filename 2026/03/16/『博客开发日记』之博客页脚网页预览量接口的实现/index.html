@@ -1,0 +1,1227 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/mi_manchi.png">
+  <link rel="icon" href="/img/mi_manchi.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="云梦泽">
+  <meta name="keywords" content="js html">
+  
+    <meta name="description" content="页脚网页预览量接口  页脚网页预览量接口需求 需要两个接口分别为 siteInfo（获取网站统计信息（总访问量、总访客数、文章数、分类数、标签数）） 根据用户预览网页次数增加预览量 累计独立访客数，通过 IP 或设备标识去重统计 对同一个ip的访问进行限制（一分钟不能超过30次），避免将redis撑爆 其他统计数据从对应表中实时查询 采取先记录到redis里然后每10分钟更新至数据库   reco">
+<meta property="og:type" content="article">
+<meta property="og:title" content="『博客开发日记』之博客页脚网页预览量接口的实现">
+<meta property="og:url" content="http://example.com/2026/03/16/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8D%9A%E5%AE%A2%E9%A1%B5%E8%84%9A%E7%BD%91%E9%A1%B5%E9%A2%84%E8%A7%88%E9%87%8F%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:site_name" content="云梦泽的个人博客">
+<meta property="og:description" content="页脚网页预览量接口  页脚网页预览量接口需求 需要两个接口分别为 siteInfo（获取网站统计信息（总访问量、总访客数、文章数、分类数、标签数）） 根据用户预览网页次数增加预览量 累计独立访客数，通过 IP 或设备标识去重统计 对同一个ip的访问进行限制（一分钟不能超过30次），避免将redis撑爆 其他统计数据从对应表中实时查询 采取先记录到redis里然后每10分钟更新至数据库   reco">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/%E5%A3%81%E7%BA%B843.png">
+<meta property="article:published_time" content="2026-03-16T13:06:02.000Z">
+<meta property="article:modified_time" content="2026-03-16T15:51:59.094Z">
+<meta property="article:author" content="云梦泽">
+<meta property="article:tag" content="技术向">
+<meta property="article:tag" content="个人博客">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="后端">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/%E5%A3%81%E7%BA%B843.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>『博客开发日记』之博客页脚网页预览量接口的实现 - 云梦泽的个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":80,"cursorChar":"✨","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":7},"lazyload":{"enable":true,"loading_img":"/img/loading_1.gif","onlypost":true,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<!-- hexo injector head_end start --><script src="/js/click.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <!-- Canvas for click effect -->
+  <div id="clickCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999;"></div>
+
+  <header>
+    
+
+<div class="header-inner" style="height: 80vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>云梦泽</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/messages/" target="_self">
+                <i class="iconfont icon-comment"></i>
+                <span>留言板</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E5%A3%81%E7%BA%B843.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="『博客开发日记』之博客页脚网页预览量接口的实现"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        云梦泽
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-03-16 21:06" pubdate>
+          2026年3月16日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          19 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="博客开发"
+        id="heading-82ca913bdcd63a1c254ebc1bbfb52228" role="tab" data-toggle="collapse" href="#collapse-82ca913bdcd63a1c254ebc1bbfb52228"
+        aria-expanded="true"
+      >
+        博客开发
+        <span class="list-group-count">(31)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-82ca913bdcd63a1c254ebc1bbfb52228"
+           role="tabpanel" aria-labelledby="heading-82ca913bdcd63a1c254ebc1bbfb52228">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/01/14/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%B8%8A%E4%BC%A0%E5%A4%B4%E5%83%8F%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之上传头像接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之上传头像接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/14/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AF%E6%9F%A5%E8%AF%A2%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之个人信息查询接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之个人信息查询接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BC%98%E5%8C%96%E5%8F%91%E9%80%81%E9%AA%8C%E8%AF%81%E7%A0%81%E7%9A%84%E7%9B%B8%E5%85%B3%E6%8E%A5%E5%8F%A3/" title="『博客开发日记』之优化发送验证码的相关接口"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之优化发送验证码的相关接口</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/11/26/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BC%98%E5%8C%96%E5%90%8E%E7%AB%AF%E4%B8%8A%E4%BC%A0%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8F%8A%E4%B8%80%E4%BA%9B%E5%A4%84%E7%90%86/" title="『博客开发日记』之优化后端上传的数据及一些处理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之优化后端上传的数据及一些处理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/02/09/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BD%BF%E7%94%A8Swagger%E7%94%9F%E6%88%90%E6%8E%A5%E5%8F%A3api%E6%96%87%E6%A1%A3/" title="『博客开发日记』之使用Swagger生成接口api文档"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之使用Swagger生成接口api文档</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/11/26/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%88%86%E7%B1%BB%E5%88%97%E8%A1%A8%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之分类列表的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之分类列表的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/12/06/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之分页查询文章列表的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之分页查询文章列表的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/11/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%89%8D%E5%8F%B0%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%90%AD%E5%BB%BA/" title="『博客开发日记』之前台系统的搭建"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之前台系统的搭建</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/15/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0%E9%A2%84%E8%A7%88%E9%87%8F%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之博客文章预览量接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之博客文章预览量接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/16/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8D%9A%E5%AE%A2%E9%A1%B5%E8%84%9A%E7%BD%91%E9%A1%B5%E9%A2%84%E8%A7%88%E9%87%8F%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之博客页脚网页预览量接口的实现"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">『博客开发日记』之博客页脚网页预览量接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/12/28/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8F%8B%E9%93%BE%E6%9F%A5%E8%AF%A2%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之友链查询接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之友链查询接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/12/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8F%91%E5%B8%83%E8%AF%84%E8%AE%BA%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之发布评论接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之发布评论接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/24/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8F%91%E9%80%81%E8%AF%84%E8%AE%BA%E4%BC%9A%E7%BB%99%E4%B8%AA%E4%BA%BA%E5%8F%91%E9%80%81%E9%82%AE%E7%AE%B1%E9%80%9A%E7%9F%A5%E5%8A%9F%E8%83%BD/" title="『博客开发日记』之发送评论会给个人发送邮箱通知功能"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之发送评论会给个人发送邮箱通知功能</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/02/10/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%9C%A8AOP%E5%AE%9E%E7%8E%B0%E6%97%A5%E5%BF%97%E8%BE%93%E5%87%BA%E6%97%B6%E5%AF%B9%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%AD%89%E8%BF%9B%E8%A1%8C%E7%89%B9%E6%AE%8A%E5%A4%84%E7%90%86/" title="『博客开发日记』之在AOP实现日志输出时对文件上传等进行特殊处理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之在AOP实现日志输出时对文件上传等进行特殊处理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/11/23/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%9F%BA%E7%A1%80%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之基础代码实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之基础代码实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/02/10/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%BD%92%E6%A1%A3%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之归档接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之归档接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/13/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%90%9C%E7%B4%A2%E7%9B%B8%E5%85%B3%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之搜索相关接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之搜索相关接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/12/28/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%96%87%E7%AB%A0%E8%AF%A6%E6%83%85%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之文章详情接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之文章详情接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/16/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%9B%B4%E6%96%B0%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AF%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之更新个人信息接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之更新个人信息接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/11/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%A0%87%E7%AD%BE%E5%88%97%E8%A1%A8%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之标签列表的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之标签列表的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/02/10/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%94%9F%E6%88%90%E8%AF%84%E8%AE%BA%E5%A4%B4%E5%83%8F%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之生成评论头像接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之生成评论头像接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/19/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%94%A8%E6%88%B7%E6%B3%A8%E5%86%8C%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之用户注册接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之用户注册接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/11/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%99%BB%E5%87%BA%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之登出接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之登出接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/07/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%99%BB%E5%BD%95%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之登录接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之登录接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/02/13/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E5%8D%9A%E4%B8%BB%E4%BF%A1%E6%81%AF%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之获取博主信息接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之获取博主信息接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/12/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E8%AF%84%E8%AE%BA%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之评论列表接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之评论列表接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/14/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E8%AF%84%E8%AE%BA%E7%82%B9%E8%B5%9E%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之评论点赞接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之评论点赞接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/02/08/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%80%9A%E8%BF%87AOP%E5%AE%9E%E7%8E%B0%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E5%8A%9F%E8%83%BD/" title="『博客开发日记』之通过AOP实现日志记录功能"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之通过AOP实现日志记录功能</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%87%8D%E7%BD%AE%E5%AF%86%E7%A0%81%E7%9B%B8%E5%85%B3%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之重置密码相关接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之重置密码相关接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/11/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/" title="『博客开发日记』之项目搭建"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之项目搭建</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/19/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%AA%8C%E8%AF%81%E7%A0%81%E5%8F%91%E9%80%81%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之验证码发送接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之验证码发送接口的实现</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">『博客开发日记』之博客页脚网页预览量接口的实现</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2026年3月16日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 align="center"><span id="页脚网页预览量接口"><span style="color: cadetblue;">页脚网页预览量接口</span></span></h1>
+<hr>
+<h2 style="color: #b7a0e0"><span id="页脚网页预览量接口需求">页脚网页预览量接口需求</span></h2>
+<p>需要两个接口分别为</p>
+<p>siteInfo（获取网站统计信息（总访问量、总访客数、文章数、分类数、标签数））</p>
+<p>根据用户预览网页次数增加预览量</p>
+<p>累计独立访客数，通过 IP 或设备标识去重统计</p>
+<p>对同一个ip的访问进行限制（一分钟不能超过30次），避免将redis撑爆</p>
+<p>其他统计数据从对应表中实时查询</p>
+<p>采取先记录到redis里然后每10分钟更新至数据库</p>
+<hr>
+
+<p>recordVisit（记录访问日志（统计PV和UV））</p>
+<p>记录用户访问日志（用于统计访问量和访客数）</p>
+<p>日志中记录访问的页面URL，页面标题，来源页面</p>
+<p>通过请求头获取 IP、User-Agent 等信息</p>
+<p>使用 IP + User-Agent 组合判断是否为新访客（24小时内去重）</p>
+<p>注意记录ip时不能直接建用户的原始ip明文入库，这样在大多数情况下是违法的，要对用户访问的IP进行脱敏处理</p>
+<p>这样即避免了违法，又可以保证数据库被入侵时不至于将所有访问过的用户ip暴露出去，维护了用户的信息安全</p>
+<p>采取先记录到redis里然后每5分钟更新至数据库</p>
+<p>访客量去重处理，每个月记录新访客量</p>
+<hr>
+
+<p>首先设计三张数据库表</p>
+<p>site_statistics（网站统计表，用于统计预览量）</p>
+<img src="/img/site_statistics表.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>unique_visitor（独立访客记录表，用于每个用户的访问记录）</p>
+<img src="/img/unique_visitor表.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>visit_log（访问日志表，用于记录用户访问日志）</p>
+<img src="/img/visit_log表.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>然后根据数据表自动生成对应的类，entity类，mapper类，服务接口，服务接口实现类</p>
+<p>生成实体类</p>
+<img src="/img/生成实体类.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>生成mapper类</p>
+<img src="/img/生成mapper类.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>生成服务接口，服务接口实现类</p>
+<img src="/img/生成服务类相关.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>新建几个常量用于redis中存储预览量，预览总数和预览日志等</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">    *  网站总预览量（PV）Redis key</span><br><span class="hljs-comment">    */</span><br>   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">SITE_TOTAL_VIEWS</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;site:totalViews&quot;</span>;<br>   <span class="hljs-comment">/**</span><br><span class="hljs-comment">    *  网站总预览量 Hash field</span><br><span class="hljs-comment">    */</span><br>   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">SITE_TOTAL_VIEWS_FIELD</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;total&quot;</span>;<br>   <span class="hljs-comment">/**</span><br><span class="hljs-comment">    *  网站总访客数（UV）Redis key</span><br><span class="hljs-comment">    */</span><br>   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">SITE_TOTAL_VISITORS</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;site:totalVisitors&quot;</span>;<br>   <span class="hljs-comment">/**</span><br><span class="hljs-comment">    *  网站总访客数 Hash field</span><br><span class="hljs-comment">    */</span><br>   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">SITE_TOTAL_VISITORS_FIELD</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;total&quot;</span>;<br>   <span class="hljs-comment">/**</span><br><span class="hljs-comment">    *  访客去重 Set key 前缀（按月分 key，格式：site:visitor:set:yyyy-MM）</span><br><span class="hljs-comment">    */</span><br>   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">SITE_VISITOR_SET_PREFIX</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;site:visitor:set:&quot;</span>;<br>   <span class="hljs-comment">/**</span><br><span class="hljs-comment">    *  访问日志队列 key</span><br><span class="hljs-comment">    */</span><br>   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">VISIT_LOG_QUEUE</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;site:visitLog:queue&quot;</span>;<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>在UpdateViewCountJob类中新加updateSiteStatistics和flushVisitLogs方法</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 每10分钟同步网站 PV、UV 到数据库</span><br>    <span class="hljs-meta">@Scheduled(cron = &quot;0 0/10 * * * ?&quot;)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">updateSiteStatistics</span><span class="hljs-params">()</span> <br>    &#123;<br>        <span class="hljs-type">SiteStatistics</span> <span class="hljs-variable">statistics</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SiteStatistics</span>();<br>        statistics.setId(<span class="hljs-number">1L</span>);<br><br>        <span class="hljs-type">Integer</span> <span class="hljs-variable">cachedViews</span> <span class="hljs-operator">=</span> redisCache.getCacheMapValue(SystemConstants.SITE_TOTAL_VIEWS, SystemConstants.SITE_TOTAL_VIEWS_FIELD);<br>        <span class="hljs-keyword">if</span> (cachedViews != <span class="hljs-literal">null</span>) &#123;<br>            statistics.setTotalViews(cachedViews.longValue());<br>        &#125;<br><br>        <span class="hljs-type">Integer</span> <span class="hljs-variable">cachedVisitors</span> <span class="hljs-operator">=</span> redisCache.getCacheMapValue(SystemConstants.SITE_TOTAL_VISITORS, SystemConstants.SITE_TOTAL_VISITORS_FIELD);<br>        <span class="hljs-keyword">if</span> (cachedVisitors != <span class="hljs-literal">null</span>) &#123;<br>            statistics.setTotalVisitors(cachedVisitors.longValue());<br>        &#125;<br><br>        siteStatisticsService.updateById(statistics);<br>    &#125;<br><br>    <span class="hljs-comment">// 每5分钟将 visit_log 队列批量 flush 到数据库</span><br>    <span class="hljs-meta">@Scheduled(cron = &quot;0 0/5 * * * ?&quot;)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">flushVisitLogs</span><span class="hljs-params">()</span> <br>    &#123;<br>        List&lt;VisitLog&gt; logs = redisCache.popAllFromList(SystemConstants.VISIT_LOG_QUEUE);<br>        <span class="hljs-keyword">if</span> (logs != <span class="hljs-literal">null</span> &amp;&amp; !logs.isEmpty()) &#123;<br>            visitLogService.saveBatch(logs);<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>在ViewCountRunner类中添加 加载网站 PV 和 UV 到 Redis 的代码片段</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//加载网站 PV 和 UV 到 Redis</span><br>        <span class="hljs-type">SiteStatistics</span> <span class="hljs-variable">statistics</span> <span class="hljs-operator">=</span> siteStatisticsMapper.selectById(<span class="hljs-number">1L</span>);<br>        <span class="hljs-type">long</span> <span class="hljs-variable">totalViews</span> <span class="hljs-operator">=</span> (statistics != <span class="hljs-literal">null</span> &amp;&amp; statistics.getTotalViews() != <span class="hljs-literal">null</span>) ? statistics.getTotalViews() : <span class="hljs-number">0L</span>;<br>        <span class="hljs-type">long</span> <span class="hljs-variable">totalVisitors</span> <span class="hljs-operator">=</span> (statistics != <span class="hljs-literal">null</span> &amp;&amp; statistics.getTotalVisitors() != <span class="hljs-literal">null</span>) ? statistics.getTotalVisitors() : <span class="hljs-number">0L</span>;<br><br>        redisCache.setCacheMapValue(SystemConstants.SITE_TOTAL_VIEWS, SystemConstants.SITE_TOTAL_VIEWS_FIELD, (<span class="hljs-type">int</span>) totalViews);<br>        redisCache.setCacheMapValue(SystemConstants.SITE_TOTAL_VISITORS, SystemConstants.SITE_TOTAL_VISITORS_FIELD, (<span class="hljs-type">int</span>) totalVisitors);<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p></p>
+<img src="/img/.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>在RedisCache工具类中添加pushToList，popAllFromList，addToSet</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">    * 向 List 左侧推入一个元素（队列入队）</span><br><span class="hljs-comment">    *</span><br><span class="hljs-comment">    * <span class="hljs-doctag">@param</span> key   Redis键</span><br><span class="hljs-comment">    * <span class="hljs-doctag">@param</span> value 值</span><br><span class="hljs-comment">    */</span><br>   <span class="hljs-keyword">public</span> &lt;T&gt; <span class="hljs-keyword">void</span> <span class="hljs-title function_">pushToList</span><span class="hljs-params">(<span class="hljs-keyword">final</span> String key, <span class="hljs-keyword">final</span> T value)</span><br>   &#123;<br>       redisTemplate.opsForList().leftPush(key, value);<br>   &#125;<br><br>   <span class="hljs-comment">/**</span><br><span class="hljs-comment">    * 从 List 右侧批量弹出所有元素并清空</span><br><span class="hljs-comment">    *</span><br><span class="hljs-comment">    * <span class="hljs-doctag">@param</span> key Redis键</span><br><span class="hljs-comment">    * <span class="hljs-doctag">@return</span> 所有元素列表</span><br><span class="hljs-comment">    */</span><br>   <span class="hljs-keyword">public</span> &lt;T&gt; List&lt;T&gt; <span class="hljs-title function_">popAllFromList</span><span class="hljs-params">(<span class="hljs-keyword">final</span> String key)</span><br>   &#123;<br>       <span class="hljs-type">Long</span> <span class="hljs-variable">size</span> <span class="hljs-operator">=</span> redisTemplate.opsForList().size(key);<br>       <span class="hljs-keyword">if</span> (size == <span class="hljs-literal">null</span> || size == <span class="hljs-number">0</span>) &#123;<br>           <span class="hljs-keyword">return</span> Collections.emptyList();<br>       &#125;<br>       List&lt;T&gt; result = redisTemplate.opsForList().range(key, <span class="hljs-number">0</span>, -<span class="hljs-number">1</span>);<br>       redisTemplate.delete(key);<br>       <span class="hljs-keyword">return</span> result == <span class="hljs-literal">null</span> ? Collections.emptyList() : result;<br>   &#125;<br><br>   <span class="hljs-comment">/**</span><br><span class="hljs-comment">    * 向 Set 中添加一个元素，返回是否为新元素（true=新增成功，false=已存在）</span><br><span class="hljs-comment">    *</span><br><span class="hljs-comment">    * <span class="hljs-doctag">@param</span> key   Redis键</span><br><span class="hljs-comment">    * <span class="hljs-doctag">@param</span> value 值</span><br><span class="hljs-comment">    * <span class="hljs-doctag">@return</span> 是否为新元素</span><br><span class="hljs-comment">    */</span><br>   <span class="hljs-keyword">public</span> &lt;T&gt; <span class="hljs-type">boolean</span> <span class="hljs-title function_">addToSet</span><span class="hljs-params">(<span class="hljs-keyword">final</span> String key, <span class="hljs-keyword">final</span> T value)</span><br>   &#123;<br>       <span class="hljs-type">Long</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> redisTemplate.opsForSet().add(key, value);<br>       <span class="hljs-keyword">return</span> result != <span class="hljs-literal">null</span> &amp;&amp; result &gt; <span class="hljs-number">0</span>;<br>   &#125;<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>新建RecordVisitDto类</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 记录访问请求DTO</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Data</span><br><span class="hljs-meta">@ApiModel(description = &quot;记录访问请求对象&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RecordVisitDto</span> &#123;<br><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;访问的页面URL&quot;, required = true, example = &quot;/article/1&quot;)</span><br>    <span class="hljs-keyword">private</span> String pageUrl;<br><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;页面标题&quot;, example = &quot;文章标题&quot;)</span><br>    <span class="hljs-keyword">private</span> String pageTitle;<br><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;来源页面&quot;, example = &quot;https://www.google.com&quot;)</span><br>    <span class="hljs-keyword">private</span> String referrer;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>再新建SiteInfoVo</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 网站统计信息VO</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Data</span><br><span class="hljs-meta">@AllArgsConstructor</span><br><span class="hljs-meta">@NoArgsConstructor</span><br><span class="hljs-meta">@ApiModel(description = &quot;网站统计信息&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SiteInfoVo</span> &#123;<br><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;总访问量（PV）&quot;)</span><br>    <span class="hljs-keyword">private</span> Long totalViews;<br><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;总访客数（UV）&quot;)</span><br>    <span class="hljs-keyword">private</span> Long totalVisitors;<br><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;文章总数&quot;)</span><br>    <span class="hljs-keyword">private</span> Integer articleCount;<br><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;分类总数&quot;)</span><br>    <span class="hljs-keyword">private</span> Integer categoryCount;<br><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;标签总数&quot;)</span><br>    <span class="hljs-keyword">private</span> Integer tagCount;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>接下来就是在SiteStatisticsServiceImpl中写相关的功能</p>
+<p>需要注意的是下面的包含了siteInfo和recordVisit两个接口的功能</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 网站统计表(SiteStatistics)表服务实现类</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Service(&quot;siteStatisticsService&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SiteStatisticsServiceImpl</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ServiceImpl</span>&lt;SiteStatisticsMapper, SiteStatistics&gt; <span class="hljs-keyword">implements</span> <span class="hljs-title class_">SiteStatisticsService</span> &#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> ArticleService articleService;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> CategoryMapper categoryMapper;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> TagMapper tagMapper;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> RedisCache redisCache;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> RedisTemplate redisTemplate;<br><br>    <span class="hljs-comment">//获取网站统计信息</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> ResponseResult <span class="hljs-title function_">getSiteInfo</span><span class="hljs-params">()</span><br>    &#123;<br>        <span class="hljs-comment">//从Redis获取总预览量（PV）</span><br>        <span class="hljs-type">Integer</span> <span class="hljs-variable">cachedViews</span> <span class="hljs-operator">=</span> redisCache.getCacheMapValue(SystemConstants.SITE_TOTAL_VIEWS, SystemConstants.SITE_TOTAL_VIEWS_FIELD);<br>        <span class="hljs-type">long</span> <span class="hljs-variable">totalViews</span> <span class="hljs-operator">=</span> cachedViews != <span class="hljs-literal">null</span> ? cachedViews.longValue() : <span class="hljs-number">0L</span>;<br><br>        <span class="hljs-comment">//从Redis获取总访客数（UV）</span><br>        <span class="hljs-type">Integer</span> <span class="hljs-variable">cachedVisitors</span> <span class="hljs-operator">=</span> redisCache.getCacheMapValue(SystemConstants.SITE_TOTAL_VISITORS, SystemConstants.SITE_TOTAL_VISITORS_FIELD);<br>        <span class="hljs-type">long</span> <span class="hljs-variable">totalVisitors</span> <span class="hljs-operator">=</span> cachedVisitors != <span class="hljs-literal">null</span> ? cachedVisitors.longValue() : <span class="hljs-number">0L</span>;<br><br>        <span class="hljs-comment">//查询文章总数（已发布且未删除）</span><br>        <span class="hljs-type">int</span> <span class="hljs-variable">articleCount</span> <span class="hljs-operator">=</span> (<span class="hljs-type">int</span>) articleService.count(<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaQueryWrapper</span>&lt;Article&gt;()<br>                        .eq(Article::getStatus, SystemConstants.STATUS_NORMAL)<br>                        .eq(Article::getDelFlag, SystemConstants.NOT_DELETED)<br>        );<br><br>        <span class="hljs-comment">//查询分类总数（正常状态且未删除）</span><br>        <span class="hljs-type">int</span> <span class="hljs-variable">categoryCount</span> <span class="hljs-operator">=</span> categoryMapper.selectCount(<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaQueryWrapper</span>&lt;Category&gt;()<br>                        .eq(Category::getStatus, SystemConstants.STATUS_NORMAL)<br>                        .eq(Category::getDelFlag, SystemConstants.NOT_DELETED)<br>        ).intValue();<br><br>        <span class="hljs-comment">//查询标签总数（未删除）</span><br>        <span class="hljs-type">int</span> <span class="hljs-variable">tagCount</span> <span class="hljs-operator">=</span> tagMapper.selectCount(<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaQueryWrapper</span>&lt;Tag&gt;()<br>                        .eq(Tag::getDelFlag, SystemConstants.NOT_DELETED)<br>        ).intValue();<br><br>        <span class="hljs-type">SiteInfoVo</span> <span class="hljs-variable">siteInfoVo</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SiteInfoVo</span>(totalViews, totalVisitors, articleCount, categoryCount, tagCount);<br>        <span class="hljs-keyword">return</span> ResponseResult.okResult(siteInfoVo);<br>    &#125;<br><br>    <span class="hljs-comment">//记录访问日志</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> ResponseResult <span class="hljs-title function_">recordVisit</span><span class="hljs-params">(RecordVisitDto recordVisitDto, HttpServletRequest request)</span><br>    &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">ip</span> <span class="hljs-operator">=</span> IpUtils.getIpAddr(request);<br>        <span class="hljs-type">String</span> <span class="hljs-variable">userAgent</span> <span class="hljs-operator">=</span> request.getHeader(<span class="hljs-string">&quot;User-Agent&quot;</span>);<br>        <span class="hljs-keyword">if</span> (userAgent == <span class="hljs-literal">null</span>) &#123;<br>            userAgent = <span class="hljs-string">&quot;&quot;</span>;<br>        &#125;<br><br>        <span class="hljs-comment">// IP 限流：每个 IP 每分钟最多 30 次，超出直接拒绝</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">rateLimitKey</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;rate:recordVisit:&quot;</span> + ip + <span class="hljs-string">&quot;:&quot;</span> + (System.currentTimeMillis() / <span class="hljs-number">60000</span>);<br>        <span class="hljs-type">Long</span> <span class="hljs-variable">count</span> <span class="hljs-operator">=</span> redisTemplate.opsForValue().increment(rateLimitKey);<br>        <span class="hljs-keyword">if</span> (count == <span class="hljs-number">1</span>) &#123;<br>            <span class="hljs-comment">// 第一次写入，设置 70 秒过期（略大于 1 分钟，防止边界问题）</span><br>            redisTemplate.expire(rateLimitKey, <span class="hljs-number">70</span>, java.util.concurrent.TimeUnit.SECONDS);<br>        &#125;<br>        <span class="hljs-keyword">if</span> (count &gt; <span class="hljs-number">30</span>) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SystemException</span>(AppHttpCodeEnum.IP_REQUEST_LIMIT);<br>        &#125;<br><br>        <span class="hljs-comment">// IP 脱敏：保留前三段，末段替换为 *（如 192.168.1.*）</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">maskedIp</span> <span class="hljs-operator">=</span> maskIp(ip);<br><br>        <span class="hljs-comment">// 访问日志写入 Redis 队列，由定时任务批量 flush 到数据库</span><br>        <span class="hljs-type">VisitLog</span> <span class="hljs-variable">visitLog</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">VisitLog</span>();<br>        visitLog.setIp(maskedIp);<br>        <span class="hljs-comment">// 不存原始 UA，只保留解析后的设备信息</span><br>        <span class="hljs-keyword">if</span> (!userAgent.isEmpty()) &#123;<br>            visitLog.setDeviceType(parseDeviceType(userAgent));<br>            visitLog.setBrowser(parseBrowser(userAgent));<br>            visitLog.setOs(parseOs(userAgent));<br>        &#125;<br>        <span class="hljs-comment">// pageUrl 只保留路径部分，去除查询参数</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">pageUrl</span> <span class="hljs-operator">=</span> recordVisitDto.getPageUrl();<br>        <span class="hljs-keyword">if</span> (pageUrl != <span class="hljs-literal">null</span> &amp;&amp; pageUrl.contains(<span class="hljs-string">&quot;?&quot;</span>)) &#123;<br>            pageUrl = pageUrl.substring(<span class="hljs-number">0</span>, pageUrl.indexOf(<span class="hljs-string">&#x27;?&#x27;</span>));<br>        &#125;<br>        visitLog.setPageUrl(pageUrl);<br>        visitLog.setPageTitle(recordVisitDto.getPageTitle());<br>        visitLog.setReferrer(recordVisitDto.getReferrer());<br>        visitLog.setVisitTime(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>());<br>        redisCache.pushToList(SystemConstants.VISIT_LOG_QUEUE, visitLog);<br><br>        <span class="hljs-comment">// PV 计数递增</span><br>        redisCache.incrementCacheMapValue(SystemConstants.SITE_TOTAL_VIEWS, SystemConstants.SITE_TOTAL_VIEWS_FIELD, <span class="hljs-number">1</span>);<br><br>        <span class="hljs-comment">// UV 去重：按月分 key，SADD 返回 true 说明是本月新访客</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">visitorHash</span> <span class="hljs-operator">=</span> DigestUtils.md5DigestAsHex((ip + userAgent).getBytes(StandardCharsets.UTF_8));<br>        <span class="hljs-type">String</span> <span class="hljs-variable">monthKey</span> <span class="hljs-operator">=</span> SystemConstants.SITE_VISITOR_SET_PREFIX<br>                + LocalDate.now().format(DateTimeFormatter.ofPattern(<span class="hljs-string">&quot;yyyy-MM&quot;</span>));<br>        <span class="hljs-type">boolean</span> <span class="hljs-variable">isNewVisitor</span> <span class="hljs-operator">=</span> redisCache.addToSet(monthKey, visitorHash);<br>        <span class="hljs-keyword">if</span> (isNewVisitor) &#123;<br>            redisCache.incrementCacheMapValue(SystemConstants.SITE_TOTAL_VISITORS, SystemConstants.SITE_TOTAL_VISITORS_FIELD, <span class="hljs-number">1</span>);<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> ResponseResult.okResult();<br>    &#125;<br><br>    <span class="hljs-comment">//解析设备系统类型</span><br>    <span class="hljs-keyword">private</span> String <span class="hljs-title function_">parseDeviceType</span><span class="hljs-params">(String ua)</span><br>    &#123;<br>        <span class="hljs-keyword">if</span> (ua.contains(<span class="hljs-string">&quot;Mobile&quot;</span>) || ua.contains(<span class="hljs-string">&quot;Android&quot;</span>) &amp;&amp; !ua.contains(<span class="hljs-string">&quot;Tablet&quot;</span>)) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Mobile&quot;</span>;<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (ua.contains(<span class="hljs-string">&quot;Tablet&quot;</span>) || ua.contains(<span class="hljs-string">&quot;iPad&quot;</span>)) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Tablet&quot;</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;PC&quot;</span>;<br>    &#125;<br><br>    <span class="hljs-comment">//解析浏览器类型</span><br>    <span class="hljs-keyword">private</span> String <span class="hljs-title function_">parseBrowser</span><span class="hljs-params">(String ua)</span><br>    &#123;<br>        <span class="hljs-keyword">if</span> (ua.contains(<span class="hljs-string">&quot;Edg/&quot;</span>) || ua.contains(<span class="hljs-string">&quot;Edge/&quot;</span>)) <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Edge&quot;</span>;<br>        <span class="hljs-keyword">if</span> (ua.contains(<span class="hljs-string">&quot;OPR/&quot;</span>) || ua.contains(<span class="hljs-string">&quot;Opera&quot;</span>)) <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Opera&quot;</span>;<br>        <span class="hljs-keyword">if</span> (ua.contains(<span class="hljs-string">&quot;Chrome&quot;</span>)) <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Chrome&quot;</span>;<br>        <span class="hljs-keyword">if</span> (ua.contains(<span class="hljs-string">&quot;Firefox&quot;</span>)) <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Firefox&quot;</span>;<br>        <span class="hljs-keyword">if</span> (ua.contains(<span class="hljs-string">&quot;Safari&quot;</span>) &amp;&amp; !ua.contains(<span class="hljs-string">&quot;Chrome&quot;</span>)) <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Safari&quot;</span>;<br>        <span class="hljs-keyword">if</span> (ua.contains(<span class="hljs-string">&quot;MSIE&quot;</span>) || ua.contains(<span class="hljs-string">&quot;Trident&quot;</span>)) <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;IE&quot;</span>;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Unknown&quot;</span>;<br>    &#125;<br><br>    <span class="hljs-comment">//解析设备类型</span><br>    <span class="hljs-keyword">private</span> String <span class="hljs-title function_">parseOs</span><span class="hljs-params">(String ua)</span><br>    &#123;<br>        <span class="hljs-keyword">if</span> (ua.contains(<span class="hljs-string">&quot;Windows NT&quot;</span>)) <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Windows&quot;</span>;<br>        <span class="hljs-keyword">if</span> (ua.contains(<span class="hljs-string">&quot;Mac OS X&quot;</span>)) <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;macOS&quot;</span>;<br>        <span class="hljs-keyword">if</span> (ua.contains(<span class="hljs-string">&quot;Android&quot;</span>)) <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Android&quot;</span>;<br>        <span class="hljs-keyword">if</span> (ua.contains(<span class="hljs-string">&quot;iPhone&quot;</span>) || ua.contains(<span class="hljs-string">&quot;iPad&quot;</span>)) <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;iOS&quot;</span>;<br>        <span class="hljs-keyword">if</span> (ua.contains(<span class="hljs-string">&quot;Linux&quot;</span>)) <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Linux&quot;</span>;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Unknown&quot;</span>;<br>    &#125;<br><br>    <span class="hljs-comment">// IP 脱敏：IPv4 末段替换为 *，IPv6 后两组替换为 *</span><br>    <span class="hljs-keyword">private</span> String <span class="hljs-title function_">maskIp</span><span class="hljs-params">(String ip)</span><br>    &#123;<br>        <span class="hljs-keyword">if</span> (ip == <span class="hljs-literal">null</span> || ip.isEmpty()) <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;unknown&quot;</span>;<br>        <span class="hljs-keyword">if</span> (ip.contains(<span class="hljs-string">&quot;:&quot;</span>)) &#123;<br>            <span class="hljs-comment">// IPv6：取前6组，后两组用 * 代替</span><br>            String[] parts = ip.split(<span class="hljs-string">&quot;:&quot;</span>);<br>            <span class="hljs-keyword">if</span> (parts.length &gt;= <span class="hljs-number">2</span>) &#123;<br>                parts[parts.length - <span class="hljs-number">1</span>] = <span class="hljs-string">&quot;*&quot;</span>;<br>                parts[parts.length - <span class="hljs-number">2</span>] = <span class="hljs-string">&quot;*&quot;</span>;<br>                <span class="hljs-keyword">return</span> String.join(<span class="hljs-string">&quot;:&quot;</span>, parts);<br>            &#125;<br>            <span class="hljs-keyword">return</span> ip;<br>        &#125;<br>        <span class="hljs-comment">// IPv4：末段替换为 *</span><br>        <span class="hljs-type">int</span> <span class="hljs-variable">lastDot</span> <span class="hljs-operator">=</span> ip.lastIndexOf(<span class="hljs-string">&#x27;.&#x27;</span>);<br>        <span class="hljs-keyword">if</span> (lastDot &gt; <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-keyword">return</span> ip.substring(<span class="hljs-number">0</span>, lastDot) + <span class="hljs-string">&quot;.*&quot;</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ip;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>没想到一个小小的记录访客模块要写这么多功能</p>
+<p>主要是要记录用户访问量时需要记录的信息要避免违法，做到只记录与预览有关的</p>
+<p>还有这些接口我都比较想将他们做成和文章预览量那样先存redis再存数据库，避免给数据库过大压力</p>
+<p>这样要写好多相关工具类，工作量巨大</p>
+<p>好在最后也是完成这个接口的设计了</p>
+
+<hr>
+<p align="center" style="color: #69bcff;font-size: 20px"><strong>
+此博客系统的前台所包含的前端和后端基本开发完整（差一个文章所属标签和标签页未完善），因为先前已经写了一个分类是与标签功能相似的了，
+而且后台系统中写文章相关也是要选择标签和分类的，
+所以选择留到后续开发后台系统时再进行完善</strong></p>
+
+<p align="center" style="color: hotpink;font-size: 20px"><strong>PS:该系列只做为作者学习开发项目做的笔记用</strong></p>
+<p align="center" style="color: hotpink;font-size: 20px"><strong>不一定符合读者来学习，仅供参考</strong></p>
+<hr>
+<h2 style="color: #b7a0e0"><span id="预告">预告</span></h2>  
+<p>后续会记录博客的开发过程</p>
+<p>每次学习会做一份笔记来进行发表</p>
+
+<blockquote>  
+<p style="color: #bbbbee">“一花一世界，一叶一菩提”</p>
+</blockquote>
+
+<hr>
+<p>版权所有 © 2025 云梦泽<br>欢迎访问我的个人网站：<a target="_blank" rel="noopener" href="https://hgt12.github.io/">https://hgt12.github.io/</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/" class="category-chain-item">博客开发</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%8A%80%E6%9C%AF%E5%90%91/" class="print-no-link">#技术向</a>
+      
+        <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" class="print-no-link">#个人博客</a>
+      
+        <a href="/tags/%E5%89%8D%E7%AB%AF/" class="print-no-link">#前端</a>
+      
+        <a href="/tags/%E5%90%8E%E7%AB%AF/" class="print-no-link">#后端</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>『博客开发日记』之博客页脚网页预览量接口的实现</div>
+      <div>http://example.com/2026/03/16/『博客开发日记』之博客页脚网页预览量接口的实现/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>云梦泽</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年3月16日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2026年3月16日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/03/15/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0%E9%A2%84%E8%A7%88%E9%87%8F%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之博客文章预览量接口的实现">
+                        <span class="hidden-mobile">『博客开发日记』之博客文章预览量接口的实现</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments">
+      
+  <div id="twikoo"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/twikoo/1.6.8/twikoo.all.min.js', function() {
+        var options = Object.assign(
+          {"envId":"https://mi-manchi-ovo.netlify.app/.netlify/functions/twikoo","region":"ap-shanghai","path":"window.location.pathname"},
+          {
+            el: '#twikoo',
+            path: 'window.location.pathname',
+            onCommentLoaded: function() {
+              Fluid.utils.listenDOMLoaded(function() {
+                var imgSelector = '#twikoo .tk-content img:not(.tk-owo-emotion)';
+                Fluid.plugins.imageCaption(imgSelector);
+                Fluid.plugins.fancyBox(imgSelector);
+              });
+            }
+          }
+        )
+        twikoo.init(options)
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hgt12.github.io/" target="_blank" rel="nofollow noopener"><span>云梦泽</span></a> <i class="iconfont icon-love"></i> <a target="_blank" href="https://hgt12.github.io/"_blank" rel="nofollow noopener noopener"><span>Mi Manchi</span></a> <br> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    
+      <script  src="/js/img-lazyload.js" ></script>
+    
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/click.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
