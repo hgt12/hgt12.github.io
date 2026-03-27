@@ -19,29 +19,29 @@
   <meta name="author" content="云梦泽">
   <meta name="keywords" content="js html">
   
-    <meta name="description" content="标签列表的实现   后续开发     PS:该系列只做为作者学习开发项目做的笔记用 不一定符合读者来学习，仅供参考  预告   后续会记录博客的开发过程 每次学习会做一份笔记来进行发表     “一花一世界，一叶一菩提”    版权所有 © 2025 云梦泽欢迎访问我的个人网站：https:&#x2F;&#x2F;hgt12.github.io&#x2F;">
+    <meta name="description" content="生成图形验证码接口的实现  生成图形验证码接口的需求 图形验证码的存在，主要为了防止有自动化机器人持续进行登录导致接口压力增大 通过验证码生成工具来生成图形验证码 验证码生成之后存入redis（2分钟） 代码 先创建图形验证码生成工具类，这个主要负责生成随机的验证码并将其转换为图片形式  1234567891011121314151617181920212223242526272829303132">
 <meta property="og:type" content="article">
-<meta property="og:title" content="『博客开发日记』之标签列表的实现">
-<meta property="og:url" content="http://example.com/2026/01/11/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%A0%87%E7%AD%BE%E5%88%97%E8%A1%A8%E7%9A%84%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:title" content="『博客开发日记-后台』之生成图形验证码接口的实现">
+<meta property="og:url" content="http://example.com/2026/03/27/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E7%94%9F%E6%88%90%E5%9B%BE%E5%BD%A2%E9%AA%8C%E8%AF%81%E7%A0%81%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/index.html">
 <meta property="og:site_name" content="云梦泽的个人博客">
-<meta property="og:description" content="标签列表的实现   后续开发     PS:该系列只做为作者学习开发项目做的笔记用 不一定符合读者来学习，仅供参考  预告   后续会记录博客的开发过程 每次学习会做一份笔记来进行发表     “一花一世界，一叶一菩提”    版权所有 © 2025 云梦泽欢迎访问我的个人网站：https:&#x2F;&#x2F;hgt12.github.io&#x2F;">
+<meta property="og:description" content="生成图形验证码接口的实现  生成图形验证码接口的需求 图形验证码的存在，主要为了防止有自动化机器人持续进行登录导致接口压力增大 通过验证码生成工具来生成图形验证码 验证码生成之后存入redis（2分钟） 代码 先创建图形验证码生成工具类，这个主要负责生成随机的验证码并将其转换为图片形式  1234567891011121314151617181920212223242526272829303132">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/%E5%A3%81%E7%BA%B824.png">
-<meta property="article:published_time" content="2026-01-11T11:09:25.000Z">
-<meta property="article:modified_time" content="2026-01-11T11:41:56.068Z">
+<meta property="og:image" content="http://example.com/img/%E5%A3%81%E7%BA%B849.png">
+<meta property="article:published_time" content="2026-03-27T07:06:24.000Z">
+<meta property="article:modified_time" content="2026-03-27T08:01:12.954Z">
 <meta property="article:author" content="云梦泽">
 <meta property="article:tag" content="技术向">
 <meta property="article:tag" content="个人博客">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="后端">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/%E5%A3%81%E7%BA%B824.png">
+<meta name="twitter:image" content="http://example.com/img/%E5%A3%81%E7%BA%B849.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>『博客开发日记』之标签列表的实现 - 云梦泽的个人博客</title>
+  <title>『博客开发日记-后台』之生成图形验证码接口的实现 - 云梦泽的个人博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -239,13 +239,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/%E5%A3%81%E7%BA%B824.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/%E5%A3%81%E7%BA%B849.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="『博客开发日记』之标签列表的实现"></span>
+            <span id="subtitle" data-typed-text="『博客开发日记-后台』之生成图形验证码接口的实现"></span>
           
         </div>
 
@@ -261,8 +261,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2026-01-11 19:09" pubdate>
-          2026年1月11日 晚上
+        <time datetime="2026-03-27 15:06" pubdate>
+          2026年3月27日 下午
         </time>
       </span>
     
@@ -273,7 +273,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          106 字
+          702 字
         
       </span>
     
@@ -284,7 +284,7 @@
         
         
         
-          1 分钟
+          6 分钟
         
       </span>
     
@@ -347,7 +347,7 @@
         aria-expanded="true"
       >
         博客开发
-        <span class="list-group-count">(34)</span>
+        <span class="list-group-count">(36)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -358,6 +358,33 @@
           
   <div class="category-post-list">
     
+    
+      
+      
+        <a href="/2026/03/27/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E7%94%9F%E6%88%90%E5%9B%BE%E5%BD%A2%E9%AA%8C%E8%AF%81%E7%A0%81%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之生成图形验证码接口的实现"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">『博客开发日记-后台』之生成图形验证码接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/25/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E7%99%BB%E5%BD%95%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之登录接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之登录接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/25/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80%E6%90%AD%E5%BB%BA/" title="『博客开发日记-后台』之系统基础搭建"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之系统基础搭建</span>
+        </a>
+      
     
       
       
@@ -550,15 +577,6 @@
     
       
       
-        <a href="/2026/01/11/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%A0%87%E7%AD%BE%E5%88%97%E8%A1%A8%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之标签列表的实现"
-           class="list-group-item list-group-item-action
-           active">
-          <span class="category-post">『博客开发日记』之标签列表的实现</span>
-        </a>
-      
-    
-      
-      
         <a href="/2026/03/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%A0%B9%E6%8D%AE%E6%A0%87%E7%AD%BEid%E6%9F%A5%E8%AF%A2%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之根据标签id查询文章列表接口的实现"
            class="list-group-item list-group-item-action
            ">
@@ -683,12 +701,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">『博客开发日记』之标签列表的实现</h1>
+            <h1 id="seo-header">『博客开发日记-后台』之生成图形验证码接口的实现</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年1月11日 晚上
+                    本文最后更新于 2026年3月27日 下午
                   
                 
               </p>
@@ -696,14 +714,42 @@
             
               <div class="markdown-body">
                 
-                <h1 align="center"><span id="标签列表的实现"><span style="color: cadetblue;">标签列表的实现</span></span></h1>
+                <h1 align="center"><span id="生成图形验证码接口的实现"><span style="color: cadetblue;">生成图形验证码接口的实现</span></span></h1>
+<hr>
+<h2 style="color: #b7a0e0"><span id="生成图形验证码接口的需求">生成图形验证码接口的需求</span></h2>
+<p>图形验证码的存在，主要为了防止有自动化机器人持续进行登录导致接口压力增大</p>
+<p>通过验证码生成工具来生成图形验证码</p>
+<p>验证码生成之后存入redis（2分钟）</p>
+<h2 style="color: #b7a0e0"><span id="代码">代码</span></h2>
+<p>先创建图形验证码生成工具类，这个主要负责生成随机的验证码并将其转换为图片形式</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 验证码工具类</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CaptchaUtil</span> &#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">CODES</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">WIDTH</span> <span class="hljs-operator">=</span> <span class="hljs-number">120</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">HEIGHT</span> <span class="hljs-operator">=</span> <span class="hljs-number">40</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">CODE_LENGTH</span> <span class="hljs-operator">=</span> <span class="hljs-number">4</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Random</span> <span class="hljs-variable">RANDOM</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Random</span>();<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 生成验证码文本</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">generateCode</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">code</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; CODE_LENGTH; i++) &#123;<br>            code.append(CODES.charAt(RANDOM.nextInt(CODES.length())));<br>        &#125;<br>        <span class="hljs-keyword">return</span> code.toString();<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 生成验证码图片并转为Base64</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">generateImageBase64</span><span class="hljs-params">(String code)</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        <span class="hljs-type">BufferedImage</span> <span class="hljs-variable">image</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedImage</span>(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);<br>        <span class="hljs-type">Graphics2D</span> <span class="hljs-variable">g</span> <span class="hljs-operator">=</span> image.createGraphics();<br><br>        <span class="hljs-comment">// 设置背景色</span><br>        g.setColor(Color.WHITE);<br>        g.fillRect(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, WIDTH, HEIGHT);<br><br>        <span class="hljs-comment">// 设置字体</span><br>        g.setFont(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Font</span>(<span class="hljs-string">&quot;Arial&quot;</span>, Font.BOLD, <span class="hljs-number">32</span>));<br><br>        <span class="hljs-comment">// 绘制验证码</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; code.length(); i++) &#123;<br>            <span class="hljs-comment">// 随机颜色</span><br>            g.setColor(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Color</span>(RANDOM.nextInt(<span class="hljs-number">150</span>), RANDOM.nextInt(<span class="hljs-number">150</span>), RANDOM.nextInt(<span class="hljs-number">150</span>)));<br>            <span class="hljs-comment">// 随机位置和角度</span><br>            <span class="hljs-type">int</span> <span class="hljs-variable">x</span> <span class="hljs-operator">=</span> <span class="hljs-number">20</span> + i * <span class="hljs-number">25</span>;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">y</span> <span class="hljs-operator">=</span> <span class="hljs-number">28</span> + RANDOM.nextInt(<span class="hljs-number">8</span>);<br>            g.drawString(String.valueOf(code.charAt(i)), x, y);<br>        &#125;<br><br>        <span class="hljs-comment">// 绘制干扰线</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++) &#123;<br>            g.setColor(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Color</span>(RANDOM.nextInt(<span class="hljs-number">200</span>), RANDOM.nextInt(<span class="hljs-number">200</span>), RANDOM.nextInt(<span class="hljs-number">200</span>)));<br>            <span class="hljs-type">int</span> <span class="hljs-variable">x1</span> <span class="hljs-operator">=</span> RANDOM.nextInt(WIDTH);<br>            <span class="hljs-type">int</span> <span class="hljs-variable">y1</span> <span class="hljs-operator">=</span> RANDOM.nextInt(HEIGHT);<br>            <span class="hljs-type">int</span> <span class="hljs-variable">x2</span> <span class="hljs-operator">=</span> RANDOM.nextInt(WIDTH);<br>            <span class="hljs-type">int</span> <span class="hljs-variable">y2</span> <span class="hljs-operator">=</span> RANDOM.nextInt(HEIGHT);<br>            g.drawLine(x1, y1, x2, y2);<br>        &#125;<br><br>        <span class="hljs-comment">// 绘制噪点</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">50</span>; i++) &#123;<br>            g.setColor(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Color</span>(RANDOM.nextInt(<span class="hljs-number">255</span>), RANDOM.nextInt(<span class="hljs-number">255</span>), RANDOM.nextInt(<span class="hljs-number">255</span>)));<br>            g.fillRect(RANDOM.nextInt(WIDTH), RANDOM.nextInt(HEIGHT), <span class="hljs-number">1</span>, <span class="hljs-number">1</span>);<br>        &#125;<br><br>        g.dispose();<br><br>        <span class="hljs-comment">// 转换为Base64</span><br>        <span class="hljs-type">ByteArrayOutputStream</span> <span class="hljs-variable">outputStream</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayOutputStream</span>();<br>        ImageIO.write(image, <span class="hljs-string">&quot;png&quot;</span>, outputStream);<br>        <span class="hljs-type">String</span> <span class="hljs-variable">base64</span> <span class="hljs-operator">=</span> Base64.getEncoder().encodeToString(outputStream.toByteArray());<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;data:image/png;base64,&quot;</span> + base64;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <hr>
 
-<p>后续开发</p>
+<p>然后创建与验证码相关的接口，这里不再演示</p>
+<p>然后实现服务功能</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//获取图形验证码</span><br><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> ResponseResult <span class="hljs-title function_">captcha</span><span class="hljs-params">(UserLoginDto dto)</span><br>&#123;<br>    <span class="hljs-keyword">try</span> &#123;<br>        <span class="hljs-comment">// 生成验证码ID</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">captchaId</span> <span class="hljs-operator">=</span> UUID.randomUUID().toString();<br>        <br>        <span class="hljs-comment">// 生成验证码文本</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">code</span> <span class="hljs-operator">=</span> CaptchaUtil.generateCode();<br>        <br>        <span class="hljs-comment">// 生成验证码图片Base64</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">base64Img</span> <span class="hljs-operator">=</span> CaptchaUtil.generateImageBase64(code);<br>        <br>        <span class="hljs-comment">// 将验证码存入Redis，有效期2分钟</span><br>        redisCache.setCacheObject(<span class="hljs-string">&quot;captcha:&quot;</span> + captchaId, code, <span class="hljs-number">2</span>, java.util.concurrent.TimeUnit.MINUTES);<br>        <br>        <span class="hljs-comment">// 在控制台输出验证码（方便开发调试）</span><br>        System.out.println(<span class="hljs-string">&quot;========================================&quot;</span>);<br>        System.out.println(<span class="hljs-string">&quot;验证码ID: &quot;</span> + captchaId);<br>        System.out.println(<span class="hljs-string">&quot;验证码内容: &quot;</span> + code);<br>        System.out.println(<span class="hljs-string">&quot;========================================&quot;</span>);<br>        <br>        <span class="hljs-comment">// 构建响应数据</span><br>        Map&lt;String, String&gt; result = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        result.put(<span class="hljs-string">&quot;captchaId&quot;</span>, captchaId);<br>        result.put(<span class="hljs-string">&quot;captchaBase64&quot;</span>, base64Img);<br>        <br>        <span class="hljs-keyword">return</span> ResponseResult.okResult(result);<br>    &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SystemException</span>(AppHttpCodeEnum.SYSTEM_ERROR);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>最后就是给这个接口放行</p>
+<img src="/img/放行生成图形验证码接口.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>测试图形验证码接口</p>
+<img src="/img/图形验证码测试.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>测试登录接口</p>
+<img src="/img/测试登录接口.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p></p>
+<img src="/img/.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
 
 
 <hr>
-
 <p align="center" style="color: hotpink;font-size: 20px"><strong>PS:该系列只做为作者学习开发项目做的笔记用</strong></p>
 <p align="center" style="color: hotpink;font-size: 20px"><strong>不一定符合读者来学习，仅供参考</strong></p>
 <hr>
@@ -716,7 +762,7 @@
 </blockquote>
 
 <hr>
-<p>版权所有 © 2025 云梦泽<br>欢迎访问我的个人网站：<a target="_blank" rel="noopener" href="https://hgt12.github.io/">https://hgt12.github.io/</a></p>
+<p>版权所有 © 2026 云梦泽<br>欢迎访问我的个人网站：<a target="_blank" rel="noopener" href="https://hgt12.github.io/">https://hgt12.github.io/</a></p>
 
                 
               </div>
@@ -768,8 +814,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>『博客开发日记』之标签列表的实现</div>
-      <div>http://example.com/2026/01/11/『博客开发日记』之标签列表的实现/</div>
+      <div>『博客开发日记-后台』之生成图形验证码接口的实现</div>
+      <div>http://example.com/2026/03/27/『博客开发日记-后台』之生成图形验证码接口的实现/</div>
     </div>
     <div class="license-meta">
       
@@ -781,13 +827,13 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2026年1月11日</div>
+          <div>2026年3月27日</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2026年1月11日</div>
+          <div>2026年3月27日</div>
         </div>
       
       
@@ -818,18 +864,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2026/01/11/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%99%BB%E5%87%BA%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之登出接口的实现">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">『博客开发日记』之登出接口的实现</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2026/01/07/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%99%BB%E5%BD%95%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之登录接口的实现">
-                        <span class="hidden-mobile">『博客开发日记』之登录接口的实现</span>
+                      <a href="/2026/03/25/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E7%99%BB%E5%BD%95%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之登录接口的实现">
+                        <span class="hidden-mobile">『博客开发日记-后台』之登录接口的实现</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
