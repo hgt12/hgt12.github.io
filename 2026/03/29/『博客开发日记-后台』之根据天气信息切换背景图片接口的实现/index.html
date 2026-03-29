@@ -1,0 +1,1370 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/mi_manchi.png">
+  <link rel="icon" href="/img/mi_manchi.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="云梦泽">
+  <meta name="keywords" content="js html">
+  
+    <meta name="description" content="生成根据天气信息切换背景图片接口的实现  根据天气信息切换背景图片接口的需求 根据用户IP地址解析出ip定位 然后根据定位获取用户所在地的天气信息 通过分析用户当前的天气传递天气类型给前端 其中解析IP地址获取定位用 ip2region来实现 获取天气信息则调用和风天气API来实现 aip半小时请求一次，或者有人刷新时请求 请求到的数据在redis中缓存半小时 代码实现 由于涉及到API调用，所以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="『博客开发日记-后台』之根据天气信息切换背景图片接口的实现">
+<meta property="og:url" content="http://example.com/2026/03/29/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E6%A0%B9%E6%8D%AE%E5%A4%A9%E6%B0%94%E4%BF%A1%E6%81%AF%E5%88%87%E6%8D%A2%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:site_name" content="云梦泽的个人博客">
+<meta property="og:description" content="生成根据天气信息切换背景图片接口的实现  根据天气信息切换背景图片接口的需求 根据用户IP地址解析出ip定位 然后根据定位获取用户所在地的天气信息 通过分析用户当前的天气传递天气类型给前端 其中解析IP地址获取定位用 ip2region来实现 获取天气信息则调用和风天气API来实现 aip半小时请求一次，或者有人刷新时请求 请求到的数据在redis中缓存半小时 代码实现 由于涉及到API调用，所以">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/%E5%A3%81%E7%BA%B850.png">
+<meta property="article:published_time" content="2026-03-29T08:26:05.000Z">
+<meta property="article:modified_time" content="2026-03-29T11:16:47.163Z">
+<meta property="article:author" content="云梦泽">
+<meta property="article:tag" content="技术向">
+<meta property="article:tag" content="个人博客">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="后端">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/%E5%A3%81%E7%BA%B850.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>『博客开发日记-后台』之根据天气信息切换背景图片接口的实现 - 云梦泽的个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":80,"cursorChar":"✨","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":7},"lazyload":{"enable":true,"loading_img":"/img/loading_1.gif","onlypost":true,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<!-- hexo injector head_end start --><script src="/js/click.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <!-- Canvas for click effect -->
+  <div id="clickCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999;"></div>
+
+  <header>
+    
+
+<div class="header-inner" style="height: 80vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>云梦泽</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/messages/" target="_self">
+                <i class="iconfont icon-comment"></i>
+                <span>留言板</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E5%A3%81%E7%BA%B850.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="『博客开发日记-后台』之根据天气信息切换背景图片接口的实现"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        云梦泽
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-03-29 16:26" pubdate>
+          2026年3月29日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          47 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="博客开发"
+        id="heading-82ca913bdcd63a1c254ebc1bbfb52228" role="tab" data-toggle="collapse" href="#collapse-82ca913bdcd63a1c254ebc1bbfb52228"
+        aria-expanded="true"
+      >
+        博客开发
+        <span class="list-group-count">(37)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-82ca913bdcd63a1c254ebc1bbfb52228"
+           role="tabpanel" aria-labelledby="heading-82ca913bdcd63a1c254ebc1bbfb52228">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/03/29/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E6%A0%B9%E6%8D%AE%E5%A4%A9%E6%B0%94%E4%BF%A1%E6%81%AF%E5%88%87%E6%8D%A2%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之根据天气信息切换背景图片接口的实现"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">『博客开发日记-后台』之根据天气信息切换背景图片接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/27/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E7%94%9F%E6%88%90%E5%9B%BE%E5%BD%A2%E9%AA%8C%E8%AF%81%E7%A0%81%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之生成图形验证码接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之生成图形验证码接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/25/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E7%99%BB%E5%BD%95%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之登录接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之登录接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/25/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80%E6%90%AD%E5%BB%BA/" title="『博客开发日记-后台』之系统基础搭建"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之系统基础搭建</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/14/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%B8%8A%E4%BC%A0%E5%A4%B4%E5%83%8F%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之上传头像接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之上传头像接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/14/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AF%E6%9F%A5%E8%AF%A2%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之个人信息查询接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之个人信息查询接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BC%98%E5%8C%96%E5%8F%91%E9%80%81%E9%AA%8C%E8%AF%81%E7%A0%81%E7%9A%84%E7%9B%B8%E5%85%B3%E6%8E%A5%E5%8F%A3/" title="『博客开发日记』之优化发送验证码的相关接口"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之优化发送验证码的相关接口</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/11/26/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BC%98%E5%8C%96%E5%90%8E%E7%AB%AF%E4%B8%8A%E4%BC%A0%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8F%8A%E4%B8%80%E4%BA%9B%E5%A4%84%E7%90%86/" title="『博客开发日记』之优化后端上传的数据及一些处理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之优化后端上传的数据及一些处理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/02/09/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BD%BF%E7%94%A8Swagger%E7%94%9F%E6%88%90%E6%8E%A5%E5%8F%A3api%E6%96%87%E6%A1%A3/" title="『博客开发日记』之使用Swagger生成接口api文档"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之使用Swagger生成接口api文档</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BF%AE%E5%A4%8D%E6%A0%87%E7%AD%BE%E6%97%A0%E6%B3%95%E5%9C%A8%E6%96%87%E7%AB%A0%E8%AF%A6%E6%83%85%E9%A1%B5%E5%92%8C%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8%E4%B8%AD%E6%98%BE%E7%A4%BA%E7%9A%84%E9%97%AE%E9%A2%98/" title="『博客开发日记』之修复标签无法在文章详情页和文章列表中显示的问题"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之修复标签无法在文章详情页和文章列表中显示的问题</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/11/26/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%88%86%E7%B1%BB%E5%88%97%E8%A1%A8%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之分类列表的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之分类列表的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/12/06/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之分页查询文章列表的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之分页查询文章列表的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/11/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%89%8D%E5%8F%B0%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%90%AD%E5%BB%BA/" title="『博客开发日记』之前台系统的搭建"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之前台系统的搭建</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/15/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0%E9%A2%84%E8%A7%88%E9%87%8F%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之博客文章预览量接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之博客文章预览量接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/16/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8D%9A%E5%AE%A2%E9%A1%B5%E8%84%9A%E7%BD%91%E9%A1%B5%E9%A2%84%E8%A7%88%E9%87%8F%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之博客页脚网页预览量接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之博客页脚网页预览量接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/12/28/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8F%8B%E9%93%BE%E6%9F%A5%E8%AF%A2%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之友链查询接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之友链查询接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/12/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8F%91%E5%B8%83%E8%AF%84%E8%AE%BA%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之发布评论接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之发布评论接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/24/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8F%91%E9%80%81%E8%AF%84%E8%AE%BA%E4%BC%9A%E7%BB%99%E4%B8%AA%E4%BA%BA%E5%8F%91%E9%80%81%E9%82%AE%E7%AE%B1%E9%80%9A%E7%9F%A5%E5%8A%9F%E8%83%BD/" title="『博客开发日记』之发送评论会给个人发送邮箱通知功能"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之发送评论会给个人发送邮箱通知功能</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/02/10/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%9C%A8AOP%E5%AE%9E%E7%8E%B0%E6%97%A5%E5%BF%97%E8%BE%93%E5%87%BA%E6%97%B6%E5%AF%B9%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%AD%89%E8%BF%9B%E8%A1%8C%E7%89%B9%E6%AE%8A%E5%A4%84%E7%90%86/" title="『博客开发日记』之在AOP实现日志输出时对文件上传等进行特殊处理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之在AOP实现日志输出时对文件上传等进行特殊处理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/11/23/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%9F%BA%E7%A1%80%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之基础代码实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之基础代码实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/02/10/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%BD%92%E6%A1%A3%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之归档接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之归档接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/13/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%90%9C%E7%B4%A2%E7%9B%B8%E5%85%B3%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之搜索相关接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之搜索相关接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/12/28/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%96%87%E7%AB%A0%E8%AF%A6%E6%83%85%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之文章详情接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之文章详情接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/16/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%9B%B4%E6%96%B0%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AF%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之更新个人信息接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之更新个人信息接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%A0%87%E7%AD%BE%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之标签列表接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之标签列表接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%A0%B9%E6%8D%AE%E6%A0%87%E7%AD%BEid%E6%9F%A5%E8%AF%A2%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之根据标签id查询文章列表接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之根据标签id查询文章列表接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/02/10/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%94%9F%E6%88%90%E8%AF%84%E8%AE%BA%E5%A4%B4%E5%83%8F%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之生成评论头像接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之生成评论头像接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/19/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%94%A8%E6%88%B7%E6%B3%A8%E5%86%8C%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之用户注册接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之用户注册接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/11/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%99%BB%E5%87%BA%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之登出接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之登出接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/07/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%99%BB%E5%BD%95%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之登录接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之登录接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/02/13/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E5%8D%9A%E4%B8%BB%E4%BF%A1%E6%81%AF%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之获取博主信息接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之获取博主信息接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/12/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E8%AF%84%E8%AE%BA%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之评论列表接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之评论列表接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/14/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E8%AF%84%E8%AE%BA%E7%82%B9%E8%B5%9E%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之评论点赞接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之评论点赞接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/02/08/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%80%9A%E8%BF%87AOP%E5%AE%9E%E7%8E%B0%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E5%8A%9F%E8%83%BD/" title="『博客开发日记』之通过AOP实现日志记录功能"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之通过AOP实现日志记录功能</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%87%8D%E7%BD%AE%E5%AF%86%E7%A0%81%E7%9B%B8%E5%85%B3%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之重置密码相关接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之重置密码相关接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/11/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/" title="『博客开发日记』之项目搭建"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之项目搭建</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/19/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%AA%8C%E8%AF%81%E7%A0%81%E5%8F%91%E9%80%81%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之验证码发送接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之验证码发送接口的实现</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">『博客开发日记-后台』之根据天气信息切换背景图片接口的实现</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2026年3月29日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 align="center"><span id="生成根据天气信息切换背景图片接口的实现"><span style="color: cadetblue;">生成根据天气信息切换背景图片接口的实现</span></span></h1>
+<hr>
+<h2 style="color: #b7a0e0"><span id="根据天气信息切换背景图片接口的需求">根据天气信息切换背景图片接口的需求</span></h2>
+<p>根据用户IP地址解析出ip定位</p>
+<p>然后根据定位获取用户所在地的天气信息</p>
+<p>通过分析用户当前的天气传递天气类型给前端</p>
+<p>其中解析IP地址获取定位用 <a target="_blank" rel="noopener" href="https://github.com/lionsoul2014/ip2region">ip2region</a>来实现</p>
+<p>获取天气信息则调用<a target="_blank" rel="noopener" href="https://dev.qweather.com/docs/api/weather/weather-now/">和风天气API</a>来实现</p>
+<p>aip半小时请求一次，或者有人刷新时请求</p>
+<p>请求到的数据在redis中缓存半小时</p>
+<h2 style="color: #b7a0e0"><span id="代码实现">代码实现</span></h2>
+<p>由于涉及到API调用，所以代码会复杂很多</p>
+<p>首先还是传统的老三样Controller，ServiceImpl，Service</p>
+
+<p>创建WeatherController</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@RequestMapping()</span><br><span class="hljs-meta">@Api(tags = &quot;天气&quot;, description = &quot;天气相关接口&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">WeatherController</span><br>&#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> WeatherService weatherService;<br><br>    <span class="hljs-meta">@GetMapping(&quot;/weather/now&quot;)</span><br>    <span class="hljs-meta">@SystemLog(businessName = &quot;获取当前天气&quot;)</span><br>    <span class="hljs-meta">@ApiOperation(value = &quot;获取实时天气&quot;, notes = &quot;根据位置获取实时天气信息，如果不传location则自动根据IP定位&quot;)</span><br>    <span class="hljs-keyword">public</span> ResponseResult <span class="hljs-title function_">getWeatherNow</span><span class="hljs-params">(</span><br><span class="hljs-params">            <span class="hljs-meta">@ApiParam(value = &quot;位置ID或经纬度，不传则自动根据IP定位&quot;)</span></span><br><span class="hljs-params">            <span class="hljs-meta">@RequestParam(required = false)</span> String location,</span><br><span class="hljs-params">            <span class="hljs-meta">@ApiParam(value = &quot;语言设置，默认zh&quot;)</span></span><br><span class="hljs-params">            <span class="hljs-meta">@RequestParam(required = false, defaultValue = &quot;zh&quot;)</span> String lang,</span><br><span class="hljs-params">            <span class="hljs-meta">@ApiParam(value = &quot;单位制式，m=公制，i=英制，默认m&quot;)</span></span><br><span class="hljs-params">            <span class="hljs-meta">@RequestParam(required = false, defaultValue = &quot;m&quot;)</span> String unit)</span> &#123;<br>        <span class="hljs-keyword">return</span> weatherService.getWeatherNow(location, lang, unit);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>创建WeatherService</p>
+<img src="/img/创建WeatherService.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>由于WeatherServiceImpl中涉及到的工具类和一些和相关代码比较多</p>
+<p>要先把前期工作做好</p>
+<hr>
+
+<h3 style="color: #b7a0e0"><span id="准备工作">准备工作</span></h3>
+<h4 style="color: #b7a0e0"><span id="生成密钥对">生成密钥对</span></h4>
+<p>首先由于是调用第三方API接口实现获取天气信息</p>
+<p>所以要有相关密钥和相关配置类和工具类</p>
+<p>先从拿到密钥开始</p>
+<p>先要注册和风天气开发者账号</p>
+<img src="/img/注册和风天气开发者账号.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>然后创建项目和JWT凭据</p>
+<img src="/img/创建项目和凭证.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>JWT凭据的创建需要用工具属于你的公钥去创建</p>
+<p>下面使用 Ed25519KeyGenerator 工具类来生成密钥对</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Ed25519密钥对生成工具</span><br><span class="hljs-comment"> * 用于生成和风天气JWT认证所需的密钥对</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Ed25519KeyGenerator</span><br>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 生成Ed25519密钥对并保存到文件</span><br><span class="hljs-comment">     * </span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> privateKeyPath 私钥保存路径</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> publicKeyPath 公钥保存路径</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> Exception 生成失败时抛出异常</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">generateAndSaveKeys</span><span class="hljs-params">(String privateKeyPath, String publicKeyPath)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-comment">// 生成密钥对</span><br>        <span class="hljs-type">KeyPairGenerator</span> <span class="hljs-variable">keyPairGenerator</span> <span class="hljs-operator">=</span> KeyPairGenerator.getInstance(<span class="hljs-string">&quot;Ed25519&quot;</span>);<br>        <span class="hljs-type">KeyPair</span> <span class="hljs-variable">keyPair</span> <span class="hljs-operator">=</span> keyPairGenerator.generateKeyPair();<br>        <br>        <span class="hljs-type">PrivateKey</span> <span class="hljs-variable">privateKey</span> <span class="hljs-operator">=</span> keyPair.getPrivate();<br>        <span class="hljs-type">PublicKey</span> <span class="hljs-variable">publicKey</span> <span class="hljs-operator">=</span> keyPair.getPublic();<br><br>        <span class="hljs-comment">// 保存私钥</span><br>        savePrivateKey(privateKey, privateKeyPath);<br>        <br>        <span class="hljs-comment">// 保存公钥</span><br>        savePublicKey(publicKey, publicKeyPath);<br>        <br>        System.out.println(<span class="hljs-string">&quot;密钥对生成成功！&quot;</span>);<br>        System.out.println(<span class="hljs-string">&quot;私钥保存在: &quot;</span> + privateKeyPath);<br>        System.out.println(<span class="hljs-string">&quot;公钥保存在: &quot;</span> + publicKeyPath);<br>        System.out.println(<span class="hljs-string">&quot;\n请将公钥内容上传到和风天气控制台：&quot;</span>);<br>        System.out.println(<span class="hljs-string">&quot;=&quot;</span>.repeat(<span class="hljs-number">50</span>));<br>        printPublicKey(publicKey);<br>        System.out.println(<span class="hljs-string">&quot;=&quot;</span>.repeat(<span class="hljs-number">50</span>));<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 保存私钥到PEM文件</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">savePrivateKey</span><span class="hljs-params">(PrivateKey privateKey, String filePath)</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">encoded</span> <span class="hljs-operator">=</span> Base64.getEncoder().encodeToString(privateKey.getEncoded());<br>        <span class="hljs-keyword">try</span> (<span class="hljs-type">FileWriter</span> <span class="hljs-variable">writer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileWriter</span>(filePath)) &#123;<br>            writer.write(<span class="hljs-string">&quot;-----BEGIN PRIVATE KEY-----\n&quot;</span>);<br>            writer.write(formatBase64(encoded));<br>            writer.write(<span class="hljs-string">&quot;\n-----END PRIVATE KEY-----\n&quot;</span>);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 保存公钥到PEM文件</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">savePublicKey</span><span class="hljs-params">(PublicKey publicKey, String filePath)</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">encoded</span> <span class="hljs-operator">=</span> Base64.getEncoder().encodeToString(publicKey.getEncoded());<br>        <span class="hljs-keyword">try</span> (<span class="hljs-type">FileWriter</span> <span class="hljs-variable">writer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileWriter</span>(filePath)) &#123;<br>            writer.write(<span class="hljs-string">&quot;-----BEGIN PUBLIC KEY-----\n&quot;</span>);<br>            writer.write(formatBase64(encoded));<br>            writer.write(<span class="hljs-string">&quot;\n-----END PUBLIC KEY-----\n&quot;</span>);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 打印公钥内容（用于上传到控制台）</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">printPublicKey</span><span class="hljs-params">(PublicKey publicKey)</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">encoded</span> <span class="hljs-operator">=</span> Base64.getEncoder().encodeToString(publicKey.getEncoded());<br>        System.out.println(<span class="hljs-string">&quot;-----BEGIN PUBLIC KEY-----&quot;</span>);<br>        System.out.println(formatBase64(encoded));<br>        System.out.println(<span class="hljs-string">&quot;-----END PUBLIC KEY-----&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 格式化Base64字符串（每64个字符换行）</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">formatBase64</span><span class="hljs-params">(String base64)</span> &#123;<br>        <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">formatted</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();<br>        <span class="hljs-type">int</span> <span class="hljs-variable">index</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span> (index &lt; base64.length()) &#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">end</span> <span class="hljs-operator">=</span> Math.min(index + <span class="hljs-number">64</span>, base64.length());<br>            formatted.append(base64, index, end);<br>            <span class="hljs-keyword">if</span> (end &lt; base64.length()) &#123;<br>                formatted.append(<span class="hljs-string">&quot;\n&quot;</span>);<br>            &#125;<br>            index = end;<br>        &#125;<br>        <span class="hljs-keyword">return</span> formatted.toString();<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 主方法：运行此方法生成密钥对</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">String</span> <span class="hljs-variable">privateKeyPath</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;ed25519-private.pem&quot;</span>;<br>            <span class="hljs-type">String</span> <span class="hljs-variable">publicKeyPath</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;ed25519-public.pem&quot;</span>;<br>            <br>            generateAndSaveKeys(privateKeyPath, publicKeyPath);<br>            <br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            System.err.println(<span class="hljs-string">&quot;生成密钥对失败: &quot;</span> + e.getMessage());<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>运行下面程序后会在项目根目录生成公钥（ed25519-public.pem）和私钥（ed25519-private.pem）</p>
+<img src="/img/密钥对.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>其中公钥用于生成你的项目凭据</p>
+<p>私钥自己保管好不要泄露，后面调用aip要用私钥去合成 JWT身份认证 去使用</p>
+<p>生成凭据之后你会得到一个凭据ID</p>
+
+<p>JWT作为api请求链接的一部分他是必须要有的</p>
+<p>JWT包含三个部分Header、Payload和Signature</p>
+<p>其中Header里要包含你的凭据ID</p>
+<p>Payload里要包含你凭据的项目ID</p>
+<p>将上面两个用Base64URL就行编码</p>
+<p>然后Signature里用的是你私钥通过进行Ed25519算法编译后的签名</p>
+<p>最后将Base64URL编码后的Header、Payload和Signature使用英文句号拼接在一起组合成最终的token</p>
+<p>像这样：header.payload.signature</p>
+<p>下面使用自动程序来生成这串token</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 和风天气JWT工具类</span><br><span class="hljs-comment"> * 用于生成Ed25519算法签名的JWT Token</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">QWeatherJwtUtil</span> &#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 生成和风天气API的JWT Token</span><br><span class="hljs-comment">     * </span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> keyId 凭据ID（在和风天气控制台获取）</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> projectId 项目ID（在和风天气控制台获取）</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> privateKeyPem 私钥内容（PEM格式）</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> validitySeconds Token有效期（秒），最长86400秒（24小时）</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> JWT Token</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> Exception 生成失败时抛出异常</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">generateToken</span><span class="hljs-params">(String keyId, String projectId, String privateKeyPem, <span class="hljs-type">long</span> validitySeconds)</span> <span class="hljs-keyword">throws</span> Exception<br>    &#123;<br>        <span class="hljs-comment">// 清理私钥格式，处理字面的\n转义字符</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">privateKeyString</span> <span class="hljs-operator">=</span> privateKeyPem<br>                .replace(<span class="hljs-string">&quot;\\n&quot;</span>, <span class="hljs-string">&quot;\n&quot;</span>)  <span class="hljs-comment">// 将字面的\n转换为真正的换行符</span><br>                .replace(<span class="hljs-string">&quot;-----BEGIN PRIVATE KEY-----&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)<br>                .replace(<span class="hljs-string">&quot;-----END PRIVATE KEY-----&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)<br>                .replaceAll(<span class="hljs-string">&quot;\\s+&quot;</span>, <span class="hljs-string">&quot;&quot;</span>);<br>        <br>        <span class="hljs-comment">// 解码私钥</span><br>        <span class="hljs-type">byte</span>[] privateKeyBytes = Base64.getDecoder().decode(privateKeyString);<br>        <span class="hljs-type">PKCS8EncodedKeySpec</span> <span class="hljs-variable">keySpec</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PKCS8EncodedKeySpec</span>(privateKeyBytes);<br>        <br>        <span class="hljs-comment">// 使用EdDSA算法生成私钥</span><br>        <span class="hljs-type">KeyFactory</span> <span class="hljs-variable">keyFactory</span> <span class="hljs-operator">=</span> KeyFactory.getInstance(<span class="hljs-string">&quot;EdDSA&quot;</span>);<br>        <span class="hljs-type">PrivateKey</span> <span class="hljs-variable">privateKey</span> <span class="hljs-operator">=</span> keyFactory.generatePrivate(keySpec);<br><br>        <span class="hljs-comment">// 构建Header</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">headerJson</span> <span class="hljs-operator">=</span> String.format(<span class="hljs-string">&quot;&#123;\&quot;alg\&quot;: \&quot;EdDSA\&quot;, \&quot;kid\&quot;: \&quot;%s\&quot;&#125;&quot;</span>, keyId);<br><br>        <span class="hljs-comment">// 构建Payload</span><br>        <span class="hljs-comment">// iat提前30秒防止时间误差</span><br>        <span class="hljs-type">long</span> <span class="hljs-variable">iat</span> <span class="hljs-operator">=</span> ZonedDateTime.now(ZoneOffset.UTC).toEpochSecond() - <span class="hljs-number">30</span>;<br>        <span class="hljs-type">long</span> <span class="hljs-variable">exp</span> <span class="hljs-operator">=</span> iat + validitySeconds;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">payloadJson</span> <span class="hljs-operator">=</span> String.format(<span class="hljs-string">&quot;&#123;\&quot;sub\&quot;: \&quot;%s\&quot;, \&quot;iat\&quot;: %d, \&quot;exp\&quot;: %d&#125;&quot;</span>, projectId, iat, exp);<br><br>        <span class="hljs-comment">// Base64URL编码Header和Payload</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">headerEncoded</span> <span class="hljs-operator">=</span> base64UrlEncode(headerJson.getBytes(StandardCharsets.UTF_8));<br>        <span class="hljs-type">String</span> <span class="hljs-variable">payloadEncoded</span> <span class="hljs-operator">=</span> base64UrlEncode(payloadJson.getBytes(StandardCharsets.UTF_8));<br>        <span class="hljs-type">String</span> <span class="hljs-variable">data</span> <span class="hljs-operator">=</span> headerEncoded + <span class="hljs-string">&quot;.&quot;</span> + payloadEncoded;<br><br>        <span class="hljs-comment">// 调试输出</span><br><span class="hljs-comment">//        System.out.println(&quot;========== 和风天气JWT生成调试信息 ==========&quot;);</span><br><span class="hljs-comment">//        System.out.println(&quot;Header JSON: &quot; + headerJson);</span><br><span class="hljs-comment">//        System.out.println(&quot;Payload JSON: &quot; + payloadJson);</span><br><span class="hljs-comment">//        System.out.println(&quot;Header (Base64URL): &quot; + headerEncoded);</span><br><span class="hljs-comment">//        System.out.println(&quot;Payload (Base64URL): &quot; + payloadEncoded);</span><br><span class="hljs-comment">//        System.out.println(&quot;Data (header.payload): &quot; + data);</span><br><br>        <span class="hljs-comment">// 使用Ed25519签名</span><br>        <span class="hljs-type">Signature</span> <span class="hljs-variable">signer</span> <span class="hljs-operator">=</span> Signature.getInstance(<span class="hljs-string">&quot;EdDSA&quot;</span>);<br>        signer.initSign(privateKey);<br>        signer.update(data.getBytes(StandardCharsets.UTF_8));<br>        <span class="hljs-type">byte</span>[] signature = signer.sign();<br><br>        <span class="hljs-comment">// Base64URL编码签名</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">signatureEncoded</span> <span class="hljs-operator">=</span> base64UrlEncode(signature);<br><br><span class="hljs-comment">//        System.out.println(&quot;Signature (Base64URL): &quot; + signatureEncoded);</span><br><br>        <span class="hljs-comment">// 拼接完整JWT: header.payload.signature</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">jwt</span> <span class="hljs-operator">=</span> data + <span class="hljs-string">&quot;.&quot;</span> + signatureEncoded;<br><span class="hljs-comment">//        System.out.println(&quot;完整JWT: &quot; + jwt);</span><br><span class="hljs-comment">//        System.out.println(&quot;JWT长度: &quot; + jwt.length());</span><br><span class="hljs-comment">//        System.out.println(&quot;==========================================&quot;);</span><br>        <br>        <span class="hljs-keyword">return</span> jwt;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * Base64URL编码</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">base64UrlEncode</span><span class="hljs-params">(<span class="hljs-type">byte</span>[] data)</span> &#123;<br>        <span class="hljs-keyword">return</span> Base64.getUrlEncoder().withoutPadding().encodeToString(data);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>为了方便生成token</p>
+<p>我们需要将keyId 凭据ID（在和风天气控制台获取）projectId 项目ID（在和风天气控制台获取）privateKeyPem 私钥内容（PEM格式）添加到项目的配置文件中</p>
+<p>如下图</p>
+
+<img src="/img/添加到配置文件中.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+<p>然后将你真正的私钥，id添加到环境变量中去</p>
+<p>其中host在控制台设置里查看API Host，他也要添加到环境变量中</p>
+
+<p>有了这些之后</p>
+<p>我们就可以去结合请求接口来看是否能请求成功</p>
+<h4 style="color: #b7a0e0"><span id="生成请求链接">生成请求链接</span></h4>
+<p>先在WeatherServiceImpl中写出合成请求API链接的方法</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 调用和风天气API</span><br><span class="hljs-comment">     * </span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> location 城市位置</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> lang 语言</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> unit 单位</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> API响应</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> Exception API调用异常</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> ResponseEntity&lt;QWeatherResponseVo&lt;WeatherNowVo&gt;&gt; <span class="hljs-title function_">callWeatherApi</span><span class="hljs-params">(String location, String lang, String unit)</span> <span class="hljs-keyword">throws</span> Exception<br>    &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">jwtToken</span> <span class="hljs-operator">=</span> QWeatherJwtUtil.generateToken(keyId, projectId, privateKey, <span class="hljs-number">900</span>); <span class="hljs-comment">// 15分钟有效期</span><br>        <br>        <span class="hljs-type">String</span> <span class="hljs-variable">url</span> <span class="hljs-operator">=</span> UriComponentsBuilder<br>                .fromHttpUrl(<span class="hljs-string">&quot;https://&quot;</span> + weatherApiHost + <span class="hljs-string">&quot;/v7/weather/now&quot;</span>)<br>                .queryParam(<span class="hljs-string">&quot;location&quot;</span>, location)<br>                .queryParam(<span class="hljs-string">&quot;lang&quot;</span>, lang)<br>                .queryParam(<span class="hljs-string">&quot;unit&quot;</span>, unit)<br>                .build()<br>                .toUriString();<br><br>        <span class="hljs-type">HttpHeaders</span> <span class="hljs-variable">headers</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HttpHeaders</span>();<br>        headers.set(<span class="hljs-string">&quot;Authorization&quot;</span>, <span class="hljs-string">&quot;Bearer &quot;</span> + jwtToken);<br>        headers.set(<span class="hljs-string">&quot;Accept&quot;</span>, <span class="hljs-string">&quot;application/json&quot;</span>);<br>        headers.set(<span class="hljs-string">&quot;Accept-Encoding&quot;</span>, <span class="hljs-string">&quot;gzip&quot;</span>);<br><br>        HttpEntity&lt;String&gt; entity = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HttpEntity</span>&lt;&gt;(headers);<br><br>        log.info(<span class="hljs-string">&quot;调用和风天气API: location=&#123;&#125;, lang=&#123;&#125;, unit=&#123;&#125;, url=&#123;&#125;&quot;</span>, location, lang, unit, url);<br>        <span class="hljs-keyword">return</span> restTemplate.exchange(<br>                url,<br>                HttpMethod.GET,<br>                entity,<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">ParameterizedTypeReference</span>&lt;QWeatherResponseVo&lt;WeatherNowVo&gt;&gt;() &#123;&#125;<br>        );<br>    &#125;<br></code></pre></td></tr></table></figure>
+<hr>
+
+<h4 style="color: #b7a0e0"><span id="生成location">生成location</span></h4>
+<p>到现在我们还差一步就能请求成功了</p>
+<p>观察请求示例我们可以看到</p>
+<p>请求体里必须包含location=''</p>
+<p>这个location里的值为和风天气自己的城市对应的id值，那要怎么拿呢</p>
+<p>在和风天气里提供了另外一个API接口来实现请求得到location <a target="_blank" rel="noopener" href="https://dev.qweather.com/docs/api/geoapi/">GeoAPI</a></p>
+<p>这个api的功能是可以让你查询到不同地区的Location ID</p>
+<p>这个Location ID就是用在请求体里的</p>
+<p>但我不选择去再调用一个api</p>
+<p>我通过使用获取用户ip解析成ip定位</p>
+<p>这要使用到上面提到的 <a target="_blank" rel="noopener" href="https://github.com/lionsoul2014/ip2region">ip2region</a> 的离线IP地址定位库和IP定位数据</p>
+<p>先用maven导入ip2region</p>
+<img src="/img/导入ip2region.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+
+<p>找到对应的文件下载</p>
+<img src="/img/下载文件.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>这里ip2region_v4对应的是Ipv4地址，你也可以下载v6的</p>
+<h5 style="color: #b7a0e0"><span id="解析ip地址成定位信息">解析IP地址成定位信息</span></h5>
+<p>然后创建IpLocationUtils工具类将获取到的IP地址转换成定位信息</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 初始化 ip2region 查询服务</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@PostConstruct</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">init</span><span class="hljs-params">()</span><br>    &#123;<br>        System.out.println(Searcher.class.getProtectionDomain().getCodeSource().getLocation());<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">// 从 classpath 加载 xdb 文件</span><br>            <span class="hljs-type">ClassPathResource</span> <span class="hljs-variable">resource</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ClassPathResource</span>(<span class="hljs-string">&quot;ip2region_v4.xdb&quot;</span>);<br>            <br>            <span class="hljs-comment">// 使用 LongByteArray 加载内容</span><br>            <span class="hljs-type">LongByteArray</span> <span class="hljs-variable">cBuff</span> <span class="hljs-operator">=</span> Searcher.loadContentFromInputStream(resource.getInputStream());<br><br>            <span class="hljs-comment">// 创建 Searcher 对象（默认使用 IPv4）</span><br>            searcher = Searcher.newWithBuffer(Version.IPv4, cBuff);<br>            <br>            log.info(<span class="hljs-string">&quot;IP地址定位服务初始化成功&quot;</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            log.error(<span class="hljs-string">&quot;IP地址定位服务初始化失败: &#123;&#125;&quot;</span>, e.getMessage(), e);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 销毁资源</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@PreDestroy</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">destroy</span><span class="hljs-params">()</span><br>    &#123;<br>        <span class="hljs-keyword">if</span> (searcher != <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                searcher.close();<br>                log.info(<span class="hljs-string">&quot;IP地址定位服务已关闭&quot;</span>);<br>            &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>                log.error(<span class="hljs-string">&quot;关闭IP地址定位服务失败: &#123;&#125;&quot;</span>, e.getMessage(), e);<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 根据IP地址获取地域信息</span><br><span class="hljs-comment">     * </span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> ip IP地址（支持IPv4和IPv6）</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 地域信息，格式：国家|区域|省份|城市|ISP</span><br><span class="hljs-comment">     *         如果解析失败返回 null</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">getCityByIp</span><span class="hljs-params">(String ip)</span><br>    &#123;<br>        <span class="hljs-keyword">if</span> (ip == <span class="hljs-literal">null</span> || ip.isEmpty()) &#123;<br>            log.warn(<span class="hljs-string">&quot;IP地址为空，无法解析&quot;</span>);<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>        &#125;<br><br>        <span class="hljs-keyword">if</span> (searcher == <span class="hljs-literal">null</span>) &#123;<br>            log.error(<span class="hljs-string">&quot;IP地址定位服务未初始化&quot;</span>);<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>        &#125;<br><br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">String</span> <span class="hljs-variable">region</span> <span class="hljs-operator">=</span> searcher.search(ip);<br>            log.info(<span class="hljs-string">&quot;IP地址解析成功: ip=&#123;&#125;, region=&#123;&#125;&quot;</span>, ip, region);<br>            <span class="hljs-keyword">return</span> region;<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            log.error(<span class="hljs-string">&quot;IP地址解析失败: ip=&#123;&#125;, error=&#123;&#125;&quot;</span>, ip, e.getMessage(), e);<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 从完整的地域信息中提取城市名称</span><br><span class="hljs-comment">     * </span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> region 完整的地域信息，格式：国家|区域|省份|城市|ISP</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 城市名称，如果解析失败返回 null</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">extractCityName</span><span class="hljs-params">(String region)</span><br>    &#123;<br>        <span class="hljs-keyword">if</span> (region == <span class="hljs-literal">null</span> || region.isEmpty()) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>        &#125;<br><br>        <span class="hljs-keyword">try</span> &#123;<br>            String[] parts = region.split(<span class="hljs-string">&quot;\\|&quot;</span>);<br>            <span class="hljs-keyword">if</span> (parts.length &lt; <span class="hljs-number">4</span>) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>            &#125;<br>            <br>            <span class="hljs-type">String</span> <span class="hljs-variable">city</span> <span class="hljs-operator">=</span> parts[<span class="hljs-number">3</span>];  <span class="hljs-comment">// 城市在第4个位置（索引3）</span><br>            <span class="hljs-keyword">if</span> (!<span class="hljs-string">&quot;0&quot;</span>.equals(city) &amp;&amp; !city.isEmpty()) &#123;<br>                <span class="hljs-keyword">return</span> city;<br>            &#125;<br>            <br>            <span class="hljs-type">String</span> <span class="hljs-variable">province</span> <span class="hljs-operator">=</span> parts[<span class="hljs-number">2</span>];  <span class="hljs-comment">// 省份在第3个位置（索引2）</span><br>            <span class="hljs-keyword">if</span> (!<span class="hljs-string">&quot;0&quot;</span>.equals(province) &amp;&amp; !province.isEmpty()) &#123;<br>                <span class="hljs-keyword">return</span> province;<br>            &#125;<br>            <br>            <span class="hljs-comment">// 如果省份也为空，使用国家</span><br>            <span class="hljs-keyword">return</span> parts[<span class="hljs-number">0</span>];<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            log.error(<span class="hljs-string">&quot;提取城市名称失败: region=&#123;&#125;, error=&#123;&#125;&quot;</span>, region, e.getMessage());<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 根据IP地址直接获取城市名称（简化版）</span><br><span class="hljs-comment">     * </span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> ip IP地址</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 城市名称，如果解析失败返回 null</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">getCityNameByIp</span><span class="hljs-params">(String ip)</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">region</span> <span class="hljs-operator">=</span> getCityByIp(ip);<br>        <span class="hljs-keyword">return</span> extractCityName(region);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>这样就可以根据IP地址得到地理定位了</p>
+<p>上面提到的 location 需要的就是城市所对应的Location ID</p>
+<p>但我们通过上面工具类得到的只是如：北京，上海，广州 这些文字的数据</p>
+<p>要怎么转换成Location ID呢？</p>
+
+<h5 style="color: #b7a0e0"><span id="地名转换成-location">地名转换成 location</span></h5>
+<p>和风天气提供了国内地点城市对应的Location ID表 <a target="_blank" rel="noopener" href="https://github.com/qwd/LocationList">地点列表</a></p>
+<p>到仓库里下载就行</p>
+<img src="/img/下载地点列表.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>但是我们下载到的地点列表是.scv格式的</p>
+<p>我这里将这个地点列表转换成json格式了</p>
+<p>如果你有需要也可以这样转</p>
+<img src="/img/json格式地点列表.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>转成json格式之后就可以编写一个工具类来通过读取上面的城市名称来找到json文件里对应的Location ID了</p>
+<p>然后再将这个Location ID传到location里</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 城市位置ID查询工具类</span><br><span class="hljs-comment"> * 根据城市名称查询和风天气的Location_ID</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Slf4j</span><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CityLocationUtils</span> &#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Map&lt;String, String&gt; cityLocationMap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 初始化城市位置映射表</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@PostConstruct</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">init</span><span class="hljs-params">()</span> &#123;<br>        log.info(<span class="hljs-string">&quot;开始初始化城市位置映射表...&quot;</span>);<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">ClassPathResource</span> <span class="hljs-variable">resource</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ClassPathResource</span>(<span class="hljs-string">&quot;china_city_list.json&quot;</span>);<br>            <br>            <span class="hljs-keyword">if</span> (!resource.exists()) &#123;<br>                log.error(<span class="hljs-string">&quot;找不到 china_city_list.json 文件，请确保文件在 classpath 中&quot;</span>);<br>                <span class="hljs-keyword">return</span>;<br>            &#125;<br>            <br>            log.info(<span class="hljs-string">&quot;找到 china_city_list.json 文件，开始加载...&quot;</span>);<br>            <br>            <span class="hljs-keyword">try</span> (<span class="hljs-type">BufferedReader</span> <span class="hljs-variable">reader</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(<br>                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">InputStreamReader</span>(resource.getInputStream(), StandardCharsets.UTF_8))) &#123;<br>                <br>                <span class="hljs-type">String</span> <span class="hljs-variable">jsonContent</span> <span class="hljs-operator">=</span> reader.lines().collect(Collectors.joining());<br>                <span class="hljs-type">JSONArray</span> <span class="hljs-variable">cityArray</span> <span class="hljs-operator">=</span> JSON.parseArray(jsonContent);<br>                <br>                log.info(<span class="hljs-string">&quot;JSON解析成功，城市数组大小: &#123;&#125;&quot;</span>, cityArray.size());<br>                <br>                <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; cityArray.size(); i++) &#123;<br>                    <span class="hljs-type">JSONObject</span> <span class="hljs-variable">city</span> <span class="hljs-operator">=</span> cityArray.getJSONObject(i);<br>                    <span class="hljs-type">String</span> <span class="hljs-variable">locationNameZh</span> <span class="hljs-operator">=</span> city.getString(<span class="hljs-string">&quot;Location_Name_ZH&quot;</span>);<br>                    <span class="hljs-type">String</span> <span class="hljs-variable">locationId</span> <span class="hljs-operator">=</span> city.getString(<span class="hljs-string">&quot;Location_ID&quot;</span>);<br>                    <br>                    <span class="hljs-keyword">if</span> (StringUtils.hasText(locationNameZh) &amp;&amp; StringUtils.hasText(locationId)) &#123;<br>                        cityLocationMap.put(locationNameZh, locationId);<br>                    &#125;<br>                &#125;<br>                <br>                log.info(<span class="hljs-string">&quot;城市位置映射表初始化成功，共加载 &#123;&#125; 个国内城市&quot;</span>, cityLocationMap.size());<br>                <br>                <span class="hljs-comment">// 输出几个示例验证</span><br>                log.info(<span class="hljs-string">&quot;示例城市映射 - 北京: &#123;&#125;&quot;</span>, cityLocationMap.get(<span class="hljs-string">&quot;北京&quot;</span>));<br>                log.info(<span class="hljs-string">&quot;示例城市映射 - 上海: &#123;&#125;&quot;</span>, cityLocationMap.get(<span class="hljs-string">&quot;上海&quot;</span>));<br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            log.error(<span class="hljs-string">&quot;城市位置映射表初始化失败: &#123;&#125;&quot;</span>, e.getMessage(), e);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 根据城市名称获取Location_ID</span><br><span class="hljs-comment">     * </span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> cityName 城市名称（中文）</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> Location_ID，如果未找到返回原城市名称</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">getLocationIdByCityName</span><span class="hljs-params">(String cityName)</span> &#123;<br>        <span class="hljs-keyword">if</span> (!StringUtils.hasText(cityName)) &#123;<br>            <span class="hljs-keyword">return</span> cityName;<br>        &#125;<br><br>        <span class="hljs-comment">// 直接匹配</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">locationId</span> <span class="hljs-operator">=</span> cityLocationMap.get(cityName);<br>        <span class="hljs-keyword">if</span> (locationId != <span class="hljs-literal">null</span>) &#123;<br>            log.info(<span class="hljs-string">&quot;城市名称匹配成功: cityName=&#123;&#125;, locationId=&#123;&#125;&quot;</span>, cityName, locationId);<br>            <span class="hljs-keyword">return</span> locationId;<br>        &#125;<br><br>        <span class="hljs-comment">// 模糊匹配：去掉&quot;市&quot;、&quot;省&quot;等后缀再尝试</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">simplifiedName</span> <span class="hljs-operator">=</span> cityName.replaceAll(<span class="hljs-string">&quot;[市省自治区特别行政区]&quot;</span>, <span class="hljs-string">&quot;&quot;</span>);<br>        locationId = cityLocationMap.get(simplifiedName);<br>        <span class="hljs-keyword">if</span> (locationId != <span class="hljs-literal">null</span>) &#123;<br>            log.info(<span class="hljs-string">&quot;城市名称模糊匹配成功: cityName=&#123;&#125;, simplifiedName=&#123;&#125;, locationId=&#123;&#125;&quot;</span>, <br>                    cityName, simplifiedName, locationId);<br>            <span class="hljs-keyword">return</span> locationId;<br>        &#125;<br><br>        <span class="hljs-comment">// 尝试包含匹配</span><br>        <span class="hljs-keyword">for</span> (Map.Entry&lt;String, String&gt; entry : cityLocationMap.entrySet()) &#123;<br>            <span class="hljs-keyword">if</span> (entry.getKey().contains(simplifiedName) || simplifiedName.contains(entry.getKey())) &#123;<br>                log.info(<span class="hljs-string">&quot;城市名称包含匹配成功: cityName=&#123;&#125;, matchedCity=&#123;&#125;, locationId=&#123;&#125;&quot;</span>, <br>                        cityName, entry.getKey(), entry.getValue());<br>                <span class="hljs-keyword">return</span> entry.getValue();<br>            &#125;<br>        &#125;<br><br>        log.warn(<span class="hljs-string">&quot;未找到城市对应的Location_ID，使用原城市名称: cityName=&#123;&#125;&quot;</span>, cityName);<br>        <span class="hljs-keyword">return</span> cityName;  <span class="hljs-comment">// 如果找不到，返回原城市名称</span><br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<hr>
+
+<h4 style="color: #b7a0e0"><span id="请求成功">请求成功</span></h4>
+<p>再将所有的参数通过上面的 callWeatherApi 方法进行拼接就能得到正确的请求地址了</p>
+<p>通过正确的请求地址就能得到响应数据</p>
+<p>如下</p>
+
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;code&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;200&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;updateTime&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2020-06-30T22:00+08:00&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;fxLink&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;http://hfx.link/2ax1&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;now&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;obsTime&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2020-06-30T21:40+08:00&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;temp&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;24&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;feelsLike&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;26&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;icon&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;101&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;text&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;多云&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;wind360&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;123&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;windDir&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;东南风&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;windScale&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;windSpeed&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;3&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;humidity&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;72&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;precip&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0.0&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;pressure&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1003&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;vis&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;16&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;cloud&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;10&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;dew&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;21&quot;</span><br>  <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;refer&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;sources&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>      <span class="hljs-string">&quot;QWeather&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-string">&quot;NMC&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-string">&quot;ECMWF&quot;</span><br>    <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;license&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>      <span class="hljs-string">&quot;QWeather Developers License&quot;</span><br>    <span class="hljs-punctuation">]</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>观察响应数据我们可以逆向封装好QWeatherResponseVo用于你的接口的原始数据返回</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 和风天气API响应包装类</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Data</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">QWeatherResponseVo</span>&lt;T&gt; <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Serializable</span> &#123;<br><br>    <span class="hljs-meta">@JsonProperty(&quot;状态码&quot;)</span><br>    <span class="hljs-keyword">private</span> String code;<br><br>    <span class="hljs-meta">@JsonProperty(&quot;天气数据更新时间&quot;)</span><br>    <span class="hljs-keyword">private</span> String updateTime;<br><br>    <span class="hljs-meta">@JsonProperty(&quot;当前数据的响应式页面，便于嵌入网站或应用&quot;)</span><br>    <span class="hljs-keyword">private</span> String fxLink;<br><br>    <span class="hljs-meta">@JsonProperty(&quot;now&quot;)</span><br>    <span class="hljs-keyword">private</span> T now;<br><br>    <span class="hljs-meta">@JsonProperty(&quot;refer&quot;)</span><br>    <span class="hljs-keyword">private</span> Refer refer;<br><br>    <span class="hljs-meta">@Data</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Refer</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Serializable</span> &#123;<br>        <span class="hljs-meta">@JsonProperty(&quot;数据来源&quot;)</span><br>        <span class="hljs-keyword">private</span> String[] sources;<br><br>        <span class="hljs-meta">@JsonProperty(&quot;许可证&quot;)</span><br>        <span class="hljs-keyword">private</span> String[] license;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<hr>
+
+<h4 style="color: #b7a0e0"><span id="设置自定义响应数据">设置自定义响应数据</span></h4>
+<p>当然也可以不用他的数据响应格式</p>
+<p>我这里对原始的响应数据进行再封装</p>
+<p>得到我想要的响应数据WeatherNowVo</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 天气数据响应VO</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Data</span><br><span class="hljs-meta">@NoArgsConstructor</span><br><span class="hljs-meta">@AllArgsConstructor</span><br><span class="hljs-meta">@ApiModel(description = &quot;实时天气信息&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">WeatherNowVo</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Serializable</span> &#123;<br><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;数据观测时间&quot;)</span><br>    <span class="hljs-meta">@JsonProperty(&quot;obsTime&quot;)</span><br>    <span class="hljs-keyword">private</span> String obsTime;<br><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;温度，默认单位：摄氏度&quot;)</span><br>    <span class="hljs-meta">@JsonProperty(&quot;temp&quot;)</span><br>    <span class="hljs-keyword">private</span> String temp;<br><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;体感温度，默认单位：摄氏度&quot;)</span><br>    <span class="hljs-meta">@JsonProperty(&quot;feelsLike&quot;)</span><br>    <span class="hljs-keyword">private</span> String feelsLike;<br><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;天气状况的图标代码&quot;)</span><br>    <span class="hljs-meta">@JsonProperty(&quot;icon&quot;)</span><br>    <span class="hljs-keyword">private</span> String icon;<br><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;天气状况的文字描述&quot;)</span><br>    <span class="hljs-meta">@JsonProperty(&quot;text&quot;)</span><br>    <span class="hljs-keyword">private</span> String text;<br><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;风向360角度&quot;)</span><br>    <span class="hljs-meta">@JsonProperty(&quot;wind360&quot;)</span><br>    <span class="hljs-keyword">private</span> String wind360;<br><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;风向&quot;)</span><br>    <span class="hljs-meta">@JsonProperty(&quot;windDir&quot;)</span><br>    <span class="hljs-keyword">private</span> String windDir;<br><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;风力等级&quot;)</span><br>    <span class="hljs-meta">@JsonProperty(&quot;windScale&quot;)</span><br>    <span class="hljs-keyword">private</span> String windScale;<br><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;风速，公里/小时&quot;)</span><br>    <span class="hljs-meta">@JsonProperty(&quot;windSpeed&quot;)</span><br>    <span class="hljs-keyword">private</span> String windSpeed;<br><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;相对湿度，百分比数值&quot;)</span><br>    <span class="hljs-meta">@JsonProperty(&quot;humidity&quot;)</span><br>    <span class="hljs-keyword">private</span> String humidity;<br><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;当前小时累计降水量，默认单位：毫米&quot;)</span><br>    <span class="hljs-meta">@JsonProperty(&quot;precip&quot;)</span><br>    <span class="hljs-keyword">private</span> String precip;<br><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;大气压强，默认单位：百帕&quot;)</span><br>    <span class="hljs-meta">@JsonProperty(&quot;pressure&quot;)</span><br>    <span class="hljs-keyword">private</span> String pressure;<br><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;能见度，默认单位：公里&quot;)</span><br>    <span class="hljs-meta">@JsonProperty(&quot;vis&quot;)</span><br>    <span class="hljs-keyword">private</span> String vis;<br><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;云量，百分比数值&quot;)</span><br>    <span class="hljs-meta">@JsonProperty(&quot;cloud&quot;)</span><br>    <span class="hljs-keyword">private</span> String cloud;<br><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;露点温度&quot;)</span><br>    <span class="hljs-meta">@JsonProperty(&quot;dew&quot;)</span><br>    <span class="hljs-keyword">private</span> String dew;<br><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;天气类型（前端使用）&quot;)</span><br>    <span class="hljs-meta">@JsonProperty(&quot;weatherType&quot;)</span><br>    <span class="hljs-keyword">private</span> String weatherType;<br>&#125;<br></code></pre></td></tr></table></figure>
+<hr>
+
+<h4 style="color: #b7a0e0"><span id="处理天气类型">处理天气类型</span></h4>
+<p>观察上面的响应数据你能看到 "text": "多云" </p>
+<p>我前端写的接口是接收后端传来的 weatherType 来进行不同背景图片的切换</p>
+<p>但这么多类型的天气名称怎么对应上这么少背景图片呢</p>
+<p>这样我们还要写一个工具类来实现将大致类型的天气对应成一个天气类型（weatherType）</p>
+<p>那这个工具类就得支持模糊查询了，如下</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 天气类型工具类</span><br><span class="hljs-comment"> * 根据和风天气API返回的天气文本描述判断天气类型</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">WeatherTypeUtils</span><br>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 天气类型枚举</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> <span class="hljs-title class_">WeatherType</span> &#123;<br>        SUNNY(<span class="hljs-string">&quot;sunny&quot;</span>),       <span class="hljs-comment">// 晴天</span><br>        OVERCAST(<span class="hljs-string">&quot;overcast&quot;</span>), <span class="hljs-comment">// 阴天</span><br>        RAINING(<span class="hljs-string">&quot;raining&quot;</span>),   <span class="hljs-comment">// 下雨</span><br>        SNOWING(<span class="hljs-string">&quot;snowing&quot;</span>),   <span class="hljs-comment">// 下雪</span><br>        FOG(<span class="hljs-string">&quot;fog&quot;</span>);           <span class="hljs-comment">// 雾/霾</span><br><br>        <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> String value;<br><br>        WeatherType(String value) &#123;<br>            <span class="hljs-built_in">this</span>.value = value;<br>        &#125;<br><br>        <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getValue</span><span class="hljs-params">()</span> &#123;<br>            <span class="hljs-keyword">return</span> value;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 根据天气文本描述判断天气类型</span><br><span class="hljs-comment">     * </span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> weatherText 和风天气API返回的天气文本（如：晴、多云、小雨、大雪等）</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 天气类型</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> WeatherType <span class="hljs-title function_">getWeatherType</span><span class="hljs-params">(String weatherText)</span> &#123;<br>        <span class="hljs-keyword">if</span> (weatherText == <span class="hljs-literal">null</span> || weatherText.trim().isEmpty()) &#123;<br>            <span class="hljs-keyword">return</span> WeatherType.SUNNY; <span class="hljs-comment">// 默认返回晴天</span><br>        &#125;<br><br>        <span class="hljs-comment">// 下雪类型判断</span><br>        <span class="hljs-keyword">if</span> (weatherText.contains(<span class="hljs-string">&quot;雪&quot;</span>) || weatherText.contains(<span class="hljs-string">&quot;冰雹&quot;</span>) || <br>            weatherText.contains(<span class="hljs-string">&quot;雨夹雪&quot;</span>) || weatherText.contains(<span class="hljs-string">&quot;冻雨&quot;</span>) ||<br>            weatherText.contains(<span class="hljs-string">&quot;阵雨夹雪&quot;</span>) || weatherText.contains(<span class="hljs-string">&quot;雨雪天气&quot;</span>)) &#123;<br>            <span class="hljs-keyword">return</span> WeatherType.SNOWING;<br>        &#125;<br><br>        <span class="hljs-comment">// 下雨类型判断</span><br>        <span class="hljs-keyword">if</span> (weatherText.contains(<span class="hljs-string">&quot;雨&quot;</span>) || weatherText.contains(<span class="hljs-string">&quot;雷&quot;</span>) || <br>            weatherText.contains(<span class="hljs-string">&quot;阵雨&quot;</span>) || weatherText.contains(<span class="hljs-string">&quot;毛毛雨&quot;</span>)) &#123;<br>            <span class="hljs-keyword">return</span> WeatherType.RAINING;<br>        &#125;<br><br>        <span class="hljs-comment">// 阴天类型判断</span><br>        <span class="hljs-keyword">if</span> (weatherText.contains(<span class="hljs-string">&quot;阴&quot;</span>) || weatherText.contains(<span class="hljs-string">&quot;多云&quot;</span>) || <br>            weatherText.contains(<span class="hljs-string">&quot;少云&quot;</span>)) &#123;<br>            <span class="hljs-keyword">return</span> WeatherType.OVERCAST;<br>        &#125;<br><br>        <span class="hljs-comment">// 雾/霾天类型判断</span><br>        <span class="hljs-keyword">if</span> (weatherText.contains(<span class="hljs-string">&quot;雾&quot;</span>) || weatherText.contains(<span class="hljs-string">&quot;霾&quot;</span>) ||<br>            weatherText.contains(<span class="hljs-string">&quot;扬沙&quot;</span>) || weatherText.contains(<span class="hljs-string">&quot;浮尘&quot;</span>) ||<br>            weatherText.contains(<span class="hljs-string">&quot;沙尘暴&quot;</span>)) &#123;<br>            <span class="hljs-keyword">return</span> WeatherType.FOG;<br>        &#125;<br><br>        <span class="hljs-comment">// 晴天类型判断（包括晴、晴间多云等）</span><br>        <span class="hljs-keyword">return</span> WeatherType.SUNNY;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+
+<h3 style="color: #b7a0e0"><span id="实现-weatherserviceimpl-服务">实现 WeatherServiceImpl 服务</span></h3>
+<p>通过上面这么多工具类的实现</p>
+<p>我们现在就可以开始写 WeatherServiceImpl 类的具体实现了</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 天气接口服务类</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Service(&quot;weatherService&quot;)</span><br><span class="hljs-meta">@Slf4j</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">WeatherServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">WeatherService</span><br>&#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> RedisCache redisCache;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> RestTemplate restTemplate;<br><br>    <span class="hljs-meta">@Value(&quot;$&#123;weather.api.key-id&#125;&quot;)</span><br>    <span class="hljs-keyword">private</span> String keyId;<br><br>    <span class="hljs-meta">@Value(&quot;$&#123;weather.api.project-id&#125;&quot;)</span><br>    <span class="hljs-keyword">private</span> String projectId;<br><br>    <span class="hljs-meta">@Value(&quot;$&#123;weather.api.host&#125;&quot;)</span><br>    <span class="hljs-keyword">private</span> String weatherApiHost;<br><br>    <span class="hljs-meta">@Value(&quot;$&#123;weather.api.cache-minutes:30&#125;&quot;)</span><br>    <span class="hljs-keyword">private</span> Integer cacheMinutes;<br><br>    <span class="hljs-meta">@Value(&quot;$&#123;weather.api.private-key&#125;&quot;)</span><br>    <span class="hljs-keyword">private</span> String privateKey;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">WEATHER_CACHE_PREFIX</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;weather:now:&quot;</span>;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> ResponseResult <span class="hljs-title function_">getWeatherNow</span><span class="hljs-params">(String location, String lang, String unit)</span><br>    &#123;<br>        <span class="hljs-comment">// 解析并获取城市位置</span><br>        location = resolveLocation(location);<br>        <br>        <span class="hljs-comment">// 设置默认参数</span><br>        lang = StringUtils.hasText(lang) ? lang : <span class="hljs-string">&quot;zh&quot;</span>;<br>        unit = StringUtils.hasText(unit) ? unit : <span class="hljs-string">&quot;m&quot;</span>;<br><br>        <span class="hljs-comment">// 构建缓存key并尝试从缓存获取</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">cacheKey</span> <span class="hljs-operator">=</span> WEATHER_CACHE_PREFIX + location + <span class="hljs-string">&quot;:&quot;</span> + lang + <span class="hljs-string">&quot;:&quot;</span> + unit;<br>        <span class="hljs-type">WeatherNowVo</span> <span class="hljs-variable">cachedWeather</span> <span class="hljs-operator">=</span> redisCache.getCacheObject(cacheKey);<br>        <span class="hljs-keyword">if</span> (cachedWeather != <span class="hljs-literal">null</span>) &#123;<br>            log.info(<span class="hljs-string">&quot;从缓存获取天气数据: location=&#123;&#125;&quot;</span>, location);<br>            <span class="hljs-keyword">return</span> ResponseResult.okResult(cachedWeather);<br>        &#125;<br><br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">// 调用和风天气API获取数据</span><br>            ResponseEntity&lt;QWeatherResponseVo&lt;WeatherNowVo&gt;&gt; response = callWeatherApi(location, lang, unit);<br>            <br>            <span class="hljs-comment">// 处理API响应</span><br>            <span class="hljs-keyword">return</span> handleWeatherResponse(response, cacheKey, location);<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            log.error(<span class="hljs-string">&quot;调用和风天气API异常: location=&#123;&#125;, error=&#123;&#125;&quot;</span>, location, e.getMessage(), e);<br>            <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR.getCode(),<br>                    <span class="hljs-string">&quot;获取天气信息异常：&quot;</span> + e.getMessage());<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 解析并获取城市位置</span><br><span class="hljs-comment">     * 如果location为空，则根据客户端IP自动解析城市</span><br><span class="hljs-comment">     * 无论如何都会将城市名称转换为Location_ID</span><br><span class="hljs-comment">     * </span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> location 城市位置（可以是城市名称或Location_ID）</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 解析后的城市位置ID</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String <span class="hljs-title function_">resolveLocation</span><span class="hljs-params">(String location)</span><br>    &#123;<br>        String cityName;<br>        <br>        <span class="hljs-comment">// 如果传入了location参数，直接使用</span><br>        <span class="hljs-keyword">if</span> (StringUtils.hasText(location)) &#123;<br>            cityName = location;<br>            log.info(<span class="hljs-string">&quot;使用传入的城市参数: &#123;&#125;&quot;</span>, cityName);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">// 否则根据IP解析城市</span><br>            cityName = resolveCityNameByIp();<br>        &#125;<br>        <br>        <span class="hljs-comment">// 将城市名称转换为Location_ID</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">locationId</span> <span class="hljs-operator">=</span> CityLocationUtils.getLocationIdByCityName(cityName);<br>        log.info(<span class="hljs-string">&quot;城市名称转换为Location_ID: cityName=&#123;&#125;, locationId=&#123;&#125;&quot;</span>, cityName, locationId);<br>        <br>        <span class="hljs-keyword">return</span> locationId;<br>    &#125;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 根据客户端IP解析城市名称</span><br><span class="hljs-comment">     * </span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 城市名称</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String <span class="hljs-title function_">resolveCityNameByIp</span><span class="hljs-params">()</span><br>    &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">ServletRequestAttributes</span> <span class="hljs-variable">attributes</span> <span class="hljs-operator">=</span> (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();<br>            <span class="hljs-keyword">if</span> (attributes != <span class="hljs-literal">null</span>) &#123;<br>                <span class="hljs-type">HttpServletRequest</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> attributes.getRequest();<br>                <span class="hljs-type">String</span> <span class="hljs-variable">clientIp</span> <span class="hljs-operator">=</span> IpUtils.getIpAddr(request);<br>                log.info(<span class="hljs-string">&quot;客户端IP地址: &#123;&#125;&quot;</span>, clientIp);<br>                <br>                <span class="hljs-type">String</span> <span class="hljs-variable">cityName</span> <span class="hljs-operator">=</span> IpLocationUtils.getCityNameByIp(clientIp);<br>                <span class="hljs-keyword">if</span> (StringUtils.hasText(cityName)) &#123;<br>                    log.info(<span class="hljs-string">&quot;根据IP解析的城市: &#123;&#125;&quot;</span>, cityName);<br>                    <span class="hljs-keyword">return</span> cityName;<br>                &#125;<br>                <br>                log.warn(<span class="hljs-string">&quot;IP地址解析城市失败，使用默认城市: 广州&quot;</span>);<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                log.warn(<span class="hljs-string">&quot;无法获取请求上下文，使用默认城市: 广州&quot;</span>);<br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            log.error(<span class="hljs-string">&quot;IP地址解析异常: &#123;&#125;&quot;</span>, e.getMessage(), e);<br>        &#125;<br>        <br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;广州&quot;</span>;  <span class="hljs-comment">// 默认城市</span><br>    &#125;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 调用和风天气API</span><br><span class="hljs-comment">     * </span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> location 城市位置</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> lang 语言</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> unit 单位</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> API响应</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> Exception API调用异常</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> ResponseEntity&lt;QWeatherResponseVo&lt;WeatherNowVo&gt;&gt; <span class="hljs-title function_">callWeatherApi</span><span class="hljs-params">(String location, String lang, String unit)</span> <span class="hljs-keyword">throws</span> Exception<br>    &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">jwtToken</span> <span class="hljs-operator">=</span> QWeatherJwtUtil.generateToken(keyId, projectId, privateKey, <span class="hljs-number">900</span>); <span class="hljs-comment">// 15分钟有效期</span><br>        <br>        <span class="hljs-type">String</span> <span class="hljs-variable">url</span> <span class="hljs-operator">=</span> UriComponentsBuilder<br>                .fromHttpUrl(<span class="hljs-string">&quot;https://&quot;</span> + weatherApiHost + <span class="hljs-string">&quot;/v7/weather/now&quot;</span>)<br>                .queryParam(<span class="hljs-string">&quot;location&quot;</span>, location)<br>                .queryParam(<span class="hljs-string">&quot;lang&quot;</span>, lang)<br>                .queryParam(<span class="hljs-string">&quot;unit&quot;</span>, unit)<br>                .build()<br>                .toUriString();<br><br>        <span class="hljs-type">HttpHeaders</span> <span class="hljs-variable">headers</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HttpHeaders</span>();<br>        headers.set(<span class="hljs-string">&quot;Authorization&quot;</span>, <span class="hljs-string">&quot;Bearer &quot;</span> + jwtToken);<br>        headers.set(<span class="hljs-string">&quot;Accept&quot;</span>, <span class="hljs-string">&quot;application/json&quot;</span>);<br>        headers.set(<span class="hljs-string">&quot;Accept-Encoding&quot;</span>, <span class="hljs-string">&quot;gzip&quot;</span>);<br><br>        HttpEntity&lt;String&gt; entity = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HttpEntity</span>&lt;&gt;(headers);<br><br>        log.info(<span class="hljs-string">&quot;调用和风天气API: location=&#123;&#125;, lang=&#123;&#125;, unit=&#123;&#125;, url=&#123;&#125;&quot;</span>, location, lang, unit, url);<br>        <span class="hljs-keyword">return</span> restTemplate.exchange(<br>                url,<br>                HttpMethod.GET,<br>                entity,<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">ParameterizedTypeReference</span>&lt;QWeatherResponseVo&lt;WeatherNowVo&gt;&gt;() &#123;&#125;<br>        );<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 处理和风天气API响应</span><br><span class="hljs-comment">     * </span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> response API响应</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> cacheKey 缓存key</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> location 城市位置</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 处理结果</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> ResponseResult <span class="hljs-title function_">handleWeatherResponse</span><span class="hljs-params">(ResponseEntity&lt;QWeatherResponseVo&lt;WeatherNowVo&gt;&gt; response, </span><br><span class="hljs-params">                                                  String cacheKey, String location)</span><br>    &#123;<br>        <span class="hljs-keyword">if</span> (response.getStatusCode() != HttpStatus.OK || response.getBody() == <span class="hljs-literal">null</span>) &#123;<br>            log.error(<span class="hljs-string">&quot;调用和风天气API失败: status=&#123;&#125;&quot;</span>, response.getStatusCode());<br>            <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR.getCode(), <span class="hljs-string">&quot;获取天气信息失败&quot;</span>);<br>        &#125;<br><br>        QWeatherResponseVo&lt;WeatherNowVo&gt; weatherResponse = response.getBody();<br>        <br>        <span class="hljs-keyword">if</span> (!<span class="hljs-string">&quot;200&quot;</span>.equals(weatherResponse.getCode())) &#123;<br>            log.error(<span class="hljs-string">&quot;和风天气API返回错误: code=&#123;&#125;&quot;</span>, weatherResponse.getCode());<br>            <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR.getCode(),<br>                    <span class="hljs-string">&quot;获取天气信息失败，错误码：&quot;</span> + weatherResponse.getCode());<br>        &#125;<br><br>        <span class="hljs-type">WeatherNowVo</span> <span class="hljs-variable">weatherNow</span> <span class="hljs-operator">=</span> weatherResponse.getNow();<br>        <br>        <span class="hljs-comment">// 设置天气类型（根据text字段判断）</span><br>        WeatherTypeUtils.<span class="hljs-type">WeatherType</span> <span class="hljs-variable">weatherType</span> <span class="hljs-operator">=</span> WeatherTypeUtils.getWeatherType(weatherNow.getText());<br>        weatherNow.setWeatherType(weatherType.getValue());<br>        log.info(<span class="hljs-string">&quot;天气类型判断: text=&#123;&#125;, weatherType=&#123;&#125;&quot;</span>, weatherNow.getText(), weatherType.getValue());<br>        <br>        <span class="hljs-comment">// 缓存数据</span><br>        redisCache.setCacheObject(cacheKey, weatherNow, cacheMinutes, TimeUnit.MINUTES);<br>        log.info(<span class="hljs-string">&quot;天气数据已缓存: location=&#123;&#125;, cacheMinutes=&#123;&#125;&quot;</span>, location, cacheMinutes);<br><br>        <span class="hljs-keyword">return</span> ResponseResult.okResult(weatherNow);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<hr>
+
+<h4 style="color: #b7a0e0"><span id="weatherserviceimpl-类分析">WeatherServiceImpl 类分析</span></h4>
+<p>上面 getWeatherNow 为主要实现方法</p>
+<p>剩余的包括上面的 callWeatherApi 在内为辅助方法</p>
+<p>resolveLocation 方法通过调用 CityLocationUtils 类里的方法实现 解析并获取城市位置</p>
+<p>resolveCityNameByIp 方法通过调用 IpLocationUtils 类里的方法实现 根据客户端IP解析城市名称</p>
+<p>callWeatherApi 方法的功能上面已经讲过</p>
+<p>handleWeatherResponse 方法通过调用 WeatherTypeUtils 工具类来将各种天气转换成 weatherType （天气类别）传给前端</p>
+<p>这样前端就可以通过接收不同的 weatherType 来进去不同背景图片的切换了</p>
+<p>就像我现在所在的地区在下雨，他就会切换成下雨的背景图片</p>
+<img src="/img/后台下雨背景图片.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+
+<p></p>
+<img src="/img/.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+
+<hr>
+<p align="center" style="color: hotpink;font-size: 20px"><strong>PS:该系列只做为作者学习开发项目做的笔记用</strong></p>
+<p align="center" style="color: hotpink;font-size: 20px"><strong>不一定符合读者来学习，仅供参考</strong></p>
+<hr>
+<h2 style="color: #b7a0e0"><span id="预告">预告</span></h2>  
+<p>后续会记录博客的开发过程</p>
+<p>每次学习会做一份笔记来进行发表</p>
+
+<blockquote>  
+<p style="color: #bbbbee">“一花一世界，一叶一菩提”</p>
+</blockquote>
+
+<hr>
+<p>版权所有 © 2026 云梦泽<br>欢迎访问我的个人网站：<a target="_blank" rel="noopener" href="https://hgt12.github.io/">https://hgt12.github.io/</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/" class="category-chain-item">博客开发</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%8A%80%E6%9C%AF%E5%90%91/" class="print-no-link">#技术向</a>
+      
+        <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" class="print-no-link">#个人博客</a>
+      
+        <a href="/tags/%E5%89%8D%E7%AB%AF/" class="print-no-link">#前端</a>
+      
+        <a href="/tags/%E5%90%8E%E7%AB%AF/" class="print-no-link">#后端</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>『博客开发日记-后台』之根据天气信息切换背景图片接口的实现</div>
+      <div>http://example.com/2026/03/29/『博客开发日记-后台』之根据天气信息切换背景图片接口的实现/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>云梦泽</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年3月29日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2026年3月29日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/03/27/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E7%94%9F%E6%88%90%E5%9B%BE%E5%BD%A2%E9%AA%8C%E8%AF%81%E7%A0%81%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之生成图形验证码接口的实现">
+                        <span class="hidden-mobile">『博客开发日记-后台』之生成图形验证码接口的实现</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments">
+      
+  <div id="twikoo"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/twikoo/1.6.8/twikoo.all.min.js', function() {
+        var options = Object.assign(
+          {"envId":"https://mi-manchi-ovo.netlify.app/.netlify/functions/twikoo","region":"ap-shanghai","path":"window.location.pathname"},
+          {
+            el: '#twikoo',
+            path: 'window.location.pathname',
+            onCommentLoaded: function() {
+              Fluid.utils.listenDOMLoaded(function() {
+                var imgSelector = '#twikoo .tk-content img:not(.tk-owo-emotion)';
+                Fluid.plugins.imageCaption(imgSelector);
+                Fluid.plugins.fancyBox(imgSelector);
+              });
+            }
+          }
+        )
+        twikoo.init(options)
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hgt12.github.io/" target="_blank" rel="nofollow noopener"><span>云梦泽</span></a> <i class="iconfont icon-love"></i> <a target="_blank" href="https://hgt12.github.io/"_blank" rel="nofollow noopener noopener"><span>Mi Manchi</span></a> <br> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    
+      <script  src="/js/img-lazyload.js" ></script>
+    
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/click.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
