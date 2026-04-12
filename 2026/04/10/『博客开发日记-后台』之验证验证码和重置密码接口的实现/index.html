@@ -19,16 +19,16 @@
   <meta name="author" content="云梦泽">
   <meta name="keywords" content="js html">
   
-    <meta name="description" content="验证验证码和重置密码的实现  验证验证码和重置密码接口的需求 需求和前台的一样 在代码实现方面可以复用前台的代码 代码实现 由于前面已经将前后台关于忘记密码相关的可以复用的接口和实现方法提取出来 在这里直接像前面 发送重置密码验证码 的接口那样直接调用复用接口的实现方法就行 要注意前台接口名和后台接口名的不同    因为是未登录状态的操作，所以要给两个接口放行        有一点需要注意的是 我">
+    <meta name="description" content="验证验证码和重置密码接口的实现  验证验证码和重置密码接口的需求 需求和前台的一样 在代码实现方面可以复用前台的代码 代码实现 由于前面已经将前后台关于忘记密码相关的可以复用的接口和实现方法提取出来 在这里直接像前面 发送重置密码验证码 的接口那样直接调用复用接口的实现方法就行 要注意前台接口名和后台接口名的不同    因为是未登录状态的操作，所以要给两个接口放行    有一点需要注意的是 我这个">
 <meta property="og:type" content="article">
 <meta property="og:title" content="『博客开发日记-后台』之验证验证码和重置密码接口的实现">
 <meta property="og:url" content="http://example.com/2026/04/10/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E9%AA%8C%E8%AF%81%E9%AA%8C%E8%AF%81%E7%A0%81%E5%92%8C%E9%87%8D%E7%BD%AE%E5%AF%86%E7%A0%81%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/index.html">
 <meta property="og:site_name" content="云梦泽的个人博客">
-<meta property="og:description" content="验证验证码和重置密码的实现  验证验证码和重置密码接口的需求 需求和前台的一样 在代码实现方面可以复用前台的代码 代码实现 由于前面已经将前后台关于忘记密码相关的可以复用的接口和实现方法提取出来 在这里直接像前面 发送重置密码验证码 的接口那样直接调用复用接口的实现方法就行 要注意前台接口名和后台接口名的不同    因为是未登录状态的操作，所以要给两个接口放行        有一点需要注意的是 我">
+<meta property="og:description" content="验证验证码和重置密码接口的实现  验证验证码和重置密码接口的需求 需求和前台的一样 在代码实现方面可以复用前台的代码 代码实现 由于前面已经将前后台关于忘记密码相关的可以复用的接口和实现方法提取出来 在这里直接像前面 发送重置密码验证码 的接口那样直接调用复用接口的实现方法就行 要注意前台接口名和后台接口名的不同    因为是未登录状态的操作，所以要给两个接口放行    有一点需要注意的是 我这个">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/%E5%A3%81%E7%BA%B859.png">
 <meta property="article:published_time" content="2026-04-10T13:20:03.000Z">
-<meta property="article:modified_time" content="2026-04-10T13:28:39.550Z">
+<meta property="article:modified_time" content="2026-04-11T06:45:22.459Z">
 <meta property="article:author" content="云梦泽">
 <meta property="article:tag" content="技术向">
 <meta property="article:tag" content="个人博客">
@@ -273,7 +273,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          345 字
+          347 字
         
       </span>
     
@@ -347,7 +347,7 @@
         aria-expanded="true"
       >
         博客开发
-        <span class="list-group-count">(46)</span>
+        <span class="list-group-count">(52)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -358,6 +358,33 @@
           
   <div class="category-post-list">
     
+    
+      
+      
+        <a href="/2026/04/12/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之上传图片文件接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之上传图片文件接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/12/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%86%99%E6%96%87%E7%AB%A0%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之写文章接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之写文章接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/11/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%88%86%E7%B1%BB%E5%92%8C%E6%A0%87%E7%AD%BE%E4%B8%8B%E6%8B%89%E9%80%89%E9%A1%B9%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之分类和标签下拉选项列表接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之分类和标签下拉选项列表接口的实现</span>
+        </a>
+      
     
       
       
@@ -374,6 +401,24 @@
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">『博客开发日记-后台』之发送重置密码验证码接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/12/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%AE%9E%E7%8E%B0mp%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85%E5%88%9B%E5%BB%BA%E6%97%B6%E9%97%B4%E3%80%81%E6%9B%B4%E6%96%B0%E6%97%B6%E9%97%B4%E7%AD%89%E5%AD%97%E6%AE%B5%E7%9A%84%E5%8A%9F%E8%83%BD/" title="『博客开发日记-后台』之实现mp自动填充创建时间、更新时间等字段的功能"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之实现mp自动填充创建时间、更新时间等字段的功能</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/11/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E6%9F%A5%E8%AF%A2%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之查询文章列表接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之查询文章列表接口的实现</span>
         </a>
       
     
@@ -437,6 +482,15 @@
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">『博客开发日记-后台』之获取当前登录用户可访问的前端路由树接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/11/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E6%96%87%E7%AB%A0%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取文章表单数据接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取文章表单数据接口的实现</span>
         </a>
       
     
@@ -796,7 +850,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年4月10日 晚上
+                    本文最后更新于 2026年4月11日 下午
                   
                 
               </p>
@@ -804,7 +858,7 @@
             
               <div class="markdown-body">
                 
-                <h1 align="center"><span id="验证验证码和重置密码的实现"><span style="color: cadetblue;">验证验证码和重置密码的实现</span></span></h1>
+                <h1 align="center"><span id="验证验证码和重置密码接口的实现"><span style="color: cadetblue;">验证验证码和重置密码接口的实现</span></span></h1>
 <hr>
 <h2 style="color: #b7a0e0"><span id="验证验证码和重置密码接口的需求">验证验证码和重置密码接口的需求</span></h2>
 <p>需求和前台的一样</p>
@@ -818,10 +872,6 @@
 
 <p>因为是未登录状态的操作，所以要给两个接口放行</p>
 <img src="/img/给验证验证码接口和重置密码接口放行.png" srcset="/img/loading_1.gif" lazyload alt>
-<hr>
-
-<p></p>
-<img src="/img/.png" srcset="/img/loading_1.gif" lazyload alt>
 <hr>
 
 <p>有一点需要注意的是</p>
@@ -919,7 +969,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2026年4月10日</div>
+          <div>2026年4月11日</div>
         </div>
       
       
@@ -949,6 +999,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2026/04/11/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E6%9F%A5%E8%AF%A2%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之查询文章列表接口的实现">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">『博客开发日记-后台』之查询文章列表接口的实现</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
