@@ -19,29 +19,29 @@
   <meta name="author" content="云梦泽">
   <meta name="keywords" content="js html">
   
-    <meta name="description" content="标签列表接口  标签列表接口需求 一篇文章可以对应多个标签 展示的标签对应的文章要是已发布的 代码实现 因为一篇文章中可能对应多个标签，所以要创建应该文章标签表     然后有自动化生成插件生成必要的类与接口，这里不做展示 编写服务类中的功能  12345678910111213141516171819202122232425262728293031323334353637383940414243">
+    <meta name="description" content="完成编辑更新文章接口的实现   编辑更新文章接口的需求 根据文章id获取文章信息（必须要有id才能进行更新操作） 要可以更新缩略图或文章内容里的图片或者文件，即正确上传oss中的更新操作 支持更新文章基本信息 更新标签关联关系 代码实现 下面只展示服务类里的实现代码  12345678910111213141516171819202122232425262728293031323334353637">
 <meta property="og:type" content="article">
-<meta property="og:title" content="『博客开发日记』之标签列表接口的实现">
-<meta property="og:url" content="http://example.com/2026/03/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%A0%87%E7%AD%BE%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:title" content="『博客开发日记-后台』之完成编辑更新文章接口的实现">
+<meta property="og:url" content="http://example.com/2026/04/13/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%AE%8C%E6%88%90%E7%BC%96%E8%BE%91%E6%9B%B4%E6%96%B0%E6%96%87%E7%AB%A0%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/index.html">
 <meta property="og:site_name" content="云梦泽的个人博客">
-<meta property="og:description" content="标签列表接口  标签列表接口需求 一篇文章可以对应多个标签 展示的标签对应的文章要是已发布的 代码实现 因为一篇文章中可能对应多个标签，所以要创建应该文章标签表     然后有自动化生成插件生成必要的类与接口，这里不做展示 编写服务类中的功能  12345678910111213141516171819202122232425262728293031323334353637383940414243">
+<meta property="og:description" content="完成编辑更新文章接口的实现   编辑更新文章接口的需求 根据文章id获取文章信息（必须要有id才能进行更新操作） 要可以更新缩略图或文章内容里的图片或者文件，即正确上传oss中的更新操作 支持更新文章基本信息 更新标签关联关系 代码实现 下面只展示服务类里的实现代码  12345678910111213141516171819202122232425262728293031323334353637">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/%E5%A3%81%E7%BA%B844.png">
-<meta property="article:published_time" content="2026-03-22T02:38:45.000Z">
-<meta property="article:modified_time" content="2026-03-25T14:33:01.547Z">
+<meta property="og:image" content="http://example.com/img/%E5%A3%81%E7%BA%B867.png">
+<meta property="article:published_time" content="2026-04-13T11:07:20.000Z">
+<meta property="article:modified_time" content="2026-04-13T13:35:59.232Z">
 <meta property="article:author" content="云梦泽">
 <meta property="article:tag" content="技术向">
 <meta property="article:tag" content="个人博客">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="后端">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/%E5%A3%81%E7%BA%B844.png">
+<meta name="twitter:image" content="http://example.com/img/%E5%A3%81%E7%BA%B867.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>『博客开发日记』之标签列表接口的实现 - 云梦泽的个人博客</title>
+  <title>『博客开发日记-后台』之完成编辑更新文章接口的实现 - 云梦泽的个人博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -239,13 +239,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/%E5%A3%81%E7%BA%B844.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/%E5%A3%81%E7%BA%B867.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="『博客开发日记』之标签列表接口的实现"></span>
+            <span id="subtitle" data-typed-text="『博客开发日记-后台』之完成编辑更新文章接口的实现"></span>
           
         </div>
 
@@ -261,8 +261,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2026-03-22 10:38" pubdate>
-          2026年3月22日 上午
+        <time datetime="2026-04-13 19:07" pubdate>
+          2026年4月13日 晚上
         </time>
       </span>
     
@@ -273,7 +273,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          503 字
+          583 字
         
       </span>
     
@@ -408,7 +408,7 @@
       
         <a href="/2026/04/13/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%AE%8C%E6%88%90%E7%BC%96%E8%BE%91%E6%9B%B4%E6%96%B0%E6%96%87%E7%AB%A0%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之完成编辑更新文章接口的实现"
            class="list-group-item list-group-item-action
-           ">
+           active">
           <span class="category-post">『博客开发日记-后台』之完成编辑更新文章接口的实现</span>
         </a>
       
@@ -732,7 +732,7 @@
       
         <a href="/2026/03/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%A0%87%E7%AD%BE%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之标签列表接口的实现"
            class="list-group-item list-group-item-action
-           active">
+           ">
           <span class="category-post">『博客开发日记』之标签列表接口的实现</span>
         </a>
       
@@ -863,12 +863,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">『博客开发日记』之标签列表接口的实现</h1>
+            <h1 id="seo-header">『博客开发日记-后台』之完成编辑更新文章接口的实现</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年3月25日 晚上
+                    本文最后更新于 2026年4月13日 晚上
                   
                 
               </p>
@@ -876,31 +876,24 @@
             
               <div class="markdown-body">
                 
-                <h1 align="center"><span id="标签列表接口"><span style="color: cadetblue;">标签列表接口</span></span></h1>
+                <h1 align="center"><span id="完成编辑更新文章接口的实现"><span style="color: cadetblue;">完成编辑更新文章接口的实现 </span></span></h1>
 <hr>
-<h2 style="color: #b7a0e0"><span id="标签列表接口需求">标签列表接口需求</span></h2>
-<p>一篇文章可以对应多个标签</p>
-<p>展示的标签对应的文章要是已发布的</p>
+<h2 style="color: #b7a0e0"><span id="编辑更新文章接口的需求">编辑更新文章接口的需求</span></h2>
+<p>根据文章id获取文章信息（必须要有id才能进行更新操作）</p>
+<p>要可以更新缩略图或文章内容里的图片或者文件，即正确上传oss中的更新操作</p>
+<p>支持更新文章基本信息</p>
+<p>更新标签关联关系</p>
 <h2 style="color: #b7a0e0"><span id="代码实现">代码实现</span></h2>
-<p>因为一篇文章中可能对应多个标签，所以要创建应该文章标签表</p>
+<p>下面只展示服务类里的实现代码</p>
 
-<img src="/img/文章标签表.png" srcset="/img/loading_1.gif" lazyload alt>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//编辑/更新文章</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-meta">@Transactional</span><br>    <span class="hljs-keyword">public</span> ResponseResult <span class="hljs-title function_">updatePosts</span><span class="hljs-params">(Long id, AddPostsDto postsDto)</span><br>    &#123;<br>        <span class="hljs-keyword">if</span> (id == <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(<span class="hljs-string">&quot;更新文章时ID不能为空&quot;</span>);<br>        &#125;<br><br>        <span class="hljs-comment">// 确保使用路径参数的ID</span><br>        postsDto.setId(id);<br><br>        <span class="hljs-comment">// 获取旧文章信息</span><br>        <span class="hljs-type">Article</span> <span class="hljs-variable">oldArticle</span> <span class="hljs-operator">=</span> articleService.getById(id);<br>        <span class="hljs-keyword">if</span> (oldArticle == <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(<span class="hljs-string">&quot;文章不存在&quot;</span>);<br>        &#125;<br><br>        <span class="hljs-comment">// 处理文章内容中的图片</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">content</span> <span class="hljs-operator">=</span> postsDto.getContent();<br>        List&lt;String&gt; oldContentImages = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>        List&lt;String&gt; newContentImages = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br><br>        <span class="hljs-comment">// 提取旧内容中的图片URL</span><br>        <span class="hljs-keyword">if</span> (StringUtils.hasText(oldArticle.getContent())) &#123;<br>            oldContentImages = ImageUrlUtils.extractImageUrls(oldArticle.getContent());<br>        &#125;<br><br>        <span class="hljs-comment">// 处理新内容中的临时图片</span><br>        <span class="hljs-keyword">if</span> (ImageUrlUtils.containsTempImages(content)) &#123;<br>            content = ossFileService.processContentImages(content);<br>            postsDto.setContent(content);<br>        &#125;<br><br>        <span class="hljs-comment">// 提取新内容中的图片URL</span><br>        <span class="hljs-keyword">if</span> (StringUtils.hasText(content)) &#123;<br>            newContentImages = ImageUrlUtils.extractImageUrls(content);<br>        &#125;<br><br>        <span class="hljs-comment">// 删除不再使用的内容图片</span><br>        <span class="hljs-keyword">for</span> (String oldImageUrl : oldContentImages) &#123;<br>            <span class="hljs-keyword">if</span> (!newContentImages.contains(oldImageUrl)) &#123;<br>                ossFileService.deleteFileByUrl(oldImageUrl);<br>                log.info(<span class="hljs-string">&quot;删除旧的内容图片: &#123;&#125;&quot;</span>, oldImageUrl);<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-comment">// 处理缩略图</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">newThumbnail</span> <span class="hljs-operator">=</span> postsDto.getThumbnail();<br>        <span class="hljs-type">String</span> <span class="hljs-variable">oldThumbnail</span> <span class="hljs-operator">=</span> oldArticle.getThumbnail();<br><br>        <span class="hljs-keyword">if</span> (StringUtils.hasText(newThumbnail) &amp;&amp; newThumbnail.contains(<span class="hljs-string">&quot;temp/&quot;</span>)) &#123;<br>            newThumbnail = ossFileService.moveTempToFormal(newThumbnail);<br>            postsDto.setThumbnail(newThumbnail);<br>        &#125;<br><br>        <span class="hljs-comment">// 如果缩略图发生变化，删除旧缩略图</span><br>        <span class="hljs-keyword">if</span> (StringUtils.hasText(oldThumbnail) &amp;&amp;<br>            StringUtils.hasText(newThumbnail) &amp;&amp;<br>            !oldThumbnail.equals(newThumbnail)) &#123;<br>            ossFileService.deleteFileByUrl(oldThumbnail);<br>            log.info(<span class="hljs-string">&quot;删除旧的缩略图: &#123;&#125;&quot;</span>, oldThumbnail);<br>        &#125;<br><br>        <span class="hljs-comment">// 更新文章基本信息</span><br>        <span class="hljs-type">Article</span> <span class="hljs-variable">article</span> <span class="hljs-operator">=</span> BeanCopyUtils.copyBean(postsDto, Article.class);<br>        articleService.updateById(article);<br><br>        <span class="hljs-comment">// 更新标签关联关系</span><br>        <span class="hljs-comment">// 先删除旧的关联关系</span><br>        LambdaQueryWrapper&lt;ArticleTag&gt; deleteWrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaQueryWrapper</span>&lt;&gt;();<br>        deleteWrapper.eq(ArticleTag::getArticleId, postsDto.getId());<br>        articleTagMapper.delete(deleteWrapper);<br><br>        <span class="hljs-comment">// 添加新的关联关系</span><br>        <span class="hljs-keyword">if</span> (postsDto.getTags() != <span class="hljs-literal">null</span> &amp;&amp; !postsDto.getTags().isEmpty()) &#123;<br>            List&lt;ArticleTag&gt; articleTags = postsDto.getTags().stream()<br>                    .map(tagId -&gt; <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArticleTag</span>(article.getId(), tagId))<br>                    .collect(Collectors.toList());<br>            articleTagService.saveBatch(articleTags);<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> ResponseResult.okResult();<br>    &#125;<br></code></pre></td></tr></table></figure>
 <hr>
-
-<p>然后有自动化生成插件生成必要的类与接口，这里不做展示</p>
-<p>编写服务类中的功能</p>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 标签表(Tag)表服务实现类</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> makejava</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@since</span> 2026-03-22 10:50:19</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Service(&quot;tagService&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TagServiceImpl</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ServiceImpl</span>&lt;TagMapper, Tag&gt; <span class="hljs-keyword">implements</span> <span class="hljs-title class_">TagService</span><br>&#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> ArticleService articleService;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> ArticleTagMapper articleTagMapper;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> ResponseResult <span class="hljs-title function_">getTagList</span><span class="hljs-params">()</span><br>    &#123;<br>        <span class="hljs-comment">//先去查询文章表状态为已发布的</span><br>        LambdaQueryWrapper&lt;Article&gt; articleWrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaQueryWrapper</span>&lt;&gt;();<br>        articleWrapper.eq(Article::getStatus, SystemConstants.ARTICLE_STATUS_NORMAL);<br>        List&lt;Article&gt; articleList = articleService.list(articleWrapper);<br><br>        <span class="hljs-comment">//获取已发布文章的ID集合</span><br>        Set&lt;Long&gt; articleIds = articleList.stream()<br>                .map(Article::getId)<br>                .collect(Collectors.toSet());<br><br>        <span class="hljs-comment">//查询这些文章关联的标签</span><br>        LambdaQueryWrapper&lt;ArticleTag&gt; articleTagWrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaQueryWrapper</span>&lt;&gt;();<br>        <span class="hljs-keyword">if</span> (!articleIds.isEmpty()) &#123;<br>            articleTagWrapper.in(ArticleTag::getArticleId, articleIds);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">//没有已发布文章时返回空结果</span><br>            articleTagWrapper.eq(ArticleTag::getArticleId, -<span class="hljs-number">1L</span>);<br>        &#125;<br>        List&lt;ArticleTag&gt; articleTagList = articleTagMapper.selectList(articleTagWrapper);<br><br>        <span class="hljs-comment">//获取标签ID集合并去重</span><br>        Set&lt;Long&gt; tagIds = articleTagList.stream()<br>                .map(ArticleTag::getTagId)<br>                .collect(Collectors.toSet());<br><br>        <span class="hljs-comment">//统计每个标签关联的文章数量</span><br>        Map&lt;Long, Long&gt; tagArticleCountMap = articleTagList.stream()<br>                .collect(Collectors.groupingBy(ArticleTag::getTagId, Collectors.counting()));<br><br>        <span class="hljs-comment">//查询标签详细信息</span><br>        LambdaQueryWrapper&lt;Tag&gt; tagWrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaQueryWrapper</span>&lt;&gt;();<br>        <span class="hljs-keyword">if</span> (!tagIds.isEmpty()) &#123;<br>            tagWrapper.in(Tag::getId, tagIds);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">//没有标签时返回空结果</span><br>            tagWrapper.eq(Tag::getId, -<span class="hljs-number">1L</span>);<br>        &#125;<br>        tagWrapper.eq(Tag::getDelFlag, SystemConstants.NOT_DELETED);<br>        List&lt;Tag&gt; tagList = list(tagWrapper);<br><br>        <span class="hljs-comment">//转换为TagVo并设置文章数量</span><br>        List&lt;TagVo&gt; tagVoList = tagList.stream()<br>                .map(tag -&gt; &#123;<br>                    <span class="hljs-type">TagVo</span> <span class="hljs-variable">tagVo</span> <span class="hljs-operator">=</span> BeanCopyUtils.copyBean(tag, TagVo.class);<br>                    tagVo.setArticleCount(tagArticleCountMap.getOrDefault(tag.getId(), <span class="hljs-number">0L</span>).intValue());<br>                    <span class="hljs-keyword">return</span> tagVo;<br>                &#125;)<br>                .collect(Collectors.toList());<br><br>        <span class="hljs-keyword">return</span> ResponseResult.okResult(tagVoList);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
-<hr>
-
 
 <p></p>
 <img src="/img/.png" srcset="/img/loading_1.gif" lazyload alt>
 <hr>
 
-
 <hr>
-
 <p align="center" style="color: hotpink;font-size: 20px"><strong>PS:该系列只做为作者学习开发项目做的笔记用</strong></p>
 <p align="center" style="color: hotpink;font-size: 20px"><strong>不一定符合读者来学习，仅供参考</strong></p>
 <hr>
@@ -965,8 +958,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>『博客开发日记』之标签列表接口的实现</div>
-      <div>http://example.com/2026/03/22/『博客开发日记』之标签列表接口的实现/</div>
+      <div>『博客开发日记-后台』之完成编辑更新文章接口的实现</div>
+      <div>http://example.com/2026/04/13/『博客开发日记-后台』之完成编辑更新文章接口的实现/</div>
     </div>
     <div class="license-meta">
       
@@ -978,13 +971,13 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2026年3月22日</div>
+          <div>2026年4月13日</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2026年3月25日</div>
+          <div>2026年4月13日</div>
         </div>
       
       
@@ -1015,9 +1008,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2026/03/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%A0%B9%E6%8D%AE%E6%A0%87%E7%AD%BEid%E6%9F%A5%E8%AF%A2%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之根据标签id查询文章列表接口的实现">
+                      <a href="/2026/04/13/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%AF%B9oss%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1%E8%BF%9B%E8%A1%8C%E5%8D%87%E7%BA%A7/" title="『博客开发日记』之对oss文件存储服务进行升级">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">『博客开发日记』之根据标签id查询文章列表接口的实现</span>
+                        <span class="hidden-mobile">『博客开发日记』之对oss文件存储服务进行升级</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -1025,8 +1018,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2026/03/16/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8D%9A%E5%AE%A2%E9%A1%B5%E8%84%9A%E7%BD%91%E9%A1%B5%E9%A2%84%E8%A7%88%E9%87%8F%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之博客页脚网页预览量接口的实现">
-                        <span class="hidden-mobile">『博客开发日记』之博客页脚网页预览量接口的实现</span>
+                      <a href="/2026/04/12/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%AE%9E%E7%8E%B0mp%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85%E5%88%9B%E5%BB%BA%E6%97%B6%E9%97%B4%E3%80%81%E6%9B%B4%E6%96%B0%E6%97%B6%E9%97%B4%E7%AD%89%E5%AD%97%E6%AE%B5%E7%9A%84%E5%8A%9F%E8%83%BD/" title="『博客开发日记-后台』之实现mp自动填充创建时间、更新时间等字段的功能">
+                        <span class="hidden-mobile">『博客开发日记-后台』之实现mp自动填充创建时间、更新时间等字段的功能</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

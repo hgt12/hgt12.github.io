@@ -1,0 +1,1412 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/mi_manchi.png">
+  <link rel="icon" href="/img/mi_manchi.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="云梦泽">
+  <meta name="keywords" content="js html">
+  
+    <meta name="description" content="对oss文件存储服务进行升级  前言 在之前的开发中有对上传图片等文件进行处理 将图片上传到oss对象存储中 但是存在一个问题是 当用户调用上传接口时会上传图像到oss 这样并没有什么问题 但是用户上传但是不保存时图片还是上传上去了 举个例子就是 用户上传头像 &gt; 成功上传至oss &gt; 不保存 &gt; 图片仍然保存在oss   由于oss对象存储空间是有限的 如果对上传的图片不加限制 长此以往空间就会">
+<meta property="og:type" content="article">
+<meta property="og:title" content="『博客开发日记』之对oss文件存储服务进行升级">
+<meta property="og:url" content="http://example.com/2026/04/13/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%AF%B9oss%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1%E8%BF%9B%E8%A1%8C%E5%8D%87%E7%BA%A7/index.html">
+<meta property="og:site_name" content="云梦泽的个人博客">
+<meta property="og:description" content="对oss文件存储服务进行升级  前言 在之前的开发中有对上传图片等文件进行处理 将图片上传到oss对象存储中 但是存在一个问题是 当用户调用上传接口时会上传图像到oss 这样并没有什么问题 但是用户上传但是不保存时图片还是上传上去了 举个例子就是 用户上传头像 &gt; 成功上传至oss &gt; 不保存 &gt; 图片仍然保存在oss   由于oss对象存储空间是有限的 如果对上传的图片不加限制 长此以往空间就会">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/%E5%A3%81%E7%BA%B868.png">
+<meta property="article:published_time" content="2026-04-13T13:09:50.000Z">
+<meta property="article:modified_time" content="2026-04-13T13:18:45.609Z">
+<meta property="article:author" content="云梦泽">
+<meta property="article:tag" content="技术向">
+<meta property="article:tag" content="个人博客">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="后端">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/%E5%A3%81%E7%BA%B868.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>『博客开发日记』之对oss文件存储服务进行升级 - 云梦泽的个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":80,"cursorChar":"✨","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":7},"lazyload":{"enable":true,"loading_img":"/img/loading_1.gif","onlypost":true,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<!-- hexo injector head_end start --><script src="/js/click.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <!-- Canvas for click effect -->
+  <div id="clickCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999;"></div>
+
+  <header>
+    
+
+<div class="header-inner" style="height: 80vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>云梦泽</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/messages/" target="_self">
+                <i class="iconfont icon-comment"></i>
+                <span>留言板</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E5%A3%81%E7%BA%B868.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="『博客开发日记』之对oss文件存储服务进行升级"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        云梦泽
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-13 21:09" pubdate>
+          2026年4月13日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          28 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="博客开发"
+        id="heading-82ca913bdcd63a1c254ebc1bbfb52228" role="tab" data-toggle="collapse" href="#collapse-82ca913bdcd63a1c254ebc1bbfb52228"
+        aria-expanded="true"
+      >
+        博客开发
+        <span class="list-group-count">(54)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-82ca913bdcd63a1c254ebc1bbfb52228"
+           role="tabpanel" aria-labelledby="heading-82ca913bdcd63a1c254ebc1bbfb52228">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/04/12/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之上传图片文件接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之上传图片文件接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/12/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%86%99%E6%96%87%E7%AB%A0%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之写文章接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之写文章接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/11/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%88%86%E7%B1%BB%E5%92%8C%E6%A0%87%E7%AD%BE%E4%B8%8B%E6%8B%89%E9%80%89%E9%A1%B9%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之分类和标签下拉选项列表接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之分类和标签下拉选项列表接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/09/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%88%B7%E6%96%B0token%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之刷新token接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之刷新token接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/10/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%8F%91%E9%80%81%E9%87%8D%E7%BD%AE%E5%AF%86%E7%A0%81%E9%AA%8C%E8%AF%81%E7%A0%81%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之发送重置密码验证码接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之发送重置密码验证码接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/13/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%AE%8C%E6%88%90%E7%BC%96%E8%BE%91%E6%9B%B4%E6%96%B0%E6%96%87%E7%AB%A0%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之完成编辑更新文章接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之完成编辑更新文章接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/12/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%AE%9E%E7%8E%B0mp%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85%E5%88%9B%E5%BB%BA%E6%97%B6%E9%97%B4%E3%80%81%E6%9B%B4%E6%96%B0%E6%97%B6%E9%97%B4%E7%AD%89%E5%AD%97%E6%AE%B5%E7%9A%84%E5%8A%9F%E8%83%BD/" title="『博客开发日记-后台』之实现mp自动填充创建时间、更新时间等字段的功能"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之实现mp自动填充创建时间、更新时间等字段的功能</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/11/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E6%9F%A5%E8%AF%A2%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之查询文章列表接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之查询文章列表接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/10/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E6%9F%A5%E8%AF%A2%E6%A0%87%E7%AD%BE%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之查询标签列表接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之查询标签列表接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/29/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E6%A0%B9%E6%8D%AE%E5%A4%A9%E6%B0%94%E4%BF%A1%E6%81%AF%E5%88%87%E6%8D%A2%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之根据天气信息切换背景图片接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之根据天气信息切换背景图片接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/27/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E7%94%9F%E6%88%90%E5%9B%BE%E5%BD%A2%E9%AA%8C%E8%AF%81%E7%A0%81%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之生成图形验证码接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之生成图形验证码接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/09/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E7%99%BB%E5%87%BA%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之登出接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之登出接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/25/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E7%99%BB%E5%BD%95%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之登录接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之登录接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/25/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80%E6%90%AD%E5%BB%BA/" title="『博客开发日记-后台』之系统基础搭建"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之系统基础搭建</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/02/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E7%99%BB%E5%BD%95%E7%94%A8%E6%88%B7%E5%8F%AF%E8%AE%BF%E9%97%AE%E7%9A%84%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E6%A0%91%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取当前登录用户可访问的前端路由树接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取当前登录用户可访问的前端路由树接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/11/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E6%96%87%E7%AB%A0%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取文章表单数据接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取文章表单数据接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/01/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取用户信息接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取用户信息接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/10/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E9%AA%8C%E8%AF%81%E9%AA%8C%E8%AF%81%E7%A0%81%E5%92%8C%E9%87%8D%E7%BD%AE%E5%AF%86%E7%A0%81%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之验证验证码和重置密码接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之验证验证码和重置密码接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/14/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%B8%8A%E4%BC%A0%E5%A4%B4%E5%83%8F%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之上传头像接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之上传头像接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/14/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AF%E6%9F%A5%E8%AF%A2%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之个人信息查询接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之个人信息查询接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BC%98%E5%8C%96%E5%8F%91%E9%80%81%E9%AA%8C%E8%AF%81%E7%A0%81%E7%9A%84%E7%9B%B8%E5%85%B3%E6%8E%A5%E5%8F%A3/" title="『博客开发日记』之优化发送验证码的相关接口"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之优化发送验证码的相关接口</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/11/26/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BC%98%E5%8C%96%E5%90%8E%E7%AB%AF%E4%B8%8A%E4%BC%A0%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8F%8A%E4%B8%80%E4%BA%9B%E5%A4%84%E7%90%86/" title="『博客开发日记』之优化后端上传的数据及一些处理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之优化后端上传的数据及一些处理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/02/09/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BD%BF%E7%94%A8Swagger%E7%94%9F%E6%88%90%E6%8E%A5%E5%8F%A3api%E6%96%87%E6%A1%A3/" title="『博客开发日记』之使用Swagger生成接口api文档"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之使用Swagger生成接口api文档</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BF%AE%E5%A4%8D%E6%A0%87%E7%AD%BE%E6%97%A0%E6%B3%95%E5%9C%A8%E6%96%87%E7%AB%A0%E8%AF%A6%E6%83%85%E9%A1%B5%E5%92%8C%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8%E4%B8%AD%E6%98%BE%E7%A4%BA%E7%9A%84%E9%97%AE%E9%A2%98/" title="『博客开发日记』之修复标签无法在文章详情页和文章列表中显示的问题"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之修复标签无法在文章详情页和文章列表中显示的问题</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/11/26/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%88%86%E7%B1%BB%E5%88%97%E8%A1%A8%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之分类列表的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之分类列表的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/12/06/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之分页查询文章列表的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之分页查询文章列表的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/11/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%89%8D%E5%8F%B0%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%90%AD%E5%BB%BA/" title="『博客开发日记』之前台系统的搭建"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之前台系统的搭建</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/15/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0%E9%A2%84%E8%A7%88%E9%87%8F%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之博客文章预览量接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之博客文章预览量接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/16/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8D%9A%E5%AE%A2%E9%A1%B5%E8%84%9A%E7%BD%91%E9%A1%B5%E9%A2%84%E8%A7%88%E9%87%8F%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之博客页脚网页预览量接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之博客页脚网页预览量接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/12/28/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8F%8B%E9%93%BE%E6%9F%A5%E8%AF%A2%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之友链查询接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之友链查询接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/12/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8F%91%E5%B8%83%E8%AF%84%E8%AE%BA%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之发布评论接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之发布评论接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/24/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8F%91%E9%80%81%E8%AF%84%E8%AE%BA%E4%BC%9A%E7%BB%99%E4%B8%AA%E4%BA%BA%E5%8F%91%E9%80%81%E9%82%AE%E7%AE%B1%E9%80%9A%E7%9F%A5%E5%8A%9F%E8%83%BD/" title="『博客开发日记』之发送评论会给个人发送邮箱通知功能"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之发送评论会给个人发送邮箱通知功能</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/02/10/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%9C%A8AOP%E5%AE%9E%E7%8E%B0%E6%97%A5%E5%BF%97%E8%BE%93%E5%87%BA%E6%97%B6%E5%AF%B9%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%AD%89%E8%BF%9B%E8%A1%8C%E7%89%B9%E6%AE%8A%E5%A4%84%E7%90%86/" title="『博客开发日记』之在AOP实现日志输出时对文件上传等进行特殊处理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之在AOP实现日志输出时对文件上传等进行特殊处理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/11/23/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%9F%BA%E7%A1%80%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之基础代码实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之基础代码实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/13/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%AF%B9oss%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1%E8%BF%9B%E8%A1%8C%E5%8D%87%E7%BA%A7/" title="『博客开发日记』之对oss文件存储服务进行升级"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">『博客开发日记』之对oss文件存储服务进行升级</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/10/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%B0%86%E6%9C%89%E5%85%B3%E9%87%8D%E7%BD%AE%E5%AF%86%E7%A0%81%E6%8E%A5%E5%8F%A3%E7%9A%84%E6%9C%8D%E5%8A%A1%E4%BB%A3%E7%A0%81%E6%8F%90%E5%8F%96%E5%87%BA%E6%9D%A5/" title="『博客开发日记』之将有关重置密码的服务代码提取出来"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之将有关重置密码的服务代码提取出来</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/10/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%B0%86%E9%82%AE%E4%BB%B6%E7%9A%84%E5%8F%91%E9%80%81%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%8F%91%E9%80%81%E6%94%B9%E4%B8%BA%E5%BC%82%E6%AD%A5%E5%8F%91%E9%80%81/" title="『博客开发日记』之将邮件的发送从同步发送改为异步发送"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之将邮件的发送从同步发送改为异步发送</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/02/10/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%BD%92%E6%A1%A3%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之归档接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之归档接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/13/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%90%9C%E7%B4%A2%E7%9B%B8%E5%85%B3%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之搜索相关接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之搜索相关接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/12/28/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%96%87%E7%AB%A0%E8%AF%A6%E6%83%85%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之文章详情接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之文章详情接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/16/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%9B%B4%E6%96%B0%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AF%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之更新个人信息接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之更新个人信息接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%A0%87%E7%AD%BE%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之标签列表接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之标签列表接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%A0%B9%E6%8D%AE%E6%A0%87%E7%AD%BEid%E6%9F%A5%E8%AF%A2%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之根据标签id查询文章列表接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之根据标签id查询文章列表接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/02/10/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%94%9F%E6%88%90%E8%AF%84%E8%AE%BA%E5%A4%B4%E5%83%8F%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之生成评论头像接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之生成评论头像接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/19/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%94%A8%E6%88%B7%E6%B3%A8%E5%86%8C%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之用户注册接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之用户注册接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/11/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%99%BB%E5%87%BA%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之登出接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之登出接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/07/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%99%BB%E5%BD%95%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之登录接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之登录接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/02/13/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E5%8D%9A%E4%B8%BB%E4%BF%A1%E6%81%AF%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之获取博主信息接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之获取博主信息接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/12/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E8%AF%84%E8%AE%BA%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之评论列表接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之评论列表接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/14/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E8%AF%84%E8%AE%BA%E7%82%B9%E8%B5%9E%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之评论点赞接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之评论点赞接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/02/08/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%80%9A%E8%BF%87AOP%E5%AE%9E%E7%8E%B0%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E5%8A%9F%E8%83%BD/" title="『博客开发日记』之通过AOP实现日志记录功能"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之通过AOP实现日志记录功能</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%87%8D%E7%BD%AE%E5%AF%86%E7%A0%81%E7%9B%B8%E5%85%B3%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之重置密码相关接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之重置密码相关接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/11/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/" title="『博客开发日记』之项目搭建"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之项目搭建</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/19/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%AA%8C%E8%AF%81%E7%A0%81%E5%8F%91%E9%80%81%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之验证码发送接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之验证码发送接口的实现</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">『博客开发日记』之对oss文件存储服务进行升级</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2026年4月13日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 align="center"><span id="对oss文件存储服务进行升级"><span style="color: cadetblue;">对oss文件存储服务进行升级</span></span></h1>
+<hr>
+<h2 style="color: #b7a0e0"><span id="前言">前言</span></h2>
+<p>在之前的开发中有对上传图片等文件进行处理</p>
+<p>将图片上传到oss对象存储中</p>
+<p>但是存在一个问题是</p>
+<p>当用户调用上传接口时会上传图像到oss</p>
+<p>这样并没有什么问题</p>
+<p>但是用户上传但是不保存时图片还是上传上去了</p>
+<p>举个例子就是</p>
+<p>用户上传头像 > 成功上传至oss > 不保存 > 图片仍然保存在oss </p>
+<hr>
+<p>由于oss对象存储空间是有限的</p>
+<p>如果对上传的图片不加限制</p>
+<p>长此以往空间就会被大量无用的文件占满 （如果有人恶意上传这个进度就会更快）</p>
+<p>所以要对之前的oss上传文件服务类进行升级</p>
+<hr>
+<p>还有一个使用场景就是</p>
+<p>用户已经上传并保存了文件</p>
+<p>但是想再更新对该文件进行更新的话就会触发一下流程</p>
+<p>上传并保存文件 > 成功上传至oss > 用户更新文件 > 新文件上传oss > 原旧文件仍保存在oss中 </p>
+<p>这样也会导致大量文件无效文件保存你再oss中</p>
+<h2 style="color: #b7a0e0"><span id="需求">需求</span></h2>
+<p>在用户上传图片时先将图片上传至存储空间的 temp （临时）文件夹</p>
+<p>通过 redis 缓存保存临时文件 即将临时文件信息存入Redis</p>
+<p>通过设置24小时过期的时间 定时清理 redis 里的缓存文件</p>
+<p>如果用户选择确定保存文件</p>
+<p>则将文件的临时属性转换成永久保存属性（使用文件的基础复制转移 + 删除原临时文件实现）</p>
+<p>当用户更新文件时</p>
+<p>找到旧文件并将新文件和旧文件进行替换</p>
+
+<h2 style="color: #b7a0e0"><span id="代码实现">代码实现</span></h2>
+<p>先创建 OssFileService 和 OssFileServiceImpl</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * OSS文件管理服务接口</span><br><span class="hljs-comment"> * </span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> mengze</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">OssFileService</span><br>&#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 将临时文件转为正式文件</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> tempFileUrl 临时文件URL</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 正式文件URL</span><br><span class="hljs-comment">     */</span><br>    String <span class="hljs-title function_">moveTempToFormal</span><span class="hljs-params">(String tempFileUrl)</span>;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 批量将临时文件转为正式文件</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> tempFileUrls 临时文件URL列表</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 正式文件URL列表</span><br><span class="hljs-comment">     */</span><br>    List&lt;String&gt; <span class="hljs-title function_">batchMoveTempToFormal</span><span class="hljs-params">(List&lt;String&gt; tempFileUrls)</span>;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 删除OSS上的文件</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> fileKey 文件key（路径）</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 是否删除成功</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-type">boolean</span> <span class="hljs-title function_">deleteFile</span><span class="hljs-params">(String fileKey)</span>;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 根据完整URL删除OSS上的文件</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> fileUrl 文件完整URL</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 是否删除成功</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-type">boolean</span> <span class="hljs-title function_">deleteFileByUrl</span><span class="hljs-params">(String fileUrl)</span>;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 处理内容中的临时图片，将其转为正式文件</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> content 包含图片URL的内容（HTML、Markdown等）</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 处理后的内容</span><br><span class="hljs-comment">     */</span><br>    String <span class="hljs-title function_">processContentImages</span><span class="hljs-params">(String content)</span>;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 清理过期的临时文件</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 清理的文件数量</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-type">int</span> <span class="hljs-title function_">cleanExpiredTempFiles</span><span class="hljs-params">()</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>OSS文件管理服务 OssFileServiceImpl 中主要有下面几个功能</p>
+<p>将临时文件转正式文件</p>
+<p>删除文件</p>
+<p>对写文章内容里的图片进行处理</p>
+<p>清理过期文件</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * OSS文件管理服务实现类</span><br><span class="hljs-comment"> * </span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> mengze</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Service</span><br><span class="hljs-meta">@Slf4j</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">OssFileServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">OssFileService</span><br>&#123;<br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> OssUploadServiceImpl ossUploadService;<br>    <br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> RedisCache redisCache;<br>    <br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">TEMP_FILE_KEY_PREFIX</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;temp:file:&quot;</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">TEMP_PATH_PREFIX</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;temp/&quot;</span>;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 获取BucketManager实例</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> BucketManager <span class="hljs-title function_">getBucketManager</span><span class="hljs-params">()</span><br>    &#123;<br>        <span class="hljs-type">Configuration</span> <span class="hljs-variable">cfg</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Configuration</span>(Region.autoRegion());<br>        <span class="hljs-type">Auth</span> <span class="hljs-variable">auth</span> <span class="hljs-operator">=</span> Auth.create(ossUploadService.getAccessKey(), ossUploadService.getSecretKey());<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BucketManager</span>(auth, cfg);<br>    &#125;<br>    <br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">moveTempToFormal</span><span class="hljs-params">(String tempFileUrl)</span><br>    &#123;<br>        <span class="hljs-keyword">if</span> (!StringUtils.hasText(tempFileUrl) || !tempFileUrl.contains(TEMP_PATH_PREFIX)) &#123;<br>            <span class="hljs-keyword">return</span> tempFileUrl; <span class="hljs-comment">// 不是临时文件，直接返回</span><br>        &#125;<br>        <br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">// 从URL中提取文件key</span><br>            <span class="hljs-type">String</span> <span class="hljs-variable">tempKey</span> <span class="hljs-operator">=</span> extractKeyFromUrl(tempFileUrl);<br>            <br>            <span class="hljs-comment">// 生成正式文件的key（去掉temp/前缀）</span><br>            <span class="hljs-type">String</span> <span class="hljs-variable">formalKey</span> <span class="hljs-operator">=</span> tempKey.replace(TEMP_PATH_PREFIX, <span class="hljs-string">&quot;&quot;</span>);<br>            <br>            <span class="hljs-comment">// 在OSS上移动文件（实际是复制+删除）</span><br>            <span class="hljs-type">BucketManager</span> <span class="hljs-variable">bucketManager</span> <span class="hljs-operator">=</span> getBucketManager();<br>            bucketManager.copy(ossUploadService.getBucket(), tempKey, ossUploadService.getBucket(), formalKey, <span class="hljs-literal">true</span>);<br>            <br>            <span class="hljs-comment">// 删除临时文件</span><br>            bucketManager.delete(ossUploadService.getBucket(), tempKey);<br>            <br>            <span class="hljs-comment">// 从Redis中删除临时文件记录</span><br>            redisCache.deleteObject(TEMP_FILE_KEY_PREFIX + tempKey);<br>            <br>            <span class="hljs-comment">// 返回正式文件URL</span><br>            <span class="hljs-type">String</span> <span class="hljs-variable">formalUrl</span> <span class="hljs-operator">=</span> ossUploadService.getDomain() + formalKey;<br>            log.info(<span class="hljs-string">&quot;文件转正成功: &#123;&#125; -&gt; &#123;&#125;&quot;</span>, tempFileUrl, formalUrl);<br>            <span class="hljs-keyword">return</span> formalUrl;<br>            <br>        &#125; <span class="hljs-keyword">catch</span> (QiniuException e) &#123;<br>            log.error(<span class="hljs-string">&quot;文件转正失败: &#123;&#125;&quot;</span>, tempFileUrl, e);<br>            <span class="hljs-keyword">return</span> tempFileUrl; <span class="hljs-comment">// 失败时返回原URL</span><br>        &#125;<br>    &#125;<br>    <br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title function_">batchMoveTempToFormal</span><span class="hljs-params">(List&lt;String&gt; tempFileUrls)</span><br>    &#123;<br>        <span class="hljs-keyword">if</span> (tempFileUrls == <span class="hljs-literal">null</span> || tempFileUrls.isEmpty()) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>        &#125;<br>        <br>        <span class="hljs-keyword">return</span> tempFileUrls.stream()<br>                .map(<span class="hljs-built_in">this</span>::moveTempToFormal)<br>                .collect(Collectors.toList());<br>    &#125;<br>    <br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">deleteFile</span><span class="hljs-params">(String fileKey)</span><br>    &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">BucketManager</span> <span class="hljs-variable">bucketManager</span> <span class="hljs-operator">=</span> getBucketManager();<br>            bucketManager.delete(ossUploadService.getBucket(), fileKey);<br>            log.info(<span class="hljs-string">&quot;从oss中删除文件成功: &#123;&#125;&quot;</span>, fileKey);<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125; <span class="hljs-keyword">catch</span> (QiniuException e) &#123;<br>            log.error(<span class="hljs-string">&quot;从oss中删除文件失败: &#123;&#125;&quot;</span>, fileKey, e);<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br>    &#125;<br>    <br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">deleteFileByUrl</span><span class="hljs-params">(String fileUrl)</span><br>    &#123;<br>        <span class="hljs-keyword">if</span> (!StringUtils.hasText(fileUrl)) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br>        <br>        <span class="hljs-comment">// 从URL中提取文件key</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">fileKey</span> <span class="hljs-operator">=</span> extractKeyFromUrl(fileUrl);<br>        <br>        <span class="hljs-keyword">if</span> (!StringUtils.hasText(fileKey)) &#123;<br>            log.warn(<span class="hljs-string">&quot;无法从URL提取文件key: &#123;&#125;&quot;</span>, fileUrl);<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br>        <br>        <span class="hljs-keyword">return</span> deleteFile(fileKey);<br>    &#125;<br>    <br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">processContentImages</span><span class="hljs-params">(String content)</span><br>    &#123;<br>        <span class="hljs-keyword">if</span> (!ImageUrlUtils.containsTempImages(content)) &#123;<br>            <span class="hljs-keyword">return</span> content;<br>        &#125;<br>        <br>        <span class="hljs-comment">// 提取所有临时图片URL</span><br>        List&lt;String&gt; tempImageUrls = ImageUrlUtils.extractTempImageUrls(content);<br>        <br>        <span class="hljs-comment">// 逐个转换为正式URL</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> content;<br>        <span class="hljs-keyword">for</span> (String tempUrl : tempImageUrls) &#123;<br>            <span class="hljs-type">String</span> <span class="hljs-variable">formalUrl</span> <span class="hljs-operator">=</span> moveTempToFormal(tempUrl);<br>            result = ImageUrlUtils.replaceImageUrl(result, tempUrl, formalUrl);<br>        &#125;<br>        <br>        <span class="hljs-keyword">return</span> result;<br>    &#125;<br>    <br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">cleanExpiredTempFiles</span><span class="hljs-params">()</span><br>    &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">cleanedCount</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">// 从Redis获取所有临时文件记录</span><br>            Collection&lt;String&gt; keys = redisCache.keys(TEMP_FILE_KEY_PREFIX + <span class="hljs-string">&quot;*&quot;</span>);<br>            <br>            <span class="hljs-keyword">if</span> (keys == <span class="hljs-literal">null</span> || keys.isEmpty()) &#123;<br>                log.info(<span class="hljs-string">&quot;没有需要清理的临时文件&quot;</span>);<br>                <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>            &#125;<br>            <br>            <span class="hljs-type">long</span> <span class="hljs-variable">currentTime</span> <span class="hljs-operator">=</span> System.currentTimeMillis();<br>            <span class="hljs-comment">//long expireTime = 60 * 1000; // 测试1分钟触发一次</span><br>            <span class="hljs-type">long</span> <span class="hljs-variable">expireTime</span> <span class="hljs-operator">=</span> <span class="hljs-number">24</span> * <span class="hljs-number">60</span> * <span class="hljs-number">60</span> * <span class="hljs-number">1000</span>; <span class="hljs-comment">// 24小时</span><br>            <br>            <span class="hljs-keyword">for</span> (String redisKey : keys) &#123;<br>                <span class="hljs-type">Object</span> <span class="hljs-variable">uploadTimeObj</span> <span class="hljs-operator">=</span> redisCache.getCacheObject(redisKey);<br>                <br>                <span class="hljs-comment">// 类型安全转换</span><br>                <span class="hljs-type">Long</span> <span class="hljs-variable">uploadTime</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>                <span class="hljs-keyword">if</span> (uploadTimeObj <span class="hljs-keyword">instanceof</span> Long) &#123;<br>                    uploadTime = (Long) uploadTimeObj;<br>                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (uploadTimeObj <span class="hljs-keyword">instanceof</span> String) &#123;<br>                    <span class="hljs-keyword">try</span> &#123;<br>                        uploadTime = Long.parseLong((String) uploadTimeObj);<br>                    &#125; <span class="hljs-keyword">catch</span> (NumberFormatException e) &#123;<br>                        log.warn(<span class="hljs-string">&quot;无法解析上传时间: &#123;&#125;, 值: &#123;&#125;&quot;</span>, redisKey, uploadTimeObj);<br>                        <span class="hljs-keyword">continue</span>;<br>                    &#125;<br>                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (uploadTimeObj <span class="hljs-keyword">instanceof</span> Number) &#123;<br>                    uploadTime = ((Number) uploadTimeObj).longValue();<br>                &#125;<br>                <br>                <span class="hljs-comment">// 如果文件已过期（超过24小时）</span><br>                <span class="hljs-keyword">if</span> (uploadTime != <span class="hljs-literal">null</span> &amp;&amp; (currentTime - uploadTime) &gt; expireTime) &#123;<br>                    <span class="hljs-comment">// 提取文件key</span><br>                    <span class="hljs-type">String</span> <span class="hljs-variable">fileKey</span> <span class="hljs-operator">=</span> redisKey.replace(TEMP_FILE_KEY_PREFIX, <span class="hljs-string">&quot;&quot;</span>);<br>                    <br>                    <span class="hljs-comment">// 删除OSS上的文件</span><br>                    <span class="hljs-keyword">if</span> (deleteFile(fileKey)) &#123;<br>                        <span class="hljs-comment">// 删除Redis记录</span><br>                        redisCache.deleteObject(redisKey);<br>                        cleanedCount++;<br>                        log.info(<span class="hljs-string">&quot;清理过期临时文件: &#123;&#125;&quot;</span>, fileKey);<br>                    &#125;<br>                &#125;<br>            &#125;<br>            <br>            log.info(<span class="hljs-string">&quot;临时文件清理完成，共清理 &#123;&#125; 个文件&quot;</span>, cleanedCount);<br>            <br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            log.error(<span class="hljs-string">&quot;清理临时文件时发生错误&quot;</span>, e);<br>        &#125;<br>        <br>        <span class="hljs-keyword">return</span> cleanedCount;<br>    &#125;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 从URL中提取文件key</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String <span class="hljs-title function_">extractKeyFromUrl</span><span class="hljs-params">(String url)</span><br>    &#123;<br>        <span class="hljs-keyword">if</span> (!StringUtils.hasText(url)) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;<br>        &#125;<br>        <br>        <span class="hljs-comment">// 如果URL包含域名，去掉域名部分</span><br>        <span class="hljs-keyword">if</span> (url.contains(<span class="hljs-string">&quot;://&quot;</span>)) &#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">index</span> <span class="hljs-operator">=</span> url.indexOf(<span class="hljs-string">&quot;/&quot;</span>, url.indexOf(<span class="hljs-string">&quot;://&quot;</span>) + <span class="hljs-number">3</span>);<br>            <span class="hljs-keyword">if</span> (index &gt; <span class="hljs-number">0</span>) &#123;<br>                <span class="hljs-keyword">return</span> url.substring(index + <span class="hljs-number">1</span>);<br>            &#125;<br>        &#125;<br>        <br>        <span class="hljs-keyword">return</span> url;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>对于后台写博客时对上传图片的处理</p>
+<p>创建一个 ImageUrlUtils 工具类给 OssFileServiceImpl 中需要的地方调用</p>
+<p>用于处理文章内容和富文本中的图片URL</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 图片URL处理工具类</span><br><span class="hljs-comment"> * 用于处理文章内容和富文本中的图片URL</span><br><span class="hljs-comment"> * </span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> mengze</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ImageUrlUtils</span><br>&#123;<br>    <span class="hljs-comment">// 匹配临时图片URL的正则表达式</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">TEMP_IMAGE_REGEX</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;(https?://[^\\s\&quot;&#x27;]+/temp/[^\\s\&quot;&#x27;]+)&quot;</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Pattern</span> <span class="hljs-variable">TEMP_IMAGE_PATTERN</span> <span class="hljs-operator">=</span> Pattern.compile(TEMP_IMAGE_REGEX);<br>    <br>    <span class="hljs-comment">// 匹配所有图片URL的正则表达式</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">IMAGE_URL_REGEX</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;(https?://[^\\s\&quot;&#x27;]+\\.(jpg|jpeg|png|gif|webp|bmp))&quot;</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Pattern</span> <span class="hljs-variable">IMAGE_URL_PATTERN</span> <span class="hljs-operator">=</span> Pattern.compile(IMAGE_URL_REGEX, Pattern.CASE_INSENSITIVE);<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 从内容中提取所有图片URL</span><br><span class="hljs-comment">     * </span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> content 富文本内容（HTML、Markdown等）</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 图片URL列表</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> List&lt;String&gt; <span class="hljs-title function_">extractImageUrls</span><span class="hljs-params">(String content)</span><br>    &#123;<br>        List&lt;String&gt; imageUrls = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>        <br>        <span class="hljs-keyword">if</span> (!StringUtils.hasText(content)) &#123;<br>            <span class="hljs-keyword">return</span> imageUrls;<br>        &#125;<br>        <br>        <span class="hljs-type">Matcher</span> <span class="hljs-variable">matcher</span> <span class="hljs-operator">=</span> IMAGE_URL_PATTERN.matcher(content);<br>        <br>        <span class="hljs-keyword">while</span> (matcher.find()) &#123;<br>            <span class="hljs-type">String</span> <span class="hljs-variable">imageUrl</span> <span class="hljs-operator">=</span> matcher.group(<span class="hljs-number">1</span>);<br>            imageUrls.add(imageUrl);<br>        &#125;<br>        <br>        <span class="hljs-keyword">return</span> imageUrls;<br>    &#125;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 从内容中提取所有临时图片URL</span><br><span class="hljs-comment">     * </span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> content 富文本内容</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 临时图片URL列表</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> List&lt;String&gt; <span class="hljs-title function_">extractTempImageUrls</span><span class="hljs-params">(String content)</span><br>    &#123;<br>        List&lt;String&gt; tempImageUrls = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>        <br>        <span class="hljs-keyword">if</span> (!StringUtils.hasText(content)) &#123;<br>            <span class="hljs-keyword">return</span> tempImageUrls;<br>        &#125;<br>        <br>        <span class="hljs-type">Matcher</span> <span class="hljs-variable">matcher</span> <span class="hljs-operator">=</span> TEMP_IMAGE_PATTERN.matcher(content);<br>        <br>        <span class="hljs-keyword">while</span> (matcher.find()) &#123;<br>            <span class="hljs-type">String</span> <span class="hljs-variable">tempUrl</span> <span class="hljs-operator">=</span> matcher.group(<span class="hljs-number">1</span>);<br>            tempImageUrls.add(tempUrl);<br>        &#125;<br>        <br>        <span class="hljs-keyword">return</span> tempImageUrls;<br>    &#125;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 检查内容中是否包含临时图片</span><br><span class="hljs-comment">     * </span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> content 富文本内容</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 是否包含临时图片</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">containsTempImages</span><span class="hljs-params">(String content)</span><br>    &#123;<br>        <span class="hljs-keyword">if</span> (!StringUtils.hasText(content)) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br>        <br>        <span class="hljs-keyword">return</span> content.contains(<span class="hljs-string">&quot;temp/&quot;</span>);<br>    &#125;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 替换内容中的图片URL</span><br><span class="hljs-comment">     * </span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> content 原始内容</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> oldUrl 旧的图片URL</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> newUrl 新的图片URL</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 替换后的内容</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">replaceImageUrl</span><span class="hljs-params">(String content, String oldUrl, String newUrl)</span><br>    &#123;<br>        <span class="hljs-keyword">if</span> (!StringUtils.hasText(content) || !StringUtils.hasText(oldUrl)) &#123;<br>            <span class="hljs-keyword">return</span> content;<br>        &#125;<br>        <br>        <span class="hljs-keyword">return</span> content.replace(oldUrl, newUrl);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>更新 OssUploadServiceImpl 实现类</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//Oss上传图片实现类</span><br><span class="hljs-meta">@Service</span><br><span class="hljs-meta">@Data</span><br><span class="hljs-meta">@ConfigurationProperties(prefix = &quot;oss&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">OssUploadServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">UploadService</span><br>&#123;<br>    <span class="hljs-keyword">private</span> String accessKey;<br>    <span class="hljs-keyword">private</span> String secretKey;<br>    <span class="hljs-keyword">private</span> String bucket;<br>    <span class="hljs-keyword">private</span> String domain; <span class="hljs-comment">// OSS访问域名</span><br>    <br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> RedisCache redisCache;<br>    <br>    <span class="hljs-comment">// Redis key前缀，用于存储临时文件信息</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">TEMP_FILE_KEY_PREFIX</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;temp:file:&quot;</span>;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> ResponseResult <span class="hljs-title function_">uploadImg</span><span class="hljs-params">(MultipartFile img)</span><br>    &#123;<br>        <span class="hljs-comment">//判断文件是否为空</span><br>        <span class="hljs-keyword">if</span> (img == <span class="hljs-literal">null</span> || img.isEmpty()) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SystemException</span>(AppHttpCodeEnum.FILE_TYPE_ERROR);<br>        &#125;<br>        <br>        <span class="hljs-comment">//判断文件大小（限制2MB）</span><br>        <span class="hljs-type">long</span> <span class="hljs-variable">maxSize</span> <span class="hljs-operator">=</span> <span class="hljs-number">2</span> * <span class="hljs-number">1024</span> * <span class="hljs-number">1024</span>; <span class="hljs-comment">// 2MB</span><br>        <span class="hljs-keyword">if</span> (img.getSize() &gt; maxSize) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SystemException</span>(AppHttpCodeEnum.FILE_SIZE_ERROR);<br>        &#125;<br>        <br>        <span class="hljs-comment">//判断文件类型</span><br>        <span class="hljs-comment">//获取原始文件名</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">originalFilename</span> <span class="hljs-operator">=</span> img.getOriginalFilename();<br>        <span class="hljs-comment">//判断文件名是否为png，jpg，gif，jpeg</span><br>        <span class="hljs-keyword">if</span> (!originalFilename.endsWith(<span class="hljs-string">&quot;.png&quot;</span>) &amp;&amp; !originalFilename.endsWith(<span class="hljs-string">&quot;.jpg&quot;</span>) &amp;&amp; !originalFilename.endsWith(<span class="hljs-string">&quot;.gif&quot;</span>) &amp;&amp; !originalFilename.endsWith(<span class="hljs-string">&quot;.jpeg&quot;</span>)) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SystemException</span>(AppHttpCodeEnum.FILE_TYPE_ERROR);<br>        &#125;<br>        <br>        <span class="hljs-comment">//上传到临时目录，文件路径格式：temp/yyyy/MM/dd/文件名.后缀</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">filePath</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;temp/&quot;</span> + PathUtils.generateFilePath(originalFilename);<br>        <span class="hljs-type">String</span> <span class="hljs-variable">url</span> <span class="hljs-operator">=</span> uploadOss(img, filePath);<br>        <br>        <span class="hljs-comment">//将临时文件信息存入Redis，设置24小时过期时间</span><br>        <span class="hljs-comment">//存储格式：key=temp:file:文件路径, value=上传时间戳</span><br>        redisCache.setCacheObject(TEMP_FILE_KEY_PREFIX + filePath, System.currentTimeMillis(), <span class="hljs-number">24</span>, TimeUnit.HOURS);<br>        <br>        <span class="hljs-keyword">return</span> ResponseResult.okResult(url);<br>    &#125;<br><br><br>    <span class="hljs-keyword">private</span> String <span class="hljs-title function_">uploadOss</span><span class="hljs-params">(MultipartFile imgFile, String filePath)</span><br>    &#123;<br>        <span class="hljs-comment">//构造一个带指定 Region 对象的配置类</span><br>        <span class="hljs-type">Configuration</span> <span class="hljs-variable">cfg</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Configuration</span>(Region.autoRegion());<br>        cfg.resumableUploadAPIVersion = Configuration.ResumableUploadAPIVersion.V2;<span class="hljs-comment">// 指定分片上传版本</span><br>        <span class="hljs-comment">//...其他参数参考类注释</span><br>        <span class="hljs-type">UploadManager</span> <span class="hljs-variable">uploadManager</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UploadManager</span>(cfg);<br>        <span class="hljs-comment">//默认不指定key的情况下，以文件内容的hash值作为文件名</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">key</span> <span class="hljs-operator">=</span> filePath;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">InputStream</span> <span class="hljs-variable">inputStream</span> <span class="hljs-operator">=</span> imgFile.getInputStream();<br>            <span class="hljs-type">Auth</span> <span class="hljs-variable">auth</span> <span class="hljs-operator">=</span> Auth.create(accessKey, secretKey);<br>            <span class="hljs-type">String</span> <span class="hljs-variable">upToken</span> <span class="hljs-operator">=</span> auth.uploadToken(bucket);<br>            <span class="hljs-keyword">try</span> &#123;<br>                <span class="hljs-type">Response</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span><br>                        uploadManager.put(inputStream,key,upToken,<span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>);<br>                <span class="hljs-comment">//解析上传成功的结果</span><br>                <span class="hljs-type">DefaultPutRet</span> <span class="hljs-variable">putRet</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span><br>                        <span class="hljs-title class_">Gson</span>().fromJson(response.bodyString(), DefaultPutRet.class);<br>                System.out.println(putRet.key);<br>                System.out.println(putRet.hash);<br>                <span class="hljs-comment">//返回图片的完整URL</span><br>                <span class="hljs-keyword">return</span> domain + key;<br>            &#125; <span class="hljs-keyword">catch</span> (QiniuException ex) &#123;<br>                <span class="hljs-type">Response</span> <span class="hljs-variable">r</span> <span class="hljs-operator">=</span> ex.response;<br>                System.err.println(r.toString());<br>                <span class="hljs-keyword">try</span> &#123;<br>                    System.err.println(r.bodyString());<br>                &#125; <span class="hljs-keyword">catch</span> (QiniuException ex2) &#123;<br>                    <span class="hljs-comment">//ignore</span><br>                &#125;<br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (Exception ex) &#123;<br>            <span class="hljs-comment">//ignore</span><br>        &#125;<br>        <span class="hljs-keyword">return</span> key;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>编写一个定时工作类 CleanTempFilesJob 用于执行清理临时文件定时任务</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 清理临时文件定时任务</span><br><span class="hljs-comment"> * 每天凌晨2点执行，清理超过24小时的临时文件</span><br><span class="hljs-comment"> * </span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> mengze</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Component</span><br><span class="hljs-meta">@Slf4j</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CleanTempFilesJob</span><br>&#123;<br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> OssFileService ossFileService;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 每天凌晨2点执行清理任务</span><br><span class="hljs-comment">     * cron表达式：秒 分 时 日 月 周</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-comment">//@Scheduled(cron = &quot;0 * * * * ?&quot;) //测试1分钟执行一次</span><br>    <span class="hljs-meta">@Scheduled(cron = &quot;0 0 2 * * ?&quot;)</span> <span class="hljs-comment">//凌晨两点钟执行</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">cleanExpiredTempFiles</span><span class="hljs-params">()</span><br>    &#123;<br>        log.info(<span class="hljs-string">&quot;开始执行临时文件清理任务&quot;</span>);<br>        <br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">cleanedCount</span> <span class="hljs-operator">=</span> ossFileService.cleanExpiredTempFiles();<br>            log.info(<span class="hljs-string">&quot;临时文件清理任务完成，共清理 &#123;&#125; 个文件&quot;</span>, cleanedCount);<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            log.error(<span class="hljs-string">&quot;临时文件清理任务执行失败&quot;</span>, e);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>然后就是对之前一些接口的实现方法进行升级（前台更新用户信息，后台添加文章）</p>
+<p>更新 SysUserServiceImpl 中的 updateUserInfo 方法</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//更新用户信息</span><br>   <span class="hljs-meta">@Override</span><br>   <span class="hljs-keyword">public</span> ResponseResult <span class="hljs-title function_">updateUserInfo</span><span class="hljs-params">(SysUser sysUser)</span><br>   &#123;<br>       <span class="hljs-type">Long</span> <span class="hljs-variable">currentUserId</span> <span class="hljs-operator">=</span> SecurityUtils.getUserId();<br>       <span class="hljs-keyword">if</span> (currentUserId == <span class="hljs-literal">null</span>) &#123;<br>           <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.NEED_LOGIN);<br>       &#125;<br><br>       <span class="hljs-comment">//昵称不能为空</span><br>       <span class="hljs-keyword">if</span> (!StringUtils.hasText(sysUser.getNickname())) &#123;<br>           <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.NICKNAME_NOT_NULL, <span class="hljs-string">&quot;昵称不能为空&quot;</span>);<br>       &#125;<br><br>       <span class="hljs-comment">//邮箱和电话号码不能同时为空</span><br>       <span class="hljs-keyword">if</span> (!StringUtils.hasText(sysUser.getEmail()) &amp;&amp; !StringUtils.hasText(sysUser.getPhone())) &#123;<br>           <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR, <span class="hljs-string">&quot;邮箱和电话号码不能同时为空&quot;</span>);<br>       &#125;<br><br>       <span class="hljs-comment">//校验手机号格式</span><br>       <span class="hljs-keyword">if</span> (StringUtils.hasText(sysUser.getPhone()) &amp;&amp; !sysUser.getPhone().matches(PHONE_REGEX)) &#123;<br>           <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.PHONE_FORMAT_ERROR, <span class="hljs-string">&quot;请输入正确的手机号码&quot;</span>);<br>       &#125;<br><br>       <span class="hljs-comment">//检查手机号是否被其他用户使用</span><br>       <span class="hljs-keyword">if</span> (StringUtils.hasText(sysUser.getPhone())) &#123;<br>           LambdaQueryWrapper&lt;SysUser&gt; queryWrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaQueryWrapper</span>&lt;&gt;();<br>           queryWrapper.eq(SysUser::getPhone, sysUser.getPhone())<br>                   .ne(SysUser::getId, currentUserId);<br>           <span class="hljs-type">SysUser</span> <span class="hljs-variable">existSysUser</span> <span class="hljs-operator">=</span> getOne(queryWrapper);<br>           <span class="hljs-keyword">if</span> (existSysUser != <span class="hljs-literal">null</span>) &#123;<br>               <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.PHONE_OCCUPIED, <span class="hljs-string">&quot;你用别人的电话号码干嘛？&quot;</span>);<br>           &#125;<br>       &#125;<br><br>       <span class="hljs-comment">//检查邮箱是否被其他用户使用</span><br>       <span class="hljs-keyword">if</span> (StringUtils.hasText(sysUser.getEmail())) &#123;<br>           LambdaQueryWrapper&lt;SysUser&gt; queryWrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaQueryWrapper</span>&lt;&gt;();<br>           queryWrapper.eq(SysUser::getEmail, sysUser.getEmail())<br>                   .ne(SysUser::getId, currentUserId);<br>           <span class="hljs-type">SysUser</span> <span class="hljs-variable">existSysUser</span> <span class="hljs-operator">=</span> getOne(queryWrapper);<br>           <span class="hljs-keyword">if</span> (existSysUser != <span class="hljs-literal">null</span>) &#123;<br>               <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.EMAIL_OCCUPIED, <span class="hljs-string">&quot;你用别人的邮箱干嘛？&quot;</span>);<br>           &#125;<br>       &#125;<br><br>       <span class="hljs-comment">//检查昵称是否被其他用户使用</span><br>       <span class="hljs-keyword">if</span> (StringUtils.hasText(sysUser.getNickname())) &#123;<br>           LambdaQueryWrapper&lt;SysUser&gt; queryWrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaQueryWrapper</span>&lt;&gt;();<br>           queryWrapper.eq(SysUser::getNickname, sysUser.getNickname())<br>                   .ne(SysUser::getId, currentUserId);<br>           <span class="hljs-type">SysUser</span> <span class="hljs-variable">existSysUser</span> <span class="hljs-operator">=</span> getOne(queryWrapper);<br>           <span class="hljs-keyword">if</span> (existSysUser != <span class="hljs-literal">null</span>) &#123;<br>               <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.NICKNAME_OCCUPIED, <span class="hljs-string">&quot;这个昵称和别人的重复啦！&quot;</span>);<br>           &#125;<br>       &#125;<br><br>       <span class="hljs-comment">//获取更新前的用户信息，用于判断头像和昵称是否变化</span><br>       <span class="hljs-type">SysUser</span> <span class="hljs-variable">oldSysUser</span> <span class="hljs-operator">=</span> getById(currentUserId);<br>       <br>       <span class="hljs-comment">//处理头像：如果是临时文件，转为正式文件</span><br>       <span class="hljs-type">String</span> <span class="hljs-variable">avatar</span> <span class="hljs-operator">=</span> sysUser.getAvatar();<br>       <span class="hljs-keyword">if</span> (StringUtils.hasText(avatar) &amp;&amp; avatar.contains(<span class="hljs-string">&quot;temp/&quot;</span>)) &#123;<br>           avatar = ossFileService.moveTempToFormal(avatar);<br>           sysUser.setAvatar(avatar);<br>       &#125;<br>       <br>       <span class="hljs-comment">//如果头像发生变化，删除OSS上的旧头像</span><br>       <span class="hljs-type">String</span> <span class="hljs-variable">oldAvatar</span> <span class="hljs-operator">=</span> oldSysUser.getAvatar();<br>       <span class="hljs-keyword">if</span> (StringUtils.hasText(avatar) &amp;&amp; StringUtils.hasText(oldAvatar) <br>               &amp;&amp; !avatar.equals(oldAvatar)) &#123;<br>           <span class="hljs-keyword">try</span> &#123;<br>               ossFileService.deleteFileByUrl(oldAvatar);<br>               log.info(<span class="hljs-string">&quot;从oss中删除旧头像成功: &#123;&#125;&quot;</span>, oldAvatar);<br>           &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>               log.warn(<span class="hljs-string">&quot;从oss中删除旧头像失败: &#123;&#125;, 错误: &#123;&#125;&quot;</span>, oldAvatar, e.getMessage()); <span class="hljs-comment">//删除失败不影响更新流程，只记录日志</span><br>           &#125;<br>       &#125;<br>       <br>       <span class="hljs-comment">//使用LambdaUpdateWrapper条件更新</span><br>       LambdaUpdateWrapper&lt;SysUser&gt; wrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaUpdateWrapper</span>&lt;SysUser&gt;()<br>               .eq(SysUser::getId, currentUserId)<br>               .set(SysUser::getNickname, sysUser.getNickname())<br>               .set(SysUser::getSex, sysUser.getSex())<br>               .set(SysUser::getPhone, StringUtils.hasText(sysUser.getPhone()) ? sysUser.getPhone() : <span class="hljs-literal">null</span>)<br>               .set(SysUser::getEmail, StringUtils.hasText(sysUser.getEmail()) ? sysUser.getEmail() : <span class="hljs-literal">null</span>)<br>               .set(SysUser::getAvatar, avatar);<br><br>       <span class="hljs-type">boolean</span> <span class="hljs-variable">success</span> <span class="hljs-operator">=</span> update(<span class="hljs-literal">null</span>, wrapper);<br>       <span class="hljs-keyword">if</span> (!success) &#123;<br>           <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR, <span class="hljs-string">&quot;更新用户信息失败&quot;</span>);<br>       &#125;<br>       <br>       <span class="hljs-comment">//如果头像或昵称发生变化，同步更新评论表中该用户的所有评论</span><br>       <span class="hljs-type">boolean</span> <span class="hljs-variable">avatarChanged</span> <span class="hljs-operator">=</span> !avatar.equals(oldSysUser.getAvatar());<br>       <span class="hljs-type">boolean</span> <span class="hljs-variable">nicknameChanged</span> <span class="hljs-operator">=</span> !sysUser.getNickname().equals(oldSysUser.getNickname());<br>       <br>       <span class="hljs-keyword">if</span> (avatarChanged || nicknameChanged) &#123;<br>           LambdaUpdateWrapper&lt;com.mengze.domain.entity.Comment&gt; commentWrapper = <br>               <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaUpdateWrapper</span>&lt;com.mengze.domain.entity.Comment&gt;()<br>                   .eq(com.mengze.domain.entity.Comment::getUserId, currentUserId);<br>           <br>           <span class="hljs-keyword">if</span> (avatarChanged) &#123;<br>               commentWrapper.set(com.mengze.domain.entity.Comment::getAvatar, avatar);<br>           &#125;<br>           <span class="hljs-keyword">if</span> (nicknameChanged) &#123;<br>               commentWrapper.set(com.mengze.domain.entity.Comment::getNickname, sysUser.getNickname());<br>           &#125;<br>           <br>           commentMapper.update(<span class="hljs-literal">null</span>, commentWrapper);<br>       &#125;<br>       <br>       <span class="hljs-keyword">return</span> ResponseResult.okResult();<br>   &#125;<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>更新 AdminPostsServiceImpl 中的 addPosts 方法</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//添加文章/写博客</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-meta">@Transactional</span><br>    <span class="hljs-keyword">public</span> ResponseResult <span class="hljs-title function_">addPosts</span><span class="hljs-params">(AddPostsDto postsDto)</span><br>    &#123;<br>        <span class="hljs-comment">// 如果有ID，说明是更新操作，抛出异常</span><br>        <span class="hljs-keyword">if</span> (postsDto.getId() != <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(<span class="hljs-string">&quot;新增文章时不应该包含ID&quot;</span>);<br>        &#125;<br><br>        <span class="hljs-comment">//处理文章内容中的临时图片，将其转为正式文件</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">content</span> <span class="hljs-operator">=</span> postsDto.getContent();<br>        <span class="hljs-keyword">if</span> (ImageUrlUtils.containsTempImages(content)) &#123;<br>            content = ossFileService.processContentImages(content);<br>            postsDto.setContent(content);<br>        &#125;<br><br>        <span class="hljs-comment">//处理缩略图</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">thumbnail</span> <span class="hljs-operator">=</span> postsDto.getThumbnail();<br>        <span class="hljs-keyword">if</span> (StringUtils.hasText(thumbnail) &amp;&amp; thumbnail.contains(<span class="hljs-string">&quot;temp/&quot;</span>)) &#123;<br>            thumbnail = ossFileService.moveTempToFormal(thumbnail);<br>            postsDto.setThumbnail(thumbnail);<br>        &#125;<br><br>        <span class="hljs-comment">//添加文章</span><br>        <span class="hljs-type">Article</span> <span class="hljs-variable">article</span> <span class="hljs-operator">=</span> BeanCopyUtils.copyBean(postsDto, Article.class);<br>        save(article);<br><br>        <span class="hljs-comment">//初始化Redis中的浏览量为0</span><br>        redisCache.setCacheMapValue(SystemConstants.ARTICLE_VIEW_COUNT, article.getId().toString(), <span class="hljs-number">0</span>);<br><br>        List&lt;ArticleTag&gt; articleTags = postsDto.getTags().stream()<br>                .map(tagId -&gt; <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArticleTag</span>(article.getId(), tagId))<br>                .collect(Collectors.toList());<br><br>        <span class="hljs-comment">//添加博客和标签的关联关系</span><br>        articleTagService.saveBatch(articleTags);<br>        <span class="hljs-keyword">return</span> ResponseResult.okResult();<br>    &#125;<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>至此对oss文件存储服务的升级完成</p>
+
+<p></p>
+<img src="/img/.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<hr>
+<p align="center" style="color: hotpink;font-size: 20px"><strong>PS:该系列只做为作者学习开发项目做的笔记用</strong></p>
+<p align="center" style="color: hotpink;font-size: 20px"><strong>不一定符合读者来学习，仅供参考</strong></p>
+<hr>
+<h2 style="color: #b7a0e0"><span id="预告">预告</span></h2>  
+<p>后续会记录博客的开发过程</p>
+<p>每次学习会做一份笔记来进行发表</p>
+
+<blockquote>  
+<p style="color: #bbbbee">“一花一世界，一叶一菩提”</p>
+</blockquote>
+
+<hr>
+<h2><span id="版权所有-2026-云梦泽欢迎访问我的个人网站httpshgt12githubio">版权所有 © 2026 云梦泽<br>欢迎访问我的个人网站：</span></h2>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/" class="category-chain-item">博客开发</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%8A%80%E6%9C%AF%E5%90%91/" class="print-no-link">#技术向</a>
+      
+        <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" class="print-no-link">#个人博客</a>
+      
+        <a href="/tags/%E5%89%8D%E7%AB%AF/" class="print-no-link">#前端</a>
+      
+        <a href="/tags/%E5%90%8E%E7%AB%AF/" class="print-no-link">#后端</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>『博客开发日记』之对oss文件存储服务进行升级</div>
+      <div>http://example.com/2026/04/13/『博客开发日记』之对oss文件存储服务进行升级/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>云梦泽</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年4月13日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2026年4月13日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/04/13/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%AE%8C%E6%88%90%E7%BC%96%E8%BE%91%E6%9B%B4%E6%96%B0%E6%96%87%E7%AB%A0%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之完成编辑更新文章接口的实现">
+                        <span class="hidden-mobile">『博客开发日记-后台』之完成编辑更新文章接口的实现</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments">
+      
+  <div id="twikoo"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/twikoo/1.6.8/twikoo.all.min.js', function() {
+        var options = Object.assign(
+          {"envId":"https://mi-manchi-ovo.netlify.app/.netlify/functions/twikoo","region":"ap-shanghai","path":"window.location.pathname"},
+          {
+            el: '#twikoo',
+            path: 'window.location.pathname',
+            onCommentLoaded: function() {
+              Fluid.utils.listenDOMLoaded(function() {
+                var imgSelector = '#twikoo .tk-content img:not(.tk-owo-emotion)';
+                Fluid.plugins.imageCaption(imgSelector);
+                Fluid.plugins.fancyBox(imgSelector);
+              });
+            }
+          }
+        )
+        twikoo.init(options)
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hgt12.github.io/" target="_blank" rel="nofollow noopener"><span>云梦泽</span></a> <i class="iconfont icon-love"></i> <a target="_blank" href="https://hgt12.github.io/"_blank" rel="nofollow noopener noopener"><span>Mi Manchi</span></a> <br> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    
+      <script  src="/js/img-lazyload.js" ></script>
+    
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/click.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
