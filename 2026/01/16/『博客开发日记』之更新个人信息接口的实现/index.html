@@ -19,16 +19,16 @@
   <meta name="author" content="云梦泽">
   <meta name="keywords" content="js html">
   
-    <meta name="description" content="更新用户信息接口的实现  更新用户信息接口的需求 昵称不能为空 电话号码和邮箱不能同时为空 同时电话号码要符合国内电话号码的要求 电话号码和邮箱不能和别人的重复   代码实现 在UserController中添加接口  123456&#x2F;&#x2F;更新个人信息   @PutMapping(&quot;&#x2F;userInfo&quot;)   public ResponseResult updateUserInfo">
+    <meta name="description" content="更新用户信息接口的实现  更新用户信息接口的需求 昵称不能为空 电话号码和邮箱不能同时为空 同时电话号码要符合国内电话号码的要求 电话号码和邮箱不能和别人的重复   代码实现 在UserController中添加接口  12345678  &#x2F;&#x2F;更新个人信息@PutMapping(&quot;&#x2F;userInfo&quot;)@SystemLog(businessName &#x3D; &quot;更新用户信息">
 <meta property="og:type" content="article">
 <meta property="og:title" content="『博客开发日记』之更新个人信息接口的实现">
 <meta property="og:url" content="http://example.com/2026/01/16/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%9B%B4%E6%96%B0%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AF%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/index.html">
 <meta property="og:site_name" content="云梦泽的个人博客">
-<meta property="og:description" content="更新用户信息接口的实现  更新用户信息接口的需求 昵称不能为空 电话号码和邮箱不能同时为空 同时电话号码要符合国内电话号码的要求 电话号码和邮箱不能和别人的重复   代码实现 在UserController中添加接口  123456&#x2F;&#x2F;更新个人信息   @PutMapping(&quot;&#x2F;userInfo&quot;)   public ResponseResult updateUserInfo">
+<meta property="og:description" content="更新用户信息接口的实现  更新用户信息接口的需求 昵称不能为空 电话号码和邮箱不能同时为空 同时电话号码要符合国内电话号码的要求 电话号码和邮箱不能和别人的重复   代码实现 在UserController中添加接口  12345678  &#x2F;&#x2F;更新个人信息@PutMapping(&quot;&#x2F;userInfo&quot;)@SystemLog(businessName &#x3D; &quot;更新用户信息">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/%E5%A3%81%E7%BA%B829.png">
 <meta property="article:published_time" content="2026-01-16T05:26:02.000Z">
-<meta property="article:modified_time" content="2026-03-25T14:33:01.419Z">
+<meta property="article:modified_time" content="2026-04-16T15:51:50.333Z">
 <meta property="article:author" content="云梦泽">
 <meta property="article:tag" content="技术向">
 <meta property="article:tag" content="个人博客">
@@ -273,7 +273,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          579 字
+          1.1k 字
         
       </span>
     
@@ -284,7 +284,7 @@
         
         
         
-          5 分钟
+          9 分钟
         
       </span>
     
@@ -347,7 +347,7 @@
         aria-expanded="true"
       >
         博客开发
-        <span class="list-group-count">(54)</span>
+        <span class="list-group-count">(57)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -365,6 +365,15 @@
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">『博客开发日记-后台』之上传图片文件接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/16/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%86%8D%E5%8D%87%E7%BA%A7oss%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1/" title="『博客开发日记-后台』之再升级oss文件存储服务"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之再升级oss文件存储服务</span>
         </a>
       
     
@@ -388,6 +397,15 @@
     
       
       
+        <a href="/2026/04/16/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%88%A0%E9%99%A4%E6%96%87%E7%AB%A0%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之删除文章接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之删除文章接口的实现</span>
+        </a>
+      
+    
+      
+      
         <a href="/2026/04/09/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%88%B7%E6%96%B0token%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之刷新token接口的实现"
            class="list-group-item list-group-item-action
            ">
@@ -401,15 +419,6 @@
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">『博客开发日记-后台』之发送重置密码验证码接口的实现</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2026/04/13/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%AE%8C%E6%88%90%E7%BC%96%E8%BE%91%E6%9B%B4%E6%96%B0%E6%96%87%E7%AB%A0%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之完成编辑更新文章接口的实现"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">『博客开发日记-后台』之完成编辑更新文章接口的实现</span>
         </a>
       
     
@@ -482,6 +491,24 @@
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">『博客开发日记-后台』之系统基础搭建</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/13/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E7%BC%96%E8%BE%91%E6%9B%B4%E6%96%B0%E6%96%87%E7%AB%A0%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之编辑更新文章接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之编辑更新文章接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/17/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E5%88%86%E7%B1%BB%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取分页查询分类列表接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取分页查询分类列表接口的实现</span>
         </a>
       
     
@@ -868,7 +895,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年3月25日 晚上
+                    本文最后更新于 2026年4月16日 晚上
                   
                 
               </p>
@@ -888,12 +915,18 @@
 <h2 style="color: #b7a0e0"><span id="代码实现">代码实现</span></h2>
 <p>在UserController中添加接口</p>
 
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//更新个人信息</span><br>   <span class="hljs-meta">@PutMapping(&quot;/userInfo&quot;)</span><br>   <span class="hljs-keyword">public</span> ResponseResult <span class="hljs-title function_">updateUserInfo</span><span class="hljs-params">(<span class="hljs-meta">@RequestBody</span> User user)</span><br>   &#123;<br>       <span class="hljs-keyword">return</span> userService.updateUserInfo(user);<br>   &#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java">  <span class="hljs-comment">//更新个人信息</span><br><span class="hljs-meta">@PutMapping(&quot;/userInfo&quot;)</span><br><span class="hljs-meta">@SystemLog(businessName = &quot;更新用户信息&quot;)</span><br><span class="hljs-meta">@ApiOperation(value = &quot;更新用户信息&quot;, notes = &quot;更新当前登录用户的个人信息&quot;)</span><br><span class="hljs-keyword">public</span> ResponseResult <span class="hljs-title function_">updateUserInfo</span><span class="hljs-params">(<span class="hljs-meta">@RequestBody</span> UpdateUserInfoDto dto)</span><br>&#123;<br>    <span class="hljs-keyword">return</span> sysUserService.updateUserInfo(dto);<br>&#125;<br></code></pre></td></tr></table></figure>
 <hr>
 <p>服务类中实现功能</p>
 
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//国内手机号正则：1开头，第二位3-9，后面9位数字</span><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">PHONE_REGEX</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;^1[3-9]\\d&#123;9&#125;$&quot;</span>;<br><br><span class="hljs-comment">//更新用户信息</span><br><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> ResponseResult <span class="hljs-title function_">updateUserInfo</span><span class="hljs-params">(User user)</span><br>&#123;<br>    <span class="hljs-type">Long</span> <span class="hljs-variable">currentUserId</span> <span class="hljs-operator">=</span> SecurityUtils.getUserId();<br>    <span class="hljs-keyword">if</span> (currentUserId == <span class="hljs-literal">null</span>) &#123;<br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.NEED_LOGIN);<br>    &#125;<br><br>    <span class="hljs-comment">//昵称不能为空</span><br>    <span class="hljs-keyword">if</span> (!StringUtils.hasText(user.getNickname())) &#123;<br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR, <span class="hljs-string">&quot;昵称不能为空&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">//邮箱和电话号码不能同时为空</span><br>    <span class="hljs-keyword">if</span> (!StringUtils.hasText(user.getEmail()) &amp;&amp; !StringUtils.hasText(user.getPhone())) &#123;<br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR, <span class="hljs-string">&quot;邮箱和电话号码不能同时为空&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">//校验手机号格式</span><br>    <span class="hljs-keyword">if</span> (StringUtils.hasText(user.getPhone()) &amp;&amp; !user.getPhone().matches(PHONE_REGEX)) &#123;<br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR, <span class="hljs-string">&quot;请输入正确的手机号码&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">//检查手机号是否被其他用户使用</span><br>    <span class="hljs-keyword">if</span> (StringUtils.hasText(user.getPhone())) &#123;<br>        LambdaQueryWrapper&lt;User&gt; queryWrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaQueryWrapper</span>&lt;&gt;();<br>        queryWrapper.eq(User::getPhone, user.getPhone())<br>                .ne(User::getId, currentUserId);<br>        <span class="hljs-type">User</span> <span class="hljs-variable">existUser</span> <span class="hljs-operator">=</span> getOne(queryWrapper);<br>        <span class="hljs-keyword">if</span> (existUser != <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR, <span class="hljs-string">&quot;你用别人的电话号码干嘛？&quot;</span>);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">//检查邮箱是否被其他用户使用</span><br>    <span class="hljs-keyword">if</span> (StringUtils.hasText(user.getEmail())) &#123;<br>        LambdaQueryWrapper&lt;User&gt; queryWrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaQueryWrapper</span>&lt;&gt;();<br>        queryWrapper.eq(User::getEmail, user.getEmail())<br>                .ne(User::getId, currentUserId);<br>        <span class="hljs-type">User</span> <span class="hljs-variable">existUser</span> <span class="hljs-operator">=</span> getOne(queryWrapper);<br>        <span class="hljs-keyword">if</span> (existUser != <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR, <span class="hljs-string">&quot;你用别人的邮箱干嘛？&quot;</span>);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">//使用LambdaUpdateWrapper条件更新</span><br>    LambdaUpdateWrapper&lt;User&gt; wrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaUpdateWrapper</span>&lt;User&gt;()<br>            .eq(User::getId, currentUserId)<br>            .set(User::getNickname, user.getNickname())<br>            .set(User::getSex, user.getSex())<br>            .set(User::getPhone, user.getPhone())<br>            .set(User::getEmail, user.getEmail())<br>            .set(User::getAvatar, user.getAvatar());<br><br>    <span class="hljs-type">boolean</span> <span class="hljs-variable">success</span> <span class="hljs-operator">=</span> update(<span class="hljs-literal">null</span>, wrapper);<br>    <span class="hljs-keyword">if</span> (!success) &#123;<br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR, <span class="hljs-string">&quot;更新用户信息失败&quot;</span>);<br>    &#125;<br>    <span class="hljs-keyword">return</span> ResponseResult.okResult();<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//国内手机号正则：1开头，第二位3-9，后面9位数字</span><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">PHONE_REGEX</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;^1[3-9]\\d&#123;9&#125;$&quot;</span>;<br><br><span class="hljs-comment">//更新用户信息</span><br><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> ResponseResult <span class="hljs-title function_">updateUserInfo</span><span class="hljs-params">(UpdateUserInfoDto updateUserInfoDto)</span><br>&#123;<br>    <span class="hljs-type">Long</span> <span class="hljs-variable">currentUserId</span> <span class="hljs-operator">=</span> SecurityUtils.getUserId();<br>    <span class="hljs-keyword">if</span> (currentUserId == <span class="hljs-literal">null</span>) &#123;<br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.NEED_LOGIN);<br>    &#125;<br><br>    <span class="hljs-comment">//昵称不能为空</span><br>    <span class="hljs-keyword">if</span> (!StringUtils.hasText(updateUserInfoDto.getNickname())) &#123;<br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.NICKNAME_NOT_NULL, <span class="hljs-string">&quot;昵称不能为空&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">//邮箱和电话号码不能同时为空</span><br>    <span class="hljs-keyword">if</span> (!StringUtils.hasText(updateUserInfoDto.getEmail()) &amp;&amp; !StringUtils.hasText(updateUserInfoDto.getPhone())) &#123;<br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR, <span class="hljs-string">&quot;邮箱和电话号码不能同时为空&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">//校验手机号格式</span><br>    <span class="hljs-keyword">if</span> (StringUtils.hasText(updateUserInfoDto.getPhone()) &amp;&amp; !updateUserInfoDto.getPhone().matches(PHONE_REGEX)) &#123;<br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.PHONE_FORMAT_ERROR, <span class="hljs-string">&quot;请输入正确的手机号码&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">//检查手机号是否被其他用户使用</span><br>    <span class="hljs-keyword">if</span> (StringUtils.hasText(updateUserInfoDto.getPhone())) &#123;<br>        LambdaQueryWrapper&lt;SysUser&gt; queryWrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaQueryWrapper</span>&lt;&gt;();<br>        queryWrapper.eq(SysUser::getPhone, updateUserInfoDto.getPhone())<br>                .ne(SysUser::getId, currentUserId);<br>        <span class="hljs-type">SysUser</span> <span class="hljs-variable">existSysUser</span> <span class="hljs-operator">=</span> getOne(queryWrapper);<br>        <span class="hljs-keyword">if</span> (existSysUser != <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.PHONE_OCCUPIED, <span class="hljs-string">&quot;你用别人的电话号码干嘛？&quot;</span>);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">//检查邮箱是否被其他用户使用</span><br>    <span class="hljs-keyword">if</span> (StringUtils.hasText(updateUserInfoDto.getEmail())) &#123;<br>        LambdaQueryWrapper&lt;SysUser&gt; queryWrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaQueryWrapper</span>&lt;&gt;();<br>        queryWrapper.eq(SysUser::getEmail, updateUserInfoDto.getEmail())<br>                .ne(SysUser::getId, currentUserId);<br>        <span class="hljs-type">SysUser</span> <span class="hljs-variable">existSysUser</span> <span class="hljs-operator">=</span> getOne(queryWrapper);<br>        <span class="hljs-keyword">if</span> (existSysUser != <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.EMAIL_OCCUPIED, <span class="hljs-string">&quot;你用别人的邮箱干嘛？&quot;</span>);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">//检查昵称是否被其他用户使用</span><br>    <span class="hljs-keyword">if</span> (StringUtils.hasText(updateUserInfoDto.getNickname())) &#123;<br>        LambdaQueryWrapper&lt;SysUser&gt; queryWrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaQueryWrapper</span>&lt;&gt;();<br>        queryWrapper.eq(SysUser::getNickname, updateUserInfoDto.getNickname())<br>                .ne(SysUser::getId, currentUserId);<br>        <span class="hljs-type">SysUser</span> <span class="hljs-variable">existSysUser</span> <span class="hljs-operator">=</span> getOne(queryWrapper);<br>        <span class="hljs-keyword">if</span> (existSysUser != <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.NICKNAME_OCCUPIED, <span class="hljs-string">&quot;这个昵称和别人的重复啦！&quot;</span>);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">//获取更新前的用户信息，用于判断头像和昵称是否变化</span><br>    <span class="hljs-type">SysUser</span> <span class="hljs-variable">oldSysUser</span> <span class="hljs-operator">=</span> getById(currentUserId);<br><br>    <span class="hljs-comment">//处理头像：如果是临时文件，转为正式文件</span><br>    <span class="hljs-type">String</span> <span class="hljs-variable">avatar</span> <span class="hljs-operator">=</span> updateUserInfoDto.getAvatar();<br>    <span class="hljs-keyword">if</span> (StringUtils.hasText(avatar) &amp;&amp; avatar.contains(<span class="hljs-string">&quot;temp/&quot;</span>)) &#123;<br>        avatar = ossFileService.moveTempToFormal(avatar);<br>    &#125;<br><br>    <span class="hljs-comment">//如果头像发生变化，删除OSS上的旧头像</span><br>    <span class="hljs-type">String</span> <span class="hljs-variable">oldAvatar</span> <span class="hljs-operator">=</span> oldSysUser.getAvatar();<br>    <span class="hljs-keyword">if</span> (StringUtils.hasText(avatar) &amp;&amp; StringUtils.hasText(oldAvatar)<br>            &amp;&amp; !avatar.equals(oldAvatar)) &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            ossFileService.deleteFileByUrl(oldAvatar);<br>            log.info(<span class="hljs-string">&quot;从oss中删除旧头像成功: &#123;&#125;&quot;</span>, oldAvatar);<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            log.warn(<span class="hljs-string">&quot;从oss中删除旧头像失败: &#123;&#125;, 错误: &#123;&#125;&quot;</span>, oldAvatar, e.getMessage()); <span class="hljs-comment">//删除失败不影响更新流程，只记录日志</span><br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">//使用LambdaUpdateWrapper条件更新</span><br>    LambdaUpdateWrapper&lt;SysUser&gt; wrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaUpdateWrapper</span>&lt;SysUser&gt;()<br>            .eq(SysUser::getId, currentUserId)<br>            .set(SysUser::getNickname, updateUserInfoDto.getNickname())<br>            .set(SysUser::getSex, updateUserInfoDto.getSex())<br>            .set(SysUser::getPhone, StringUtils.hasText(updateUserInfoDto.getPhone()) ? updateUserInfoDto.getPhone() : <span class="hljs-literal">null</span>)<br>            .set(SysUser::getEmail, StringUtils.hasText(updateUserInfoDto.getEmail()) ? updateUserInfoDto.getEmail() : <span class="hljs-literal">null</span>)<br>            .set(SysUser::getAvatar, avatar);<br><br>    <span class="hljs-type">boolean</span> <span class="hljs-variable">success</span> <span class="hljs-operator">=</span> update(<span class="hljs-literal">null</span>, wrapper);<br>    <span class="hljs-keyword">if</span> (!success) &#123;<br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR, <span class="hljs-string">&quot;更新用户信息失败&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">//如果头像或昵称发生变化，同步更新评论表中该用户的所有评论</span><br>    <span class="hljs-type">boolean</span> <span class="hljs-variable">avatarChanged</span> <span class="hljs-operator">=</span> !avatar.equals(oldSysUser.getAvatar());<br>    <span class="hljs-type">boolean</span> <span class="hljs-variable">nicknameChanged</span> <span class="hljs-operator">=</span> !updateUserInfoDto.getNickname().equals(oldSysUser.getNickname());<br><br>    <span class="hljs-keyword">if</span> (avatarChanged || nicknameChanged) &#123;<br>        LambdaUpdateWrapper&lt;com.mengze.domain.entity.Comment&gt; commentWrapper =<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaUpdateWrapper</span>&lt;com.mengze.domain.entity.Comment&gt;()<br>                        .eq(com.mengze.domain.entity.Comment::getUserId, currentUserId);<br><br>        <span class="hljs-keyword">if</span> (avatarChanged) &#123;<br>            commentWrapper.set(com.mengze.domain.entity.Comment::getAvatar, avatar);<br>        &#125;<br>        <span class="hljs-keyword">if</span> (nicknameChanged) &#123;<br>            commentWrapper.set(com.mengze.domain.entity.Comment::getNickname, updateUserInfoDto.getNickname());<br>        &#125;<br><br>        commentMapper.update(<span class="hljs-literal">null</span>, commentWrapper);<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> ResponseResult.okResult();<br>&#125;<br></code></pre></td></tr></table></figure>
 <hr>
+
+<p>创建 UpdateUserInfoDto </p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 更新用户信息DTO</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Data</span><br><span class="hljs-meta">@ApiModel(description = &quot;更新用户信息请求对象&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UpdateUserInfoDto</span> &#123;<br>    <br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;用户ID&quot;, required = true, example = &quot;1&quot;)</span><br>    <span class="hljs-keyword">private</span> Long id;<br>    <br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;昵称&quot;, example = &quot;张三&quot;)</span><br>    <span class="hljs-keyword">private</span> String nickname;<br>    <br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;邮箱&quot;, example = &quot;user@example.com&quot;)</span><br>    <span class="hljs-keyword">private</span> String email;<br>    <br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;手机号&quot;, example = &quot;13800138000&quot;)</span><br>    <span class="hljs-keyword">private</span> String phone;<br>    <br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;用户性别（0-男，1-女，2-隐藏）&quot;, example = &quot;0&quot;)</span><br>    <span class="hljs-keyword">private</span> String sex;<br>    <br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;头像URL&quot;, example = &quot;https://example.com/avatar.jpg&quot;)</span><br>    <span class="hljs-keyword">private</span> String avatar;<br>&#125;<br></code></pre></td></tr></table></figure>
+<hr>
+
 <p>更新用户信息接口测试通过，注意要携带token才可以更新</p>
 <img src="/img/更新用户信息接口测试通过.png" srcset="/img/loading_1.gif" lazyload alt>
 <hr>
@@ -988,7 +1021,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2026年3月25日</div>
+          <div>2026年4月16日</div>
         </div>
       
       
