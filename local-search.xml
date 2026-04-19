@@ -5,6 +5,37 @@
   
   <entry>
     <title>字段并对受其影响的所有接口进行修改</title>
+    <link href="/2026/04/19/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%BB%99%E5%8F%8B%E9%93%BE%E8%A1%A8%E6%B7%BB%E5%8A%A0%20status%20%E5%92%8C%20sort%20%E5%AD%97%E6%AE%B5%E5%B9%B6%E5%AF%B9%E5%8F%97%E5%85%B6%E5%BD%B1%E5%93%8D%E7%9A%84%E6%89%80%E6%9C%89%E6%8E%A5%E5%8F%A3%E8%BF%9B%E8%A1%8C%E4%BF%AE%E6%94%B9/"/>
+    <url>/2026/04/19/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%BB%99%E5%8F%8B%E9%93%BE%E8%A1%A8%E6%B7%BB%E5%8A%A0%20status%20%E5%92%8C%20sort%20%E5%AD%97%E6%AE%B5%E5%B9%B6%E5%AF%B9%E5%8F%97%E5%85%B6%E5%BD%B1%E5%93%8D%E7%9A%84%E6%89%80%E6%9C%89%E6%8E%A5%E5%8F%A3%E8%BF%9B%E8%A1%8C%E4%BF%AE%E6%94%B9/</url>
+    
+    <content type="html"><![CDATA[<h1 align="center"><span id="给友链表添加-status-和-sort-字段并对受其影响的所有接口进行修改"><span style="color: cadetblue;">给友链表添加 status 和 sort 字段并对受其影响的所有接口进行修改</span></span></h1><hr><h2 style="color: #b7a0e0"><span id="起因">起因</span></h2><p>在开发后台中发现友链表缺少排序和状态列</p><hr><h2 style="color: #b7a0e0"><span id="需要改的代码">需要改的代码</span></h2><p>要改的代码并不多 只是前台的获取友链接口要改</p><p>搞笑的是 我前台的获取友链接口已经对友链的状态进行筛选了</p><p>也是自己做项目的时候丢三落四 表都没设计好 然后这里少一点那里少一点</p><p>先给实体类和对应的vo类加上字段</p><img src="/img/link实体类.png" alt><hr><img src="/img/linkVo.png" alt><hr><p>LinkServiceImpl 不用改 我只是给大括号加了回车 我自己的编程习惯而已</p><img src="/img/LinkServiceImpl.png" alt><hr><p>自此改完与友链相关的接口</p><p>真是庆幸是还没有做完友链相关的接口才发现这个问题</p><p>也只能是怪自己太笨了</p><p></p><img src="/img/.png" alt><hr><hr><p align="center" style="color: hotpink;font-size: 20px"><strong>PS:该系列只做为作者学习开发项目做的笔记用</strong></p><p align="center" style="color: hotpink;font-size: 20px"><strong>不一定符合读者来学习，仅供参考</strong></p><hr><h2 style="color: #b7a0e0"><span id="预告">预告</span></h2>  <p>后续会记录博客的开发过程</p><p>每次学习会做一份笔记来进行发表</p><blockquote>  <p style="color: #bbbbee">“一花一世界，一叶一菩提”</p></blockquote><hr><p>版权所有 © 2026 云梦泽<br>欢迎访问我的个人网站：<a href="https://hgt12.github.io/">https://hgt12.github.io/</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>博客开发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>技术向</tag>
+      
+      <tag>个人博客</tag>
+      
+      <tag>前端</tag>
+      
+      <tag>后端</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>字段并对受其影响的所有接口进行修改</title>
     <link href="/2026/04/19/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%BB%99%E6%A0%87%E7%AD%BE%E8%A1%A8%E6%B7%BB%E5%8A%A0%20status%20%E5%92%8C%20sort%20%E5%AD%97%E6%AE%B5%E5%B9%B6%E5%AF%B9%E5%8F%97%E5%85%B6%E5%BD%B1%E5%93%8D%E7%9A%84%E6%89%80%E6%9C%89%E6%8E%A5%E5%8F%A3%E8%BF%9B%E8%A1%8C%E4%BF%AE%E6%94%B9/"/>
     <url>/2026/04/19/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%BB%99%E6%A0%87%E7%AD%BE%E8%A1%A8%E6%B7%BB%E5%8A%A0%20status%20%E5%92%8C%20sort%20%E5%AD%97%E6%AE%B5%E5%B9%B6%E5%AF%B9%E5%8F%97%E5%85%B6%E5%BD%B1%E5%93%8D%E7%9A%84%E6%89%80%E6%9C%89%E6%8E%A5%E5%8F%A3%E8%BF%9B%E8%A1%8C%E4%BF%AE%E6%94%B9/</url>
     
