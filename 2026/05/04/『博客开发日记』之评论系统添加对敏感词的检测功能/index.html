@@ -1,0 +1,1756 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/mi_manchi.png">
+  <link rel="icon" href="/img/mi_manchi.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="云梦泽">
+  <meta name="keywords" content="js html">
+  
+    <meta name="description" content="评论系统添加对敏感词的检测功能  起因 个人网站确实要管理好自己的内容 特别是备案的网站 要有别人评论的内容检测 如果检测到有敏感词的评论，则转到待审核状态审核过后才能发表显示 要不然别人在你的网站卖广告啥的 搞黄色分分钟封了你的网站，再请你去喝茶 所以对评论内容的检测是有必要的   代码实现 实现流程大致如下 用户输入评论内容 &gt; 进入本地敏感词库进行检测 &gt; 无敏感词 &gt; 进入第三方敏感词库进">
+<meta property="og:type" content="article">
+<meta property="og:title" content="『博客开发日记』之评论系统添加对敏感词的检测功能">
+<meta property="og:url" content="http://example.com/2026/05/04/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F%E6%B7%BB%E5%8A%A0%E5%AF%B9%E6%95%8F%E6%84%9F%E8%AF%8D%E7%9A%84%E6%A3%80%E6%B5%8B%E5%8A%9F%E8%83%BD/index.html">
+<meta property="og:site_name" content="云梦泽的个人博客">
+<meta property="og:description" content="评论系统添加对敏感词的检测功能  起因 个人网站确实要管理好自己的内容 特别是备案的网站 要有别人评论的内容检测 如果检测到有敏感词的评论，则转到待审核状态审核过后才能发表显示 要不然别人在你的网站卖广告啥的 搞黄色分分钟封了你的网站，再请你去喝茶 所以对评论内容的检测是有必要的   代码实现 实现流程大致如下 用户输入评论内容 &gt; 进入本地敏感词库进行检测 &gt; 无敏感词 &gt; 进入第三方敏感词库进">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/%E5%A3%81%E7%BA%B8100.jpg">
+<meta property="article:published_time" content="2026-05-04T08:33:17.000Z">
+<meta property="article:modified_time" content="2026-05-04T11:44:49.750Z">
+<meta property="article:author" content="云梦泽">
+<meta property="article:tag" content="技术向">
+<meta property="article:tag" content="个人博客">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="后端">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/%E5%A3%81%E7%BA%B8100.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>『博客开发日记』之评论系统添加对敏感词的检测功能 - 云梦泽的个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":80,"cursorChar":"✨","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":7},"lazyload":{"enable":true,"loading_img":"/img/loading_1.gif","onlypost":true,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<!-- hexo injector head_end start --><script src="/js/click.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <!-- Canvas for click effect -->
+  <div id="clickCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999;"></div>
+
+  <header>
+    
+
+<div class="header-inner" style="height: 80vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>云梦泽</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/messages/" target="_self">
+                <i class="iconfont icon-comment"></i>
+                <span>留言板</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E5%A3%81%E7%BA%B8100.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="『博客开发日记』之评论系统添加对敏感词的检测功能"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        云梦泽
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-05-04 16:33" pubdate>
+          2026年5月4日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          38 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="博客开发"
+        id="heading-82ca913bdcd63a1c254ebc1bbfb52228" role="tab" data-toggle="collapse" href="#collapse-82ca913bdcd63a1c254ebc1bbfb52228"
+        aria-expanded="true"
+      >
+        博客开发
+        <span class="list-group-count">(89)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-82ca913bdcd63a1c254ebc1bbfb52228"
+           role="tabpanel" aria-labelledby="heading-82ca913bdcd63a1c254ebc1bbfb52228">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/04/12/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之上传图片文件接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之上传图片文件接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/23/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E4%BD%BF%E7%94%A8%20validation%20%E5%AF%B9%E6%8E%A5%E5%8F%A3%E5%8F%82%E6%95%B0%E8%BF%9B%E8%A1%8C%E6%A0%A1%E9%AA%8C/" title="『博客开发日记-后台』之使用 validation 对接口参数进行校验"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之使用 validation 对接口参数进行校验</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/17/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E4%BF%AE%E6%94%B9%E5%88%86%E7%B1%BB%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之修改分类接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之修改分类接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/23/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E4%BF%AE%E6%94%B9%E5%8F%8B%E9%93%BE%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之修改友链接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之修改友链接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/19/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E4%BF%AE%E6%94%B9%E6%A0%87%E7%AD%BE%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之修改标签接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之修改标签接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/16/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%86%8D%E5%8D%87%E7%BA%A7oss%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1/" title="『博客开发日记-后台』之再升级oss文件存储服务"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之再升级oss文件存储服务</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/12/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%86%99%E6%96%87%E7%AB%A0%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之写文章接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之写文章接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/11/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%88%86%E7%B1%BB%E5%92%8C%E6%A0%87%E7%AD%BE%E4%B8%8B%E6%8B%89%E9%80%89%E9%A1%B9%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之分类和标签下拉选项列表接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之分类和标签下拉选项列表接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/17/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%88%A0%E9%99%A4%E5%88%86%E7%B1%BB%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之删除分类接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之删除分类接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/23/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%88%A0%E9%99%A4%E5%8F%8B%E9%93%BE%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之删除友链接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之删除友链接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/16/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%88%A0%E9%99%A4%E6%96%87%E7%AB%A0%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之删除文章接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之删除文章接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/19/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%88%A0%E9%99%A4%E6%A0%87%E7%AD%BE%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之删除标签接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之删除标签接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/03/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%88%A0%E9%99%A4%E8%AF%84%E8%AE%BA%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之删除评论接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之删除评论接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/09/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%88%B7%E6%96%B0token%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之刷新token接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之刷新token接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/04/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%8D%87%E7%BA%A7%20EmailServiceImpl/" title="『博客开发日记-后台』之升级 EmailServiceImpl"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之升级 EmailServiceImpl</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/10/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%8F%91%E9%80%81%E9%87%8D%E7%BD%AE%E5%AF%86%E7%A0%81%E9%AA%8C%E8%AF%81%E7%A0%81%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之发送重置密码验证码接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之发送重置密码验证码接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/03/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%9B%9E%E5%A4%8D%E8%AF%84%E8%AE%BA%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之回复评论接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之回复评论接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/12/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%AE%9E%E7%8E%B0mp%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85%E5%88%9B%E5%BB%BA%E6%97%B6%E9%97%B4%E3%80%81%E6%9B%B4%E6%96%B0%E6%97%B6%E9%97%B4%E7%AD%89%E5%AD%97%E6%AE%B5%E7%9A%84%E5%8A%9F%E8%83%BD/" title="『博客开发日记-后台』之实现mp自动填充创建时间、更新时间等字段的功能"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之实现mp自动填充创建时间、更新时间等字段的功能</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/03/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%AF%BC%E5%87%BA%E8%AF%84%E8%AE%BA%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之导出评论数据接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之导出评论数据接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/11/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E6%9F%A5%E8%AF%A2%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之查询文章列表接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之查询文章列表接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/29/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E6%A0%B9%E6%8D%AE%E5%A4%A9%E6%B0%94%E4%BF%A1%E6%81%AF%E5%88%87%E6%8D%A2%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之根据天气信息切换背景图片接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之根据天气信息切换背景图片接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/17/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E6%B7%BB%E5%8A%A0%E5%88%86%E7%B1%BB%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之添加分类接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之添加分类接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/23/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E6%B7%BB%E5%8A%A0%E5%8F%8B%E9%93%BE%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之添加友链接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之添加友链接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/19/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E6%B7%BB%E5%8A%A0%E6%A0%87%E7%AD%BE%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之添加标签接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之添加标签接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/27/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E7%94%9F%E6%88%90%E5%9B%BE%E5%BD%A2%E9%AA%8C%E8%AF%81%E7%A0%81%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之生成图形验证码接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之生成图形验证码接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/09/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E7%99%BB%E5%87%BA%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之登出接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之登出接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/25/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E7%99%BB%E5%BD%95%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之登录接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之登录接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/25/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80%E6%90%AD%E5%BB%BA/" title="『博客开发日记-后台』之系统基础搭建"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之系统基础搭建</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/13/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E7%BC%96%E8%BE%91%E6%9B%B4%E6%96%B0%E6%96%87%E7%AB%A0%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之编辑更新文章接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之编辑更新文章接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/17/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E5%88%86%E7%B1%BB%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取分类列表接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取分类列表接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/17/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E5%88%86%E7%B1%BB%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取分类表单数据接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取分类表单数据接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E5%8F%8B%E9%93%BE%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取友链列表接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取友链列表接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E5%8F%8B%E9%93%BE%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取友链表单数据接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取友链表单数据接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/02/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E7%99%BB%E5%BD%95%E7%94%A8%E6%88%B7%E5%8F%AF%E8%AE%BF%E9%97%AE%E7%9A%84%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E6%A0%91%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取当前登录用户可访问的前端路由树接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取当前登录用户可访问的前端路由树接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/11/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E6%96%87%E7%AB%A0%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取文章表单数据接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取文章表单数据接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/10/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E6%A0%87%E7%AD%BE%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取标签列表接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取标签列表接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/17/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E6%A0%87%E7%AD%BE%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取标签表单数据接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取标签表单数据接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/01/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取用户信息接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取用户信息接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/24/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取系统配置列表接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取系统配置列表接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/27/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E8%8F%9C%E5%8D%95%E4%B8%8B%E6%8B%89%E9%80%89%E9%A1%B9%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取菜单下拉选项接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取菜单下拉选项接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/25/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E8%8F%9C%E5%8D%95%E6%A0%91%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取菜单树列表接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取菜单树列表接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/30/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E8%AF%84%E8%AE%BA%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取评论列表接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取评论列表接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/03/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E8%AF%84%E8%AE%BA%E7%BB%9F%E8%AE%A1%E4%BF%A1%E6%81%AF%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取评论统计信息接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取评论统计信息接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/03/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%AF%84%E8%AE%BA%E5%AE%A1%E6%A0%B8%EF%BC%88%E5%85%81%E8%AE%B8%E5%8F%91%E5%B8%83%EF%BC%89%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之评论审核（允许发布）接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之评论审核（允许发布）接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/03/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%AF%84%E8%AE%BA%E5%AE%A1%E6%A0%B8%EF%BC%88%E6%8B%92%E7%BB%9D%E5%8F%91%E5%B8%83%EF%BC%89%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之评论审核（拒绝发布）接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之评论审核（拒绝发布）接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/10/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E9%AA%8C%E8%AF%81%E9%AA%8C%E8%AF%81%E7%A0%81%E5%92%8C%E9%87%8D%E7%BD%AE%E5%AF%86%E7%A0%81%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之验证验证码和重置密码接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之验证验证码和重置密码接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/14/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%B8%8A%E4%BC%A0%E5%A4%B4%E5%83%8F%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之上传头像接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之上传头像接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/14/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AF%E6%9F%A5%E8%AF%A2%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之个人信息查询接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之个人信息查询接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BC%98%E5%8C%96%E5%8F%91%E9%80%81%E9%AA%8C%E8%AF%81%E7%A0%81%E7%9A%84%E7%9B%B8%E5%85%B3%E6%8E%A5%E5%8F%A3/" title="『博客开发日记』之优化发送验证码的相关接口"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之优化发送验证码的相关接口</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/11/26/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BC%98%E5%8C%96%E5%90%8E%E7%AB%AF%E4%B8%8A%E4%BC%A0%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8F%8A%E4%B8%80%E4%BA%9B%E5%A4%84%E7%90%86/" title="『博客开发日记』之优化后端上传的数据及一些处理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之优化后端上传的数据及一些处理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/02/09/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BD%BF%E7%94%A8Swagger%E7%94%9F%E6%88%90%E6%8E%A5%E5%8F%A3api%E6%96%87%E6%A1%A3/" title="『博客开发日记』之使用Swagger生成接口api文档"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之使用Swagger生成接口api文档</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BF%AE%E5%A4%8D%E6%A0%87%E7%AD%BE%E6%97%A0%E6%B3%95%E5%9C%A8%E6%96%87%E7%AB%A0%E8%AF%A6%E6%83%85%E9%A1%B5%E5%92%8C%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8%E4%B8%AD%E6%98%BE%E7%A4%BA%E7%9A%84%E9%97%AE%E9%A2%98/" title="『博客开发日记』之修复标签无法在文章详情页和文章列表中显示的问题"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之修复标签无法在文章详情页和文章列表中显示的问题</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/11/26/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%88%86%E7%B1%BB%E5%88%97%E8%A1%A8%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之分类列表的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之分类列表的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/12/06/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之分页查询文章列表的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之分页查询文章列表的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/26/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%88%A0%E9%99%A4userType%E5%AD%97%E6%AE%B5%E5%B9%B6%E4%BF%AE%E6%94%B9%E8%A2%AB%E8%BF%99%E4%B8%AA%E5%AD%97%E6%AE%B5%E6%89%80%E5%BD%B1%E5%93%8D%E7%9A%84%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3/" title="『博客开发日记』之删除userType字段并修改被这个字段所影响的类和接口"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之删除userType字段并修改被这个字段所影响的类和接口</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/18/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%89%8D%E5%8F%B0%E5%92%8C%E5%90%8E%E5%8F%B0%E4%B8%80%E4%BA%9B%E5%85%B3%E4%BA%8E%E8%8E%B7%E5%8F%96%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E5%AF%B9%E6%96%87%E7%AB%A0%E6%89%80%E5%B1%9E%E5%88%86%E7%B1%BB%E6%A3%80%E6%B5%8B%E7%9A%84%E4%BC%98%E5%8C%96/" title="『博客开发日记』之前台和后台一些关于获取文章列表接口对文章所属分类检测的优化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之前台和后台一些关于获取文章列表接口对文章所属分类检测的优化</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/11/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%89%8D%E5%8F%B0%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%90%AD%E5%BB%BA/" title="『博客开发日记』之前台系统的搭建"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之前台系统的搭建</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/04/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8D%87%E7%BA%A7%20SensitiveUtilServiceImpl/" title="『博客开发日记』之升级 SensitiveUtilServiceImpl"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之升级 SensitiveUtilServiceImpl</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/15/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0%E9%A2%84%E8%A7%88%E9%87%8F%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之博客文章预览量接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之博客文章预览量接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/16/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8D%9A%E5%AE%A2%E9%A1%B5%E8%84%9A%E7%BD%91%E9%A1%B5%E9%A2%84%E8%A7%88%E9%87%8F%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之博客页脚网页预览量接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之博客页脚网页预览量接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/12/28/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8F%8B%E9%93%BE%E6%9F%A5%E8%AF%A2%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之友链查询接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之友链查询接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/12/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8F%91%E5%B8%83%E8%AF%84%E8%AE%BA%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之发布评论接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之发布评论接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/24/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8F%91%E9%80%81%E8%AF%84%E8%AE%BA%E4%BC%9A%E7%BB%99%E4%B8%AA%E4%BA%BA%E5%8F%91%E9%80%81%E9%82%AE%E7%AE%B1%E9%80%9A%E7%9F%A5%E5%8A%9F%E8%83%BD/" title="『博客开发日记』之发送评论会给个人发送邮箱通知功能"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之发送评论会给个人发送邮箱通知功能</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/02/10/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%9C%A8AOP%E5%AE%9E%E7%8E%B0%E6%97%A5%E5%BF%97%E8%BE%93%E5%87%BA%E6%97%B6%E5%AF%B9%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%AD%89%E8%BF%9B%E8%A1%8C%E7%89%B9%E6%AE%8A%E5%A4%84%E7%90%86/" title="『博客开发日记』之在AOP实现日志输出时对文件上传等进行特殊处理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之在AOP实现日志输出时对文件上传等进行特殊处理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/11/23/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%9F%BA%E7%A1%80%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之基础代码实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之基础代码实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/13/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%AF%B9oss%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1%E8%BF%9B%E8%A1%8C%E5%8D%87%E7%BA%A7/" title="『博客开发日记』之对oss文件存储服务进行升级"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之对oss文件存储服务进行升级</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/04/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%AF%B9%E5%89%8D%E5%8F%B0%E5%B7%A5%E7%A8%8B%E8%BF%9B%E8%A1%8C%E5%AE%89%E5%85%A8%E6%80%A7%E5%8D%87%E7%BA%A7/" title="『博客开发日记』之对前台工程进行安全性升级"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之对前台工程进行安全性升级</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/10/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%B0%86%E6%9C%89%E5%85%B3%E9%87%8D%E7%BD%AE%E5%AF%86%E7%A0%81%E6%8E%A5%E5%8F%A3%E7%9A%84%E6%9C%8D%E5%8A%A1%E4%BB%A3%E7%A0%81%E6%8F%90%E5%8F%96%E5%87%BA%E6%9D%A5/" title="『博客开发日记』之将有关重置密码的服务代码提取出来"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之将有关重置密码的服务代码提取出来</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/10/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%B0%86%E9%82%AE%E4%BB%B6%E7%9A%84%E5%8F%91%E9%80%81%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%8F%91%E9%80%81%E6%94%B9%E4%B8%BA%E5%BC%82%E6%AD%A5%E5%8F%91%E9%80%81/" title="『博客开发日记』之将邮件的发送从同步发送改为异步发送"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之将邮件的发送从同步发送改为异步发送</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/02/10/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%BD%92%E6%A1%A3%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之归档接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之归档接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/13/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%90%9C%E7%B4%A2%E7%9B%B8%E5%85%B3%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之搜索相关接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之搜索相关接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/12/28/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%96%87%E7%AB%A0%E8%AF%A6%E6%83%85%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之文章详情接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之文章详情接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/16/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%9B%B4%E6%96%B0%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AF%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之更新个人信息接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之更新个人信息接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%A0%87%E7%AD%BE%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之标签列表接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之标签列表接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E6%A0%B9%E6%8D%AE%E6%A0%87%E7%AD%BEid%E6%9F%A5%E8%AF%A2%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之根据标签id查询文章列表接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之根据标签id查询文章列表接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/02/10/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%94%9F%E6%88%90%E8%AF%84%E8%AE%BA%E5%A4%B4%E5%83%8F%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之生成评论头像接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之生成评论头像接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/19/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%94%A8%E6%88%B7%E6%B3%A8%E5%86%8C%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之用户注册接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之用户注册接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/11/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%99%BB%E5%87%BA%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之登出接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之登出接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/07/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%99%BB%E5%BD%95%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之登录接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之登录接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/19/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%BB%99%E5%8F%8B%E9%93%BE%E8%A1%A8%E6%B7%BB%E5%8A%A0%20status%20%E5%92%8C%20sort%20%E5%AD%97%E6%AE%B5%E5%B9%B6%E5%AF%B9%E5%8F%97%E5%85%B6%E5%BD%B1%E5%93%8D%E7%9A%84%E6%89%80%E6%9C%89%E6%8E%A5%E5%8F%A3%E8%BF%9B%E8%A1%8C%E4%BF%AE%E6%94%B9/" title="『博客开发日记』之给友链表添加 status 和 sort 字段并对受其影响的所有接口进行修改"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之给友链表添加 status 和 sort 字段并对受其影响的所有接口进行修改</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/19/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E7%BB%99%E6%A0%87%E7%AD%BE%E8%A1%A8%E6%B7%BB%E5%8A%A0%20status%20%E5%92%8C%20sort%20%E5%AD%97%E6%AE%B5%E5%B9%B6%E5%AF%B9%E5%8F%97%E5%85%B6%E5%BD%B1%E5%93%8D%E7%9A%84%E6%89%80%E6%9C%89%E6%8E%A5%E5%8F%A3%E8%BF%9B%E8%A1%8C%E4%BF%AE%E6%94%B9/" title="『博客开发日记』之给标签表添加 status 和 sort 字段并对受其影响的所有接口进行修改"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之给标签表添加 status 和 sort 字段并对受其影响的所有接口进行修改</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/02/13/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E5%8D%9A%E4%B8%BB%E4%BF%A1%E6%81%AF%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之获取博主信息接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之获取博主信息接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/12/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E8%AF%84%E8%AE%BA%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之评论列表接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之评论列表接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/14/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E8%AF%84%E8%AE%BA%E7%82%B9%E8%B5%9E%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之评论点赞接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之评论点赞接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/04/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F%E6%B7%BB%E5%8A%A0%E5%AF%B9%E6%95%8F%E6%84%9F%E8%AF%8D%E7%9A%84%E6%A3%80%E6%B5%8B%E5%8A%9F%E8%83%BD/" title="『博客开发日记』之评论系统添加对敏感词的检测功能"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">『博客开发日记』之评论系统添加对敏感词的检测功能</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/02/08/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%80%9A%E8%BF%87AOP%E5%AE%9E%E7%8E%B0%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E5%8A%9F%E8%83%BD/" title="『博客开发日记』之通过AOP实现日志记录功能"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之通过AOP实现日志记录功能</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%87%8D%E7%BD%AE%E5%AF%86%E7%A0%81%E7%9B%B8%E5%85%B3%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之重置密码相关接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之重置密码相关接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/11/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/" title="『博客开发日记』之项目搭建"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之项目搭建</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/19/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E9%AA%8C%E8%AF%81%E7%A0%81%E5%8F%91%E9%80%81%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之验证码发送接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之验证码发送接口的实现</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">『博客开发日记』之评论系统添加对敏感词的检测功能</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2026年5月4日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 align="center"><span id="评论系统添加对敏感词的检测功能"><span style="color: cadetblue;">评论系统添加对敏感词的检测功能</span></span></h1>
+<hr>
+<h2 style="color: #b7a0e0"><span id="起因">起因</span></h2>
+<p>个人网站确实要管理好自己的内容</p>
+<p>特别是备案的网站</p>
+<p>要有别人评论的内容检测</p>
+<p>如果检测到有敏感词的评论，则转到待审核状态审核过后才能发表显示</p>
+<p>要不然别人在你的网站卖广告啥的</p>
+<p>搞黄色分分钟封了你的网站，再请你去喝茶</p>
+<p>所以对评论内容的检测是有必要的</p>
+
+
+<h2 style="color: #b7a0e0"><span id="代码实现">代码实现</span></h2>
+<p>实现流程大致如下</p>
+<p>用户输入评论内容 > 进入本地敏感词库进行检测 > 无敏感词 > 进入第三方敏感词库进行检测 > 无敏感词 > 进入多个 AI 进行敏感词检测</p>
+<p>当中途任意一步检测出敏感词都会使评论进入 待审核 状态</p>
+<p>当通过人工审核通过后才允许评论展示发布</p>
+
+<p>先导入相关库</p>
+<img src="/img/导入相关库.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+<p>父工程中的pom</p>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- Source: https://mvnrepository.com/artifact/com.github.houbb/sensitive-word --&gt;</span><br>            <span class="hljs-comment">&lt;!--敏感词检测--&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.github.houbb<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>sensitive-word<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>0.29.5<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>compile<span class="hljs-tag">&lt;/<span class="hljs-name">scope</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-comment">&lt;!--deepseek--&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.github.pig-mesh.ai<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>deepseek-spring-boot-starter<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.5.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-comment">&lt;!--deepseek核心库--&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.github.pig-mesh.ai<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>deepseek4j-core<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.5.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-comment">&lt;!--guava工具库（用于线程池等工具类）--&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.google.guava<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>guava<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>32.1.3-jre<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>子工程中的pom</p>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--敏感词检测--&gt;</span><br>       <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>           <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.github.houbb<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>           <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>sensitive-word<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>       <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>       <span class="hljs-comment">&lt;!--deepseek--&gt;</span><br>       <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>           <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.github.pig-mesh.ai<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>           <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>deepseek-spring-boot-starter<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>       <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>       <span class="hljs-comment">&lt;!--deepseek核心库--&gt;</span><br>       <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>           <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.github.pig-mesh.ai<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>           <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>deepseek4j-core<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>       <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>       <span class="hljs-comment">&lt;!--guava工具库（用于线程池等工具类）--&gt;</span><br>       <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>           <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.google.guava<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>           <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>guava<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>       <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>创建本地敏感词库</p>
+<p>这个在网上自己找</p>
+<img src="/img/敏感词库.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>创建 SensitiveUtil 敏感词库工具类</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 敏感词校验工具类</span><br><span class="hljs-comment"> * 支持多文件加载、并行加载</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Slf4j</span><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SensitiveUtil</span><br>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 敏感词文件目录（支持通配符）</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">SENSITIVE_WORD_PATTERN</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;classpath:sensitive.word.database/*.txt&quot;</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 根节点</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">TrieNode</span> <span class="hljs-variable">ROOT_NODE</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TrieNode</span>();<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 敏感词总数</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">AtomicInteger</span> <span class="hljs-variable">WORD_COUNT</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">AtomicInteger</span>(<span class="hljs-number">0</span>);<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 敏感词与来源文件的映射关系</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Map&lt;String, String&gt; WORD_SOURCE_MAP = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br><br>    <span class="hljs-meta">@PostConstruct</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">init</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">long</span> <span class="hljs-variable">startTime</span> <span class="hljs-operator">=</span> System.currentTimeMillis();<br>        log.info(<span class="hljs-string">&quot;开始加载敏感词库...&quot;</span>);<br>        <br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">PathMatchingResourcePatternResolver</span> <span class="hljs-variable">resolver</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PathMatchingResourcePatternResolver</span>();<br>            Resource[] resources = resolver.getResources(SENSITIVE_WORD_PATTERN);<br>            <br>            <span class="hljs-keyword">if</span> (resources.length == <span class="hljs-number">0</span>) &#123;<br>                log.warn(<span class="hljs-string">&quot;未找到敏感词文件，请检查路径: &#123;&#125;&quot;</span>, SENSITIVE_WORD_PATTERN);<br>                <span class="hljs-keyword">return</span>;<br>            &#125;<br>            <br>            log.info(<span class="hljs-string">&quot;找到 &#123;&#125; 个敏感词文件&quot;</span>, resources.length);<br>            <br>            <span class="hljs-comment">// 并行加载所有文件</span><br>            Arrays.stream(resources)<br>                    .parallel()<br>                    .forEach(<span class="hljs-built_in">this</span>::loadWordsFromResource);<br>            <br>            <span class="hljs-type">long</span> <span class="hljs-variable">endTime</span> <span class="hljs-operator">=</span> System.currentTimeMillis();<br>            log.info(<span class="hljs-string">&quot;敏感词库加载完成！共加载 &#123;&#125; 个敏感词，耗时 &#123;&#125; ms&quot;</span>, <br>                    WORD_COUNT.get(), endTime - startTime);<br>            <br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            log.error(<span class="hljs-string">&quot;加载敏感词文件失败&quot;</span>, e);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 从资源文件加载敏感词</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">loadWordsFromResource</span><span class="hljs-params">(Resource resource)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">count</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">filename</span> <span class="hljs-operator">=</span> resource.getFilename();<br>        <span class="hljs-keyword">try</span> (<span class="hljs-type">BufferedReader</span> <span class="hljs-variable">reader</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">InputStreamReader</span>(resource.getInputStream(), StandardCharsets.UTF_8))) &#123;<br>            <br>            String line;<br>            <span class="hljs-keyword">while</span> ((line = reader.readLine()) != <span class="hljs-literal">null</span>) &#123;<br>                <span class="hljs-type">String</span> <span class="hljs-variable">keyword</span> <span class="hljs-operator">=</span> processLine(line);<br>                <span class="hljs-keyword">if</span> (keyword != <span class="hljs-literal">null</span> &amp;&amp; !keyword.isEmpty()) &#123;<br>                    addKeyword(keyword, filename);<br>                    count++;<br>                &#125;<br>            &#125;<br>            log.debug(<span class="hljs-string">&quot;从文件 &#123;&#125; 加载了 &#123;&#125; 个敏感词&quot;</span>, filename, count);<br>            WORD_COUNT.addAndGet(count);<br>            <br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            log.error(<span class="hljs-string">&quot;加载敏感词文件失败: &#123;&#125;&quot;</span>, filename, e);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 处理每一行，过滤空行</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String <span class="hljs-title function_">processLine</span><span class="hljs-params">(String line)</span> &#123;<br>        <span class="hljs-keyword">if</span> (line == <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>        &#125;<br>        <br>        <span class="hljs-comment">// 去除首尾空格</span><br>        line = line.trim();<br>        <br>        <span class="hljs-comment">// 跳过空行</span><br>        <span class="hljs-keyword">if</span> (line.isEmpty()) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>        &#125;<br>        <br>        <span class="hljs-keyword">return</span> line;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 将一个敏感词添加到前缀树中（线程安全）</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> keyword 敏感词</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> sourceFile 来源文件名</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addKeyword</span><span class="hljs-params">(String keyword, String sourceFile)</span> &#123;<br>        <span class="hljs-keyword">if</span> (keyword == <span class="hljs-literal">null</span> || keyword.isEmpty()) &#123;<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <br>        <span class="hljs-comment">// 记录敏感词与来源文件的映射关系</span><br>        WORD_SOURCE_MAP.put(keyword, sourceFile);<br>        <br>        <span class="hljs-type">TrieNode</span> <span class="hljs-variable">tempNode</span> <span class="hljs-operator">=</span> ROOT_NODE;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; keyword.length(); i++) &#123;<br>            <span class="hljs-type">char</span> <span class="hljs-variable">c</span> <span class="hljs-operator">=</span> keyword.charAt(i);<br>            <span class="hljs-type">TrieNode</span> <span class="hljs-variable">subNode</span> <span class="hljs-operator">=</span> tempNode.getSubNode(c);<br>            <span class="hljs-keyword">if</span> (subNode == <span class="hljs-literal">null</span>) &#123;<br>                <span class="hljs-comment">// 初始化子节点</span><br>                subNode = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TrieNode</span>();<br>                tempNode.addSubNode(c, subNode);<br>            &#125;<br>            <span class="hljs-comment">// 指向子节点,进入下一轮循环</span><br>            tempNode = subNode;<br>            <span class="hljs-comment">// 设置结束标识</span><br>            <span class="hljs-keyword">if</span> (i == keyword.length() - <span class="hljs-number">1</span>) &#123;<br>                tempNode.setKeywordEnd(<span class="hljs-literal">true</span>);<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 检测文本是否包含敏感词</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> text 待检测的文本</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> true-包含敏感词，false-不包含</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">containsSensitiveWords</span><span class="hljs-params">(String text)</span> &#123;<br>        <span class="hljs-comment">// 空文本直接返回false</span><br>        <span class="hljs-keyword">if</span> (StringUtil.isBlank(text)) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br>        <span class="hljs-comment">// 指针1 - 当前Trie节点</span><br>        <span class="hljs-type">TrieNode</span> <span class="hljs-variable">tempNode</span> <span class="hljs-operator">=</span> ROOT_NODE;<br>        <span class="hljs-comment">// 指针2 - 检测起始位置</span><br>        <span class="hljs-type">int</span> <span class="hljs-variable">begin</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-comment">// 指针3 - 当前检测位置</span><br>        <span class="hljs-type">int</span> <span class="hljs-variable">position</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span> (position &lt; text.length()) &#123;<br>            <span class="hljs-type">char</span> <span class="hljs-variable">c</span> <span class="hljs-operator">=</span> text.charAt(position);<br>            <span class="hljs-comment">// 跳过符号</span><br>            <span class="hljs-keyword">if</span> (isSymbol(c)) &#123;<br>                <span class="hljs-comment">// 如果在根节点，移动起始位置</span><br>                <span class="hljs-keyword">if</span> (tempNode == ROOT_NODE) &#123;<br>                    begin++;<br>                &#125;<br>                position++;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            <span class="hljs-comment">// 检查下级节点</span><br>            tempNode = tempNode.getSubNode(c);<br>            <span class="hljs-keyword">if</span> (tempNode == <span class="hljs-literal">null</span>) &#123;<br>                <span class="hljs-comment">// 不是敏感词，从下一个位置重新开始检测</span><br>                position = ++begin;<br>                tempNode = ROOT_NODE;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (tempNode.isKeywordEnd()) &#123;<br>                <span class="hljs-comment">// 发现完整的敏感词，立即返回true</span><br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-comment">// 继续检查下一个字符</span><br>                position++;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 查找文本中的所有敏感词</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> text 待检测的文本</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 敏感词列表</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> List&lt;String&gt; <span class="hljs-title function_">findSensitiveWords</span><span class="hljs-params">(String text)</span> &#123;<br>        List&lt;String&gt; sensitiveWords = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>        <span class="hljs-keyword">if</span> (StringUtil.isBlank(text)) &#123;<br>            <span class="hljs-keyword">return</span> sensitiveWords;<br>        &#125;<br>        <br>        <span class="hljs-type">TrieNode</span> <span class="hljs-variable">tempNode</span> <span class="hljs-operator">=</span> ROOT_NODE;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">begin</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">position</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <br>        <span class="hljs-keyword">while</span> (position &lt; text.length()) &#123;<br>            <span class="hljs-type">char</span> <span class="hljs-variable">c</span> <span class="hljs-operator">=</span> text.charAt(position);<br>            <br>            <span class="hljs-keyword">if</span> (isSymbol(c)) &#123;<br>                <span class="hljs-keyword">if</span> (tempNode == ROOT_NODE) &#123;<br>                    begin++;<br>                &#125;<br>                position++;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            <br>            tempNode = tempNode.getSubNode(c);<br>            <span class="hljs-keyword">if</span> (tempNode == <span class="hljs-literal">null</span>) &#123;<br>                position = ++begin;<br>                tempNode = ROOT_NODE;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (tempNode.isKeywordEnd()) &#123;<br>                <span class="hljs-comment">// 找到敏感词</span><br>                <span class="hljs-type">String</span> <span class="hljs-variable">word</span> <span class="hljs-operator">=</span> text.substring(begin, position + <span class="hljs-number">1</span>);<br>                sensitiveWords.add(word);<br>                <span class="hljs-comment">// 继续查找下一个</span><br>                position = ++begin;<br>                tempNode = ROOT_NODE;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                position++;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> sensitiveWords;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 查找文本中的所有敏感词及其来源文件</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> text 待检测的文本</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 敏感词与来源文件的映射</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Map&lt;String, String&gt; <span class="hljs-title function_">findSensitiveWordsWithSource</span><span class="hljs-params">(String text)</span> &#123;<br>        Map&lt;String, String&gt; result = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedHashMap</span>&lt;&gt;();<br>        <span class="hljs-keyword">if</span> (StringUtil.isBlank(text)) &#123;<br>            <span class="hljs-keyword">return</span> result;<br>        &#125;<br>        <br>        <span class="hljs-type">TrieNode</span> <span class="hljs-variable">tempNode</span> <span class="hljs-operator">=</span> ROOT_NODE;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">begin</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">position</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <br>        <span class="hljs-keyword">while</span> (position &lt; text.length()) &#123;<br>            <span class="hljs-type">char</span> <span class="hljs-variable">c</span> <span class="hljs-operator">=</span> text.charAt(position);<br>            <br>            <span class="hljs-keyword">if</span> (isSymbol(c)) &#123;<br>                <span class="hljs-keyword">if</span> (tempNode == ROOT_NODE) &#123;<br>                    begin++;<br>                &#125;<br>                position++;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            <br>            tempNode = tempNode.getSubNode(c);<br>            <span class="hljs-keyword">if</span> (tempNode == <span class="hljs-literal">null</span>) &#123;<br>                position = ++begin;<br>                tempNode = ROOT_NODE;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (tempNode.isKeywordEnd()) &#123;<br>                <span class="hljs-comment">// 找到敏感词</span><br>                <span class="hljs-type">String</span> <span class="hljs-variable">word</span> <span class="hljs-operator">=</span> text.substring(begin, position + <span class="hljs-number">1</span>);<br>                <span class="hljs-type">String</span> <span class="hljs-variable">sourceFile</span> <span class="hljs-operator">=</span> WORD_SOURCE_MAP.getOrDefault(word, <span class="hljs-string">&quot;未知来源&quot;</span>);<br>                result.put(word, sourceFile);<br>                <span class="hljs-comment">// 继续查找下一个</span><br>                position = ++begin;<br>                tempNode = ROOT_NODE;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                position++;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> result;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 获取敏感词的来源文件</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> word 敏感词</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 来源文件名</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">getWordSource</span><span class="hljs-params">(String word)</span> &#123;<br>        <span class="hljs-keyword">return</span> WORD_SOURCE_MAP.getOrDefault(word, <span class="hljs-string">&quot;未知来源&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 替换文本中的敏感词</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> text        待过滤的文本</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> replacement 替换字符（如 *）</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 过滤后的文本</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">replaceSensitiveWords</span><span class="hljs-params">(String text, String replacement)</span> &#123;<br>        <span class="hljs-keyword">if</span> (StringUtil.isBlank(text)) &#123;<br>            <span class="hljs-keyword">return</span> text;<br>        &#125;<br>        <br>        <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();<br>        <span class="hljs-type">TrieNode</span> <span class="hljs-variable">tempNode</span> <span class="hljs-operator">=</span> ROOT_NODE;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">begin</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">position</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <br>        <span class="hljs-keyword">while</span> (position &lt; text.length()) &#123;<br>            <span class="hljs-type">char</span> <span class="hljs-variable">c</span> <span class="hljs-operator">=</span> text.charAt(position);<br>            <br>            <span class="hljs-keyword">if</span> (isSymbol(c)) &#123;<br>                <span class="hljs-keyword">if</span> (tempNode == ROOT_NODE) &#123;<br>                    result.append(c);<br>                    begin++;<br>                &#125;<br>                position++;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            <br>            tempNode = tempNode.getSubNode(c);<br>            <span class="hljs-keyword">if</span> (tempNode == <span class="hljs-literal">null</span>) &#123;<br>                result.append(text.charAt(begin));<br>                position = ++begin;<br>                tempNode = ROOT_NODE;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (tempNode.isKeywordEnd()) &#123;<br>                <span class="hljs-comment">// 替换敏感词</span><br>                <span class="hljs-type">int</span> <span class="hljs-variable">length</span> <span class="hljs-operator">=</span> position - begin + <span class="hljs-number">1</span>;<br>                result.append(replacement.repeat(length));<br>                position++;<br>                begin = position;<br>                tempNode = ROOT_NODE;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                position++;<br>            &#125;<br>        &#125;<br>        <br>        <span class="hljs-comment">// 添加剩余字符</span><br>        result.append(text.substring(begin));<br>        <span class="hljs-keyword">return</span> result.toString();<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 获取已加载的敏感词数量</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getWordCount</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> WORD_COUNT.get();<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 判断是否为符号</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> c 字符</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 判断</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isSymbol</span><span class="hljs-params">(Character c)</span> &#123;<br>        <span class="hljs-comment">// 0x2E80~0x9FFF 是东亚文字范围</span><br>        <span class="hljs-keyword">return</span> !isAsciiAlphanumeric(c) &amp;&amp; (c &lt; <span class="hljs-number">0x2E80</span> || c &gt; <span class="hljs-number">0x9FFF</span>);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isAsciiAlpha</span><span class="hljs-params">(<span class="hljs-type">char</span> ch)</span> &#123;<br>        <span class="hljs-keyword">return</span> isAsciiAlphaUpper(ch) || isAsciiAlphaLower(ch);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isAsciiAlphaUpper</span><span class="hljs-params">(<span class="hljs-type">char</span> ch)</span> &#123;<br>        <span class="hljs-keyword">return</span> ch &gt;= <span class="hljs-string">&#x27;A&#x27;</span> &amp;&amp; ch &lt;= <span class="hljs-string">&#x27;Z&#x27;</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isAsciiAlphaLower</span><span class="hljs-params">(<span class="hljs-type">char</span> ch)</span> &#123;<br>        <span class="hljs-keyword">return</span> ch &gt;= <span class="hljs-string">&#x27;a&#x27;</span> &amp;&amp; ch &lt;= <span class="hljs-string">&#x27;z&#x27;</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isAsciiNumeric</span><span class="hljs-params">(<span class="hljs-type">char</span> ch)</span> &#123;<br>        <span class="hljs-keyword">return</span> ch &gt;= <span class="hljs-string">&#x27;0&#x27;</span> &amp;&amp; ch &lt;= <span class="hljs-string">&#x27;9&#x27;</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isAsciiAlphanumeric</span><span class="hljs-params">(<span class="hljs-type">char</span> ch)</span> &#123;<br>        <span class="hljs-keyword">return</span> isAsciiAlpha(ch) || isAsciiNumeric(ch);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 前缀树</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TrieNode</span> &#123;<br><br>        <span class="hljs-comment">// 关键词结束标识</span><br>        <span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> <span class="hljs-variable">isKeywordEnd</span> <span class="hljs-operator">=</span> <span class="hljs-literal">false</span>;<br><br>        <span class="hljs-comment">// 子节点</span><br>        <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Map&lt;Character, TrieNode&gt; subNodes = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br><br>        <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isKeywordEnd</span><span class="hljs-params">()</span> &#123;<br>            <span class="hljs-keyword">return</span> isKeywordEnd;<br>        &#125;<br><br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setKeywordEnd</span><span class="hljs-params">(<span class="hljs-type">boolean</span> keywordEnd)</span> &#123;<br>            isKeywordEnd = keywordEnd;<br>        &#125;<br><br>        <span class="hljs-comment">// 添加子节点</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addSubNode</span><span class="hljs-params">(Character c, TrieNode node)</span> &#123;<br>            subNodes.put(c, node);<br>        &#125;<br><br>        <span class="hljs-comment">// 获取子节点</span><br>        <span class="hljs-keyword">public</span> TrieNode <span class="hljs-title function_">getSubNode</span><span class="hljs-params">(Character c)</span> &#123;<br>            <span class="hljs-keyword">return</span> subNodes.get(c);<br>        &#125;<br><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>创建 AiPromptTemplateUtils 用于于ai对话的提示词模板</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * AI提示词模板工具类</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> mengze</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">AiPromptTemplateUtils</span> &#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 敏感词检测提示词模板</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">SENSITIVE_CHECK_TEMPLATE</span> <span class="hljs-operator">=</span> <br>            <span class="hljs-string">&quot;请严格判断以下内容是否包含敏感信息（暴力、色情、反动、诱导等）和包括不限于近期网络梗的违规敏感词，中文拼音首字母缩写和英文单词等敏感信息，&quot;</span> +<br>            <span class="hljs-string">&quot;用JSON格式回答：&#123;\&quot;sensitive\&quot;:布尔值, \&quot;confidence\&quot;:0-1的置信度&#125;\n&quot;</span> +<br>            <span class="hljs-string">&quot;内容：%s&quot;</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 构建敏感词检测提示词</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> content 待检测内容</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 完整的提示词</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">buildSensitiveCheckPrompt</span><span class="hljs-params">(String content)</span> &#123;<br>        <span class="hljs-keyword">return</span> String.format(SENSITIVE_CHECK_TEMPLATE, content);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 构建自定义检测提示词</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> content 待检测内容</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> customRules 自定义规则描述</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 完整的提示词</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">buildCustomCheckPrompt</span><span class="hljs-params">(String content, String customRules)</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">template</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;请根据以下规则判断内容：%s\n&quot;</span> +<br>                <span class="hljs-string">&quot;用JSON格式回答：&#123;\&quot;sensitive\&quot;:布尔值, \&quot;confidence\&quot;:0-1的置信度, \&quot;reason\&quot;:\&quot;原因\&quot;&#125;\n&quot;</span> +<br>                <span class="hljs-string">&quot;内容：%s&quot;</span>;<br>        <span class="hljs-keyword">return</span> String.format(template, customRules, content);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 构建内容质量评估提示词</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> content 待评估内容</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 完整的提示词</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">buildQualityCheckPrompt</span><span class="hljs-params">(String content)</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">template</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;请评估以下内容的质量（是否为垃圾信息、广告、无意义内容等），&quot;</span> +<br>                <span class="hljs-string">&quot;用JSON格式回答：&#123;\&quot;isSpam\&quot;:布尔值, \&quot;confidence\&quot;:0-1的置信度, \&quot;category\&quot;:\&quot;分类\&quot;&#125;\n&quot;</span> +<br>                <span class="hljs-string">&quot;内容：%s&quot;</span>;<br>        <span class="hljs-keyword">return</span> String.format(template, content);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>创建枚举 DetectionStatusEnum</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 检测状态枚举</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> mengze</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> <span class="hljs-title class_">DetectionStatusEnum</span> &#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 敏感内容</span><br><span class="hljs-comment">     */</span><br>    SENSITIVE,<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 内容安全</span><br><span class="hljs-comment">     */</span><br>    CLEAR,<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 建议云端检测</span><br><span class="hljs-comment">     */</span><br>    SUGGEST_CLOUD_CHECK;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 是否应该拦截</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> true-应该拦截，false-不拦截</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">shouldBlock</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span> == SENSITIVE;<br>    &#125;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 是否需要云端检测</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> true-需要云端检测，false-不需要</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">needsCloudCheck</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span> == SUGGEST_CLOUD_CHECK;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>再创建 ModelConfigDto </p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * AI模型配置</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> mengze</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Data</span><br><span class="hljs-meta">@NoArgsConstructor</span><br><span class="hljs-meta">@AllArgsConstructor</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ModelConfigDto</span> &#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 模型名称</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String name;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 优先级</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer priority;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 权重</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Float weight;<br>&#125;<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>再创建 AiChatService（ai 检测） 和 SensitiveUtilService（敏感词校验） 两个接口</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * AI聊天服务接口</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> mengze</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">AiChatService</span> &#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * AI检测敏感词</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> word 待检测内容</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> DetectionStatusEnum 检测状态</span><br><span class="hljs-comment">     */</span><br>    DetectionStatusEnum <span class="hljs-title function_">aiCheckWord</span><span class="hljs-params">(String word)</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<hr>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> mengze</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">SensitiveUtilService</span> &#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 内容校验敏感词</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> content 内容</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> email 评论者邮箱（用于判断是否为博主）</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 是否敏感</span><br><span class="hljs-comment">     */</span><br>    Boolean <span class="hljs-title function_">checkSensitiveWords</span><span class="hljs-params">(String content, String email)</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>接下来实现两个接口 AiChatServiceImpl 和 SensitiveUtilServiceImpl</p>
+<p>AiChatServiceImpl</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> mengze</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Slf4j</span><br><span class="hljs-meta">@Service</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">AiChatServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">AiChatService</span><br>&#123;<br><br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> DeepSeekClient deepSeekClient;<br><br>    <span class="hljs-comment">//需要调用的大大模型</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> List&lt;ModelConfigDto&gt; MODEL_CONFIGS = Collections.unmodifiableList(Arrays.asList(<br>            <span class="hljs-keyword">new</span> <span class="hljs-title class_">ModelConfigDto</span>(<span class="hljs-string">&quot;deepseek-v4-pro&quot;</span>, <span class="hljs-number">10</span>, <span class="hljs-number">1.0f</span>),<br>            <span class="hljs-keyword">new</span> <span class="hljs-title class_">ModelConfigDto</span>(<span class="hljs-string">&quot;deepseek-v4-flash&quot;</span>, <span class="hljs-number">8</span>, <span class="hljs-number">0.9f</span>)<br>    ));<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">ExecutorService</span> <span class="hljs-variable">MODEL_EXECUTOR</span> <span class="hljs-operator">=</span> Executors.newCachedThreadPool(<br>            <span class="hljs-keyword">new</span> <span class="hljs-title class_">ThreadFactoryBuilder</span>().setNameFormat(<span class="hljs-string">&quot;ai-detection-%d&quot;</span>).setDaemon(<span class="hljs-literal">true</span>).build()<br>    );<br><br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * AI检测敏感词</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> word 待检测内容</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> DetectionStatus 检测状态</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> DetectionStatusEnum <span class="hljs-title function_">aiCheckWord</span><span class="hljs-params">(String word)</span> &#123;<br>        <span class="hljs-keyword">if</span> (StringUtils.isEmpty(word)) &#123;<br>            <span class="hljs-keyword">return</span> DetectionStatusEnum.CLEAR;<br>        &#125;<br>        <span class="hljs-comment">// 短内容使用单模型快速检测</span><br>        <span class="hljs-keyword">if</span> (word.length() &lt; <span class="hljs-number">5</span>) &#123;<br>            <span class="hljs-keyword">return</span> checkWithSingleModel(word, MODEL_CONFIGS.get(<span class="hljs-number">1</span>));<br>        &#125;<br>        <span class="hljs-comment">// 中长内容使用多模型检测</span><br>        <span class="hljs-keyword">return</span> checkWithOptimizedModels(word);<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> DetectionStatusEnum <span class="hljs-title function_">checkWithOptimizedModels</span><span class="hljs-params">(String content)</span> &#123;<br>        List&lt;ModelConfigDto&gt; sortedModels = MODEL_CONFIGS.stream()<br>                .sorted(Comparator.comparingInt(ModelConfigDto::getPriority).reversed())<br>                .collect(Collectors.toList());<br>        <span class="hljs-comment">// 创建并行任务列表</span><br>        List&lt;CompletableFuture&lt;DetectionStatusEnum&gt;&gt; futures = sortedModels.stream()<br>                .map(config -&gt; CompletableFuture.supplyAsync(<br>                        () -&gt; checkWithSingleModel(content, config),<br>                        MODEL_EXECUTOR<br>                ).exceptionally(e -&gt; &#123;<br>                    log.warn(<span class="hljs-string">&quot;模型检测异常: &#123;&#125;&quot;</span>, e.getMessage());<br>                    <span class="hljs-keyword">return</span> DetectionStatusEnum.SUGGEST_CLOUD_CHECK;<br>                &#125;)).collect(Collectors.toList());<br>        <span class="hljs-comment">// 使用allOf等待所有任务完成（无论成功与否）</span><br>        CompletableFuture&lt;Void&gt; allFutures = CompletableFuture.allOf(<br>                futures.toArray(<span class="hljs-keyword">new</span> <span class="hljs-title class_">CompletableFuture</span>[<span class="hljs-number">0</span>])<br>        );<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">// 设置总超时时间</span><br>            allFutures.get(<span class="hljs-number">5</span>, TimeUnit.SECONDS);<br>        &#125; <span class="hljs-keyword">catch</span> (TimeoutException e) &#123;<br>            log.warn(<span class="hljs-string">&quot;部分模型检测未能在5秒内完成，继续处理已完成结果&quot;</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            log.error(<span class="hljs-string">&quot;多模型检测发生异常&quot;</span>, e);<br>        &#125;<br>        <span class="hljs-comment">// 收集所有结果（包括已完成和异常的）</span><br>        List&lt;DetectionStatusEnum&gt; results = futures.stream()<br>                .map(future -&gt; &#123;<br>                    <span class="hljs-keyword">try</span> &#123;<br>                        <span class="hljs-comment">// 未完成则返回默认</span><br>                        <span class="hljs-keyword">return</span> future.getNow(DetectionStatusEnum.SUGGEST_CLOUD_CHECK);<br>                    &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>                        <span class="hljs-keyword">return</span> DetectionStatusEnum.SUGGEST_CLOUD_CHECK;<br>                    &#125;<br>                &#125;).collect(Collectors.toList());<br><br>        <span class="hljs-comment">// 综合评估策略</span><br>        <span class="hljs-keyword">return</span> evaluateConsensusResults(results);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 综合评估策略（升级版）</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> DetectionStatusEnum <span class="hljs-title function_">evaluateConsensusResults</span><span class="hljs-params">(List&lt;DetectionStatusEnum&gt; results)</span> &#123;<br>        <span class="hljs-keyword">if</span> (results.isEmpty()) &#123;<br>            <span class="hljs-keyword">return</span> DetectionStatusEnum.SUGGEST_CLOUD_CHECK;<br>        &#125;<br>        <span class="hljs-comment">// 统计各状态数量</span><br>        Map&lt;DetectionStatusEnum, Long&gt; countMap = results.stream()<br>                .collect(Collectors.groupingBy(<br>                        status -&gt; status,<br>                        Collectors.counting()<br>                ));<br>        <span class="hljs-type">long</span> <span class="hljs-variable">sensitiveCount</span> <span class="hljs-operator">=</span> countMap.getOrDefault(DetectionStatusEnum.SENSITIVE, <span class="hljs-number">0L</span>);<br>        <span class="hljs-type">long</span> <span class="hljs-variable">clearCount</span> <span class="hljs-operator">=</span> countMap.getOrDefault(DetectionStatusEnum.CLEAR, <span class="hljs-number">0L</span>);<br>        <span class="hljs-type">long</span> <span class="hljs-variable">totalModels</span> <span class="hljs-operator">=</span> results.size();<br>        <span class="hljs-comment">// 策略1：超过半数模型明确判定敏感</span><br>        <span class="hljs-keyword">if</span> (sensitiveCount &gt; totalModels / <span class="hljs-number">2</span>) &#123;<br>            log.info(<span class="hljs-string">&quot;AI多模型判定结果为：超过半数模型明确判定敏感&quot;</span>);<br>            <span class="hljs-keyword">return</span> DetectionStatusEnum.SENSITIVE;<br>        &#125;<br>        <span class="hljs-comment">// 策略2：超过70%模型明确判定非敏感</span><br>        <span class="hljs-keyword">if</span> (clearCount &gt; totalModels * <span class="hljs-number">0.7</span>) &#123;<br>            log.info(<span class="hljs-string">&quot;AI多模型判定结果为：超过70%模型明确判定非敏感&quot;</span>);<br>            <span class="hljs-keyword">return</span> DetectionStatusEnum.CLEAR;<br>        &#125;<br>        <span class="hljs-comment">// 策略3：存在敏感判定且总占比超过30%</span><br>        <span class="hljs-keyword">if</span> (sensitiveCount &gt; <span class="hljs-number">0</span> &amp;&amp; (sensitiveCount + clearCount) * <span class="hljs-number">0.3</span> &lt; sensitiveCount) &#123;<br>            log.info(<span class="hljs-string">&quot;AI多模型判定结果为：存在敏感判定且总占比超过30%&quot;</span>);<br>            <span class="hljs-keyword">return</span> DetectionStatusEnum.SENSITIVE;<br>        &#125;<br>        <span class="hljs-comment">// 其他情况建议云校验</span><br>        <span class="hljs-keyword">return</span> DetectionStatusEnum.SUGGEST_CLOUD_CHECK;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> DetectionStatusEnum <span class="hljs-title function_">checkWithSingleModel</span><span class="hljs-params">(String content, ModelConfigDto config)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">long</span> <span class="hljs-variable">startTime</span> <span class="hljs-operator">=</span> System.currentTimeMillis();<br>            <span class="hljs-type">String</span> <span class="hljs-variable">prompt</span> <span class="hljs-operator">=</span> AiPromptTemplateUtils.buildSensitiveCheckPrompt(content);<br>            <span class="hljs-type">ChatCompletionRequest</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> ChatCompletionRequest.builder()<br>                    .addUserMessage(prompt)<br>                    .model(config.getName())<br>                    .stream(<span class="hljs-literal">false</span>)<br>                    .temperature(<span class="hljs-number">0.0</span>)<br>                    .maxCompletionTokens(<span class="hljs-number">30</span>)<br>                    .reasoningEffort(<span class="hljs-string">&quot;low&quot;</span>) <span class="hljs-comment">// 表示低推理强度，不是深度思考模式</span><br>                    .build();<br>            <span class="hljs-comment">// 带超时的请求</span><br>            CompletableFuture&lt;ChatCompletionResponse&gt; future = CompletableFuture.supplyAsync(<br>                    () -&gt; deepSeekClient.chatCompletion(request).execute()<br>            );<br>            <span class="hljs-type">ChatCompletionResponse</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> future.get(<span class="hljs-number">10000</span>, TimeUnit.MILLISECONDS);<br>            <span class="hljs-keyword">if</span> (response == <span class="hljs-literal">null</span> || response.choices() == <span class="hljs-literal">null</span> || response.choices().isEmpty()) &#123;<br>                log.warn(<span class="hljs-string">&quot;模型 &#123;&#125; 返回空响应&quot;</span>, config.getName());<br>                <span class="hljs-keyword">return</span> DetectionStatusEnum.SUGGEST_CLOUD_CHECK;<br>            &#125;<br>            <span class="hljs-type">String</span> <span class="hljs-variable">answer</span> <span class="hljs-operator">=</span> response.choices().get(<span class="hljs-number">0</span>).message().content().trim()<br>                    .replace(<span class="hljs-string">&quot;\uFEFF&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)<br>                    .replaceAll(<span class="hljs-string">&quot;^```json|```$&quot;</span>, <span class="hljs-string">&quot;&quot;</span>);<br>            <span class="hljs-keyword">try</span> &#123;<br>                <span class="hljs-type">JsonNode</span> <span class="hljs-variable">json</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectMapper</span>()<br>                        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, <span class="hljs-literal">false</span>)<br>                        .readTree(answer);<br>                <span class="hljs-type">boolean</span> <span class="hljs-variable">sensitive</span> <span class="hljs-operator">=</span> json.path(<span class="hljs-string">&quot;sensitive&quot;</span>).asBoolean();<br>                <span class="hljs-type">float</span> <span class="hljs-variable">confidence</span> <span class="hljs-operator">=</span> (<span class="hljs-type">float</span>) json.path(<span class="hljs-string">&quot;confidence&quot;</span>).asDouble(<span class="hljs-number">0.5</span>);<br>                log.info(<span class="hljs-string">&quot;模型 &#123;&#125; 检测结果: &#123;&#125;, 置信度: &#123;&#125;, 检测耗时: &#123;&#125;ms&quot;</span>, config.getName(), sensitive, confidence, System.currentTimeMillis() - startTime);<br>                <span class="hljs-comment">// 根据置信度确定最终状态</span><br>                <span class="hljs-keyword">if</span> (sensitive) &#123;<br>                    <span class="hljs-keyword">return</span> confidence &gt;= <span class="hljs-number">0.8</span> ? DetectionStatusEnum.SENSITIVE : DetectionStatusEnum.SUGGEST_CLOUD_CHECK;<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    <span class="hljs-keyword">return</span> confidence &gt;= <span class="hljs-number">0.7</span> ? DetectionStatusEnum.CLEAR : DetectionStatusEnum.SUGGEST_CLOUD_CHECK;<br>                &#125;<br>            &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>                log.warn(<span class="hljs-string">&quot;解析模型 &#123;&#125; 响应失败: &#123;&#125;&quot;</span>, config.getName(), answer);<br>                <span class="hljs-keyword">return</span> DetectionStatusEnum.SUGGEST_CLOUD_CHECK;<br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (TimeoutException e) &#123;<br>            log.warn(<span class="hljs-string">&quot;模型 &#123;&#125; 检测超时&quot;</span>, config.getName());<br>            <span class="hljs-keyword">return</span> DetectionStatusEnum.SUGGEST_CLOUD_CHECK;<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            log.error(<span class="hljs-string">&quot;模型 &#123;&#125; 检测异常: &#123;&#125;&quot;</span>, config.getName(), e.getMessage());<br>            <span class="hljs-keyword">return</span> DetectionStatusEnum.SUGGEST_CLOUD_CHECK;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>需要注意的是这里涉及到大模型api的调用，需要去注册一个大模型账号并获取调用api的key（我这里调用的是deepseek）</p>
+<p>获取key之后在 application.yml 中配置就行了</p>
+<img src="/img/api配置.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>SensitiveUtilServiceImpl</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> mengze</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Slf4j</span><br><span class="hljs-meta">@Service</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SensitiveUtilServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">SensitiveUtilService</span><br>&#123;<br><br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> AiChatService aiChatService;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 内容校验敏感词</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> content 内容</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> email 评论者邮箱（用于判断是否为博主）</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 是否敏感</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> Boolean <span class="hljs-title function_">checkSensitiveWords</span><span class="hljs-params">(String content, String email)</span> &#123;<br>        <span class="hljs-keyword">if</span> (StringUtils.isEmpty(content)) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br>        <br>        <span class="hljs-comment">// 判断是否为博主，博主评论跳过敏感词检测</span><br>        <span class="hljs-keyword">if</span> (SecurityUtils.isLogin() &amp;&amp; SecurityUtils.isAdmin()) &#123;<br>            log.info(<span class="hljs-string">&quot;博主评论（已登录），跳过敏感词检测&quot;</span>);<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br><br>        <span class="hljs-keyword">if</span> (StringUtils.isNotEmpty(email) &amp;&amp; email.equalsIgnoreCase(SystemConstants.BLOGGER_EMAIL)) &#123;<br>            log.info(<span class="hljs-string">&quot;博主评论（未登录），跳过敏感词检测&quot;</span>);<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br>        <br>        <span class="hljs-comment">//1.本地词库检测</span><br>        <span class="hljs-keyword">if</span> (SensitiveUtil.containsSensitiveWords(content)) &#123;<br>            <span class="hljs-comment">// 获取检测到的具体敏感词及其来源文件</span><br>            java.util.Map&lt;String, String&gt; localSensitiveWordsWithSource = SensitiveUtil.findSensitiveWordsWithSource(content);<br>            log.info(<span class="hljs-string">&quot;本地词库检测为敏感词，检测到的敏感词及来源: &#123;&#125;&quot;</span>, localSensitiveWordsWithSource);<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<br>        log.info(<span class="hljs-string">&quot;本地词库检测无敏感词 &gt;&gt;&gt;&gt;&gt; 进入开源词库检测&quot;</span>);<br>        <span class="hljs-comment">//2.开源词库检测</span><br>        <span class="hljs-keyword">if</span> (SensitiveWordHelper.contains(content)) &#123;<br>            <span class="hljs-comment">// 获取开源词库检测到的具体敏感词</span><br>            java.util.List&lt;String&gt; openSourceSensitiveWords = SensitiveWordHelper.findAll(content);<br>            log.info(<span class="hljs-string">&quot;开源词库检测为敏感词，检测到的敏感词: &#123;&#125;&quot;</span>, openSourceSensitiveWords);<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<br>        log.info(<span class="hljs-string">&quot;开源词库检测无敏感词 &gt;&gt;&gt;&gt;&gt; 进入多ai并行检测&quot;</span>);<br>        <span class="hljs-comment">//3.多AI并行检测</span><br>        <span class="hljs-type">DetectionStatusEnum</span> <span class="hljs-variable">aiStatus</span> <span class="hljs-operator">=</span> aiChatService.aiCheckWord(content);<br>        <span class="hljs-keyword">if</span> (aiStatus.shouldBlock()) &#123;<br>            log.info(<span class="hljs-string">&quot;多AI并行检测为敏感词，内容: &#123;&#125;&quot;</span>, content);<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<br>        log.info(<span class="hljs-string">&quot;多AI并行检测无敏感词 &gt;&gt;&gt;&gt;&gt; 可以评论&quot;</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>准备好这些工具之后就可以在前台系统的 addComment 方法里调用了</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//添加评论</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> ResponseResult <span class="hljs-title function_">addComment</span><span class="hljs-params">(AddCommentDto addCommentDto)</span><br>    &#123;<br>        <span class="hljs-comment">//校验评论内容</span><br>        <span class="hljs-keyword">if</span> (!StringUtils.hasText(addCommentDto.getContent())) &#123;<br>            <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.CONTENT_NOT_NULL);<br>        &#125;<br><br>        <span class="hljs-type">String</span> <span class="hljs-variable">type</span> <span class="hljs-operator">=</span> addCommentDto.getType();<br>        <br>        <span class="hljs-comment">//如果是文章评论，需要校验文章是否允许评论</span><br>        <span class="hljs-keyword">if</span> (SystemConstants.COMMENT_TYPE_ARTICLE.equals(type)) &#123;<br>            <span class="hljs-type">Long</span> <span class="hljs-variable">articleId</span> <span class="hljs-operator">=</span> addCommentDto.getArticleId();<br>            <span class="hljs-keyword">if</span> (articleId == <span class="hljs-literal">null</span>) &#123;<br>                <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR.getCode(), <span class="hljs-string">&quot;文章ID不能为空&quot;</span>);<br>            &#125;<br>            <br>            <span class="hljs-comment">//查询文章信息</span><br>            <span class="hljs-type">Article</span> <span class="hljs-variable">article</span> <span class="hljs-operator">=</span> articleService.getById(articleId);<br>            <span class="hljs-keyword">if</span> (article == <span class="hljs-literal">null</span>) &#123;<br>                <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR.getCode(), <span class="hljs-string">&quot;文章不存在&quot;</span>);<br>            &#125;<br>            <br>            <span class="hljs-comment">//检查文章是否允许评论</span><br>            <span class="hljs-keyword">if</span> (!SystemConstants.ALLOW_COMMENT.equals(article.getIsComment())) &#123;<br>                <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR.getCode(), <span class="hljs-string">&quot;该文章不允许评论&quot;</span>);<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-type">Comment</span> <span class="hljs-variable">comment</span> <span class="hljs-operator">=</span> BeanCopyUtils.copyBean(addCommentDto, Comment.class);<br>        <br>        <span class="hljs-comment">//处理 rootId 默认值</span><br>        <span class="hljs-keyword">if</span> (comment.getRootId() == <span class="hljs-literal">null</span>) &#123;<br>            comment.setRootId(-<span class="hljs-number">1L</span>);<br>        &#125;<br>        <br>        <span class="hljs-comment">//根据评论类型进行权限校验和用户信息设置</span><br>        <span class="hljs-keyword">if</span> (SystemConstants.COMMENT_TYPE_ARTICLE.equals(type) || SystemConstants.COMMENT_TYPE_LINK.equals(type))<br>        &#123;<br>            <span class="hljs-comment">//文章评论和友链评论需要登录</span><br>            <span class="hljs-keyword">if</span> (!SecurityUtils.isLogin()) &#123;<br>                <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.NEED_LOGIN);<br>            &#125;<br>            <span class="hljs-type">LoginUser</span> <span class="hljs-variable">loginUser</span> <span class="hljs-operator">=</span> SecurityUtils.getLoginUser();<br>            <span class="hljs-type">SysUser</span> <span class="hljs-variable">sysUser</span> <span class="hljs-operator">=</span> loginUser.getSysUser();<br>            comment.setUserId(sysUser.getId());<br>            comment.setNickname(sysUser.getNickname());<br>            comment.setEmail(sysUser.getEmail());<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (SystemConstants.COMMENT_TYPE_MESSAGE.equals(type)) &#123;<br>            <span class="hljs-comment">//留言板评论可以不登录</span><br>            <span class="hljs-keyword">if</span> (SecurityUtils.isLogin()) &#123;<br>                <span class="hljs-comment">//已登录用户使用登录信息</span><br>                <span class="hljs-type">LoginUser</span> <span class="hljs-variable">loginUser</span> <span class="hljs-operator">=</span> SecurityUtils.getLoginUser();<br>                <span class="hljs-type">SysUser</span> <span class="hljs-variable">sysUser</span> <span class="hljs-operator">=</span> loginUser.getSysUser();<br>                comment.setUserId(sysUser.getId());<br>                comment.setNickname(sysUser.getNickname());<br>                comment.setEmail(sysUser.getEmail());<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-comment">//未登录用户需要填写昵称和邮箱</span><br>                <span class="hljs-keyword">if</span> (!StringUtils.hasText(addCommentDto.getNickname())) &#123;<br>                    <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.NICKNAME_NOT_NULL);<br>                &#125;<br>                <span class="hljs-keyword">if</span> (!StringUtils.hasText(addCommentDto.getEmail())) &#123;<br>                    <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.EMAIL_NOT_NULL);<br>                &#125;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-comment">//根据用户信息获取头像</span><br>        <span class="hljs-keyword">if</span> (comment.getUserId() != <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-comment">//已登录用户，使用用户表中的最新头像</span><br>            <span class="hljs-type">SysUser</span> <span class="hljs-variable">sysUser</span> <span class="hljs-operator">=</span> sysUserMapper.selectById(comment.getUserId());<br>            <span class="hljs-keyword">if</span> (sysUser != <span class="hljs-literal">null</span> &amp;&amp; StringUtils.hasText(sysUser.getAvatar())) &#123;<br>                comment.setAvatar(sysUser.getAvatar());<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-comment">//用户表中没有头像，根据邮箱生成（使用评论专用头像）</span><br>                comment.setAvatar(GravatarUtils.getCommentPreviewAvatarUrl(comment.getEmail()));<br>            &#125;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">//未登录用户，根据邮箱生成（使用评论专用头像）</span><br>            comment.setAvatar(GravatarUtils.getCommentPreviewAvatarUrl(comment.getEmail()));<br>        &#125;<br>        <br>        <span class="hljs-comment">//敏感词检测</span><br>        <span class="hljs-type">boolean</span> <span class="hljs-variable">isSensitive</span> <span class="hljs-operator">=</span> sensitiveUtilService.checkSensitiveWords(comment.getContent(), comment.getEmail());<br>        <br>        <span class="hljs-comment">//设置默认值</span><br>        comment.setLikeCount(SystemConstants.DEFAULT_COMMENT_LIKES);<br>        <br>        <span class="hljs-comment">//根据敏感词检测结果设置评论状态</span><br>        <span class="hljs-keyword">if</span> (isSensitive) &#123;<br>            <span class="hljs-comment">//检测到敏感词，设置为待审核状态</span><br>            comment.setStatus(SystemConstants.COMMENT_STATUS_PENDING_REVIEW);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">//未检测到敏感词，设置为正常状态</span><br>            comment.setStatus(SystemConstants.COMMENT_STATUS_NORMAL);<br>        &#125;<br>        <br>        comment.setDelFlag(SystemConstants.COMMENT_STATUS_NORMAL);<br>        comment.setCreateTime(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>());<br><br>        save(comment);<br>        <br>        <span class="hljs-comment">//如果检测到敏感词，发送敏感词相关的邮件通知</span><br>        <span class="hljs-keyword">if</span> (isSensitive) &#123;<br>            <span class="hljs-comment">//发送敏感词检测邮件通知（包括给用户和博主）</span><br>            emailService.sendSensitiveWordNotification(comment);<br>            <br>            <span class="hljs-comment">//返回提示信息</span><br>            <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.COMMENT_SENSITIVE_PENDING_REVIEW);<br>        &#125;<br>        <br>        <span class="hljs-comment">//未检测到敏感词，发送正常的评论通知邮件</span><br>        emailService.sendCommentNotificationByEmail(comment);<br><br>        <span class="hljs-keyword">return</span> ResponseResult.okResult();<br>    &#125;<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>要创建一个枚举来提醒用户</p>
+<img src="/img/评论违规枚举.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>其中如果检测到敏感词会给用户和管理员发送邮箱通知</p>
+<p>由于 EmailServiceImpl 中发送邮件的一些方法在后面管理员审核通过与否还要添加两个邮件</p>
+<p>这里就不先展示上面涉及到的两个 EmailServiceImpl 中的方法</p>
+<p>等后面对 EmailServiceImpl 进行功能升级完成后，再将涉及到更新的代码进行发布</p>
+
+
+<hr>
+
+<p></p>
+<img src="/img/.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<hr>
+<p align="center" style="color: hotpink;font-size: 20px"><strong>PS:该系列只做为作者学习开发项目做的笔记用</strong></p>
+<p align="center" style="color: hotpink;font-size: 20px"><strong>不一定符合读者来学习，仅供参考</strong></p>
+<hr>
+<h2 style="color: #b7a0e0"><span id="预告">预告</span></h2>  
+<p>后续会记录博客的开发过程</p>
+<p>每次学习会做一份笔记来进行发表</p>
+
+<blockquote>  
+<p style="color: #bbbbee">“一花一世界，一叶一菩提”</p>
+</blockquote>
+
+<hr>
+<p>版权所有 © 2026 云梦泽<br>欢迎访问我的个人网站：<a target="_blank" rel="noopener" href="https://hgt12.github.io/">https://hgt12.github.io/</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/" class="category-chain-item">博客开发</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%8A%80%E6%9C%AF%E5%90%91/" class="print-no-link">#技术向</a>
+      
+        <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" class="print-no-link">#个人博客</a>
+      
+        <a href="/tags/%E5%89%8D%E7%AB%AF/" class="print-no-link">#前端</a>
+      
+        <a href="/tags/%E5%90%8E%E7%AB%AF/" class="print-no-link">#后端</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>『博客开发日记』之评论系统添加对敏感词的检测功能</div>
+      <div>http://example.com/2026/05/04/『博客开发日记』之评论系统添加对敏感词的检测功能/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>云梦泽</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年5月4日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2026年5月4日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/05/04/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%8D%87%E7%BA%A7%20EmailServiceImpl/" title="『博客开发日记-后台』之升级 EmailServiceImpl">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">『博客开发日记-后台』之升级 EmailServiceImpl</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/05/03/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%AF%BC%E5%87%BA%E8%AF%84%E8%AE%BA%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之导出评论数据接口的实现">
+                        <span class="hidden-mobile">『博客开发日记-后台』之导出评论数据接口的实现</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments">
+      
+  <div id="twikoo"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/twikoo/1.6.8/twikoo.all.min.js', function() {
+        var options = Object.assign(
+          {"envId":"https://mi-manchi-ovo.netlify.app/.netlify/functions/twikoo","region":"ap-shanghai","path":"window.location.pathname"},
+          {
+            el: '#twikoo',
+            path: 'window.location.pathname',
+            onCommentLoaded: function() {
+              Fluid.utils.listenDOMLoaded(function() {
+                var imgSelector = '#twikoo .tk-content img:not(.tk-owo-emotion)';
+                Fluid.plugins.imageCaption(imgSelector);
+                Fluid.plugins.fancyBox(imgSelector);
+              });
+            }
+          }
+        )
+        twikoo.init(options)
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hgt12.github.io/" target="_blank" rel="nofollow noopener"><span>云梦泽</span></a> <i class="iconfont icon-love"></i> <a target="_blank" href="https://hgt12.github.io/"_blank" rel="nofollow noopener noopener"><span>Mi Manchi</span></a> <br> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    
+      <script  src="/js/img-lazyload.js" ></script>
+    
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/click.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
