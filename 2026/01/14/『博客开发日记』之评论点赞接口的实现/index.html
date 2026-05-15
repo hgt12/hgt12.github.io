@@ -19,16 +19,16 @@
   <meta name="author" content="云梦泽">
   <meta name="keywords" content="js html">
   
-    <meta name="description" content="评论点赞接口的实现  评论点赞接口的需求  根据评论id点赞评论 不能重复点赞（前端防止） 所有类型评论不用登录就可以点赞   代码实现 其实这个接口比较简单 新增评论点赞接口（Put请求格式）  12345678910&#x2F;**     * 点赞评论     * @param commentId 评论ID     * @return 更新后的点赞数     *&#x2F;    @PutMapping(&amp;qu">
+    <meta name="description" content="评论点赞接口的实现  评论点赞接口的需求 判断点赞评论是否为空 根据评论id点赞评论 不能重复点赞（前端防止） 所有类型评论不用登录就可以点赞   代码实现 其实这个接口比较简单 新增评论点赞接口（Put请求格式）  12345678910&#x2F;**     * 点赞评论     * @param commentId 评论ID     * @return 更新后的点赞数     *&#x2F;    @PutM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="『博客开发日记』之评论点赞接口的实现">
 <meta property="og:url" content="http://example.com/2026/01/14/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E8%AF%84%E8%AE%BA%E7%82%B9%E8%B5%9E%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/index.html">
 <meta property="og:site_name" content="云梦泽的个人博客">
-<meta property="og:description" content="评论点赞接口的实现  评论点赞接口的需求  根据评论id点赞评论 不能重复点赞（前端防止） 所有类型评论不用登录就可以点赞   代码实现 其实这个接口比较简单 新增评论点赞接口（Put请求格式）  12345678910&#x2F;**     * 点赞评论     * @param commentId 评论ID     * @return 更新后的点赞数     *&#x2F;    @PutMapping(&amp;qu">
+<meta property="og:description" content="评论点赞接口的实现  评论点赞接口的需求 判断点赞评论是否为空 根据评论id点赞评论 不能重复点赞（前端防止） 所有类型评论不用登录就可以点赞   代码实现 其实这个接口比较简单 新增评论点赞接口（Put请求格式）  12345678910&#x2F;**     * 点赞评论     * @param commentId 评论ID     * @return 更新后的点赞数     *&#x2F;    @PutM">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/%E5%A3%81%E7%BA%B826.png">
 <meta property="article:published_time" content="2026-01-14T02:57:19.000Z">
-<meta property="article:modified_time" content="2026-03-25T14:33:01.425Z">
+<meta property="article:modified_time" content="2026-05-15T12:38:58.265Z">
 <meta property="article:author" content="云梦泽">
 <meta property="article:tag" content="技术向">
 <meta property="article:tag" content="个人博客">
@@ -273,7 +273,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          289 字
+          444 字
         
       </span>
     
@@ -284,7 +284,7 @@
         
         
         
-          3 分钟
+          4 分钟
         
       </span>
     
@@ -347,7 +347,7 @@
         aria-expanded="true"
       >
         博客开发
-        <span class="list-group-count">(104)</span>
+        <span class="list-group-count">(111)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -523,6 +523,15 @@
     
       
       
+        <a href="/2026/05/15/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%88%A0%E9%99%A4%E8%A7%92%E8%89%B2%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之删除角色接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之删除角色接口的实现</span>
+        </a>
+      
+    
+      
+      
         <a href="/2026/05/03/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%88%A0%E9%99%A4%E8%AF%84%E8%AE%BA%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之删除评论接口的实现"
            class="list-group-item list-group-item-action
            ">
@@ -590,6 +599,24 @@
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">『博客开发日记-后台』之导出评论数据接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/15/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E6%96%B0%E5%A2%9E%E8%A7%92%E8%89%B2%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之新增角色接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之新增角色接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/15/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E6%9B%B4%E6%96%B0%E5%AE%A1%E6%A0%B8%E8%AF%84%E8%AE%BA%E7%9A%84%E6%96%B9%E6%B3%95/" title="『博客开发日记-后台』之更新审核评论的方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之更新审核评论的方法</span>
         </a>
       
     
@@ -698,6 +725,15 @@
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">『博客开发日记-后台』之编辑更新文章接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/15/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E7%BC%96%E8%BE%91%E8%A7%92%E8%89%B2%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之编辑角色接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之编辑角色接口的实现</span>
         </a>
       
     
@@ -856,6 +892,24 @@
     
       
       
+        <a href="/2026/05/15/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E8%A7%92%E8%89%B2%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取角色表单数据接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取角色表单数据接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/15/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E8%A7%92%E8%89%B2%E9%83%A8%E9%97%A8ID%E9%9B%86%E5%90%88%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取角色部门ID集合接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取角色部门ID集合接口的实现</span>
+        </a>
+      
+    
+      
+      
         <a href="/2026/04/30/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E8%AF%84%E8%AE%BA%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取评论列表接口的实现"
            class="list-group-item list-group-item-action
            ">
@@ -869,6 +923,15 @@
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">『博客开发日记-后台』之获取评论统计信息接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/15/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E9%83%A8%E9%97%A8%E4%B8%8B%E6%8B%89%E9%80%89%E9%A1%B9%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取部门下拉选项接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取部门下拉选项接口的实现</span>
         </a>
       
     
@@ -1318,7 +1381,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年3月25日 晚上
+                    本文最后更新于 2026年5月15日 晚上
                   
                 
               </p>
@@ -1329,7 +1392,7 @@
                 <h1 align="center"><span id="评论点赞接口的实现"><span style="color: cadetblue;">评论点赞接口的实现</span></span></h1>
 <hr>
 <h2 style="color: #b7a0e0"><span id="评论点赞接口的需求">评论点赞接口的需求</span></h2>
-
+<p>判断点赞评论是否为空</p>
 <p>根据评论id点赞评论</p>
 <p>不能重复点赞（前端防止）</p>
 <p>所有类型评论不用登录就可以点赞</p>
@@ -1348,15 +1411,29 @@
 
 <p>实现服务</p>
 
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//点赞评论</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> ResponseResult <span class="hljs-title function_">likeComment</span><span class="hljs-params">(Long commentId)</span><br>    &#123;<br>        <span class="hljs-comment">//查询评论是否存在且状态正常</span><br>        <span class="hljs-type">Comment</span> <span class="hljs-variable">comment</span> <span class="hljs-operator">=</span> getById(commentId);<br>        <span class="hljs-keyword">if</span> (comment == <span class="hljs-literal">null</span> || !SystemConstants.COMMENT_STATUS_NORMAL.equals(comment.getStatus())) &#123;<br>            <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.COMMENT_NOT_EXIST);<br>        &#125;<br>        <br>        <span class="hljs-comment">// 点赞数+1</span><br>        comment.setLikeCount(comment.getLikeCount() + <span class="hljs-number">1</span>);<br>        updateById(comment);<br>        <br>        <span class="hljs-comment">// 返回更新后的点赞数</span><br>        <span class="hljs-keyword">return</span> ResponseResult.okResult();<br>    &#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//点赞评论</span><br><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> ResponseResult <span class="hljs-title function_">likeComment</span><span class="hljs-params">(Long commentId)</span><br>&#123;<br>    <span class="hljs-comment">//判断点赞评论是否为空</span><br>    <span class="hljs-keyword">if</span> (commentId == <span class="hljs-literal">null</span>) &#123;<br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR, <span class="hljs-string">&quot;评论ID不能为空&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-type">int</span> <span class="hljs-variable">rows</span> <span class="hljs-operator">=</span> baseMapper.increaseLikeCount(commentId);<br>    <span class="hljs-keyword">if</span> (rows == <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.COMMENT_NOT_EXIST);<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> ResponseResult.okResult();<br>&#125;<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>在 CommentMapper 中添加方法</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 评论表(Comment)表数据库访问层</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> makejava</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@since</span> 2026-01-12 15:48:35</span><br><span class="hljs-comment"> */</span><br><span class="hljs-comment">//Alt + 回车 可以自动生成 CommentMapper.xml</span><br><span class="hljs-meta">@Mapper</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">CommentMapper</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">BaseMapper</span>&lt;Comment&gt; &#123;<br><br>    <span class="hljs-comment">//在mapper里直接写也可以，是另一种写法，实现都一样的</span><br>    <span class="hljs-comment">//@Update(&quot;UPDATE comment SET like_count = like_count + 1 WHERE id = #&#123;id&#125; AND status = 0&quot;)</span><br>    <span class="hljs-type">int</span> <span class="hljs-title function_">increaseLikeCount</span><span class="hljs-params">(<span class="hljs-meta">@Param(&quot;id&quot;)</span> Long id)</span>;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>生成 CommentMapper.xml </p>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span> ?&gt;</span><br><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">mapper</span> <span class="hljs-keyword">PUBLIC</span> <span class="hljs-string">&quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span> <span class="hljs-string">&quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;</span> &gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">mapper</span> <span class="hljs-attr">namespace</span>=<span class="hljs-string">&quot;com.mengze.mapper.CommentMapper&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">update</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;increaseLikeCount&quot;</span>&gt;</span><br>        UPDATE comment<br>        SET like_count = like_count + 1<br>        WHERE id = #&#123;id&#125;<br>          AND status = 0<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">update</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">mapper</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>在 ContentTypeValidationFilter 给接口添加白名单</p>
+<img src="/img/给点赞接口添加白名单.png" srcset="/img/loading_1.gif" lazyload alt>
 <hr>
 
 <p></p>
-<p></p>
-<p></p>
-<p></p>
 
 
+<p></p>
+<img src="/img/.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
 
 
 <hr>
@@ -1444,7 +1521,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2026年3月25日</div>
+          <div>2026年5月15日</div>
         </div>
       
       

@@ -19,16 +19,16 @@
   <meta name="author" content="云梦泽">
   <meta name="keywords" content="js html">
   
-    <meta name="description" content="获取添加菜单接口的实现  获取菜单表单数据接口的需求 校验父菜单是否存在（如果不是顶级菜单） 对路由路径进行校验，其中目录和菜单必填，按钮可不填 检查同一父菜单下是否存在同名菜单 检查同一父菜单下路由路径是否重复（仅检查新增目录和菜单的情况） 对 params 字段进行处理 要将其转换成 string 再存入数据库   代码实现 创建 AddMenuDto 和 MenuParamDto  1234">
+    <meta name="description" content="添加菜单接口的实现  添加菜单接口的需求 校验父菜单是否存在（如果不是顶级菜单） 对路由路径进行校验，其中目录和菜单必填，按钮可不填 检查同一父菜单下是否存在同名菜单 检查同一父菜单下路由路径是否重复（仅检查新增目录和菜单的情况） 对 params 字段进行处理 要将其转换成 string 再存入数据库   代码实现 创建 AddMenuDto 和 MenuParamDto  1234567891">
 <meta property="og:type" content="article">
 <meta property="og:title" content="『博客开发日记-后台』之添加菜单接口的实现">
 <meta property="og:url" content="http://example.com/2026/05/05/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E6%B7%BB%E5%8A%A0%E8%8F%9C%E5%8D%95%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/index.html">
 <meta property="og:site_name" content="云梦泽的个人博客">
-<meta property="og:description" content="获取添加菜单接口的实现  获取菜单表单数据接口的需求 校验父菜单是否存在（如果不是顶级菜单） 对路由路径进行校验，其中目录和菜单必填，按钮可不填 检查同一父菜单下是否存在同名菜单 检查同一父菜单下路由路径是否重复（仅检查新增目录和菜单的情况） 对 params 字段进行处理 要将其转换成 string 再存入数据库   代码实现 创建 AddMenuDto 和 MenuParamDto  1234">
+<meta property="og:description" content="添加菜单接口的实现  添加菜单接口的需求 校验父菜单是否存在（如果不是顶级菜单） 对路由路径进行校验，其中目录和菜单必填，按钮可不填 检查同一父菜单下是否存在同名菜单 检查同一父菜单下路由路径是否重复（仅检查新增目录和菜单的情况） 对 params 字段进行处理 要将其转换成 string 再存入数据库   代码实现 创建 AddMenuDto 和 MenuParamDto  1234567891">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/%E5%A3%81%E7%BA%B8105.jpg">
 <meta property="article:published_time" content="2026-05-05T10:05:14.000Z">
-<meta property="article:modified_time" content="2026-05-06T11:13:02.203Z">
+<meta property="article:modified_time" content="2026-05-15T08:56:41.203Z">
 <meta property="article:author" content="云梦泽">
 <meta property="article:tag" content="技术向">
 <meta property="article:tag" content="个人博客">
@@ -347,7 +347,7 @@
         aria-expanded="true"
       >
         博客开发
-        <span class="list-group-count">(104)</span>
+        <span class="list-group-count">(111)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -523,6 +523,15 @@
     
       
       
+        <a href="/2026/05/15/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%88%A0%E9%99%A4%E8%A7%92%E8%89%B2%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之删除角色接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之删除角色接口的实现</span>
+        </a>
+      
+    
+      
+      
         <a href="/2026/05/03/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%88%A0%E9%99%A4%E8%AF%84%E8%AE%BA%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之删除评论接口的实现"
            class="list-group-item list-group-item-action
            ">
@@ -590,6 +599,24 @@
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">『博客开发日记-后台』之导出评论数据接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/15/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E6%96%B0%E5%A2%9E%E8%A7%92%E8%89%B2%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之新增角色接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之新增角色接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/15/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E6%9B%B4%E6%96%B0%E5%AE%A1%E6%A0%B8%E8%AF%84%E8%AE%BA%E7%9A%84%E6%96%B9%E6%B3%95/" title="『博客开发日记-后台』之更新审核评论的方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之更新审核评论的方法</span>
         </a>
       
     
@@ -698,6 +725,15 @@
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">『博客开发日记-后台』之编辑更新文章接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/15/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E7%BC%96%E8%BE%91%E8%A7%92%E8%89%B2%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之编辑角色接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之编辑角色接口的实现</span>
         </a>
       
     
@@ -856,6 +892,24 @@
     
       
       
+        <a href="/2026/05/15/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E8%A7%92%E8%89%B2%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取角色表单数据接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取角色表单数据接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/15/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E8%A7%92%E8%89%B2%E9%83%A8%E9%97%A8ID%E9%9B%86%E5%90%88%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取角色部门ID集合接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取角色部门ID集合接口的实现</span>
+        </a>
+      
+    
+      
+      
         <a href="/2026/04/30/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E8%AF%84%E8%AE%BA%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取评论列表接口的实现"
            class="list-group-item list-group-item-action
            ">
@@ -869,6 +923,15 @@
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">『博客开发日记-后台』之获取评论统计信息接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/15/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E9%83%A8%E9%97%A8%E4%B8%8B%E6%8B%89%E9%80%89%E9%A1%B9%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取部门下拉选项接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取部门下拉选项接口的实现</span>
         </a>
       
     
@@ -1318,7 +1381,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年5月6日 晚上
+                    本文最后更新于 2026年5月15日 下午
                   
                 
               </p>
@@ -1326,9 +1389,9 @@
             
               <div class="markdown-body">
                 
-                <h1 align="center"><span id="获取添加菜单接口的实现"><span style="color: cadetblue;">获取添加菜单接口的实现</span></span></h1>
+                <h1 align="center"><span id="添加菜单接口的实现"><span style="color: cadetblue;">添加菜单接口的实现</span></span></h1>
 <hr>
-<h2 style="color: #b7a0e0"><span id="获取菜单表单数据接口的需求">获取菜单表单数据接口的需求</span></h2>
+<h2 style="color: #b7a0e0"><span id="添加菜单接口的需求">添加菜单接口的需求</span></h2>
 <p>校验父菜单是否存在（如果不是顶级菜单）</p>
 <p>对路由路径进行校验，其中目录和菜单必填，按钮可不填</p>
 <p>检查同一父菜单下是否存在同名菜单</p>
@@ -1444,7 +1507,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2026年5月6日</div>
+          <div>2026年5月15日</div>
         </div>
       
       
