@@ -19,16 +19,16 @@
   <meta name="author" content="云梦泽">
   <meta name="keywords" content="js html">
   
-    <meta name="description" content="获取部门下拉选项接口的实现  获取部门下拉选项接口的需求 按排序字段降序排列 查询状态正常的部门   代码实现  创建 DeptOptionVo   123456789101112131415161718192021@Data@AllArgsConstructor@NoArgsConstructor@Accessors(chain &#x3D; true)@ApiModel(description &#x3D; &amp;q">
+    <meta name="description" content="获取部门下拉选项接口的实现  获取部门下拉选项接口的需求 按排序字段降序排列 查询状态正常的部门 要根据用户当前所拥有的权限来查询部门列表 如果当前用户无权查看部门，则不能显示出来    代码实现  创建 DeptOptionVo   123456789101112131415161718192021@Data@AllArgsConstructor@NoArgsConstructor@Access">
 <meta property="og:type" content="article">
 <meta property="og:title" content="『博客开发日记-后台』之获取部门下拉选项接口的实现">
 <meta property="og:url" content="http://example.com/2026/05/15/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E9%83%A8%E9%97%A8%E4%B8%8B%E6%8B%89%E9%80%89%E9%A1%B9%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/index.html">
 <meta property="og:site_name" content="云梦泽的个人博客">
-<meta property="og:description" content="获取部门下拉选项接口的实现  获取部门下拉选项接口的需求 按排序字段降序排列 查询状态正常的部门   代码实现  创建 DeptOptionVo   123456789101112131415161718192021@Data@AllArgsConstructor@NoArgsConstructor@Accessors(chain &#x3D; true)@ApiModel(description &#x3D; &amp;q">
+<meta property="og:description" content="获取部门下拉选项接口的实现  获取部门下拉选项接口的需求 按排序字段降序排列 查询状态正常的部门 要根据用户当前所拥有的权限来查询部门列表 如果当前用户无权查看部门，则不能显示出来    代码实现  创建 DeptOptionVo   123456789101112131415161718192021@Data@AllArgsConstructor@NoArgsConstructor@Access">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/%E5%A3%81%E7%BA%B8120.jpg">
 <meta property="article:published_time" content="2026-05-15T06:51:22.000Z">
-<meta property="article:modified_time" content="2026-05-15T07:11:49.583Z">
+<meta property="article:modified_time" content="2026-05-17T10:20:35.905Z">
 <meta property="article:author" content="云梦泽">
 <meta property="article:tag" content="技术向">
 <meta property="article:tag" content="个人博客">
@@ -273,7 +273,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          545 字
+          1.3k 字
         
       </span>
     
@@ -284,7 +284,7 @@
         
         
         
-          5 分钟
+          11 分钟
         
       </span>
     
@@ -347,7 +347,7 @@
         aria-expanded="true"
       >
         博客开发
-        <span class="list-group-count">(111)</span>
+        <span class="list-group-count">(118)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -358,6 +358,15 @@
           
   <div class="category-post-list">
     
+    
+      
+      
+        <a href="/2026/05/16/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%20%E8%8E%B7%E5%8F%96%E8%AE%BF%E9%97%AE%E8%B6%8B%E5%8A%BF%20%E5%92%8C%20%E8%8E%B7%E5%8F%96%E6%B5%8F%E8%A7%88%E9%87%8F%E6%A6%82%E8%A7%88%20%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之 获取访问趋势 和 获取浏览量概览 接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之 获取访问趋势 和 获取浏览量概览 接口的实现</span>
+        </a>
+      
     
       
       
@@ -613,6 +622,15 @@
     
       
       
+        <a href="/2026/05/17/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E6%97%A5%E5%BF%97%E5%AF%BC%E5%87%BA%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之日志导出接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之日志导出接口的实现</span>
+        </a>
+      
+    
+      
+      
         <a href="/2026/05/15/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E6%9B%B4%E6%96%B0%E5%AE%A1%E6%A0%B8%E8%AF%84%E8%AE%BA%E7%9A%84%E6%96%B9%E6%B3%95/" title="『博客开发日记-后台』之更新审核评论的方法"
            class="list-group-item list-group-item-action
            ">
@@ -802,6 +820,15 @@
     
       
       
+        <a href="/2026/05/16/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E6%97%A5%E5%BF%97%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取日志列表接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取日志列表接口的实现</span>
+        </a>
+      
+    
+      
+      
         <a href="/2026/04/10/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E6%A0%87%E7%AD%BE%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取标签列表接口的实现"
            class="list-group-item list-group-item-action
            ">
@@ -824,6 +851,24 @@
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">『博客开发日记-后台』之获取用户信息接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/17/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取用户列表接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取用户列表接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/17/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取用户表单数据接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取用户表单数据接口的实现</span>
         </a>
       
     
@@ -932,6 +977,15 @@
            class="list-group-item list-group-item-action
            active">
           <span class="category-post">『博客开发日记-后台』之获取部门下拉选项接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/16/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%AE%B0%E5%BD%95%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之记录访问日志接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之记录访问日志接口的实现</span>
         </a>
       
     
@@ -1076,6 +1130,15 @@
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">『博客开发日记』之升级 SensitiveUtilServiceImpl</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/16/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8D%87%E7%BA%A7%E8%AE%B0%E5%BD%95%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97%E6%8E%A5%E5%8F%A3/" title="『博客开发日记』之升级记录访问日志接口"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之升级记录访问日志接口</span>
         </a>
       
     
@@ -1381,7 +1444,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年5月15日 下午
+                    本文最后更新于 2026年5月17日 晚上
                   
                 
               </p>
@@ -1394,6 +1457,9 @@
 <h2 style="color: #b7a0e0"><span id="获取部门下拉选项接口的需求">获取部门下拉选项接口的需求</span></h2>
 <p>按排序字段降序排列</p>
 <p>查询状态正常的部门</p>
+<p>要根据用户当前所拥有的权限来查询部门列表</p>
+<p>如果当前用户无权查看部门，则不能显示出来</p>
+<p></p>
 <hr>
 
 <h2 style="color: #b7a0e0"><span id="代码实现">代码实现</span></h2>
@@ -1407,10 +1473,23 @@
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 部门接口</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@RequestMapping(&quot;/depts&quot;)</span><br><span class="hljs-meta">@Api(tags = &quot;部门&quot;, description = &quot;部门接口&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DeptController</span><br>&#123;<br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> SysDeptService sysDeptService;<br><br><br><br><br><br><br><br>    <span class="hljs-meta">@GetMapping(&quot;/options&quot;)</span><br>    <span class="hljs-meta">@SystemLog(businessName = &quot;部门下拉选项&quot;)</span><br>    <span class="hljs-meta">@ApiOperation(value = &quot;部门下拉选项&quot;, notes = &quot;获取部门下拉数据&quot;, response = DeptOptionVo.class, responseContainer = &quot;List&quot;)</span><br>    <span class="hljs-keyword">public</span> ResponseResult <span class="hljs-title function_">getDeptOptions</span><span class="hljs-params">()</span><br>    &#123;<br>        <span class="hljs-keyword">return</span> sysDeptService.getDeptOptions();<br>    &#125;<br><br><br>&#125;<br><br></code></pre></td></tr></table></figure>
 
+<p>在 SysRoleServiceImpl 中</p>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//查询di为1的用户所拥有的角色列表</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> List&lt;SysRole&gt; <span class="hljs-title function_">selectRolesByUserId</span><span class="hljs-params">(Long id)</span><br>    &#123;<br>        <span class="hljs-keyword">if</span> (id == <span class="hljs-number">1L</span>) &#123;<br>            <span class="hljs-type">SysRole</span> <span class="hljs-variable">sysRole</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SysRole</span>();<br>            sysRole.setId(<span class="hljs-number">1L</span>);<br>            sysRole.setRoleCode(<span class="hljs-string">&quot;admin&quot;</span>);<br>            sysRole.setName(<span class="hljs-string">&quot;系统超级管理员&quot;</span>);<br>            sysRole.setDataScope(<span class="hljs-number">1</span>);<br>            <span class="hljs-keyword">return</span> List.of(sysRole);<br>        &#125;<br>        <span class="hljs-keyword">return</span> getBaseMapper().selectRolesByUserId(id);<br>    &#125;<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>相对应的在 SysRoleMapper.xml 也要写上对应的sql联表查询</p>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs xml"><br><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;selectRolesByUserId&quot;</span> <span class="hljs-attr">resultType</span>=<span class="hljs-string">&quot;com.mengze.domain.entity.SysRole&quot;</span>&gt;</span><br>SELECT r.id,<br>r.role_code,<br>r.name,<br>r.data_scope<br>FROM sys_user_role ur<br>LEFT JOIN sys_role r ON ur.role_id = r.id<br>WHERE ur.user_id = #&#123;userId&#125;<br>AND r.`status` = 0<br>AND r.del_flag = 0<br><span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
+<hr>
+
+
+<p></p>
+<p></p>
 
 <p>在 SysDeptServiceImpl 中</p>
 
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><code class="hljs java"> <span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 部门表(SysDept)表服务实现类</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> makejava</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@since</span> 2026-05-15 13:06:17</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Service(&quot;sysDeptService&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SysDeptServiceImpl</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ServiceImpl</span>&lt;SysDeptMapper, SysDept&gt; <span class="hljs-keyword">implements</span> <span class="hljs-title class_">SysDeptService</span><br>&#123;<br><br><br><br>    <span class="hljs-comment">//获取部门下拉选项（树结构）</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> ResponseResult&lt;List&lt;DeptOptionVo&gt;&gt; <span class="hljs-title function_">getDeptOptions</span><span class="hljs-params">()</span><br>    &#123;<br>        <span class="hljs-comment">//构建查询条件</span><br>        LambdaQueryWrapper&lt;SysDept&gt; queryWrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaQueryWrapper</span>&lt;&gt;();<br><br>        <span class="hljs-comment">//查询状态正常的部门,按排序降序</span><br>        queryWrapper.eq(SysDept::getStatus, SystemConstants.STATUS_NORMAL)<br>                .orderByAsc(SysDept::getSort);<br><br>        <span class="hljs-comment">//查询所有符合条件的部门</span><br>        List&lt;SysDept&gt; sysDepts = list(queryWrapper);<br><br>        <span class="hljs-comment">//封装成vo</span><br>        List&lt;DeptOptionVo&gt; deptOptionVos = BeanCopyUtils.copyBeanList(sysDepts, DeptOptionVo.class);<br><br>        <span class="hljs-comment">//构建菜单树</span><br>        List&lt;DeptOptionVo&gt; deptOptionTree = builderDeptOptionsTree(deptOptionVos, <span class="hljs-number">0L</span>);<br><br>        <span class="hljs-keyword">return</span> ResponseResult.okResult(deptOptionTree);<br>    &#125;<br><br><br><br>    <span class="hljs-comment">//创建DeptOptions的菜单树</span><br>    <span class="hljs-keyword">private</span> List&lt;DeptOptionVo&gt; <span class="hljs-title function_">builderDeptOptionsTree</span><span class="hljs-params">(List&lt;DeptOptionVo&gt; deptOptionVos, Long parentId)</span><br>    &#123;<br>        <span class="hljs-keyword">return</span> deptOptionVos.stream()<br>                .filter(deptOptionVo -&gt; parentId.equals(deptOptionVo.getParentId()))<br>                .map(menu -&gt; menu.setChildren(getChildrenByDeptOptions(menu, deptOptionVos)))<br>                .collect(Collectors.toList());<br>    &#125;<br><br>    <span class="hljs-comment">//获取传入参数的 子部门集合</span><br>    <span class="hljs-keyword">private</span> List&lt;DeptOptionVo&gt; <span class="hljs-title function_">getChildrenByDeptOptions</span><span class="hljs-params">(DeptOptionVo deptOptionVo, List&lt;DeptOptionVo&gt; deptOptionVos)</span><br>    &#123;<br>        <span class="hljs-keyword">return</span> deptOptionVos.stream()<br>                .filter(child -&gt; deptOptionVo.getId().equals(child.getParentId()))<br>                .map(child -&gt; child.setChildren(getChildrenByDeptOptions(child, deptOptionVos)))<br>                .collect(Collectors.toList());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 部门表(SysDept)表服务实现类</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> makejava</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@since</span> 2026-05-15 13:06:17</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Service(&quot;sysDeptService&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SysDeptServiceImpl</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ServiceImpl</span>&lt;SysDeptMapper, SysDept&gt; <span class="hljs-keyword">implements</span> <span class="hljs-title class_">SysDeptService</span><br>&#123;<br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> SysRoleService sysRoleService;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> SysRoleDeptService sysRoleDeptService;<br><br>    <span class="hljs-comment">//获取部门下拉选项（树结构）</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> ResponseResult&lt;List&lt;DeptOptionVo&gt;&gt; <span class="hljs-title function_">getDeptOptions</span><span class="hljs-params">()</span><br>    &#123;<br>        <span class="hljs-comment">//构建查询条件</span><br>        LambdaQueryWrapper&lt;SysDept&gt; queryWrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaQueryWrapper</span>&lt;&gt;();<br><br>        <span class="hljs-comment">//当前登录用户</span><br>        <span class="hljs-type">LoginUser</span> <span class="hljs-variable">loginUser</span> <span class="hljs-operator">=</span> SecurityUtils.getLoginUser();<br>        <span class="hljs-type">Long</span> <span class="hljs-variable">currentUserId</span> <span class="hljs-operator">=</span> loginUser.getSysUser().getId();<br><br>        <span class="hljs-comment">//超级管理员直接看全部；普通用户按数据权限限制</span><br>        <span class="hljs-keyword">if</span> (!Objects.equals(currentUserId, <span class="hljs-number">1L</span>)) &#123;<br>            List&lt;SysRole&gt; roles = sysRoleService.selectRolesByUserId(currentUserId);<br>            <span class="hljs-type">Integer</span> <span class="hljs-variable">maxDataScope</span> <span class="hljs-operator">=</span> roles.stream()<br>                    .map(SysRole::getDataScope)<br>                    .filter(Objects::nonNull)<br>                    .min(Integer::compareTo)<br>                    .orElse(<span class="hljs-number">4</span>);<br><br>            <span class="hljs-comment">//判断用户权限大小</span><br>            <span class="hljs-type">String</span> <span class="hljs-variable">deptId</span> <span class="hljs-operator">=</span> loginUser.getSysUser().getDeptId();<br>            <span class="hljs-comment">//超级管理员可以看到所有是数据</span><br>            <span class="hljs-keyword">if</span> (!Objects.equals(maxDataScope, <span class="hljs-number">1</span>))<br>            &#123;<br>                <span class="hljs-comment">//可查看本部门及子部门</span><br>                <span class="hljs-keyword">if</span> (Objects.equals(maxDataScope, <span class="hljs-number">2</span>)) &#123;<br>                    <span class="hljs-comment">//如果当前用户本身绑定了部门就查出本部门以及所有子部门</span><br>                    <span class="hljs-keyword">if</span> (deptId != <span class="hljs-literal">null</span> &amp;&amp; !deptId.isBlank()) &#123;<br>                        List&lt;Long&gt; deptIds = selectDeptAndChildrenIds(Long.valueOf(deptId));<br>                        queryWrapper.in(SysDept::getId, deptIds);<br>                    &#125; <span class="hljs-keyword">else</span> &#123;<br>                        <span class="hljs-comment">//如果当前用户没有部门信息则只能看自己创建的数据</span><br>                        queryWrapper.eq(SysDept::getCreateBy, currentUserId);<br>                    &#125;<br>                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (Objects.equals(maxDataScope, <span class="hljs-number">3</span>)) &#123;<br>                    <span class="hljs-comment">//只能查看本部门数据</span><br>                    <span class="hljs-keyword">if</span> (deptId != <span class="hljs-literal">null</span> &amp;&amp; !deptId.isBlank()) &#123;<br>                        queryWrapper.eq(SysDept::getId, Long.valueOf(deptId));<br>                    &#125; <span class="hljs-keyword">else</span> &#123;<br>                        <span class="hljs-comment">//如果当前用户没有部门信息则只能看自己创建的数据</span><br>                        queryWrapper.eq(SysDept::getCreateBy, currentUserId);<br>                    &#125;<br>                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (Objects.equals(maxDataScope, <span class="hljs-number">4</span>)) &#123;<br>                    <span class="hljs-comment">//只能查看本人创建的数据</span><br>                    queryWrapper.eq(SysDept::getCreateBy, currentUserId);<br>                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (Objects.equals(maxDataScope, <span class="hljs-number">5</span>)) &#123;<br>                    <span class="hljs-comment">//表示自定义部门权限</span><br>                    <span class="hljs-comment">//先遍历用户拥有的角色 把所有自定义部门权限对应的部门都查出来</span><br>                    List&lt;Long&gt; deptIds = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>                    <span class="hljs-keyword">for</span> (SysRole role : roles) &#123;<br>                        <span class="hljs-keyword">if</span> (Objects.equals(role.getDataScope(), <span class="hljs-number">5</span>)) &#123;<br>                            deptIds.addAll(selectDeptAndChildrenIdsByRole(role.getId()));<br>                        &#125;<br>                    &#125;<br><br>                    <span class="hljs-comment">//如果查到了对应部门就按部门进行过滤</span><br>                    <span class="hljs-keyword">if</span> (!deptIds.isEmpty()) &#123;<br>                        queryWrapper.in(SysDept::getId, deptIds);<br>                    &#125; <span class="hljs-keyword">else</span> &#123;<br>                        <span class="hljs-comment">//如果没有配置任何自定义部门权限则只能看自己创建的数据</span><br>                        queryWrapper.eq(SysDept::getCreateBy, currentUserId);<br>                    &#125;<br>                &#125;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-comment">//查询状态正常的部门,按排序降序</span><br>        queryWrapper.eq(SysDept::getStatus, SystemConstants.STATUS_NORMAL)<br>                .orderByAsc(SysDept::getSort);<br><br>        <span class="hljs-comment">//查询所有符合条件的部门</span><br>        List&lt;SysDept&gt; sysDepts = list(queryWrapper);<br><br>        <span class="hljs-comment">//如果不是超级管理员且查出来的部门不包含根节点，则补上根节点，保证树能正常展开</span><br>        <span class="hljs-keyword">if</span> (!Objects.equals(currentUserId, <span class="hljs-number">1L</span>)) &#123;<br>            sysDepts = addParentDepts(sysDepts);<br>        &#125;<br><br>        <span class="hljs-comment">//封装成vo</span><br>        List&lt;DeptOptionVo&gt; deptOptionVos = BeanCopyUtils.copyBeanList(sysDepts, DeptOptionVo.class);<br><br>        <span class="hljs-comment">//构建菜单树</span><br>        List&lt;DeptOptionVo&gt; deptOptionTree = builderDeptOptionsTree(deptOptionVos, <span class="hljs-number">0L</span>);<br><br>        <span class="hljs-keyword">return</span> ResponseResult.okResult(deptOptionTree);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> List&lt;Long&gt; <span class="hljs-title function_">selectDeptAndChildrenIds</span><span class="hljs-params">(Long deptId)</span><br>    &#123;<br>        List&lt;Long&gt; deptIds = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>        collectDeptAndChildrenIds(deptId, deptIds);<br>        <span class="hljs-keyword">return</span> deptIds;<br>    &#125;<br><br>    <span class="hljs-comment">//添加父部门</span><br>    <span class="hljs-keyword">private</span> List&lt;SysDept&gt; <span class="hljs-title function_">addParentDepts</span><span class="hljs-params">(List&lt;SysDept&gt; sysDepts)</span><br>    &#123;<br>        List&lt;SysDept&gt; allDepts = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;(sysDepts);<br>        <span class="hljs-keyword">for</span> (SysDept dept : sysDepts) &#123;<br>            collectParentDepts(dept.getParentId(), allDepts);<br>        &#125;<br>        <span class="hljs-keyword">return</span> allDepts.stream().distinct().collect(Collectors.toList());<br>    &#125;<br><br>    <span class="hljs-comment">//收集父部门</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">collectParentDepts</span><span class="hljs-params">(Long parentId, List&lt;SysDept&gt; allDepts)</span><br>    &#123;<br>        <span class="hljs-keyword">if</span> (parentId == <span class="hljs-literal">null</span> || parentId == <span class="hljs-number">0L</span>) &#123;<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-type">SysDept</span> <span class="hljs-variable">parent</span> <span class="hljs-operator">=</span> getById(parentId);<br>        <span class="hljs-keyword">if</span> (parent != <span class="hljs-literal">null</span> &amp;&amp; allDepts.stream().noneMatch(item -&gt; Objects.equals(item.getId(), parent.getId()))) &#123;<br>            allDepts.add(parent);<br>            collectParentDepts(parent.getParentId(), allDepts);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">//根据当前角色查询部门id</span><br>    <span class="hljs-keyword">private</span> List&lt;Long&gt; <span class="hljs-title function_">selectDeptAndChildrenIdsByRole</span><span class="hljs-params">(Long roleId)</span><br>    &#123;<br>        LambdaQueryWrapper&lt;SysRoleDept&gt; wrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaQueryWrapper</span>&lt;&gt;();<br>        wrapper.eq(SysRoleDept::getRoleId, roleId)<br>                .select(SysRoleDept::getDeptId);<br>        List&lt;SysRoleDept&gt; roleDepts = sysRoleDeptService.list(wrapper);<br>        List&lt;Long&gt; deptIds = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>        <span class="hljs-keyword">for</span> (SysRoleDept roleDept : roleDepts) &#123;<br>            deptIds.addAll(selectDeptAndChildrenIds(roleDept.getDeptId()));<br>        &#125;<br>        <span class="hljs-keyword">return</span> deptIds;<br>    &#125;<br><br>    <span class="hljs-comment">//查询部门与子部门id</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">collectDeptAndChildrenIds</span><span class="hljs-params">(Long deptId, List&lt;Long&gt; deptIds)</span><br>    &#123;<br>        deptIds.add(deptId);<br>        LambdaQueryWrapper&lt;SysDept&gt; queryWrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaQueryWrapper</span>&lt;&gt;();<br>        queryWrapper.eq(SysDept::getParentId, deptId)<br>                .eq(SysDept::getStatus, SystemConstants.STATUS_NORMAL);<br>        List&lt;SysDept&gt; children = list(queryWrapper);<br>        <span class="hljs-keyword">for</span> (SysDept child : children) &#123;<br>            collectDeptAndChildrenIds(child.getId(), deptIds);<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
 <hr>
 
 <p></p>
@@ -1508,7 +1587,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2026年5月15日</div>
+          <div>2026年5月17日</div>
         </div>
       
       
