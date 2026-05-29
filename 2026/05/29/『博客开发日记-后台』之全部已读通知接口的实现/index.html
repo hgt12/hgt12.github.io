@@ -19,29 +19,29 @@
   <meta name="author" content="云梦泽">
   <meta name="keywords" content="js html">
   
-    <meta name="description" content="获取通知详情接口的实现  获取通知详情接口的需求 检查id是否为空 查询通知基础信息 未登录用户只能查看全体通知；登录用户可查看全体通知和发给自己的指定通知 回填发布人名称 回填指定接收人的信息 登录用户查看详情后更新阅读状态      代码实现 在 NoticeController 中添加接口  123456789@GetMapping(&quot;&#x2F;notice&#x2F;&#123;id&#125;&amp;">
+    <meta name="description" content="全部已读通知接口的实现  全部已读通知接口的需求 先校验登录状态，如果是未登录返回需要登录 查询当前用户可见的已发布的通知 将通知在 sys_notice_user 中批量标记为已读 没有通知时直接返回 提取当前页可见通知ID 查询当前用户针对这些通知是否已经存在阅读记录 新增未读记录和更新已有未读记录分开来收集然后再批量入库 当前用户没有该通知的阅读记录，则新增一条已读记录 已有记录但状态不是已">
 <meta property="og:type" content="article">
-<meta property="og:title" content="『博客开发日记』之获取通知详情接口的实现">
-<meta property="og:url" content="http://example.com/2026/05/28/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E9%80%9A%E7%9F%A5%E8%AF%A6%E6%83%85%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:title" content="『博客开发日记-后台』之全部已读通知接口的实现">
+<meta property="og:url" content="http://example.com/2026/05/29/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%85%A8%E9%83%A8%E5%B7%B2%E8%AF%BB%E9%80%9A%E7%9F%A5%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/index.html">
 <meta property="og:site_name" content="云梦泽的个人博客">
-<meta property="og:description" content="获取通知详情接口的实现  获取通知详情接口的需求 检查id是否为空 查询通知基础信息 未登录用户只能查看全体通知；登录用户可查看全体通知和发给自己的指定通知 回填发布人名称 回填指定接收人的信息 登录用户查看详情后更新阅读状态      代码实现 在 NoticeController 中添加接口  123456789@GetMapping(&quot;&#x2F;notice&#x2F;&#123;id&#125;&amp;">
+<meta property="og:description" content="全部已读通知接口的实现  全部已读通知接口的需求 先校验登录状态，如果是未登录返回需要登录 查询当前用户可见的已发布的通知 将通知在 sys_notice_user 中批量标记为已读 没有通知时直接返回 提取当前页可见通知ID 查询当前用户针对这些通知是否已经存在阅读记录 新增未读记录和更新已有未读记录分开来收集然后再批量入库 当前用户没有该通知的阅读记录，则新增一条已读记录 已有记录但状态不是已">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/%E5%A3%81%E7%BA%B8173.jpg">
-<meta property="article:published_time" content="2026-05-28T11:46:31.000Z">
-<meta property="article:modified_time" content="2026-05-28T12:21:52.579Z">
+<meta property="og:image" content="http://example.com/img/%E5%A3%81%E7%BA%B8178.jpg">
+<meta property="article:published_time" content="2026-05-29T10:52:34.000Z">
+<meta property="article:modified_time" content="2026-05-29T11:01:05.186Z">
 <meta property="article:author" content="云梦泽">
 <meta property="article:tag" content="技术向">
 <meta property="article:tag" content="个人博客">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="后端">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/%E5%A3%81%E7%BA%B8173.jpg">
+<meta name="twitter:image" content="http://example.com/img/%E5%A3%81%E7%BA%B8178.jpg">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>『博客开发日记』之获取通知详情接口的实现 - 云梦泽的个人博客</title>
+  <title>『博客开发日记-后台』之全部已读通知接口的实现 - 云梦泽的个人博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -239,13 +239,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/%E5%A3%81%E7%BA%B8173.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('/img/%E5%A3%81%E7%BA%B8178.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="『博客开发日记』之获取通知详情接口的实现"></span>
+            <span id="subtitle" data-typed-text="『博客开发日记-后台』之全部已读通知接口的实现"></span>
           
         </div>
 
@@ -261,8 +261,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2026-05-28 19:46" pubdate>
-          2026年5月28日 晚上
+        <time datetime="2026-05-29 18:52" pubdate>
+          2026年5月29日 晚上
         </time>
       </span>
     
@@ -273,7 +273,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          929 字
+          757 字
         
       </span>
     
@@ -284,7 +284,7 @@
         
         
         
-          8 分钟
+          7 分钟
         
       </span>
     
@@ -347,7 +347,7 @@
         aria-expanded="true"
       >
         博客开发
-        <span class="list-group-count">(159)</span>
+        <span class="list-group-count">(165)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -464,6 +464,15 @@
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">『博客开发日记-后台』之修改用户个人中心信息接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/29/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%85%A8%E9%83%A8%E5%B7%B2%E8%AF%BB%E9%80%9A%E7%9F%A5%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之全部已读通知接口的实现"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">『博客开发日记-后台』之全部已读通知接口的实现</span>
         </a>
       
     
@@ -613,6 +622,15 @@
     
       
       
+        <a href="/2026/05/29/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%88%A0%E9%99%A4%E9%80%9A%E7%9F%A5%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之删除通知接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之删除通知接口的实现</span>
+        </a>
+      
+    
+      
+      
         <a href="/2026/05/24/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%88%A0%E9%99%A4%E9%83%A8%E9%97%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之删除部门接口的实现"
            class="list-group-item list-group-item-action
            ">
@@ -644,6 +662,15 @@
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">『博客开发日记-后台』之升级添加，修改和删除文章接口</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/29/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%8F%91%E5%B8%83%E9%80%9A%E7%9F%A5%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之发布通知接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之发布通知接口的实现</span>
         </a>
       
     
@@ -698,6 +725,15 @@
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">『博客开发日记-后台』之导出评论数据接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/29/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E6%92%A4%E5%9B%9E%E9%80%9A%E7%9F%A5%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之撤回通知接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之撤回通知接口的实现</span>
         </a>
       
     
@@ -770,6 +806,15 @@
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">『博客开发日记-后台』之更新菜单接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/29/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E6%9B%B4%E6%96%B0%E9%80%9A%E7%9F%A5%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之更新通知接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之更新通知接口的实现</span>
         </a>
       
     
@@ -1261,6 +1306,24 @@
     
       
       
+        <a href="/2026/05/29/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E9%80%9A%E7%9F%A5%E8%AF%A6%E6%83%85%E4%BF%A1%E6%81%AF%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取通知详情信息接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取通知详情信息接口的实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/28/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E9%80%9A%E7%9F%A5%E8%AF%A6%E6%83%85%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取通知详情接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取通知详情接口的实现</span>
+        </a>
+      
+    
+      
+      
         <a href="/2026/05/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E9%82%AE%E7%AE%B1%E9%AA%8C%E8%AF%81%E7%A0%81%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取邮箱验证码接口的实现"
            class="list-group-item list-group-item-action
            ">
@@ -1720,15 +1783,6 @@
     
       
       
-        <a href="/2026/05/28/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E9%80%9A%E7%9F%A5%E8%AF%A6%E6%83%85%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之获取通知详情接口的实现"
-           class="list-group-item list-group-item-action
-           active">
-          <span class="category-post">『博客开发日记』之获取通知详情接口的实现</span>
-        </a>
-      
-    
-      
-      
         <a href="/2026/01/12/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E8%AF%84%E8%AE%BA%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之评论列表接口的实现"
            class="list-group-item list-group-item-action
            ">
@@ -1808,12 +1862,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">『博客开发日记』之获取通知详情接口的实现</h1>
+            <h1 id="seo-header">『博客开发日记-后台』之全部已读通知接口的实现</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年5月28日 晚上
+                    本文最后更新于 2026年5月29日 晚上
                   
                 
               </p>
@@ -1821,15 +1875,19 @@
             
               <div class="markdown-body">
                 
-                <h1 align="center"><span id="获取通知详情接口的实现"><span style="color: cadetblue;">获取通知详情接口的实现</span></span></h1>
+                <h1 align="center"><span id="全部已读通知接口的实现"><span style="color: cadetblue;">全部已读通知接口的实现</span></span></h1>
 <hr>
-<h2 style="color: #b7a0e0"><span id="获取通知详情接口的需求">获取通知详情接口的需求</span></h2>
-<p>检查id是否为空</p>
-<p>查询通知基础信息</p>
-<p>未登录用户只能查看全体通知；登录用户可查看全体通知和发给自己的指定通知</p>
-<p>回填发布人名称</p>
-<p>回填指定接收人的信息</p>
-<p>登录用户查看详情后更新阅读状态</p>
+<h2 style="color: #b7a0e0"><span id="全部已读通知接口的需求">全部已读通知接口的需求</span></h2>
+<p>先校验登录状态，如果是未登录返回需要登录</p>
+<p>查询当前用户可见的已发布的通知</p>
+<p>将通知在 sys_notice_user 中批量标记为已读</p>
+<p>没有通知时直接返回</p>
+<p>提取当前页可见通知ID</p>
+<p>查询当前用户针对这些通知是否已经存在阅读记录</p>
+<p>新增未读记录和更新已有未读记录分开来收集然后再批量入库</p>
+<p>当前用户没有该通知的阅读记录，则新增一条已读记录</p>
+<p>已有记录但状态不是已读，则更新为已读（防御性编程）</p>
+<p></p>
 <p></p>
 <p></p>
 
@@ -1838,22 +1896,12 @@
 <h2 style="color: #b7a0e0"><span id="代码实现">代码实现</span></h2>
 <p>在 NoticeController 中添加接口</p>
 
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@GetMapping(&quot;/notice/&#123;id&#125;&quot;)</span><br><span class="hljs-meta">@SystemLog(businessName = &quot;获取通知详情接口&quot;)</span><br><span class="hljs-meta">@ApiOperation(value = &quot;获取通知详情接口&quot;, notes = &quot;获取通知的详细信息&quot;, response = PageVo.class)</span><br><span class="hljs-meta">@ApiImplicitParam(name = &quot;id&quot;, value = &quot;通知id&quot;, dataType = &quot;long&quot;, paramType = &quot;path&quot;)</span><br><span class="hljs-keyword">public</span> ResponseResult&lt;BlogNoticeDetailVo&gt; <span class="hljs-title function_">getNoticeDetail</span><span class="hljs-params">(<span class="hljs-meta">@PathVariable</span> Long id)</span><br>&#123;<br>    <span class="hljs-keyword">return</span> noticeService.getNoticeDetail(id);<br>&#125;<br><br></code></pre></td></tr></table></figure>
-<hr>
-
-<p>创建 BlogNoticeDetailVo </p>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 前台通知详情Vo</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Data</span><br><span class="hljs-meta">@AllArgsConstructor</span><br><span class="hljs-meta">@NoArgsConstructor</span><br><span class="hljs-meta">@Accessors(chain = true)</span><br><span class="hljs-meta">@ApiModel(description = &quot;前台通知详情响应对象&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">BlogNoticeDetailVo</span><br>&#123;<br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;通知id&quot;, example = &quot;6&quot;)</span><br>    <span class="hljs-keyword">private</span> Long id;<br><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;通知标题&quot;, example = &quot;这里是标题&quot;)</span><br>    <span class="hljs-keyword">private</span> String title;<br><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;通知内容&quot;, example = &quot;这里是内容&quot;)</span><br>    <span class="hljs-keyword">private</span> String content;<br><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;通知类型（关联字典编码：notice_type）&quot;, example = &quot;系统维护&quot;)</span><br>    <span class="hljs-keyword">private</span> Integer type;<br><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;通知等级（字典code：notice_level）&quot;, example = &quot;M&quot;)</span><br>    <span class="hljs-keyword">private</span> String level;<br><br>    <span class="hljs-meta">@TableField(exist = false)</span><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;读取状态（0: 未读, 1: 已读）&quot;, example = &quot;0&quot;)</span><br>    <span class="hljs-keyword">private</span> String isRead;<br><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;目标类型（1: 全体, 2: 指定）&quot;, example = &quot;1&quot;)</span><br>    <span class="hljs-keyword">private</span> String targetType;<br><br>    <span class="hljs-meta">@TableField(exist = false)</span><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;目标用户ID集合（多个使用英文逗号分割）&quot;, example = &quot;1,2,3&quot;)</span><br>    <span class="hljs-keyword">private</span> String targetUserIds;<br><br>    <span class="hljs-meta">@TableField(exist = false)</span><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;目标人名集合（多个使用英文逗号,分割）&quot;, example = &quot;[&#x27;张三&#x27;，&#x27;李四&#x27;]&quot;)</span><br>    <span class="hljs-keyword">private</span> List&lt;String&gt; targetName;<br><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;发布人名字&quot;, example = &quot;云梦泽&quot;)</span><br>    <span class="hljs-keyword">private</span> String publisherName;<br><br>    <span class="hljs-meta">@TableField(fill = FieldFill.INSERT_UPDATE)</span><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;发布时间&quot;, example = &quot;2024-01-01 12:00:00&quot;)</span><br>    <span class="hljs-keyword">private</span> Date publishTime;<br>&#125;<br></code></pre></td></tr></table></figure>
-<hr>
-
-<p>添加常量</p>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">    <span class="hljs-comment">/**</span><br><span class="hljs-comment"> *  通知已读</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">NOTICE_IS_READ</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;1&quot;</span>;<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@PutMapping(&quot;/read-all&quot;)</span><br><span class="hljs-meta">@SystemLog(businessName = &quot;通知全部已读&quot;)</span><br><span class="hljs-meta">@ApiOperation(value = &quot;通知全部已读接口&quot;, notes = &quot;通知全部已读&quot;, response = String.class)</span><br><span class="hljs-keyword">public</span> ResponseResult <span class="hljs-title function_">readAllNotice</span><span class="hljs-params">()</span><br>&#123;<br>    <span class="hljs-keyword">return</span> sysNoticeService.readAllNotice();<br>&#125;<br></code></pre></td></tr></table></figure>
 <hr>
 
 <p>在 NoticeServiceImpl 中</p>
 
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//获取通知详情</span><br><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> ResponseResult&lt;BlogNoticeDetailVo&gt; <span class="hljs-title function_">getNoticeDetail</span><span class="hljs-params">(Long id)</span><br>&#123;<br>    <span class="hljs-comment">//检查id是否为空</span><br>    <span class="hljs-keyword">if</span> (id == <span class="hljs-literal">null</span>) &#123;<br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR, <span class="hljs-string">&quot;通知id不能为空&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-type">Long</span> <span class="hljs-variable">userId</span> <span class="hljs-operator">=</span> SecurityUtils.getUserId();<br><br>    <span class="hljs-comment">//查询通知基础信息</span><br>    LambdaQueryWrapper&lt;SysNotice&gt; queryWrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaQueryWrapper</span>&lt;&gt;();<br>    queryWrapper.eq(SysNotice::getId, id)<br>            .eq(SysNotice::getStatus, SystemConstants.NOTICE_STATUS_PUBLISHED)<br>            .eq(SysNotice::getDelFlag, SystemConstants.STATUS_NORMAL);<br><br>    <span class="hljs-comment">//未登录用户只能查看全体通知；登录用户可查看全体通知和发给自己的指定通知</span><br>    <span class="hljs-keyword">if</span> (userId == <span class="hljs-literal">null</span>) &#123;<br>        queryWrapper.eq(SysNotice::getTargetType, SystemConstants.TARGET_TYPE_IS_ALL);<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        queryWrapper.and(wrapper -&gt; wrapper<br>                .eq(SysNotice::getTargetType, SystemConstants.TARGET_TYPE_IS_ALL)<br>                .or(orWrapper -&gt; orWrapper<br>                        .eq(SysNotice::getTargetType, SystemConstants.TARGET_TYPE_IS_SPECIFIED)<br>                        .apply(<span class="hljs-string">&quot;find_in_set(&#123;0&#125;, target_user_ids)&quot;</span>, userId)));<br>    &#125;<br><br>    <span class="hljs-type">SysNotice</span> <span class="hljs-variable">notice</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.getOne(queryWrapper);<br>    <span class="hljs-keyword">if</span> (notice == <span class="hljs-literal">null</span>) &#123;<br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.SELECT_ERROR, <span class="hljs-string">&quot;通知不存在或无权限查看&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-type">BlogNoticeDetailVo</span> <span class="hljs-variable">noticeDetailVo</span> <span class="hljs-operator">=</span> BeanCopyUtils.copyBean(notice, BlogNoticeDetailVo.class);<br><br>    <span class="hljs-comment">//回填发布人名称</span><br>    <span class="hljs-keyword">if</span> (notice.getPublisherId() != <span class="hljs-literal">null</span>) &#123;<br>        <span class="hljs-type">SysUser</span> <span class="hljs-variable">publisher</span> <span class="hljs-operator">=</span> sysUserService.getById(notice.getPublisherId());<br>        <span class="hljs-keyword">if</span> (publisher != <span class="hljs-literal">null</span>) &#123;<br>            noticeDetailVo.setPublisherName(StringUtils.hasText(publisher.getNickname()) ? publisher.getNickname() : publisher.getUsername());<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">//回填指定接收人的信息</span><br>    <span class="hljs-keyword">if</span> (SystemConstants.TARGET_TYPE_IS_SPECIFIED.equals(notice.getTargetType()) &amp;&amp; StringUtils.hasText(notice.getTargetUserIds())) &#123;<br>        List&lt;Long&gt; targetUserIds = Arrays.stream(notice.getTargetUserIds().split(<span class="hljs-string">&quot;,&quot;</span>))<br>                .map(String::trim)<br>                .filter(StringUtils::hasText)<br>                .map(Long::valueOf)<br>                .distinct()<br>                .collect(Collectors.toList());<br><br>        <span class="hljs-keyword">if</span> (!targetUserIds.isEmpty()) &#123;<br>            List&lt;SysUser&gt; targetUserList = sysUserService.listByIds(targetUserIds);<br>            List&lt;String&gt; targetNames = targetUserList.stream()<br>                    .map(user -&gt; StringUtils.hasText(user.getNickname()) ? user.getNickname() : user.getUsername())<br>                    .collect(Collectors.toList());<br>            noticeDetailVo.setTargetName(targetNames);<br>        &#125;<br>        noticeDetailVo.setTargetUserIds(notice.getTargetUserIds());<br>    &#125;<br><br>    <span class="hljs-comment">//登录用户查看详情后更新阅读状态</span><br>    <span class="hljs-keyword">if</span> (userId != <span class="hljs-literal">null</span>) &#123;<br>        <span class="hljs-type">SysNoticeUser</span> <span class="hljs-variable">noticeUser</span> <span class="hljs-operator">=</span> sysNoticeUserService.getOne(<span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaQueryWrapper</span>&lt;SysNoticeUser&gt;()<br>                .eq(SysNoticeUser::getUserId, userId)<br>                .eq(SysNoticeUser::getNoticeId, notice.getId())<br>                .last(<span class="hljs-string">&quot;limit 1&quot;</span>));<br>        <span class="hljs-keyword">if</span> (noticeUser != <span class="hljs-literal">null</span> &amp;&amp; StringUtils.hasText(noticeUser.getIsRead())) &#123;<br>            noticeDetailVo.setIsRead(noticeUser.getIsRead());<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> ResponseResult.okResult(noticeDetailVo);<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//通知全部已读</span><br><span class="hljs-meta">@Override</span><br><span class="hljs-meta">@Transactional</span><br><span class="hljs-keyword">public</span> ResponseResult <span class="hljs-title function_">readAllNotice</span><span class="hljs-params">()</span><br>&#123;<br>    <span class="hljs-comment">//先校验登录状态，如果是未登录返回需要登录</span><br>    <span class="hljs-type">Long</span> <span class="hljs-variable">userId</span> <span class="hljs-operator">=</span> SecurityUtils.getUserId();<br>    <span class="hljs-keyword">if</span> (userId == <span class="hljs-literal">null</span>) &#123;<br>        <span class="hljs-keyword">return</span> ResponseResult.errorResult(AppHttpCodeEnum.NEED_LOGIN);<br>    &#125;<br><br>    <span class="hljs-comment">//查询当前用户可见的已发布的通知</span><br>    <span class="hljs-type">boolean</span> <span class="hljs-variable">isAdmin</span> <span class="hljs-operator">=</span> SecurityUtils.isAdmin();<br>    LambdaQueryWrapper&lt;SysNotice&gt; queryWrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaQueryWrapper</span>&lt;&gt;();<br>    queryWrapper.eq(SysNotice::getStatus, SystemConstants.NOTICE_STATUS_PUBLISHED);<br><br>    <span class="hljs-comment">//将通知在 sys_notice_user 中批量标记为已读</span><br>    <span class="hljs-keyword">if</span> (!isAdmin) &#123;<br>        queryWrapper.and(wrapper -&gt; wrapper.eq(SysNotice::getTargetType, SystemConstants.TARGET_TYPE_IS_ALL)<br>                .or()<br>                .apply(<span class="hljs-string">&quot;concat(&#x27;,&#x27;, target_user_ids, &#x27;,&#x27;) like &#123;0&#125;&quot;</span>, <span class="hljs-string">&quot;%,&quot;</span> + userId + <span class="hljs-string">&quot;,%&quot;</span>));<br>    &#125;<br><br>    <span class="hljs-comment">//没有通知时直接返回</span><br>    List&lt;SysNotice&gt; noticeList = sysNoticeService.list(queryWrapper);<br>    <span class="hljs-keyword">if</span> (noticeList.isEmpty()) &#123;<br>        <span class="hljs-keyword">return</span> ResponseResult.okResult();<br>    &#125;<br><br>    <span class="hljs-comment">//提取当前页可见通知ID</span><br>    List&lt;Long&gt; noticeIds = noticeList.stream().map(SysNotice::getId).toList();<br><br>    <span class="hljs-comment">//查询当前用户针对这些通知是否已经存在阅读记录</span><br>    List&lt;SysNoticeUser&gt; noticeUserList = sysNoticeUserService.list(<span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaQueryWrapper</span>&lt;SysNoticeUser&gt;()<br>            .eq(SysNoticeUser::getUserId, userId)<br>            .in(SysNoticeUser::getNoticeId, noticeIds));<br><br>    <span class="hljs-comment">//把已存在的阅读记录转成Map方便后续操作</span><br>    Map&lt;Long, SysNoticeUser&gt; noticeUserMap = noticeUserList.stream()<br>            .collect(Collectors.toMap(SysNoticeUser::getNoticeId, item -&gt; item, (oldVal, newVal) -&gt; oldVal));<br><br>    <span class="hljs-comment">//新增未读记录和更新已有未读记录分开来收集然后再批量入库</span><br>    List&lt;SysNoticeUser&gt; saveList = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>    List&lt;SysNoticeUser&gt; updateList = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>    <span class="hljs-type">Date</span> <span class="hljs-variable">now</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br>    <span class="hljs-keyword">for</span> (SysNotice notice : noticeList) &#123;<br>        <span class="hljs-type">SysNoticeUser</span> <span class="hljs-variable">noticeUser</span> <span class="hljs-operator">=</span> noticeUserMap.get(notice.getId());<br>        <span class="hljs-keyword">if</span> (noticeUser == <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-comment">//当前用户没有该通知的阅读记录，则新增一条已读记录</span><br>            <span class="hljs-type">SysNoticeUser</span> <span class="hljs-variable">newNoticeUser</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SysNoticeUser</span>();<br>            newNoticeUser.setNoticeId(notice.getId());<br>            newNoticeUser.setUserId(userId);<br>            newNoticeUser.setIsRead(SystemConstants.NOTICE_IS_READ);<br>            newNoticeUser.setReadTime(now);<br>            saveList.add(newNoticeUser);<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!SystemConstants.NOTICE_IS_READ.equals(noticeUser.getIsRead())) &#123;<br>            <span class="hljs-comment">//已有记录但状态不是已读，则更新为已读（防御性编程）</span><br>            noticeUser.setIsRead(SystemConstants.NOTICE_IS_READ);<br>            noticeUser.setReadTime(now);<br>            updateList.add(noticeUser);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">//批量保存新增的阅读记录</span><br>    <span class="hljs-keyword">if</span> (!saveList.isEmpty()) &#123;<br>        sysNoticeUserService.saveBatch(saveList);<br>    &#125;<br><br>    <span class="hljs-comment">//批量更新已存在的阅读记录</span><br>    <span class="hljs-keyword">if</span> (!updateList.isEmpty()) &#123;<br>        sysNoticeUserService.updateBatchById(updateList);<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> ResponseResult.okResult();<br>&#125;<br></code></pre></td></tr></table></figure>
 <hr>
 
 <hr>
@@ -1932,8 +1980,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>『博客开发日记』之获取通知详情接口的实现</div>
-      <div>http://example.com/2026/05/28/『博客开发日记』之获取通知详情接口的实现/</div>
+      <div>『博客开发日记-后台』之全部已读通知接口的实现</div>
+      <div>http://example.com/2026/05/29/『博客开发日记-后台』之全部已读通知接口的实现/</div>
     </div>
     <div class="license-meta">
       
@@ -1945,13 +1993,13 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2026年5月28日</div>
+          <div>2026年5月29日</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2026年5月28日</div>
+          <div>2026年5月29日</div>
         </div>
       
       
@@ -1986,8 +2034,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2026/05/28/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E9%80%9A%E7%9F%A5%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记』之获取通知列表接口的实现">
-                        <span class="hidden-mobile">『博客开发日记』之获取通知列表接口的实现</span>
+                      <a href="/2026/05/29/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E9%80%9A%E7%9F%A5%E8%AF%A6%E6%83%85%E4%BF%A1%E6%81%AF%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取通知详情信息接口的实现">
+                        <span class="hidden-mobile">『博客开发日记-后台』之获取通知详情信息接口的实现</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
