@@ -1,0 +1,1091 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/mi_manchi.png">
+  <link rel="icon" href="/img/mi_manchi.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="云梦泽">
+  <meta name="keywords" content="js html">
+  
+    <meta name="description" content="关于项目的部署  前言 由于项目整体已经开发完 现在进入项目部署阶段  服务器与域名的购买 我这里是在阿里云购买的服务器（学生优惠可以白嫖）和域名 买到服务器和域名后自行备案和解析 服务器建议买Linux系统的我买的系统是CentOS 7.9 64位 在服务器安全组中给一些必要的端口放行        在系统中安装docker 在安装docker前先准备两个小软件  WinSCP, 用于和云服务器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="『博客开发日记』之关于项目的部署">
+<meta property="og:url" content="http://example.com/2026/06/13/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%85%B3%E4%BA%8E%E9%A1%B9%E7%9B%AE%E7%9A%84%E9%83%A8%E7%BD%B2/index.html">
+<meta property="og:site_name" content="云梦泽的个人博客">
+<meta property="og:description" content="关于项目的部署  前言 由于项目整体已经开发完 现在进入项目部署阶段  服务器与域名的购买 我这里是在阿里云购买的服务器（学生优惠可以白嫖）和域名 买到服务器和域名后自行备案和解析 服务器建议买Linux系统的我买的系统是CentOS 7.9 64位 在服务器安全组中给一些必要的端口放行        在系统中安装docker 在安装docker前先准备两个小软件  WinSCP, 用于和云服务器">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/%E5%A3%81%E7%BA%B8189.jpg">
+<meta property="article:published_time" content="2026-06-13T11:12:37.000Z">
+<meta property="article:modified_time" content="2026-06-20T05:25:39.831Z">
+<meta property="article:author" content="云梦泽">
+<meta property="article:tag" content="技术向">
+<meta property="article:tag" content="个人博客">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="后端">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/%E5%A3%81%E7%BA%B8189.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>『博客开发日记』之关于项目的部署 - 云梦泽的个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":80,"cursorChar":"✨","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":7},"lazyload":{"enable":true,"loading_img":"/img/loading_1.gif","onlypost":true,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<!-- hexo injector head_end start --><script src="/js/click.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <!-- Canvas for click effect -->
+  <div id="clickCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999;"></div>
+
+  <header>
+    
+
+<div class="header-inner" style="height: 80vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>云梦泽</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/messages/" target="_self">
+                <i class="iconfont icon-comment"></i>
+                <span>留言板</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E5%A3%81%E7%BA%B8189.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="『博客开发日记』之关于项目的部署"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        云梦泽
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-06-13 19:12" pubdate>
+          2026年6月13日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          29 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="项目部署"
+        id="heading-50be5e3b1697e929a38352262896962e" role="tab" data-toggle="collapse" href="#collapse-50be5e3b1697e929a38352262896962e"
+        aria-expanded="true"
+      >
+        项目部署
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-50be5e3b1697e929a38352262896962e"
+           role="tabpanel" aria-labelledby="heading-50be5e3b1697e929a38352262896962e">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/06/13/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%85%B3%E4%BA%8E%E9%A1%B9%E7%9B%AE%E7%9A%84%E9%83%A8%E7%BD%B2/" title="『博客开发日记』之关于项目的部署"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">『博客开发日记』之关于项目的部署</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/06/20/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E4%B9%8B%E4%BD%BF%E7%94%A8%20DockerCompose%20%E9%83%A8%E7%BD%B2/" title="『博客开发日记』项目部署之使用 DockerCompose 部署"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』项目部署之使用 DockerCompose 部署</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/06/18/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E4%B9%8B%E4%BD%BF%E7%94%A8%20DockerFile%20%E9%83%A8%E7%BD%B2/" title="『博客开发日记』项目部署之使用 DockerFile 部署"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』项目部署之使用 DockerFile 部署</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">『博客开发日记』之关于项目的部署</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2026年6月20日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 align="center"><span id="关于项目的部署"><span style="color: cadetblue;">关于项目的部署</span></span></h1>
+<hr>
+<h2 style="color: #b7a0e0"><span id="前言">前言</span></h2>
+<p>由于项目整体已经开发完</p>
+<p>现在进入项目部署阶段</p>
+<hr>
+<h2 style="color: #b7a0e0"><span id="服务器与域名的购买">服务器与域名的购买</span></h2>
+<p>我这里是在阿里云购买的服务器（学生优惠可以白嫖）和域名</p>
+<p>买到服务器和域名后自行备案和解析</p>
+<p>服务器建议买Linux系统的我买的系统是CentOS 7.9 64位</p>
+<p>在服务器安全组中给一些必要的端口放行</p>
+<img src="/img/设置安全组.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p></p>
+<p></p>
+
+<hr>
+<h2 style="color: #b7a0e0"><span id="在系统中安装docker">在系统中安装docker</span></h2>
+<p>在安装docker前先准备两个小软件</p>
+
+<p>WinSCP, 用于和云服务器进行文件传输</p>
+<img src="/img/WinSCP.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>WinSCP操作界面</p>
+<img src="/img/WinSCP操作界面.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>putty, 用于与云服务器进行远程连接（终端）</p>
+<a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/1716842">putty 安装教程</a>
+<img src="/img/putty.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>putty操作界面</p>
+<img src="/img/putty操作界面.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>有了软件之后就去安装docker</p>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装依赖</span><br><span class="hljs-built_in">sudo</span> yum install -y yum-utils device-mapper-persistent-data lvm2<br><br><span class="hljs-comment"># 添加 Docker 官方仓库</span><br><span class="hljs-built_in">sudo</span> yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo<br><br><span class="hljs-comment"># 设置阿里docker镜像仓库地址</span><br><span class="hljs-built_in">sudo</span> yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo<br><br><span class="hljs-comment"># 配置docker加速  (https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors)自行设置自己的</span><br><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">mkdir</span> -p /etc/docker<br><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">tee</span> /etc/docker/daemon.json &lt;&lt;-<span class="hljs-string">&#x27;EOF&#x27;</span><br>&#123;<br>  <span class="hljs-string">&quot;registry-mirrors&quot;</span>: [<span class="hljs-string">&quot;https://xxxx.mirror.aliyuncs.com&quot;</span>]<br>&#125;<br>EOF<br><span class="hljs-built_in">sudo</span> systemctl daemon-reload<br><span class="hljs-built_in">sudo</span> systemctl restart docker<br><br><span class="hljs-comment"># 安装 Docker</span><br><span class="hljs-built_in">sudo</span> yum install -y docker-ce docker-ce-cli containerd.io<br><br><span class="hljs-comment"># 启动 Docker</span><br><span class="hljs-built_in">sudo</span> systemctl start docker<br><br><span class="hljs-comment"># 设置开机自启</span><br><span class="hljs-built_in">sudo</span> systemctl <span class="hljs-built_in">enable</span> docker<br><br><span class="hljs-comment"># 查看 Docker 版本</span><br>docker version<br></code></pre></td></tr></table></figure>
+<p>出现 docker 版本号则为成功</p>
+<hr>
+
+<h3 style="color: #b7a0e0"><span id="常用的-docker-命令">常用的 docker 命令</span></h3>
+<h4 style="color: #b7a0e0"><span id="查看-docker-信息">查看 Docker 信息</span></h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看 Docker 版本</span><br>docker version<br><br><span class="hljs-comment"># 查看 Docker 系统信息</span><br>docker info<br><br><span class="hljs-comment"># 查看 Docker 磁盘占用</span><br>docker system <span class="hljs-built_in">df</span><br></code></pre></td></tr></table></figure>
+<hr>
+
+<h4 style="color: #b7a0e0"><span id="镜像相关命令">镜像相关命令</span></h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看本地镜像</span><br>docker images<br><br><span class="hljs-comment"># 拉取镜像</span><br>docker pull nginx:latest<br><br><span class="hljs-comment"># 删除镜像</span><br>docker rmi nginx:latest<br><br><span class="hljs-comment"># 强制删除镜像</span><br>docker rmi -f 镜像ID<br><br><span class="hljs-comment"># 搜索镜像</span><br>docker search mysql<br><br><span class="hljs-comment"># 构建镜像</span><br>docker build -t 镜像名:版本号 .<br><br><span class="hljs-comment"># 给镜像打标签</span><br>docker tag 本地镜像名:版本号 仓库地址/镜像名:版本号<br><br><span class="hljs-comment"># 推送镜像到远程仓库</span><br>docker push 仓库地址/镜像名:版本号<br></code></pre></td></tr></table></figure>
+<hr>
+
+<h4 style="color: #b7a0e0"><span id="容器相关命令">容器相关命令</span></h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看正在运行的容器</span><br>docker ps<br><br><span class="hljs-comment"># 查看所有容器，包括已停止的容器</span><br>docker ps -a<br><br><span class="hljs-comment"># 启动容器</span><br>docker start 容器名或容器ID<br><br><span class="hljs-comment"># 停止容器</span><br>docker stop 容器名或容器ID<br><br><span class="hljs-comment"># 重启容器</span><br>docker restart 容器名或容器ID<br><br><span class="hljs-comment"># 删除容器</span><br>docker <span class="hljs-built_in">rm</span> 容器名或容器ID<br><br><span class="hljs-comment"># 强制删除正在运行的容器</span><br>docker <span class="hljs-built_in">rm</span> -f 容器名或容器ID<br><br><span class="hljs-comment"># 查看容器日志</span><br>docker logs 容器名或容器ID<br><br><span class="hljs-comment"># 实时查看容器日志</span><br>docker logs -f 容器名或容器ID<br><br><span class="hljs-comment"># 进入容器</span><br>docker <span class="hljs-built_in">exec</span> -it 容器名或容器ID /bin/bash<br><br><span class="hljs-comment"># 如果容器没有 bash，可以使用 sh</span><br>docker <span class="hljs-built_in">exec</span> -it 容器名或容器ID /bin/sh<br></code></pre></td></tr></table></figure>
+<hr>
+
+<h2 style="color: #b7a0e0"><span id="在-docker-中下载镜像">在 docker 中下载镜像</span></h2>
+<p>一般来说，不需要单独下载镜像</p>
+<p>因为在运行 docker run 命令进行运行容器时</p>
+<p>如果当前环境中没有对应的镜像则会自动先下载对应的镜像</p>
+<p>你也可以去 Docker Hub 学习一些常用命令和下载镜像</p>
+<a target="_blank" rel="noopener" href="https://hub.docker.com/">Docker Hub</a>
+<p></p>
+<p></p>
+
+<hr>
+<h2 style="color: #b7a0e0"><span id="运行-docker-中的容器前台后端部署">运行 docker 中的容器————前台后端部署</span></h2>
+<p>下面以部署我项目后端为例子</p>
+<p>在开始前先要对后端项目进行打包</p>
+<p>打包项目完成后会在对应路径下生成 jar 包，这是前期准备之一</p>
+<img src="/img/打包项目.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>然后在 docker 中创建网络 方便后续后端的容器能在同一个网络下运行</p>
+<p>docker network create 网络名</p>
+
+<h2 style="color: #b7a0e0"><span id="运行-mysql-容器">运行 mysql 容器</span></h2>
+<p>有了网络之后运行 mysql 容器</p>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run --restart always \<br> -e TZ=Asia/Shanghai \<br> --name yun_blog_sql \<br> -d \ <br> --network blog_network \<br> -p 3306:3306 \<br> -v /home/mysql_date:/var/lib/mysql \<br> -e MYSQL_ROOT_PASSWORD=your_password \<br> mysql:8.0<br> <br> <span class="hljs-comment"># 下面是逐行解释</span><br> <br> docker run --restart always \   <span class="hljs-comment"># 启动一个新的容器，并设置重启策略为 always：Docker 启动时自动启动，异常退出自动重启</span><br> -e TZ=Asia/Shanghai \          <span class="hljs-comment"># 容器系统时区设成东八区</span><br> --name yun_blog_sql \          <span class="hljs-comment"># 为容器指定名称 yun_blog_sql（可自定义），方便后续管理</span><br> -d \                           <span class="hljs-comment"># 后台运行容器（detached 模式）</span><br> --network blog_network \   <span class="hljs-comment"># 将容器加入名为 blog_network 的 Docker 网络，便于容器间通过名称互相访问</span><br> -p 3306:3306 \                 <span class="hljs-comment"># 将宿主机 3306 端口映射到容器 3306 端口，用于访问 MySQL</span><br> -v /home/mysql_date:/var/lib/mysql \   <span class="hljs-comment"># 将宿主机目录挂载到容器数据目录，实现 MySQL 数据持久化，其中要挂载到容器目录的哪个位置可以去 Docker Hub 对应镜像里找</span><br> -e MYSQL_ROOT_PASSWORD=your_password \      <span class="hljs-comment"># 设置 MySQL root 用户密码为 your_password</span><br> mysql:8.0                      <span class="hljs-comment"># 使用 mysql:8.0 镜像创建容器</span><br><br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>然后去 WinSCP 查看对应的 /home/mysql_date 路径可以看到已经有对应的目录</p>
+<p>这个就是用来存储和与容器里数据互通的文件目录</p>
+<img src="/img/数据库文件路径.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>然后去数据库测试连接一下看通没通</p>
+<img src="/img/数据库测试成功.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>在这之后你就可以把你自己的数据表导入数据库为后续做准备了</p>
+<p></p>
+<p></p>
+
+<h2 style="color: #b7a0e0"><span id="运行-redis-容器">运行 redis 容器</span></h2>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run --restart always \<br> --name yun_blog_redis \<br> -d \<br> --network blog_network \<br> -p 6379:6379 \<br> -v /home/redis_date:/data \<br> redis redis-server --appendonly <span class="hljs-built_in">yes</span><br> <br>  <span class="hljs-comment"># 下面是逐行解释</span><br>  <br>  docker run --restart always \    <span class="hljs-comment"># 启动一个新的容器，并设置重启策略为 always：Docker 启动时自动启动，异常退出自动重启</span><br> --name yun_blog_redis \    <span class="hljs-comment"># 为容器指定名称 yun_blog_redis，方便管理</span><br> -d \                   <span class="hljs-comment"># 后台运行容器（detached 模式）</span><br> --network blog_network \   <span class="hljs-comment"># 将容器加入名为 blog_network 的 Docker 网络，便于容器间通过名称互相访问</span><br> -p 6379:6379 \       <span class="hljs-comment"># 将宿主机 6379 端口映射到容器 6379 端口，用于访问 Redis</span><br> -v /home/redis_date:/data \   <span class="hljs-comment"># 将宿主机目录挂载到容器 /data，实现 Redis 数据持久化，其中要挂载到容器目录的哪个位置可以去 Docker Hub 对应镜像里找</span><br> redis redis-server --appendonly <span class="hljs-built_in">yes</span>   <span class="hljs-comment"># 使用 redis 镜像，并以 redis-server 启动；开启 AOF 持久化（appendonly yes）,原本 redis 只操作内存，加上这个设置之后 redis 可以将数据写入硬盘从而实现持久化</span><br><br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>然后去 WinSCP 查看对应的 /home/redis_date 路径可以看到已经有对应的目录</p>
+<p>这个就是用来存储和与容器里数据互通的文件目录</p>
+<img src="/img/redis 文件路径.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>然后去 redis 测试连接一下看通没通</p>
+<img src="/img/测试redis 连接.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>测试redis是否正常工作</p>
+<img src="/img/测试redis是否正常工作.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>回到 redis 看到能正常写入数据则连接成功</p>
+<img src="/img/测试redis 连接成功.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<h2 style="color: #b7a0e0"><span id="运行-java-容器">运行 java 容器</span></h2>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run --restart always \<br> -e TZ=Asia/Shanghai \<br> --name yun_blog_java \<br> -d \<br> --network blog_network \<br> -p 1314:1314 \<br> -v /home/yun_blog_java/mengze-blog:/yun_blog_java/mengze-blog \<br> openjdk:17-jdk java -jar /yun_blog_java/mengze-blog/mengze-blog-1.0-SNAPSHOT.jar \<br> <span class="hljs-string">&quot;--spring.datasource.url=jdbc:mysql://yun_blog_sql:3306/yun_blog?characterEncoding=utf8&amp;serverTimezone=Asia/Shanghai&quot;</span> \<br> <span class="hljs-string">&quot;--spring.datasource.username=your_sql_username&quot;</span> \<br> <span class="hljs-string">&quot;--spring.datasource.password=your_sql_password&quot;</span> \<br> <span class="hljs-string">&quot;--spring.redis.host=yun_blog_redis&quot;</span> \<br> <span class="hljs-string">&quot;--spring.mail.username=your_qq_email_username&quot;</span> \<br> <span class="hljs-string">&quot;--spring.mail.password=your_qq_email_key&quot;</span> \<br> <span class="hljs-string">&quot;--oss.accessKey=your_access_key&quot;</span> \<br> <span class="hljs-string">&quot;--oss.secretKey=your_secret_key&quot;</span> \<br> <span class="hljs-string">&quot;--oss.bucket=your_bucket_name&quot;</span> \<br> <span class="hljs-string">&quot;--oss.domain=your_oss_visit_domain&quot;</span> \<br> <span class="hljs-string">&quot;--aliyun.sms.access-key-id=your_access_key_id&quot;</span> \<br> <span class="hljs-string">&quot;--aliyun.sms.access-key-secret=your_access_key_secret&quot;</span> \<br> <span class="hljs-string">&quot;--blog.frontend.url=blog_frontend_url&quot;</span> \<br> <span class="hljs-string">&quot;--weather.api.key-id=your_key_id&quot;</span> \<br> <span class="hljs-string">&quot;--weather.api.project-id=your_project_id&quot;</span> \<br> <span class="hljs-string">&quot;--weather.api.host=your_api_host&quot;</span> \<br> <span class="hljs-string">&quot;--weather.api.private-key=your_weather_private_key&quot;</span> \<br> <span class="hljs-string">&quot;--deepseek.api-key=your_deepseek_api_key&quot;</span> <br><br> <br>   <span class="hljs-comment"># 下面是逐行解释</span><br>   <br>docker run --restart always \   <span class="hljs-comment"># 启动一个新的容器，并设置重启策略为 always：Docker 启动时自动启动，异常退出自动重启</span><br>-e TZ=Asia/Shanghai \          <span class="hljs-comment"># 容器系统时区设成东八区</span><br>--name yun_blog_java \    <span class="hljs-comment"># 为容器指定名称 yun_blog_java，方便管理</span><br>-d \                  <span class="hljs-comment"># 后台运行容器（detached 模式）</span><br>--network blog_network \   <span class="hljs-comment"># 将容器加入名为 blog_network 的 Docker 网络，便于容器间通过名称互相访问</span><br>-p 1314:1314 \    <span class="hljs-comment"># 将宿主机 1314 端口映射到容器 1314 端口，用于访问 Java 服务</span><br>-v /home/yun_blog_java/mengze-blog:/yun_blog_java/mengze-blog \  <span class="hljs-comment"># 将宿主机目录挂载到容器内，提供 jar 包与配置文件</span><br>openjdk:17-jdk java -Xms256m -Xmx384m -jar /yun_blog_java/mengze-blog/mengze-blog-1.0-SNAPSHOT.jar \  <span class="hljs-comment"># 使用 openjdk:17-jdk 镜像运行 Java 程序，并分配256-384m内存</span><br><span class="hljs-string">&quot;--spring.datasource.url=jdbc:mysql://yun_blog_sql:3306/yun_blog?characterEncoding=utf8&amp;serverTimezone=Asia/Shanghai&quot;</span> \  <span class="hljs-comment"># 指定 MySQL 连接地址，使用容器名 yun_blog_sql 访问数据库</span><br><span class="hljs-string">&quot;--spring.datasource.username=your_sql_username&quot;</span> \  <span class="hljs-comment"># 指定数据库用户名</span><br><span class="hljs-string">&quot;--spring.datasource.password=your_sql_password&quot;</span> \    <span class="hljs-comment"># 指定数据库密码</span><br><span class="hljs-string">&quot;--spring.redis.host=yun_blog_redis&quot;</span>   <span class="hljs-comment"># 指定 Redis 主机地址，使用容器名 yun_blog_redis 访问 Redis</span><br><span class="hljs-string">&quot;--spring.mail.username=your_qq_email_username&quot;</span> \  <span class="hljs-comment"># 邮箱账号（QQ 邮箱）</span><br><span class="hljs-string">&quot;--spring.mail.password=your_qq_email_key&quot;</span> \  <span class="hljs-comment"># 邮箱授权码（非登录密码）</span><br><span class="hljs-string">&quot;--oss.accessKey=your_access_key&quot;</span> \  <span class="hljs-comment"># OSS AccessKey（阿里云或其他）</span><br><span class="hljs-string">&quot;--oss.secretKey=your_secret_key&quot;</span> \  <span class="hljs-comment"># OSS SecretKey（阿里云或其他）</span><br><span class="hljs-string">&quot;--oss.bucket=your_bucket_name&quot;</span> \  <span class="hljs-comment"># OSS Bucket 名称</span><br><span class="hljs-string">&quot;--oss.domain=your_oss_visit_domain&quot;</span> \  <span class="hljs-comment"># OSS 对外访问域名（CDN 或 Bucket 域名）</span><br><span class="hljs-string">&quot;--aliyun.sms.access-key-id=your_access_key_id&quot;</span> \  <span class="hljs-comment"># 阿里云短信服务 AccessKey ID</span><br><span class="hljs-string">&quot;--aliyun.sms.access-key-secret=your_access_key_secret&quot;</span> \  <span class="hljs-comment"># 阿里云短信服务 AccessKey Secret</span><br><span class="hljs-string">&quot;--blog.frontend.url=blog_frontend_url&quot;</span> \    <span class="hljs-comment"># 前端访问地址（用于跨域、邮件跳转等）</span><br><span class="hljs-string">&quot;--weather.api.key-id=your_key_id&quot;</span> \   <span class="hljs-comment"># 和风天气 API key-id</span><br><span class="hljs-string">&quot;--weather.api.project-id=your_project_id&quot;</span> \  <span class="hljs-comment"># 和风天气 project-id</span><br><span class="hljs-string">&quot;--weather.api.host=your_api_host&quot;</span> \   <span class="hljs-comment"># 和风天气 API host</span><br><span class="hljs-string">&quot;--weather.api.private-key=your_weather_private_key&quot;</span> \  <span class="hljs-comment"># 和风天气私钥（用于签名）</span><br><span class="hljs-string">&quot;--deepseek.api-key=your_deepseek_api_key&quot;</span>  <span class="hljs-comment"># DeepSeek API Key</span><br> <span class="hljs-comment"># 上面的这些指定的优先级都是比在项目中 application.yml 里的配置优先级高的，只要你在这里指定了都会覆盖你配置的参数</span><br></code></pre></td></tr></table></figure>
+<hr>
+<p>完成这些之后去测试就可以看到spring可以跑</p>
+<img src="/img/spring可以跑.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>前面已经导入数据表，现在测试一下后端是否真正和数据库进行联动</p>
+<img src="/img/测试后端容器.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>如果测试报错，有可能是你的容器不在同一个网络中</p>
+<p>或者你后端的一些数据库配置没设置好再打包</p>
+<p>亦或者是你根本没有这个数据库</p>
+<p>可以去问问ai如何解决</p>
+
+<hr>
+<h2 style="color: #b7a0e0"><span id="运行-nginx-容器部署前后的前端">运行 nginx 容器(部署前后的前端)</span></h2>
+<p>在给前端项目打包前要注意配置好项目生产时的环境变量</p>
+<p>要注意的是这里都加上了代理前缀</p>
+<p>这样请求地址会是：http://yun-mi-manchi.top/api/article</p>
+<p>然后经过 nginx 代理之后去除 /api 再发给后端 请求地址会是：http://yun-mi-manchi.top/article</p>
+<p>后台生产环境</p>
+<img src="/img/后台生产环境.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>前台生产环境</p>
+<img src="/img/前台生产环境.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>我们要把前后台项目都部署在同一台 nginx 容器里</p>
+<p>然后通过 nginx 转发不同的路径来实现前后台的跳转 如下：</p>
+<p>http://admin.yun-mi-manchi ===== 跳转前台</p>
+<p>http://admin.yun-mi-manchi/admin ===== 跳转后台</p>
+<p>在运行容器之前先在云服务器对应路径中创建 default.conf 文件</p>
+<img src="/img/创建default.conf.png" srcset="/img/loading_1.gif" lazyload alt>配置default.conf
+<hr>
+
+<p>然后配置 default.conf</p>
+
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><br><span class="hljs-comment"># ================================</span><br><span class="hljs-comment"># 前台配置（yun-mi-manchi.top）</span><br><span class="hljs-comment"># ================================</span><br><span class="hljs-section">server</span> &#123;<br>    <span class="hljs-attribute">listen</span> <span class="hljs-number">80</span>;<br>    <span class="hljs-attribute">server_name</span> yun-mi-manchi.top;<br><br>    <span class="hljs-comment"># ---------------------------------------------------------</span><br>    <span class="hljs-comment"># 静态资源缓存（前台所有 js/css/img 等文件）</span><br>    <span class="hljs-comment"># 使用 root 而不是 alias，因为这是正则匹配</span><br>    <span class="hljs-comment"># ---------------------------------------------------------</span><br>    <span class="hljs-section">location</span> <span class="hljs-regexp">~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$</span> &#123;<br>        <span class="hljs-attribute">root</span> /usr/share/nginx/html/blog;   <span class="hljs-comment"># ⚠ 这里路径看起来像写错了（前台却指向 admin）</span><br>        <span class="hljs-attribute">expires</span> <span class="hljs-number">30d</span>;<br>        <span class="hljs-attribute">add_header</span> Cache-Control <span class="hljs-string">&quot;public, immutable&quot;</span>;<br>        <span class="hljs-attribute">log_not_found</span> <span class="hljs-literal">off</span>;<br>    &#125;<br><br>    <span class="hljs-comment"># ---------------------------------------------------------</span><br>    <span class="hljs-comment"># 前台 SPA 页面入口（Vue/React）</span><br>    <span class="hljs-comment"># alias 指向 blog 目录</span><br>    <span class="hljs-comment"># try_files 回退必须是 /index.html（不能写 /blog/index.html）</span><br>    <span class="hljs-comment"># ---------------------------------------------------------</span><br>    <span class="hljs-section">location</span> / &#123;<br>        <span class="hljs-attribute">alias</span> /usr/share/nginx/html/blog/;<br>        <span class="hljs-attribute">try_files</span> <span class="hljs-variable">$uri</span> <span class="hljs-variable">$uri</span>/ /index.html;<br>    &#125;<br><br>    <span class="hljs-comment"># ---------------------------------------------------------</span><br>    <span class="hljs-comment"># 前台 API 代理</span><br>    <span class="hljs-comment"># ^~ 表示优先匹配，不让正则 location 抢走</span><br>    <span class="hljs-comment"># ---------------------------------------------------------</span><br>    <span class="hljs-section">location</span><span class="hljs-regexp"> ^~</span> /api/ &#123;<br>        <span class="hljs-attribute">proxy_pass</span> http://你自己服务器的公网ip:1314/;<br>        <span class="hljs-attribute">proxy_set_header</span> Host <span class="hljs-variable">$host</span>;<br>        <span class="hljs-attribute">proxy_set_header</span> X-Real-IP <span class="hljs-variable">$remote_addr</span>;<br>        <span class="hljs-attribute">proxy_set_header</span> X-Forwarded-For <span class="hljs-variable">$proxy_add_x_forwarded_for</span>;<br>    &#125;<br><br>    <span class="hljs-comment"># ---------------------------------------------------------</span><br>    <span class="hljs-comment"># 前台 WebSocket 代理</span><br>    <span class="hljs-comment"># 必须设置 Upgrade / Connection 才能保持长连接</span><br>    <span class="hljs-comment"># ---------------------------------------------------------</span><br>    <span class="hljs-section">location</span> /ws/blog &#123;<br>        <span class="hljs-attribute">proxy_pass</span> http://你自己服务器的公网ip:1314/ws/blog;<br>        <span class="hljs-attribute">proxy_http_version</span> <span class="hljs-number">1</span>.<span class="hljs-number">1</span>;<br>        <span class="hljs-attribute">proxy_set_header</span> Upgrade <span class="hljs-variable">$http_upgrade</span>;<br>        <span class="hljs-attribute">proxy_set_header</span> Connection <span class="hljs-string">&quot;upgrade&quot;</span>;<br>    &#125;<br><br>    <span class="hljs-comment"># ---------------------------------------------------------</span><br>    <span class="hljs-comment"># 上传大小限制（防止 413 Request Entity Too Large）</span><br>    <span class="hljs-comment"># ---------------------------------------------------------</span><br>    <span class="hljs-attribute">client_max_body_size</span> <span class="hljs-number">50M</span>;<br>&#125;<br><br><span class="hljs-comment"># ================================</span><br><span class="hljs-comment"># 后台配置（admin.yun-mi-manchi.top）</span><br><span class="hljs-comment"># ================================</span><br><span class="hljs-section">server</span> &#123;<br>    <span class="hljs-attribute">listen</span> <span class="hljs-number">80</span>;<br>    <span class="hljs-attribute">server_name</span> admin.yun-mi-manchi.top;<br><br>    <span class="hljs-comment"># ---------------------------------------------------------</span><br>    <span class="hljs-comment"># 静态资源缓存（后台所有 js/css/img 等文件）</span><br>    <span class="hljs-comment"># 使用 root，因为这是正则匹配</span><br>    <span class="hljs-comment"># ---------------------------------------------------------</span><br>    <span class="hljs-section">location</span> <span class="hljs-regexp">~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$</span> &#123;<br>        <span class="hljs-attribute">root</span> /usr/share/nginx/html/admin;<br>        <span class="hljs-attribute">expires</span> <span class="hljs-number">30d</span>;<br>        <span class="hljs-attribute">add_header</span> Cache-Control <span class="hljs-string">&quot;public, immutable&quot;</span>;<br>        <span class="hljs-attribute">log_not_found</span> <span class="hljs-literal">off</span>;<br>    &#125;<br><br>    <span class="hljs-comment"># ---------------------------------------------------------</span><br>    <span class="hljs-comment"># 后台 SPA 页面入口（Vue/React）</span><br>    <span class="hljs-comment"># alias 指向 admin 目录</span><br>    <span class="hljs-comment"># try_files 回退必须是 /index.html（不能写 /admin/index.html）</span><br>    <span class="hljs-comment"># ---------------------------------------------------------</span><br>    <span class="hljs-section">location</span> / &#123;<br>        <span class="hljs-attribute">alias</span> /usr/share/nginx/html/admin/;<br>        <span class="hljs-attribute">try_files</span> <span class="hljs-variable">$uri</span> <span class="hljs-variable">$uri</span>/ /index.html;<br>    &#125;<br><br>    <span class="hljs-comment"># ---------------------------------------------------------</span><br>    <span class="hljs-comment"># 后台 API 代理</span><br>    <span class="hljs-comment"># ^~ 保证优先匹配</span><br>    <span class="hljs-comment"># ---------------------------------------------------------</span><br>    <span class="hljs-section">location</span><span class="hljs-regexp"> ^~</span> /api/ &#123;<br>        <span class="hljs-attribute">proxy_pass</span> http://你自己服务器的公网ip:7616/;<br>        <span class="hljs-attribute">proxy_set_header</span> Host <span class="hljs-variable">$host</span>;<br>        <span class="hljs-attribute">proxy_set_header</span> X-Real-IP <span class="hljs-variable">$remote_addr</span>;<br>        <span class="hljs-attribute">proxy_set_header</span> X-Forwarded-For <span class="hljs-variable">$proxy_add_x_forwarded_for</span>;<br>    &#125;<br><br>    <span class="hljs-comment"># ---------------------------------------------------------</span><br>    <span class="hljs-comment"># 后台 WebSocket 代理</span><br>    <span class="hljs-comment"># ---------------------------------------------------------</span><br>    <span class="hljs-section">location</span> /ws/admin &#123;<br>        <span class="hljs-attribute">proxy_pass</span> http://你自己服务器的公网ip:7616/ws/admin;<br>        <span class="hljs-attribute">proxy_http_version</span> <span class="hljs-number">1</span>.<span class="hljs-number">1</span>;<br>        <span class="hljs-attribute">proxy_set_header</span> Upgrade <span class="hljs-variable">$http_upgrade</span>;<br>        <span class="hljs-attribute">proxy_set_header</span> Connection <span class="hljs-string">&quot;upgrade&quot;</span>;<br>    &#125;<br><br>    <span class="hljs-comment"># ---------------------------------------------------------</span><br>    <span class="hljs-comment"># 上传大小限制</span><br>    <span class="hljs-comment"># ---------------------------------------------------------</span><br>    <span class="hljs-attribute">client_max_body_size</span> <span class="hljs-number">50M</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p></p>
+
+<p>然后运行下面命令</p>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run --restart always \<br>  --name yun_blog_vue \<br>  -d \<br>  -p 80:80 \<br>  -v /home/yun_blog_vue/blog/dist:/usr/share/nginx/html/blog \<br>  -v /home/yun_blog_vue/admin/dist:/usr/share/nginx/html/admin \<br>  -v /home/yun_blog_vue/nginx/conf.d:/etc/nginx/conf.d \<br>  nginx<br>  <br>     <span class="hljs-comment"># 下面是逐行解释</span><br>  <br>docker run --restart always \    <span class="hljs-comment"># 启动一个新的容器并设置容器停止时（如服务器重启）总是自动重启</span><br>  --name yun_blog_vue \    <span class="hljs-comment"># 指定容器名称</span><br>  -d \                  <span class="hljs-comment"># 后台运行容器（detach 模式）</span><br>  -p 80:80 \          <span class="hljs-comment"># 端口映射：宿主机80端口 -&gt; 容器80端口</span><br>  -v /home/yun_blog_vue/blog/dist:/usr/share/nginx/html/blog \  <span class="hljs-comment"># 挂载静态网站文件（将宿主机dist目录映射到nginx的/usr/share/nginx/html/blog \目录）</span><br>  -v /home/yun_blog_vue/admin/dist:/usr/share/nginx/html/admin \  <span class="hljs-comment"># 挂载静态网站文件（将宿主机dist目录映射到nginx的/usr/share/nginx/html/admin \目录）</span><br>  -v /home/yun_blog_vue/nginx/conf.d:/etc/nginx/conf.d \  <span class="hljs-comment"># 挂载nginx自定义配置文件目录</span><br>  nginx              <span class="hljs-comment"># 使用的镜像名称</span><br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>在浏览器浏览通了就是成功</p>
+<img src="/img/测试成功.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<hr>
+<h2 style="color: #b7a0e0"><span id="后台后端部署">后台后端部署</span></h2>
+<p>步骤和命令都差不多</p>
+<p>注意开放的端口号是不同的</p>
+<p>还有文件的目录不同（建议把不同项目放在不同目录下好区分）</p>
+<p>还要注意你运行的 jar 包名和路径是否正确</p>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run --restart always \<br> -e TZ=Asia/Shanghai \<br> --name yun_blog_admin_java \<br> -d \<br> --network blog_network \<br> -p 7616:7616 \<br> -v /home/yun_blog_java/mengze-admin:/yun_blog_java/mengze-admin \<br> openjdk:17-jdk java -Xms256m -Xmx384m -jar /yun_blog_java/mengze-admin/mengze-admin-1.0-SNAPSHOT.jar \<br> <span class="hljs-string">&quot;--spring.datasource.url=jdbc:mysql://yun_blog_sql:3306/yun_blog?characterEncoding=utf8&amp;serverTimezone=Asia/Shanghai&quot;</span> \<br> <span class="hljs-string">&quot;--spring.datasource.username=your_sql_username&quot;</span> \<br> <span class="hljs-string">&quot;--spring.datasource.password=your_sql_password&quot;</span> \<br> <span class="hljs-string">&quot;--spring.redis.host=yun_blog_redis&quot;</span> \<br> <span class="hljs-string">&quot;--spring.mail.username=your_qq_email_username&quot;</span> \<br> <span class="hljs-string">&quot;--spring.mail.password=your_qq_email_key&quot;</span> \<br> <span class="hljs-string">&quot;--oss.accessKey=your_access_key&quot;</span> \<br> <span class="hljs-string">&quot;--oss.secretKey=your_secret_key&quot;</span> \<br> <span class="hljs-string">&quot;--oss.bucket=your_bucket_name&quot;</span> \<br> <span class="hljs-string">&quot;--oss.domain=your_oss_visit_domain&quot;</span> \<br> <span class="hljs-string">&quot;--aliyun.sms.access-key-id=your_access_key_id&quot;</span> \<br> <span class="hljs-string">&quot;--aliyun.sms.access-key-secret=your_access_key_secret&quot;</span> \<br> <span class="hljs-string">&quot;--blog.frontend.url=blog_frontend_url&quot;</span> \<br> <span class="hljs-string">&quot;--weather.api.key-id=your_key_id&quot;</span> \<br> <span class="hljs-string">&quot;--weather.api.project-id=your_project_id&quot;</span> \<br> <span class="hljs-string">&quot;--weather.api.host=your_api_host&quot;</span> \<br> <span class="hljs-string">&quot;--weather.api.private-key=your_weather_private_key&quot;</span> \<br> <span class="hljs-string">&quot;--deepseek.api-key=your_deepseek_api_key&quot;</span> <br> <br> <span class="hljs-comment"># 代码就不做解释了，运行后自行测试</span><br></code></pre></td></tr></table></figure>
+<hr>
+<p>需要注意的是</p>
+<p>上面这两个后端部署的例子是极度不安全的</p>
+<p>因为把密钥这些敏感信息全部暴露出去了</p>
+<p>别人只要能登上你的服务器</p>
+<p>运行 docker ps</p>
+<p>就可以看到所有配置和敏感信息</p>
+<p>关于这个</p>
+<p>后续有解决方法</p>
+<p></p>
+<p></p>
+
+<hr>
+<h2 style="color: #b7a0e0"><span id></span></h2>
+<p></p>
+<p></p>
+
+<hr>
+
+<hr>
+
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+
+<p></p>
+<img src="/img/.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<hr>
+<p align="center" style="color: hotpink;font-size: 20px"><strong>PS:该系列只做为作者学习开发项目做的笔记用</strong></p>
+<p align="center" style="color: hotpink;font-size: 20px"><strong>不一定符合读者来学习，仅供参考</strong></p>
+<hr>
+<h2 style="color: #b7a0e0"><span id="预告">预告</span></h2>  
+<p>后续会记录博客的开发过程</p>
+<p>每次学习会做一份笔记来进行发表</p>
+
+<blockquote>  
+<p style="color: #bbbbee">“一花一世界，一叶一菩提”</p>
+</blockquote>
+
+<hr>
+<p>版权所有 © 2026 云梦泽<br>欢迎访问我的个人网站：<a target="_blank" rel="noopener" href="https://hgt12.github.io/">https://hgt12.github.io/</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2/" class="category-chain-item">项目部署</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%8A%80%E6%9C%AF%E5%90%91/" class="print-no-link">#技术向</a>
+      
+        <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" class="print-no-link">#个人博客</a>
+      
+        <a href="/tags/%E5%89%8D%E7%AB%AF/" class="print-no-link">#前端</a>
+      
+        <a href="/tags/%E5%90%8E%E7%AB%AF/" class="print-no-link">#后端</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>『博客开发日记』之关于项目的部署</div>
+      <div>http://example.com/2026/06/13/『博客开发日记』之关于项目的部署/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>云梦泽</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年6月13日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2026年6月20日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/06/14/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8D%87%E7%BA%A7WebSocket%E5%AE%9E%E6%97%B6%E8%AE%B0%E5%BD%95%E5%9C%A8%E7%BA%BF%E4%BA%BA%E6%95%B0%E5%8A%9F%E8%83%BD/" title="『博客开发日记』之升级WebSocket实时记录在线人数功能">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">『博客开发日记』之升级WebSocket实时记录在线人数功能</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/06/06/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E5%90%8E%E5%8F%B0%E9%85%8D%E7%BD%AE%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取后台配置接口的实现">
+                        <span class="hidden-mobile">『博客开发日记-后台』之获取后台配置接口的实现</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments">
+      
+  <div id="twikoo"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/twikoo/1.6.8/twikoo.all.min.js', function() {
+        var options = Object.assign(
+          {"envId":"https://mi-manchi-ovo.netlify.app/.netlify/functions/twikoo","region":"ap-shanghai","path":"window.location.pathname"},
+          {
+            el: '#twikoo',
+            path: 'window.location.pathname',
+            onCommentLoaded: function() {
+              Fluid.utils.listenDOMLoaded(function() {
+                var imgSelector = '#twikoo .tk-content img:not(.tk-owo-emotion)';
+                Fluid.plugins.imageCaption(imgSelector);
+                Fluid.plugins.fancyBox(imgSelector);
+              });
+            }
+          }
+        )
+        twikoo.init(options)
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hgt12.github.io/" target="_blank" rel="nofollow noopener"><span>云梦泽</span></a> <i class="iconfont icon-love"></i> <a target="_blank" href="https://hgt12.github.io/"_blank" rel="nofollow noopener noopener"><span>Mi Manchi</span></a> <br> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    
+      <script  src="/js/img-lazyload.js" ></script>
+    
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/click.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,1051 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/mi_manchi.png">
+  <link rel="icon" href="/img/mi_manchi.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="云梦泽">
+  <meta name="keywords" content="js html">
+  
+    <meta name="description" content="项目部署之使用 DockerFile 部署  前言 前面已经使用普通的方法对项目进行部署 但是这有个缺点是 用到是基础的镜像构建 如果想使用自定义镜像不行了 下面使用 DockerFile 来对项目进行打包成镜像来部署 通过自定义镜像来部署  实现 检查网络环境 在一切开始之前需要检查你当前 docker 内的网络是否为新的网络 因为新镜像的容器如果运行在旧的网络环境（旧网络环境中也有其他容器在运">
+<meta property="og:type" content="article">
+<meta property="og:title" content="『博客开发日记』项目部署之使用 DockerFile 部署">
+<meta property="og:url" content="http://example.com/2026/06/18/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E4%B9%8B%E4%BD%BF%E7%94%A8%20DockerFile%20%E9%83%A8%E7%BD%B2/index.html">
+<meta property="og:site_name" content="云梦泽的个人博客">
+<meta property="og:description" content="项目部署之使用 DockerFile 部署  前言 前面已经使用普通的方法对项目进行部署 但是这有个缺点是 用到是基础的镜像构建 如果想使用自定义镜像不行了 下面使用 DockerFile 来对项目进行打包成镜像来部署 通过自定义镜像来部署  实现 检查网络环境 在一切开始之前需要检查你当前 docker 内的网络是否为新的网络 因为新镜像的容器如果运行在旧的网络环境（旧网络环境中也有其他容器在运">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/%E5%A3%81%E7%BA%B8194.jpg">
+<meta property="article:published_time" content="2026-06-18T12:24:33.000Z">
+<meta property="article:modified_time" content="2026-06-20T15:37:37.844Z">
+<meta property="article:author" content="云梦泽">
+<meta property="article:tag" content="技术向">
+<meta property="article:tag" content="个人博客">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="后端">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/%E5%A3%81%E7%BA%B8194.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>『博客开发日记』项目部署之使用 DockerFile 部署 - 云梦泽的个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":80,"cursorChar":"✨","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":7},"lazyload":{"enable":true,"loading_img":"/img/loading_1.gif","onlypost":true,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<!-- hexo injector head_end start --><script src="/js/click.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <!-- Canvas for click effect -->
+  <div id="clickCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999;"></div>
+
+  <header>
+    
+
+<div class="header-inner" style="height: 80vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>云梦泽</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/messages/" target="_self">
+                <i class="iconfont icon-comment"></i>
+                <span>留言板</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E5%A3%81%E7%BA%B8194.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="『博客开发日记』项目部署之使用 DockerFile 部署"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        云梦泽
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-06-18 20:24" pubdate>
+          2026年6月18日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          14 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="项目部署"
+        id="heading-50be5e3b1697e929a38352262896962e" role="tab" data-toggle="collapse" href="#collapse-50be5e3b1697e929a38352262896962e"
+        aria-expanded="true"
+      >
+        项目部署
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-50be5e3b1697e929a38352262896962e"
+           role="tabpanel" aria-labelledby="heading-50be5e3b1697e929a38352262896962e">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/06/13/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%85%B3%E4%BA%8E%E9%A1%B9%E7%9B%AE%E7%9A%84%E9%83%A8%E7%BD%B2/" title="『博客开发日记』之关于项目的部署"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之关于项目的部署</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/06/20/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E4%B9%8B%E4%BD%BF%E7%94%A8%20DockerCompose%20%E9%83%A8%E7%BD%B2/" title="『博客开发日记』项目部署之使用 DockerCompose 部署"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』项目部署之使用 DockerCompose 部署</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/06/18/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E4%B9%8B%E4%BD%BF%E7%94%A8%20DockerFile%20%E9%83%A8%E7%BD%B2/" title="『博客开发日记』项目部署之使用 DockerFile 部署"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">『博客开发日记』项目部署之使用 DockerFile 部署</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">『博客开发日记』项目部署之使用 DockerFile 部署</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2026年6月20日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 align="center"><span id="项目部署之使用-dockerfile-部署"><span style="color: cadetblue;">项目部署之使用 DockerFile 部署</span></span></h1>
+<hr>
+<h2 style="color: #b7a0e0"><span id="前言">前言</span></h2>
+<p>前面已经使用普通的方法对项目进行部署</p>
+<p>但是这有个缺点是</p>
+<p>用到是基础的镜像构建</p>
+<p>如果想使用自定义镜像不行了</p>
+<p>下面使用 DockerFile 来对项目进行打包成镜像来部署</p>
+<p>通过自定义镜像来部署</p>
+<hr>
+<h2 style="color: #b7a0e0"><span id="实现">实现</span></h2>
+<h3 style="color: #b7a0e0"><span id="检查网络环境">检查网络环境</span></h3>
+<p>在一切开始之前需要检查你当前 docker 内的网络是否为新的网络</p>
+<p>因为新镜像的容器如果运行在旧的网络环境（旧网络环境中也有其他容器在运行）中的话就会导致新镜像的容器无法和旧镜像的容器进行网络连接</p>
+<p>由于我前面已经使用普通的方法创建过网络并运行过容器</p>
+<p>所以我需要对当前运行环境进行清空处理（如果你当前环境是干净的则可以忽略）</p>
+<p>亦或者你也可以再后续操作中将你的新容器运行在全新的网络中（注意新网络和新容器的名称不能和旧的相同）</p>
+
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs docker">==== 删除前台后端容器 ====<br>docker rm -f yun_blog_java<br><br>==== 删除后台后端容器 ====<br>docker rm -f yun_blog_admin_java<br><br>==== 删除数据库容器 ====<br>docker rm -f yun_blog_sql<br><br>==== 删除 redis 容器 ====<br>docker rm -f yun_blog_redis<br><br>==== 删除前端 nginx 容器 ====<br>docker rm -f yun_blog_vue<br><br>==== 删除网络 ====<br>docker network rm blog_network<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>清空环境后重新创建网络</p>
+
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs docker">docker network create blog_network<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>然后部署步骤和上篇文章一样了</p>
+<p>运行 mysql 容器</p>
+
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs docker">docker <span class="hljs-keyword">run</span><span class="language-bash"> --restart always \</span><br><span class="language-bash"> -e TZ=Asia/Shanghai \</span><br><span class="language-bash"> --name yun_blog_sql \</span><br><span class="language-bash"> -d \ </span><br> --network blog_network \<br> -p <span class="hljs-number">3306</span>:<span class="hljs-number">3306</span> \<br> -v /home/mysql_date:/var/lib/mysql \<br> -e MYSQL_ROOT_PASSWORD=your_password \<br> mysql:<span class="hljs-number">8.0</span><br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>运行 redis 容器</p>
+
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs docker">docker <span class="hljs-keyword">run</span><span class="language-bash"> --restart always \</span><br><span class="language-bash"> --name yun_blog_redis \</span><br><span class="language-bash"> -d \</span><br><span class="language-bash"> --network blog_network \</span><br><span class="language-bash"> -p 6379:6379 \</span><br><span class="language-bash"> -v /home/redis_date:/data \</span><br><span class="language-bash"> redis redis-server --appendonly <span class="hljs-built_in">yes</span></span><br></code></pre></td></tr></table></figure>
+<hr>
+
+<h3 style="color: #b7a0e0"><span id="前台后端部署">前台后端部署</span></h3>
+<p>先进入到你服务器保存前台后端 jar 包的根目录</p>
+<p>然后创建 dockerFile 文件（文件名自定义）</p>
+<img src="/img/进入保存前台后端 jar 包的根目录.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>编辑在文件中编写 dockerFile 指令用于构建自定义镜像</p>
+<p>注意这里构建时把敏感信息都放进去了</p>
+<p>这其实是不对的</p>
+<p>这是作为练习和部署后能看到效果加的</p>
+<p>实际中不允许这样做</p>
+<p>敏感信息后面会有专门的地方存储</p>
+
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-comment"># 指定基础镜像</span><br><span class="hljs-keyword">FROM</span> openjdk:<span class="hljs-number">17</span>-jdk<br><span class="hljs-comment"># 指定工作目录</span><br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /yun_blog_java/mengze-blog</span><br><span class="hljs-comment"># 添加前台工程 jar 包</span><br><span class="hljs-keyword">ADD</span><span class="language-bash"> mengze-blog-1.0-SNAPSHOT.jar .</span><br><span class="hljs-comment"># 声明开放端口</span><br><span class="hljs-keyword">EXPOSE</span> <span class="hljs-number">1314</span><br><span class="hljs-comment"># 指定容器的运行命令</span><br><span class="hljs-keyword">CMD</span><span class="language-bash"> [<span class="hljs-string">&quot;java&quot;</span>, <span class="hljs-string">&quot;-jar&quot;</span>, <span class="hljs-string">&quot;mengze-blog-1.0-SNAPSHOT.jar&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--spring.datasource.url=jdbc:mysql://yun_blog_sql:3306/yun_blog?characterEncoding=utf8&amp;serverTimezone=Asia/Shanghai&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--spring.datasource.username=your_sql_username&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--spring.datasource.password=your_sql_password&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--spring.redis.host=yun_blog_redis&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--spring.mail.username=your_qq_email_username&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--spring.mail.password=your_qq_email_key&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--oss.accessKey=your_access_key&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--oss.secretKey=your_secret_key&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--oss.bucket=your_bucket_name&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--oss.domain=your_oss_visit_domain&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--aliyun.sms.access-key-id=your_access_key_id&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--aliyun.sms.access-key-secret=your_access_key_secret&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--blog.frontend.url=blog_frontend_url&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--weather.api.key-id=your_key_id&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--weather.api.project-id=your_project_id&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--weather.api.host=your_api_host&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--weather.api.private-key=your_weather_private_key&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--deepseek.api-key=your_deepseek_api_key&quot;</span> \</span><br><span class="language-bash">]</span><br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>运行构建镜像指令</p>
+<p>运行前要 cd 到你当前 dockerFile 存放的根目录下再运行</p>
+
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs docker">docker build -t yun_blog_java:<span class="hljs-number">01</span> -f mengze_blog_java_dockerFile .<br><br><span class="hljs-comment"># 构建镜像 -t 后面加镜像名 : 后面加版本号 -f 后面加 dockersfile 的文件名 &quot;.&quot;标识在当前文件下构建</span><br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>成功后在镜像列表中就能看到你构建的镜像了</p>
+<img src="/img/成功构建前台后端镜像.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>然后在你构建的镜像中运行 容器 </p>
+<p>由于一些配置已经在 dockerFile 里配置好了 这里只需要直接运行容器就行</p>
+<p>上一篇文章有对代码的解释 这里就不解释了</p>
+
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs docker">docker <span class="hljs-keyword">run</span><span class="language-bash"> --restart always \</span><br><span class="language-bash"> -e TZ=Asia/Shanghai \</span><br><span class="language-bash"> --name yun_blog_java \</span><br><span class="language-bash"> -d \</span><br><span class="language-bash"> --network blog_network \</span><br><span class="language-bash"> -p 1314:1314 \</span><br><span class="language-bash">yun_blog_java:01</span><br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>测试容器成功运行</p>
+<img src="/img/测试容器成功运行.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<h3 style="color: #b7a0e0"><span id="后台后端部署">后台后端部署</span></h3>
+<p>步骤和前台的差不多</p>
+<p>在 jar 所在的根目录下创建 dockerFile 文件并编辑构建命令</p>
+
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-comment"># 指定基础镜像</span><br><span class="hljs-keyword">FROM</span> openjdk:<span class="hljs-number">17</span>-jdk<br><span class="hljs-comment"># 指定工作目录</span><br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /yun_blog_java/mengze-admin</span><br><span class="hljs-comment"># 添加前台工程 jar 包</span><br><span class="hljs-keyword">ADD</span><span class="language-bash"> mengze-admin-1.0-SNAPSHOT.jar .</span><br><span class="hljs-comment"># 声明开放端口</span><br><span class="hljs-keyword">EXPOSE</span> <span class="hljs-number">7616</span><br><span class="hljs-comment"># 指定容器的运行命令</span><br><span class="hljs-keyword">CMD</span><span class="language-bash"> [<span class="hljs-string">&quot;java&quot;</span>, <span class="hljs-string">&quot;-jar&quot;</span>, <span class="hljs-string">&quot;mengze-admin-1.0-SNAPSHOT.jar&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--spring.datasource.url=jdbc:mysql://yun_blog_sql:3306/yun_blog?characterEncoding=utf8&amp;serverTimezone=Asia/Shanghai&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--spring.datasource.username=your_sql_username&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--spring.datasource.password=your_sql_password&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--spring.redis.host=yun_blog_redis&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--spring.mail.username=your_qq_email_username&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--spring.mail.password=your_qq_email_key&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--oss.accessKey=your_access_key&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--oss.secretKey=your_secret_key&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--oss.bucket=your_bucket_name&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--oss.domain=your_oss_visit_domain&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--aliyun.sms.access-key-id=your_access_key_id&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--aliyun.sms.access-key-secret=your_access_key_secret&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--blog.frontend.url=blog_frontend_url&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--weather.api.key-id=your_key_id&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--weather.api.project-id=your_project_id&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--weather.api.host=your_api_host&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--weather.api.private-key=your_weather_private_key&quot;</span>, \</span><br><span class="language-bash"> <span class="hljs-string">&quot;--deepseek.api-key=your_deepseek_api_key&quot;</span> \</span><br><span class="language-bash">]</span><br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>运行构建镜像指令</p>
+<p>运行前要 cd 到你当前 dockerFile 存放的根目录下再运行</p>
+
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs docker">docker build -t yun_blog_admin_java:<span class="hljs-number">01</span> -f mengze_admin_java_dockerFile .<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>运行 后台后端 容器</p>
+<p>要注意端口号和容器名</p>
+
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs docker">docker <span class="hljs-keyword">run</span><span class="language-bash"> --restart always \</span><br><span class="language-bash"> -e TZ=Asia/Shanghai \</span><br><span class="language-bash"> --name yun_blog_admin_java \</span><br><span class="language-bash"> -d \</span><br><span class="language-bash"> --network blog_network \</span><br><span class="language-bash"> -p 7616:7616 \</span><br><span class="language-bash">yun_admin_java:01</span><br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>成功构建镜像并成功运行容器</p>
+<img src="/img/成功运行后台后端.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<h3 style="color: #b7a0e0"><span id="前端部署">前端部署</span></h3>
+<p>找到 前台和后台前端项目 所在的根目录下创建 dockerFile 文件</p>
+<img src="/img/创建 yun_blog_dockerFile .png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>在 dockerFile 里编辑构建命令</p>
+<p>由于是在当前文件夹下运行的所以下面复制使用相对目录就行了</p>
+<p>关于 nginx 配置文件如何配置在 『博客开发日记』之关于项目的部署 中有写</p>
+
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-comment"># 指定基础镜像</span><br><span class="hljs-keyword">FROM</span> nginx<br><span class="hljs-comment"># 指定工作目录</span><br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /home/yun_blog_vue</span><br><br><span class="hljs-comment"># 复制博客前端文件</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> ./blog/dist /usr/share/nginx/html/blog</span><br><span class="hljs-comment"># 复制管理后台前端文件</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> ./admin/dist /usr/share/nginx/html/admin</span><br><span class="hljs-comment"># 复制 nginx 配置文件</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> ./nginx/conf.d /etc/nginx/conf.d</span><br><br><span class="hljs-comment"># 暴露端口</span><br><span class="hljs-keyword">EXPOSE</span> <span class="hljs-number">80</span><br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>运行构建镜像指令</p>
+<p>运行前要 cd 到你当前 dockerFile 存放的根目录下再运行</p>
+
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs docker">docker build -t yun_blog_vue:<span class="hljs-number">01</span> -f yun_blog_vue_dockerFile .<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>运行镜像中的容器</p>
+
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs docker">docker <span class="hljs-keyword">run</span><span class="language-bash"> --restart always \</span><br><span class="language-bash"> --name yun_blog_vue \</span><br><span class="language-bash"> -d \</span><br><span class="language-bash"> -p 80:80 \</span><br><span class="language-bash">yun_blog_vue:01</span><br></code></pre></td></tr></table></figure>
+
+<p>查看容器是否运行</p>
+<img src="/img/成功构建前端进行并运行容器.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>浏览器上观察也运行正常</p>
+<img src="/img/浏览器上观察也运行正常.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>至此 dockerFile 版的项目部署已经完成</p>
+<p>但是还有一些敏感信息要解决 后面再讲</p>
+
+<hr>
+
+<h3 style="color: #b7a0e0"><span id="支线将构建的镜像推送到-docker-hub">支线——将构建的镜像推送到 Docker Hub</span></h3>
+<p>前面我们已经构建了自定义的镜像</p>
+<p>为了方便我们随拿随用</p>
+<p>我们可以把自己做的镜像推送到 Docker Hub 上</p>
+<p>由于我们上面构建的镜像含有敏感信息</p>
+<p>所以我们在 Docker Hub 上构建一个属于自己的私有仓库</p>
+<img src="/img/创建私有仓库.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>现在终端中登录到 Docker Hub 中</p>
+
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs docker">docker login<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>分别构建镜像 这里就不演示了</p>
+
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs docker">docker build -t username/镜像名:tag<br><span class="hljs-comment"># username是DockerHub的用户名</span><br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>给镜像打上标签</p>
+
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs docker">docker tag username/镜像名:tag username/镜像名:tag<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>推送镜像</p>
+
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs docker">docker push username/镜像名:tag<br></code></pre></td></tr></table></figure>
+<hr>
+
+<hr>
+<p></p>
+<p></p>
+<p></p>
+
+<p></p>
+<img src="/img/.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<hr>
+<p align="center" style="color: hotpink;font-size: 20px"><strong>PS:该系列只做为作者学习开发项目做的笔记用</strong></p>
+<p align="center" style="color: hotpink;font-size: 20px"><strong>不一定符合读者来学习，仅供参考</strong></p>
+<hr>
+<h2 style="color: #b7a0e0"><span id="预告">预告</span></h2>  
+<p>后续会记录博客的开发过程</p>
+<p>每次学习会做一份笔记来进行发表</p>
+
+<blockquote>  
+<p style="color: #bbbbee">“一花一世界，一叶一菩提”</p>
+</blockquote>
+
+<hr>
+<p>版权所有 © 2026 云梦泽<br>欢迎访问我的个人网站：<a target="_blank" rel="noopener" href="https://hgt12.github.io/">https://hgt12.github.io/</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2/" class="category-chain-item">项目部署</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%8A%80%E6%9C%AF%E5%90%91/" class="print-no-link">#技术向</a>
+      
+        <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" class="print-no-link">#个人博客</a>
+      
+        <a href="/tags/%E5%89%8D%E7%AB%AF/" class="print-no-link">#前端</a>
+      
+        <a href="/tags/%E5%90%8E%E7%AB%AF/" class="print-no-link">#后端</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>『博客开发日记』项目部署之使用 DockerFile 部署</div>
+      <div>http://example.com/2026/06/18/『博客开发日记』项目部署之使用 DockerFile 部署/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>云梦泽</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年6月18日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2026年6月20日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/06/18/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BF%AE%E5%A4%8D%E5%A4%A9%E6%B0%94%E6%8E%A5%E5%8F%A3%E7%9B%B8%E5%85%B3%E7%9A%84%20location%20%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98/" title="『博客开发日记』之修复天气接口相关的 location 参数传递异常问题">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">『博客开发日记』之修复天气接口相关的 location 参数传递异常问题</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/06/15/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BF%AE%E5%A4%8D%20%E9%A6%96%E6%AC%A1%E5%90%AF%E5%8A%A8%E6%97%B6%E6%97%A0%E6%B3%95%E4%BB%8E%20redis%20%E4%B8%AD%E8%8E%B7%E5%8F%96%20viewCount%20%E7%9A%84%20bug/" title="『博客开发日记』之修复 首次启动时无法从 redis 中获取 viewCount 的 bug">
+                        <span class="hidden-mobile">『博客开发日记』之修复 首次启动时无法从 redis 中获取 viewCount 的 bug</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments">
+      
+  <div id="twikoo"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/twikoo/1.6.8/twikoo.all.min.js', function() {
+        var options = Object.assign(
+          {"envId":"https://mi-manchi-ovo.netlify.app/.netlify/functions/twikoo","region":"ap-shanghai","path":"window.location.pathname"},
+          {
+            el: '#twikoo',
+            path: 'window.location.pathname',
+            onCommentLoaded: function() {
+              Fluid.utils.listenDOMLoaded(function() {
+                var imgSelector = '#twikoo .tk-content img:not(.tk-owo-emotion)';
+                Fluid.plugins.imageCaption(imgSelector);
+                Fluid.plugins.fancyBox(imgSelector);
+              });
+            }
+          }
+        )
+        twikoo.init(options)
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hgt12.github.io/" target="_blank" rel="nofollow noopener"><span>云梦泽</span></a> <i class="iconfont icon-love"></i> <a target="_blank" href="https://hgt12.github.io/"_blank" rel="nofollow noopener noopener"><span>Mi Manchi</span></a> <br> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    
+      <script  src="/js/img-lazyload.js" ></script>
+    
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/click.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

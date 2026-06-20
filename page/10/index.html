@@ -265,6 +265,590 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2026/05/05/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E6%B7%BB%E5%8A%A0%E8%8F%9C%E5%8D%95%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
+          <img src="/img/%E5%A3%81%E7%BA%B8105.jpg" alt="『博客开发日记-后台』之添加菜单接口的实现">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/05/05/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E6%B7%BB%E5%8A%A0%E8%8F%9C%E5%8D%95%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
+          『博客开发日记-后台』之添加菜单接口的实现
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2026/05/05/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E6%B7%BB%E5%8A%A0%E8%8F%9C%E5%8D%95%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
+        <div>
+          添加菜单接口的实现  添加菜单接口的需求 校验父菜单是否存在（如果不是顶级菜单） 对路由路径进行校验，其中目录和菜单必填，按钮可不填 检查同一父菜单下是否存在同名菜单 检查同一父菜单下路由路径是否重复（仅检查新增目录和菜单的情况） 对 params 字段进行处理 要将其转换成 string 再存入数据库   代码实现 创建 AddMenuDto 和 MenuParamDto  1234567891
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-05-05 18:05" pubdate>
+              2026-05-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/" class="category-chain-item">博客开发</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%8A%80%E6%9C%AF%E5%90%91/">#技术向</a>
+            
+              <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">#个人博客</a>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
+            
+              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2026/05/05/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E8%8F%9C%E5%8D%95%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
+          <img src="/img/%E5%A3%81%E7%BA%B8104.jpg" alt="『博客开发日记-后台』之获取菜单表单数据接口的实现">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/05/05/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E8%8F%9C%E5%8D%95%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
+          『博客开发日记-后台』之获取菜单表单数据接口的实现
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2026/05/05/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E8%8F%9C%E5%8D%95%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
+        <div>
+          获取菜单表单数据接口的实现  获取菜单表单数据接口的需求 根据菜单id查询表单数据 因为前端 alwaysShow 和 keepAlive 是布尔型 而数据库里的是字符型 所以要对这两个字段进行类型转换    代码实现 创建 MenuFormDetailVo   12345678910111213141516171819202122232425262728293031323334353637383
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-05-05 14:19" pubdate>
+              2026-05-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/" class="category-chain-item">博客开发</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%8A%80%E6%9C%AF%E5%90%91/">#技术向</a>
+            
+              <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">#个人博客</a>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
+            
+              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2026/05/04/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%AF%B9%E5%89%8D%E5%8F%B0%E5%B7%A5%E7%A8%8B%E8%BF%9B%E8%A1%8C%E5%AE%89%E5%85%A8%E6%80%A7%E5%8D%87%E7%BA%A7/" target="_self">
+          <img src="/img/%E5%A3%81%E7%BA%B8103.jpg" alt="『博客开发日记』之对前台工程进行安全性升级">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/05/04/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%AF%B9%E5%89%8D%E5%8F%B0%E5%B7%A5%E7%A8%8B%E8%BF%9B%E8%A1%8C%E5%AE%89%E5%85%A8%E6%80%A7%E5%8D%87%E7%BA%A7/" target="_self">
+          『博客开发日记』之对前台工程进行安全性升级
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2026/05/04/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%AF%B9%E5%89%8D%E5%8F%B0%E5%B7%A5%E7%A8%8B%E8%BF%9B%E8%A1%8C%E5%AE%89%E5%85%A8%E6%80%A7%E5%8D%87%E7%BA%A7/" target="_self">
+        <div>
+          升级 SensitiveUtilServiceImpl   前言 书再再接上回 既然都对前台做了这么多安全性改造了 干脆直接对前台工程的安全防护进行升级 主要升级是  增加XSS防护 和 Content-Type验证  代码实现 使用 XssUtils 来过滤恶意脚本  1234567891011121314151617181920212223242526272829303132333435363
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-05-04 20:55" pubdate>
+              2026-05-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/" class="category-chain-item">博客开发</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%8A%80%E6%9C%AF%E5%90%91/">#技术向</a>
+            
+              <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">#个人博客</a>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
+            
+              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2026/05/04/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8D%87%E7%BA%A7%20SensitiveUtilServiceImpl/" target="_self">
+          <img src="/img/%E5%A3%81%E7%BA%B8102.png" alt="『博客开发日记』之升级 SensitiveUtilServiceImpl">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/05/04/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8D%87%E7%BA%A7%20SensitiveUtilServiceImpl/" target="_self">
+          『博客开发日记』之升级 SensitiveUtilServiceImpl
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2026/05/04/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8D%87%E7%BA%A7%20SensitiveUtilServiceImpl/" target="_self">
+        <div>
+          升级 SensitiveUtilServiceImpl   前言 书再接上回 完成升级 EmailServiceImpl 的工作后 对敏感词的检测还有一小部分工作要完成 启动时对敏感词库进行载入预热 就是还要对用户注册时的用户名，评论和更改用户信息时的昵称进行检测 这些都是会展示在网页里的 所以要进行检测才能展示 代码实现 由于先前在 SensitiveUtilServiceImpl 里写的检测方
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-05-04 20:22" pubdate>
+              2026-05-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/" class="category-chain-item">博客开发</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%8A%80%E6%9C%AF%E5%90%91/">#技术向</a>
+            
+              <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">#个人博客</a>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
+            
+              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2026/05/04/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%8D%87%E7%BA%A7%20EmailServiceImpl/" target="_self">
+          <img src="/img/%E5%A3%81%E7%BA%B8101.jpg" alt="『博客开发日记-后台』之升级 EmailServiceImpl">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/05/04/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%8D%87%E7%BA%A7%20EmailServiceImpl/" target="_self">
+          『博客开发日记-后台』之升级 EmailServiceImpl
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2026/05/04/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%8D%87%E7%BA%A7%20EmailServiceImpl/" target="_self">
+        <div>
+          升级 EmailServiceImpl   前言 书接上回 前面说到要升级 EmailServiceImpl  让他能发送 敏感词通知邮件（发给评论用户）、敏感词通知邮件（发给博主审核）、评论审核通过通知邮件和评论审核未通过通知邮件 在这里对 EmailServiceImpl 进行升级 完成对以上邮件的发送功能 代码实现 由于升级内容过多而且我还调整代码位置了，这里直接吧整个类贴出来  12345
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-05-04 19:44" pubdate>
+              2026-05-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/" class="category-chain-item">博客开发</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%8A%80%E6%9C%AF%E5%90%91/">#技术向</a>
+            
+              <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">#个人博客</a>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
+            
+              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2026/05/04/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F%E6%B7%BB%E5%8A%A0%E5%AF%B9%E6%95%8F%E6%84%9F%E8%AF%8D%E7%9A%84%E6%A3%80%E6%B5%8B%E5%8A%9F%E8%83%BD/" target="_self">
+          <img src="/img/%E5%A3%81%E7%BA%B8100.jpg" alt="『博客开发日记』之评论系统添加对敏感词的检测功能">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/05/04/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F%E6%B7%BB%E5%8A%A0%E5%AF%B9%E6%95%8F%E6%84%9F%E8%AF%8D%E7%9A%84%E6%A3%80%E6%B5%8B%E5%8A%9F%E8%83%BD/" target="_self">
+          『博客开发日记』之评论系统添加对敏感词的检测功能
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2026/05/04/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F%E6%B7%BB%E5%8A%A0%E5%AF%B9%E6%95%8F%E6%84%9F%E8%AF%8D%E7%9A%84%E6%A3%80%E6%B5%8B%E5%8A%9F%E8%83%BD/" target="_self">
+        <div>
+          评论系统添加对敏感词的检测功能  起因 个人网站确实要管理好自己的内容 特别是备案的网站 要有别人评论的内容检测 如果检测到有敏感词的评论，则转到待审核状态审核过后才能发表显示 要不然别人在你的网站卖广告啥的 搞黄色分分钟封了你的网站，再请你去喝茶 所以对评论内容的检测是有必要的   代码实现 实现流程大致如下 用户输入评论内容 > 进入本地敏感词库进行检测 > 无敏感词 > 进入第三方敏感词库进
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-05-04 16:33" pubdate>
+              2026-05-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/" class="category-chain-item">博客开发</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%8A%80%E6%9C%AF%E5%90%91/">#技术向</a>
+            
+              <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">#个人博客</a>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
+            
+              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2026/05/03/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%AF%BC%E5%87%BA%E8%AF%84%E8%AE%BA%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
+          <img src="/img/%E5%A3%81%E7%BA%B899.jpg" alt="『博客开发日记-后台』之导出评论数据接口的实现">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/05/03/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%AF%BC%E5%87%BA%E8%AF%84%E8%AE%BA%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
+          『博客开发日记-后台』之导出评论数据接口的实现
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2026/05/03/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%AF%BC%E5%87%BA%E8%AF%84%E8%AE%BA%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
+        <div>
+          导出评论数据接口的实现  导出评论数据接口的需求 首先导出数据不只是单单只导出所有数据 要支持有条件查询的数据导出（这部分和查询评论列表很像，代码直接复制查询评论列表的就行） 需要注意的是，导出的 excel 没办法像评论列表里那样展示出树状列表（至少我现在没办法将其导出的数据处理成 excel 版的树状列表） 所以导出的 excel 表的评论以直线列表的形式展示 还要支持 导出当前页 和 导出所
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-05-03 20:20" pubdate>
+              2026-05-03
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/" class="category-chain-item">博客开发</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%8A%80%E6%9C%AF%E5%90%91/">#技术向</a>
+            
+              <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">#个人博客</a>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
+            
+              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2026/05/03/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E8%AF%84%E8%AE%BA%E7%BB%9F%E8%AE%A1%E4%BF%A1%E6%81%AF%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
+          <img src="/img/%E5%A3%81%E7%BA%B898.jpg" alt="『博客开发日记-后台』之获取评论统计信息接口的实现">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/05/03/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E8%AF%84%E8%AE%BA%E7%BB%9F%E8%AE%A1%E4%BF%A1%E6%81%AF%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
+          『博客开发日记-后台』之获取评论统计信息接口的实现
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2026/05/03/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E8%AF%84%E8%AE%BA%E7%BB%9F%E8%AE%A1%E4%BF%A1%E6%81%AF%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
+        <div>
+          获取评论统计信息接口的实现  获取评论统计信息接口的需求 要查询评论总数 根据评论状态查询评论总数（待审核和审核未通过） 查询今日新增的评论总数   代码实现 新建 CommentStatisticsVo   123456789101112131415161718192021222324/** * 评论统计信息VO * * @author mengze */@Data@AllArgsConstru
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-05-03 15:10" pubdate>
+              2026-05-03
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/" class="category-chain-item">博客开发</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%8A%80%E6%9C%AF%E5%90%91/">#技术向</a>
+            
+              <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">#个人博客</a>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
+            
+              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2026/05/03/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%AF%84%E8%AE%BA%E5%AE%A1%E6%A0%B8%EF%BC%88%E6%8B%92%E7%BB%9D%E5%8F%91%E5%B8%83%EF%BC%89%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
           <img src="/img/%E5%A3%81%E7%BA%B897.png" alt="『博客开发日记-后台』之评论审核（拒绝发布）接口的实现">
         </a>
@@ -407,595 +991,11 @@
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2026/05/03/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%88%A0%E9%99%A4%E8%AF%84%E8%AE%BA%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
-          <img src="/img/%E5%A3%81%E7%BA%B895.jpg" alt="『博客开发日记-后台』之删除评论接口的实现">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2026/05/03/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%88%A0%E9%99%A4%E8%AF%84%E8%AE%BA%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
-          『博客开发日记-后台』之删除评论接口的实现
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2026/05/03/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%88%A0%E9%99%A4%E8%AF%84%E8%AE%BA%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
-        <div>
-          删除评论接口的实现  删除评论接口的需求 根据传入的评论id对评论进行逻辑删除 如果是根评论则需要删除其所有子评论    代码实现  在 AdminCommentServiceImpl 中实现方法  12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849//删除评论（逻辑删除
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2026-05-03 10:58" pubdate>
-              2026-05-03
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/" class="category-chain-item">博客开发</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%8A%80%E6%9C%AF%E5%90%91/">#技术向</a>
-            
-              <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">#个人博客</a>
-            
-              <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
-            
-              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2026/05/03/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%9B%9E%E5%A4%8D%E8%AF%84%E8%AE%BA%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
-          <img src="/img/%E5%A3%81%E7%BA%B894.jpg" alt="『博客开发日记-后台』之回复评论接口的实现">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2026/05/03/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%9B%9E%E5%A4%8D%E8%AF%84%E8%AE%BA%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
-          『博客开发日记-后台』之回复评论接口的实现
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2026/05/03/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E5%9B%9E%E5%A4%8D%E8%AF%84%E8%AE%BA%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
-        <div>
-          回复评论接口的实现  回复评论接口的需求 先获取登录者信息 如果是管理员则允许回复，如果不是则不允许回复 管理员评论默认审核通过   代码实现 下面只展示 AdminCommentServiceImpl 里的代码  12345678910111213141516171819202122232425262728293031323334353637383940//回复评论（管理员回复）    @Ove
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2026-05-03 09:46" pubdate>
-              2026-05-03
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/" class="category-chain-item">博客开发</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%8A%80%E6%9C%AF%E5%90%91/">#技术向</a>
-            
-              <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">#个人博客</a>
-            
-              <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
-            
-              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2026/04/30/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E8%AF%84%E8%AE%BA%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
-          <img src="/img/%E5%A3%81%E7%BA%B893.jpg" alt="『博客开发日记-后台』之获取评论列表接口的实现">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2026/04/30/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E8%AF%84%E8%AE%BA%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
-          『博客开发日记-后台』之获取评论列表接口的实现
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2026/04/30/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E8%AF%84%E8%AE%BA%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
-        <div>
-          获取评论列表接口的实现  获取评论列表接口的需求 根据关键字模糊查询评论名称 根据状态筛选 根据评论类型筛选 根据审核状态筛选 根据文章来筛选（当评论类型选择文章评论时） 按创建时间倒序排列 要有树状结构   代码实现 创建 CommentController   1234567891011121314151617181920212223242526272829/** * 评论管理接口 */@Re
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2026-04-30 20:22" pubdate>
-              2026-04-30
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/" class="category-chain-item">博客开发</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%8A%80%E6%9C%AF%E5%90%91/">#技术向</a>
-            
-              <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">#个人博客</a>
-            
-              <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
-            
-              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2026/04/27/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E8%8F%9C%E5%8D%95%E4%B8%8B%E6%8B%89%E9%80%89%E9%A1%B9%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
-          <img src="/img/%E5%A3%81%E7%BA%B892.jpg" alt="『博客开发日记-后台』之获取菜单下拉选项接口的实现">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2026/04/27/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E8%8F%9C%E5%8D%95%E4%B8%8B%E6%8B%89%E9%80%89%E9%A1%B9%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
-          『博客开发日记-后台』之获取菜单下拉选项接口的实现
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2026/04/27/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E8%8F%9C%E5%8D%95%E4%B8%8B%E6%8B%89%E9%80%89%E9%A1%B9%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
-        <div>
-          获取菜单下拉选项接口的实现  获取菜单下拉选项接口的需求 按排序字段降序排列 查询可见的菜单 如果前端的 onlyParent 为 true，只查询目录和菜单类型（不包含按钮）   代码实现 在 SysMenuController 中添加接口  1234567891011@GetMapping(&quot;/options&quot;)@SystemLog(businessName = &quot
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2026-04-27 20:06" pubdate>
-              2026-04-27
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/" class="category-chain-item">博客开发</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%8A%80%E6%9C%AF%E5%90%91/">#技术向</a>
-            
-              <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">#个人博客</a>
-            
-              <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
-            
-              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2026/04/26/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%88%A0%E9%99%A4userType%E5%AD%97%E6%AE%B5%E5%B9%B6%E4%BF%AE%E6%94%B9%E8%A2%AB%E8%BF%99%E4%B8%AA%E5%AD%97%E6%AE%B5%E6%89%80%E5%BD%B1%E5%93%8D%E7%9A%84%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3/" target="_self">
-          <img src="/img/%E5%A3%81%E7%BA%B891.jpg" alt="『博客开发日记』之删除userType字段并修改被这个字段所影响的类和接口">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2026/04/26/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%88%A0%E9%99%A4userType%E5%AD%97%E6%AE%B5%E5%B9%B6%E4%BF%AE%E6%94%B9%E8%A2%AB%E8%BF%99%E4%B8%AA%E5%AD%97%E6%AE%B5%E6%89%80%E5%BD%B1%E5%93%8D%E7%9A%84%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3/" target="_self">
-          『博客开发日记』之删除userType字段并修改被这个字段所影响的类和接口
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2026/04/26/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%88%A0%E9%99%A4userType%E5%AD%97%E6%AE%B5%E5%B9%B6%E4%BF%AE%E6%94%B9%E8%A2%AB%E8%BF%99%E4%B8%AA%E5%AD%97%E6%AE%B5%E6%89%80%E5%BD%B1%E5%93%8D%E7%9A%84%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3/" target="_self">
-        <div>
-          删除userType字段并修改被这个字段所影响的类和接口  起因 我在开发前台系统中的时候在用户表中有一个 userType 字段用于区分用户类型的 但是在后台管理系统中使用了 role 和 user_role 表来管理用户类型 这一来就导致了 userType 字段和那两个表有冲突了 这必须要改 不能让这两个重复功能的东西 改呗删字段该功能 将用户和角色之间的绑定改用 SysRole 和 Sys
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2026-04-26 11:07" pubdate>
-              2026-04-26
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/" class="category-chain-item">博客开发</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%8A%80%E6%9C%AF%E5%90%91/">#技术向</a>
-            
-              <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">#个人博客</a>
-            
-              <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
-            
-              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2026/04/25/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E8%8F%9C%E5%8D%95%E6%A0%91%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
-          <img src="/img/%E5%A3%81%E7%BA%B890.jpg" alt="『博客开发日记-后台』之获取菜单树列表接口的实现">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2026/04/25/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E8%8F%9C%E5%8D%95%E6%A0%91%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
-          『博客开发日记-后台』之获取菜单树列表接口的实现
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2026/04/25/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E8%8F%9C%E5%8D%95%E6%A0%91%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
-        <div>
-          获取获取菜单树列表接口的实现  获取获取菜单树列表接口的需求 根据关键字(菜单名称)查询 只查询可见的菜单 按排序字段升序排列   代码实现  ConfigController   1234567891011@GetMapping@SystemLog(businessName = &quot;菜单树列表&quot;)@ApiOperation(value = &quot;菜单树列表&quot;,
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2026-04-25 16:54" pubdate>
-              2026-04-25
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/" class="category-chain-item">博客开发</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%8A%80%E6%9C%AF%E5%90%91/">#技术向</a>
-            
-              <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">#个人博客</a>
-            
-              <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
-            
-              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2026/04/24/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
-          <img src="/img/%E5%A3%81%E7%BA%B889.jpg" alt="『博客开发日记-后台』之获取系统配置列表接口的实现">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2026/04/24/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
-          『博客开发日记-后台』之获取系统配置列表接口的实现
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2026/04/24/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE%E5%88%97%E8%A1%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_self">
-        <div>
-          获取系统配置链列表接口的实现  获取系统配置列表接口的需求 根据关键字（配置名称，配置键）模糊查询系统配置名称 按id顺序排序 不能查出已删除的配置（spring-boot中已配置）   代码实现 创建 ConfigController   12345678910111213141516171819202122232425/** * 系统配置接口 */@RestController@Request
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2026-04-24 21:11" pubdate>
-              2026-04-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/" class="category-chain-item">博客开发</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%8A%80%E6%9C%AF%E5%90%91/">#技术向</a>
-            
-              <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">#个人博客</a>
-            
-              <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
-            
-              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2026/04/23/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E4%BD%BF%E7%94%A8%20validation%20%E5%AF%B9%E6%8E%A5%E5%8F%A3%E5%8F%82%E6%95%B0%E8%BF%9B%E8%A1%8C%E6%A0%A1%E9%AA%8C/" target="_self">
-          <img src="/img/%E5%A3%81%E7%BA%B888.jpg" alt="『博客开发日记-后台』之使用 validation 对接口参数进行校验">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2026/04/23/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E4%BD%BF%E7%94%A8%20validation%20%E5%AF%B9%E6%8E%A5%E5%8F%A3%E5%8F%82%E6%95%B0%E8%BF%9B%E8%A1%8C%E6%A0%A1%E9%AA%8C/" target="_self">
-          『博客开发日记-后台』之使用 validation 对接口参数进行校验
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2026/04/23/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E4%BD%BF%E7%94%A8%20validation%20%E5%AF%B9%E6%8E%A5%E5%8F%A3%E5%8F%82%E6%95%B0%E8%BF%9B%E8%A1%8C%E6%A0%A1%E9%AA%8C/" target="_self">
-        <div>
-          h1 align&#x3D;”center”&gt;使用 Bean Validation 注解对接口参数进行校验  起因 在编写后台程序的时候发现可以用 Bean Validation 注解对接口参数进行校验 这样可以更方便实现参数校验   代码实现  首先引入 Bean Validation 插件    然后在所有dto请求文件中有需要校验的字段添加对应注解    然后在所有引用到这些dto的控
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2026-04-23 21:46" pubdate>
-              2026-04-23
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/" class="category-chain-item">博客开发</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%8A%80%E6%9C%AF%E5%90%91/">#技术向</a>
-            
-              <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">#个人博客</a>
-            
-              <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
-            
-              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/9/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/#board">8</a><a class="page-number" href="/page/9/#board">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/#board">11</a><a class="page-number" href="/page/12/#board">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/#board">20</a><a class="extend next" rel="next" href="/page/11/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/9/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/#board">8</a><a class="page-number" href="/page/9/#board">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/#board">11</a><a class="page-number" href="/page/12/#board">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/#board">21</a><a class="extend next" rel="next" href="/page/11/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

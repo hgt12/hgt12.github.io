@@ -1,0 +1,997 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/mi_manchi.png">
+  <link rel="icon" href="/img/mi_manchi.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="云梦泽">
+  <meta name="keywords" content="js html">
+  
+    <meta name="description" content="项目部署之使用 DockerCompose 部署  前言 前面已经使用 普通方法和DockerFile 的方法对项目进行部署 但是这有个缺点是 要写的指令和配置较多 运行的容器也比较多 还要去处理这些容器的网络，数据卷等 如果用docker命令一个个去处理还是不方便 无法集成化 而且文件需要动态更新还要一步一步来再部署很麻烦 下面使用 DockerCompose 来对项目进行集成化部署 在前面使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="『博客开发日记』项目部署之使用 DockerCompose 部署">
+<meta property="og:url" content="http://example.com/2026/06/20/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E4%B9%8B%E4%BD%BF%E7%94%A8%20DockerCompose%20%E9%83%A8%E7%BD%B2/index.html">
+<meta property="og:site_name" content="云梦泽的个人博客">
+<meta property="og:description" content="项目部署之使用 DockerCompose 部署  前言 前面已经使用 普通方法和DockerFile 的方法对项目进行部署 但是这有个缺点是 要写的指令和配置较多 运行的容器也比较多 还要去处理这些容器的网络，数据卷等 如果用docker命令一个个去处理还是不方便 无法集成化 而且文件需要动态更新还要一步一步来再部署很麻烦 下面使用 DockerCompose 来对项目进行集成化部署 在前面使用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/%E5%A3%81%E7%BA%B8195.jpg">
+<meta property="article:published_time" content="2026-06-20T08:08:26.000Z">
+<meta property="article:modified_time" content="2026-06-20T18:39:14.284Z">
+<meta property="article:author" content="云梦泽">
+<meta property="article:tag" content="技术向">
+<meta property="article:tag" content="个人博客">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="后端">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/%E5%A3%81%E7%BA%B8195.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>『博客开发日记』项目部署之使用 DockerCompose 部署 - 云梦泽的个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":80,"cursorChar":"✨","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":7},"lazyload":{"enable":true,"loading_img":"/img/loading_1.gif","onlypost":true,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<!-- hexo injector head_end start --><script src="/js/click.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <!-- Canvas for click effect -->
+  <div id="clickCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999;"></div>
+
+  <header>
+    
+
+<div class="header-inner" style="height: 80vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>云梦泽</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/messages/" target="_self">
+                <i class="iconfont icon-comment"></i>
+                <span>留言板</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E5%A3%81%E7%BA%B8195.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="『博客开发日记』项目部署之使用 DockerCompose 部署"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        云梦泽
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-06-20 16:08" pubdate>
+          2026年6月20日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          13 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="项目部署"
+        id="heading-50be5e3b1697e929a38352262896962e" role="tab" data-toggle="collapse" href="#collapse-50be5e3b1697e929a38352262896962e"
+        aria-expanded="true"
+      >
+        项目部署
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-50be5e3b1697e929a38352262896962e"
+           role="tabpanel" aria-labelledby="heading-50be5e3b1697e929a38352262896962e">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/06/13/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%85%B3%E4%BA%8E%E9%A1%B9%E7%9B%AE%E7%9A%84%E9%83%A8%E7%BD%B2/" title="『博客开发日记』之关于项目的部署"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之关于项目的部署</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/06/20/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E4%B9%8B%E4%BD%BF%E7%94%A8%20DockerCompose%20%E9%83%A8%E7%BD%B2/" title="『博客开发日记』项目部署之使用 DockerCompose 部署"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">『博客开发日记』项目部署之使用 DockerCompose 部署</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/06/18/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E4%B9%8B%E4%BD%BF%E7%94%A8%20DockerFile%20%E9%83%A8%E7%BD%B2/" title="『博客开发日记』项目部署之使用 DockerFile 部署"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』项目部署之使用 DockerFile 部署</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">『博客开发日记』项目部署之使用 DockerCompose 部署</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2026年6月21日 凌晨
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 align="center"><span id="项目部署之使用-dockercompose-部署"><span style="color: cadetblue;">项目部署之使用 DockerCompose 部署</span></span></h1>
+<hr>
+<h2 style="color: #b7a0e0"><span id="前言">前言</span></h2>
+<p>前面已经使用 普通方法和DockerFile 的方法对项目进行部署</p>
+<p>但是这有个缺点是</p>
+<p>要写的指令和配置较多</p>
+<p>运行的容器也比较多</p>
+<p>还要去处理这些容器的网络，数据卷等</p>
+<p>如果用docker命令一个个去处理还是不方便</p>
+<p>无法集成化</p>
+<p>而且文件需要动态更新还要一步一步来再部署很麻烦</p>
+<p>下面使用 DockerCompose 来对项目进行集成化部署</p>
+<p>在前面使用自定义镜像的基础上用 DockerCompose 来一键部署</p>
+<hr>
+<h2 style="color: #b7a0e0"><span id="实现">实现</span></h2>
+<p>DockerCompose 是用来定义和运行一个或多个容器(通常都是多个)运行和应用的工具</p>
+<p>有了 DockerCompose 之后你就可以在 DockerCompose yml 文件里定义好所有需要启动的容器的命令 到时候一次运行就可以把所有容器部署好</p>
+<p>先查看 DockerCompose 是否已安装 若没安装请自行安装</p>
+
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs docker">docker compose version<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>需要注意的是之前在运行容器时我们有给容器命名</p>
+<p>但在 DockerCompose 中不需要给容器命名了 我们使用服务名称来进行互联</p>
+
+<h3 style="color: #b7a0e0"><span id="重新构建新镜像">重新构建新镜像</span></h3>
+<p>前面我们对镜像进行构建里面包含了大量敏感信息 这是不对的</p>
+<p>我们现在进行重新构建镜像</p>
+<p>也是开始一下正式的部署流程</p>
+<p>在这之前还是对环境进行清理</p>
+<p>这次要把旧镜像一起删掉重新构建</p>
+
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs docker">==== 删除前台后端容器 ====<br>docker rm -f yun_blog_java<br><br>==== 删除后台后端容器 ====<br>docker rm -f yun_blog_admin_java<br><br>==== 删除数据库容器 ====<br>docker rm -f yun_blog_sql<br><br>==== 删除 redis 容器 ====<br>docker rm -f yun_blog_redis<br><br>==== 删除前端 nginx 容器 ====<br>docker rm -f yun_blog_vue<br><br>==== 删除自定义前台后端镜像 ====<br>docker rmi yun_blog_java:<span class="hljs-number">01</span><br><br>==== 删除自定义后台后端镜像 ====<br>docker rmi yun_blog_admin_java:<span class="hljs-number">01</span><br><br>==== 删除自定义前端镜像 ====<br>docker rmi yun_blog_vue:<span class="hljs-number">01</span><br><br>==== 删除网络 ====<br>docker network rm blog_network<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>清空环境后重新创建网络</p>
+
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs docker">docker network create blog_network<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>修改前台后端的 dockerFile </p>
+
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-comment"># 指定基础镜像</span><br><span class="hljs-keyword">FROM</span> openjdk:<span class="hljs-number">17</span>-jdk<br><span class="hljs-comment"># 指定工作目录</span><br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /yun_blog_java/mengze-blog</span><br><span class="hljs-comment"># 添加前台工程 jar 包</span><br><span class="hljs-keyword">ADD</span><span class="language-bash"> mengze-blog-1.0-SNAPSHOT.jar .</span><br><span class="hljs-comment"># 声明开放端口</span><br><span class="hljs-keyword">EXPOSE</span> <span class="hljs-number">1314</span><br><span class="hljs-comment"># 指定容器的运行命令</span><br><span class="hljs-keyword">CMD</span><span class="language-bash"> [<span class="hljs-string">&quot;java&quot;</span>, <span class="hljs-string">&quot;-jar&quot;</span>, <span class="hljs-string">&quot;mengze-blog-1.0-SNAPSHOT.jar&quot;</span>]</span><br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>运行新的前台后端的镜像</p>
+
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs docker">docker build -t yun_blog_java:v1.<span class="hljs-number">0.0</span> -f mengze_blog_java_dockerFile .<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>修改前台后端的 dockerFile </p>
+
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-comment"># 指定基础镜像</span><br><span class="hljs-keyword">FROM</span> openjdk:<span class="hljs-number">17</span>-jdk<br><span class="hljs-comment"># 指定工作目录</span><br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /yun_blog_java/mengze-admin</span><br><span class="hljs-comment"># 添加前台工程 jar 包</span><br><span class="hljs-keyword">ADD</span><span class="language-bash"> mengze-admin-1.0-SNAPSHOT.jar .</span><br><span class="hljs-comment"># 声明开放端口</span><br><span class="hljs-keyword">EXPOSE</span> <span class="hljs-number">7616</span><br><span class="hljs-comment"># 指定容器的运行命令</span><br><span class="hljs-keyword">CMD</span><span class="language-bash"> [<span class="hljs-string">&quot;java&quot;</span>, <span class="hljs-string">&quot;-jar&quot;</span>, <span class="hljs-string">&quot;mengze-admin-1.0-SNAPSHOT.jar&quot;</span>]</span><br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>运行新的后台后端的镜像</p>
+
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs docker">docker build -t yun_blog_admin_java:v1.<span class="hljs-number">0.0</span> -f mengze_admin_java_dockerFile .<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>前台不用编写新的但是部署流程也要走一下</p>
+
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-comment"># 指定基础镜像</span><br><span class="hljs-keyword">FROM</span> nginx<br><span class="hljs-comment"># 指定工作目录</span><br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /home/yun_blog_vue</span><br><br><span class="hljs-comment"># 复制博客前端文件</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> ./blog/dist /usr/share/nginx/html/blog</span><br><span class="hljs-comment"># 复制管理后台前端文件</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> ./admin/dist /usr/share/nginx/html/admin</span><br><span class="hljs-comment"># 复制 nginx 配置文件</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> ./nginx/conf.d /etc/nginx/conf.d</span><br><br><span class="hljs-comment"># 暴露端口</span><br><span class="hljs-keyword">EXPOSE</span> <span class="hljs-number">80</span><br></code></pre></td></tr></table></figure>
+<hr>
+
+<p></p>
+
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs docker">docker build -t yun_blog_vue:v1.<span class="hljs-number">0.0</span> -f yun_blog_vue_dockerFile .<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>构建后如下</p>
+<img src="/img/构建新的自定义镜像.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>先将后端的 .env 文件移动到 docker-compose.yml 的同级目录下</p>
+<img src="/img/将后端的 .env 文件移动到 docker-compose.yml 的同级目录下.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>这里是 .env 的配置</p>
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs text"># 开源部署环境变量模板<br># 使用方法：<br># 1. 将本文件复制为 `.env`<br># 2. 按照下面的内容填写真实配置<br># 3. 请保留 `.env` 文件私密，不要提交到 Git 仓库<br><br># 后端 MySQL 数据源配置<br># url 里的 yun_blog_sql 和你下面 docker-compose.yml 里的 redis 服务名一一对应<br>SPRING_DATASOURCE_URL=jdbc:mysql://yun_blog_sql:3306/yun_blog?characterEncoding=utf8&amp;serverTimezone=Asia/Shanghai<br>SQL_USERNAME=your_sql_username<br>SQL_PASSWORD=your_sql_password<br><br># redis 配置<br># 这里的 host 应该要和你下面 docker-compose.yml 里的 redis 服务名一样<br>SPRING_REDIS_HOST=yun_blog_redis<br><br># 后端 Spring Security 默认账号配置<br>SECURITY_USER_NAME=your_security_username<br>SECURITY_USER_PASSWORD=your_security_password<br><br># QQ 邮箱 SMTP 配置，用于发送邮件<br>QQ_EMAIL_USERNAME=your_qq_email_username<br>QQ_EMAIL_KEY=your_qq_email_key<br><br># 七牛云 OSS 配置，用于文件上传和访问<br>OSS_ACCESS_KEY=your_access_key<br>OSS_SECRET_KEY=your_secret_key<br>OSS_BUCKET_NAME=your_bucket_name<br>OSS_VISIT_DOMAIN=your_oss_visit_domain<br><br># 阿里云短信配置，用于发送验证码<br>ALIYUN_ACCESS_KEY_ID=your_access_key_id<br>ALIYUN_ACCESS_KEY_SECRET=your_access_key_secret<br><br># 前端地址，用于邮件链接和跳转（此处应该填你的域名）<br>BLOG_FRONTEND_URL=http://yun-mi-manchi.top<br><br># 和风天气 API 配置<br>WEATHER_KEY_ID=your_key_id<br>WEATHER_PROJECT_ID=your_project_id<br>WEATHER_API_HOST=your_api_host<br>WEATHER_PRIVATE_KEY=your_weather_private_key<br><br># DeepSeek API 密钥，用于 AI 相关功能<br>DEEPSEEK_API_KEY=your_deepseek_api_key<br><br></code></pre></td></tr></table></figure>
+
+<h3 style="color: #b7a0e0"><span id="编写-docker-composeyml">编写 docker-compose.yml</span></h3>
+<p>这个文件只需要写和前面 docker run 差不多的命令就行了</p>
+<p>就是一些环境变量要改一下</p>
+<p>你 .env 里的参数怎么写在 docker-compose.yml 里也要怎么写</p>
+<p>这里需要注意的是 --spring.redis.host=yun_blog_redis </p>
+<p>因为 redis 是通过 docker 网络进行连接的 所以这里写容器名</p>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">services:</span><br>  <span class="hljs-comment"># mysql</span><br>  <span class="hljs-attr">yun_blog_sql:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">mysql:8.0</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">/home/mysql_date:/var/lib/mysql</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-number">3306</span><span class="hljs-string">:3306</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">MYSQL_ROOT_PASSWORD:</span> <span class="hljs-string">you_sql_password</span><br>      <span class="hljs-attr">TZ:</span> <span class="hljs-string">Asia/Shanghai</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">always</span><br>    <span class="hljs-attr">networks:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">blog_network</span><br><br>  <span class="hljs-comment"># redis</span><br>  <span class="hljs-attr">yun_blog_redis:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">redis</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">/home/redis_date:/data</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-number">6379</span><span class="hljs-string">:6379</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">always</span><br>    <span class="hljs-attr">command:</span> [<span class="hljs-string">&#x27;redis-server&#x27;</span>,<span class="hljs-string">&#x27;--appendonly&#x27;</span>,<span class="hljs-string">&#x27;yes&#x27;</span>]<br>    <span class="hljs-attr">networks:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">blog_network</span><br><br>  <span class="hljs-comment"># 前台后端</span><br>  <span class="hljs-attr">yun_blog_java:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">yun_blog_java:v1.0.0</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-number">1314</span><span class="hljs-string">:1314</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">TZ:</span> <span class="hljs-string">Asia/Shanghai</span><br>    <span class="hljs-attr">env_file:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">.env</span><br>    <span class="hljs-attr">command:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">java</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">-jar</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">/yun_blog_java/mengze-blog/mengze-blog-1.0-SNAPSHOT.jar</span><br>    <span class="hljs-attr">networks:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">blog_network</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">always</span><br><br>  <span class="hljs-comment"># 后台后端</span><br>  <span class="hljs-attr">yun_blog_admin_java:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">yun_blog_admin_java:v1.0.0</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-number">7616</span><span class="hljs-string">:7616</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">TZ:</span> <span class="hljs-string">Asia/Shanghai</span><br>    <span class="hljs-attr">env_file:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">.env</span><br>    <span class="hljs-attr">command:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">java</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">-jar</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">/yun_blog_java/mengze-blog/mengze-blog-1.0-SNAPSHOT.jar</span><br>    <span class="hljs-attr">networks:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">blog_network</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">always</span><br><br>  <span class="hljs-comment"># 前端</span><br>  <span class="hljs-attr">yun_blog_vue:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">yun_blog_vue:v1.0.0</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-number">80</span><span class="hljs-string">:80</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">always</span><br><br><span class="hljs-comment"># 定义网络</span><br><span class="hljs-attr">networks:</span><br>  <span class="hljs-attr">blog_network:</span><br><br><span class="hljs-comment"># 定义数据卷 （如果你使用 docker 的命名卷挂载时就用）</span><br><span class="hljs-comment"># 我这里用的是和宿主机的挂载卷，就不用了</span><br><span class="hljs-comment">#volumes:</span><br><span class="hljs-comment">#  /home/mysql_date:</span><br><span class="hljs-comment">#  /home/redis_date:</span><br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>这里可以看到 docker-compose.yml 里写的都是和前面 docker run 命令差不多的命令</p>
+<p>可以理解为 docker-compose.yml 的作用就是将多容器的 docker run 都集成起来</p>
+<p>这样就可以统一运行和统一停止了</p>
+<p>最后 cd 到 docker-compose.yml 所在根目录下运行</p>
+
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs docker"><span class="hljs-comment"># -d 表示后台运行</span><br>docker compose up -d<br></code></pre></td></tr></table></figure>
+<hr>
+
+<p>出现下面日志表示运行成功</p>
+<img src="/img/统一运行成功.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p>浏览器能正常浏览</p>
+<img src="/img/浏览器测试通过.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<p></p>
+
+
+
+
+<hr>
+<p></p>
+<p></p>
+<p></p>
+
+<p></p>
+<img src="/img/.png" srcset="/img/loading_1.gif" lazyload alt>
+<hr>
+
+<hr>
+<p align="center" style="color: hotpink;font-size: 20px"><strong>PS:该系列只做为作者学习开发项目做的笔记用</strong></p>
+<p align="center" style="color: hotpink;font-size: 20px"><strong>不一定符合读者来学习，仅供参考</strong></p>
+<hr>
+<h2 style="color: #b7a0e0"><span id="预告">预告</span></h2>  
+<p>后续会记录博客的开发过程</p>
+<p>每次学习会做一份笔记来进行发表</p>
+
+<blockquote>  
+<p style="color: #bbbbee">“一花一世界，一叶一菩提”</p>
+</blockquote>
+
+<hr>
+<p>版权所有 © 2026 云梦泽<br>欢迎访问我的个人网站：<a target="_blank" rel="noopener" href="https://hgt12.github.io/">https://hgt12.github.io/</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2/" class="category-chain-item">项目部署</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%8A%80%E6%9C%AF%E5%90%91/" class="print-no-link">#技术向</a>
+      
+        <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" class="print-no-link">#个人博客</a>
+      
+        <a href="/tags/%E5%89%8D%E7%AB%AF/" class="print-no-link">#前端</a>
+      
+        <a href="/tags/%E5%90%8E%E7%AB%AF/" class="print-no-link">#后端</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>『博客开发日记』项目部署之使用 DockerCompose 部署</div>
+      <div>http://example.com/2026/06/20/『博客开发日记』项目部署之使用 DockerCompose 部署/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>云梦泽</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年6月20日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2026年6月21日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/06/18/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BF%AE%E5%A4%8D%E5%A4%A9%E6%B0%94%E6%8E%A5%E5%8F%A3%E7%9B%B8%E5%85%B3%E7%9A%84%20location%20%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98/" title="『博客开发日记』之修复天气接口相关的 location 参数传递异常问题">
+                        <span class="hidden-mobile">『博客开发日记』之修复天气接口相关的 location 参数传递异常问题</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments">
+      
+  <div id="twikoo"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/twikoo/1.6.8/twikoo.all.min.js', function() {
+        var options = Object.assign(
+          {"envId":"https://mi-manchi-ovo.netlify.app/.netlify/functions/twikoo","region":"ap-shanghai","path":"window.location.pathname"},
+          {
+            el: '#twikoo',
+            path: 'window.location.pathname',
+            onCommentLoaded: function() {
+              Fluid.utils.listenDOMLoaded(function() {
+                var imgSelector = '#twikoo .tk-content img:not(.tk-owo-emotion)';
+                Fluid.plugins.imageCaption(imgSelector);
+                Fluid.plugins.fancyBox(imgSelector);
+              });
+            }
+          }
+        )
+        twikoo.init(options)
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hgt12.github.io/" target="_blank" rel="nofollow noopener"><span>云梦泽</span></a> <i class="iconfont icon-love"></i> <a target="_blank" href="https://hgt12.github.io/"_blank" rel="nofollow noopener noopener"><span>Mi Manchi</span></a> <br> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    
+      <script  src="/js/img-lazyload.js" ></script>
+    
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/click.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

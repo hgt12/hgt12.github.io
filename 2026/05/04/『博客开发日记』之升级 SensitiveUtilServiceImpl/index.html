@@ -19,16 +19,16 @@
   <meta name="author" content="云梦泽">
   <meta name="keywords" content="js html">
   
-    <meta name="description" content="升级 SensitiveUtilServiceImpl   前言 书再接上回 完成升级 EmailServiceImpl 的工作后 对敏感词的检测还有一小部分工作要完成 就是还要对用户注册时的用户名，评论和更改用户信息时的昵称进行检测 这些都是会展示在网页里的 所以要进行检测才能展示 代码实现 由于先前在 SensitiveUtilServiceImpl 里写的检测方法博主不参与检测 输入参数多了">
+    <meta name="description" content="升级 SensitiveUtilServiceImpl   前言 书再接上回 完成升级 EmailServiceImpl 的工作后 对敏感词的检测还有一小部分工作要完成 启动时对敏感词库进行载入预热 就是还要对用户注册时的用户名，评论和更改用户信息时的昵称进行检测 这些都是会展示在网页里的 所以要进行检测才能展示 代码实现 由于先前在 SensitiveUtilServiceImpl 里写的检测方">
 <meta property="og:type" content="article">
 <meta property="og:title" content="『博客开发日记』之升级 SensitiveUtilServiceImpl">
 <meta property="og:url" content="http://example.com/2026/05/04/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8D%87%E7%BA%A7%20SensitiveUtilServiceImpl/index.html">
 <meta property="og:site_name" content="云梦泽的个人博客">
-<meta property="og:description" content="升级 SensitiveUtilServiceImpl   前言 书再接上回 完成升级 EmailServiceImpl 的工作后 对敏感词的检测还有一小部分工作要完成 就是还要对用户注册时的用户名，评论和更改用户信息时的昵称进行检测 这些都是会展示在网页里的 所以要进行检测才能展示 代码实现 由于先前在 SensitiveUtilServiceImpl 里写的检测方法博主不参与检测 输入参数多了">
+<meta property="og:description" content="升级 SensitiveUtilServiceImpl   前言 书再接上回 完成升级 EmailServiceImpl 的工作后 对敏感词的检测还有一小部分工作要完成 启动时对敏感词库进行载入预热 就是还要对用户注册时的用户名，评论和更改用户信息时的昵称进行检测 这些都是会展示在网页里的 所以要进行检测才能展示 代码实现 由于先前在 SensitiveUtilServiceImpl 里写的检测方">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/%E5%A3%81%E7%BA%B8102.png">
 <meta property="article:published_time" content="2026-05-04T12:22:05.000Z">
-<meta property="article:modified_time" content="2026-05-04T13:57:35.283Z">
+<meta property="article:modified_time" content="2026-06-19T07:29:38.529Z">
 <meta property="article:author" content="云梦泽">
 <meta property="article:tag" content="技术向">
 <meta property="article:tag" content="个人博客">
@@ -273,7 +273,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          648 字
+          770 字
         
       </span>
     
@@ -284,7 +284,7 @@
         
         
         
-          6 分钟
+          7 分钟
         
       </span>
     
@@ -347,7 +347,7 @@
         aria-expanded="true"
       >
         博客开发
-        <span class="list-group-count">(173)</span>
+        <span class="list-group-count">(178)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -1072,6 +1072,15 @@
     
       
       
+        <a href="/2026/06/06/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E5%90%8E%E5%8F%B0%E9%85%8D%E7%BD%AE%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取后台配置接口的实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记-后台』之获取后台配置接口的实现</span>
+        </a>
+      
+    
+      
+      
         <a href="/2026/05/24/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0-%E5%90%8E%E5%8F%B0%E3%80%8F%E4%B9%8B%E8%8E%B7%E5%8F%96%E5%AD%97%E5%85%B8%E4%B8%8B%E6%8B%89%E9%80%89%E9%A1%B9%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="『博客开发日记-后台』之获取字典下拉选项接口的实现"
            class="list-group-item list-group-item-action
            ">
@@ -1540,6 +1549,33 @@
     
       
       
+        <a href="/2026/06/15/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BF%AE%E5%A4%8D%20%E9%A6%96%E6%AC%A1%E5%90%AF%E5%8A%A8%E6%97%B6%E6%97%A0%E6%B3%95%E4%BB%8E%20redis%20%E4%B8%AD%E8%8E%B7%E5%8F%96%20viewCount%20%E7%9A%84%20bug/" title="『博客开发日记』之修复 首次启动时无法从 redis 中获取 viewCount 的 bug"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之修复 首次启动时无法从 redis 中获取 viewCount 的 bug</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/06/18/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BF%AE%E5%A4%8D%E5%A4%A9%E6%B0%94%E6%8E%A5%E5%8F%A3%E7%9B%B8%E5%85%B3%E7%9A%84%20location%20%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98/" title="『博客开发日记』之修复天气接口相关的 location 参数传递异常问题"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之修复天气接口相关的 location 参数传递异常问题</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/06/14/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BF%AE%E5%A4%8D%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%A4%B1%E8%B4%A5%E6%97%B6%E8%BF%98%E8%BF%94%E5%9B%9E%E6%88%90%E5%8A%9F%E7%9A%84%E9%97%AE%E9%A2%98/" title="『博客开发日记』之修复文件上传失败时还返回成功的问题"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之修复文件上传失败时还返回成功的问题</span>
+        </a>
+      
+    
+      
+      
         <a href="/2026/03/22/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E4%BF%AE%E5%A4%8D%E6%A0%87%E7%AD%BE%E6%97%A0%E6%B3%95%E5%9C%A8%E6%96%87%E7%AB%A0%E8%AF%A6%E6%83%85%E9%A1%B5%E5%92%8C%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8%E4%B8%AD%E6%98%BE%E7%A4%BA%E7%9A%84%E9%97%AE%E9%A2%98/" title="『博客开发日记』之修复标签无法在文章详情页和文章列表中显示的问题"
            class="list-group-item list-group-item-action
            ">
@@ -1607,6 +1643,15 @@
            class="list-group-item list-group-item-action
            active">
           <span class="category-post">『博客开发日记』之升级 SensitiveUtilServiceImpl</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/06/14/%E3%80%8E%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E3%80%8F%E4%B9%8B%E5%8D%87%E7%BA%A7WebSocket%E5%AE%9E%E6%97%B6%E8%AE%B0%E5%BD%95%E5%9C%A8%E7%BA%BF%E4%BA%BA%E6%95%B0%E5%8A%9F%E8%83%BD/" title="『博客开发日记』之升级WebSocket实时记录在线人数功能"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">『博客开发日记』之升级WebSocket实时记录在线人数功能</span>
         </a>
       
     
@@ -1939,7 +1984,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年5月4日 晚上
+                    本文最后更新于 2026年6月19日 下午
                   
                 
               </p>
@@ -1953,6 +1998,7 @@
 <p>书再接上回</p>
 <p>完成升级 EmailServiceImpl 的工作后</p>
 <p>对敏感词的检测还有一小部分工作要完成</p>
+<p>启动时对敏感词库进行载入预热</p>
 <p>就是还要对用户注册时的用户名，评论和更改用户信息时的昵称进行检测</p>
 <p>这些都是会展示在网页里的 所以要进行检测才能展示</p>
 <h2 style="color: #b7a0e0"><span id="代码实现">代码实现</span></h2>
@@ -1960,7 +2006,7 @@
 <p>所以要再写一个相似的方法来对单纯的内容进行检测</p>
 <p>这次不管博主还是谁都要进行检测了</p>
 
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 敏感词检测（用于用户名、昵称等）</span><br><span class="hljs-comment">     * 不跳过博主检测，所有用户一视同仁</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> content 待检测内容</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 是否包含敏感词</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> Boolean <span class="hljs-title function_">checkSensitiveWordsSimple</span><span class="hljs-params">(String content)</span><br>    &#123;<br>        <span class="hljs-keyword">if</span> (StringUtils.isEmpty(content)) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br><br>        <span class="hljs-comment">//1.本地词库检测</span><br>        <span class="hljs-keyword">if</span> (SensitiveUtil.containsSensitiveWords(content)) &#123;<br>            <span class="hljs-comment">// 获取检测到的具体敏感词及其来源文件</span><br>            java.util.Map&lt;String, String&gt; localSensitiveWordsWithSource = SensitiveUtil.findSensitiveWordsWithSource(content);<br>            log.info(<span class="hljs-string">&quot;本地词库检测为敏感词（用户名/昵称），检测到的敏感词及来源: &#123;&#125;&quot;</span>, localSensitiveWordsWithSource);<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<br>        log.info(<span class="hljs-string">&quot;本地词库检测无敏感词（用户名/昵称） &gt;&gt;&gt;&gt;&gt; 进入开源词库检测&quot;</span>);<br>        <span class="hljs-comment">//2.开源词库检测</span><br>        <span class="hljs-keyword">if</span> (SensitiveWordHelper.contains(content)) &#123;<br>            <span class="hljs-comment">// 获取开源词库检测到的具体敏感词</span><br>            java.util.List&lt;String&gt; openSourceSensitiveWords = SensitiveWordHelper.findAll(content);<br>            log.info(<span class="hljs-string">&quot;开源词库检测为敏感词（用户名/昵称），检测到的敏感词: &#123;&#125;&quot;</span>, openSourceSensitiveWords);<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<br>        log.info(<span class="hljs-string">&quot;开源词库检测无敏感词（用户名/昵称） &gt;&gt;&gt;&gt;&gt; 进入多ai并行检测&quot;</span>);<br>        <span class="hljs-comment">//3.多AI并行检测</span><br>        <span class="hljs-type">DetectionStatusEnum</span> <span class="hljs-variable">aiStatus</span> <span class="hljs-operator">=</span> aiChatService.aiCheckWord(content);<br>        <span class="hljs-keyword">if</span> (aiStatus.shouldBlock()) &#123;<br>            log.info(<span class="hljs-string">&quot;多AI并行检测为敏感词（用户名/昵称），内容: &#123;&#125;&quot;</span>, content);<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<br>        log.info(<span class="hljs-string">&quot;多AI并行检测无敏感词（用户名/昵称） &gt;&gt;&gt;&gt;&gt; 检测通过&quot;</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs java"><br><span class="hljs-comment">// 应用启动时预热一次开源词库，避免首次请求触发较大的初始化内存峰值</span><br><span class="hljs-meta">@PostConstruct</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">warmUpOpenSourceSensitiveWords</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-keyword">try</span> &#123;<br>        List&lt;String&gt; warmUpSamples = java.util.Arrays.asList(<span class="hljs-string">&quot;预热敏感词检测&quot;</span>, <span class="hljs-string">&quot;普通文本测试&quot;</span>);<br>        <span class="hljs-keyword">for</span> (String sample : warmUpSamples) &#123;<br>            SensitiveWordHelper.contains(sample);<br>        &#125;<br>        log.info(<span class="hljs-string">&quot;开源词库预热完成&quot;</span>);<br>    &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>        log.warn(<span class="hljs-string">&quot;开源词库预热失败，但不影响应用启动&quot;</span>, e);<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 敏感词检测（用于用户名、昵称等）</span><br><span class="hljs-comment">     * 不跳过博主检测，所有用户一视同仁</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> content 待检测内容</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 是否包含敏感词</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> Boolean <span class="hljs-title function_">checkSensitiveWordsSimple</span><span class="hljs-params">(String content)</span><br>    &#123;<br>        <span class="hljs-keyword">if</span> (StringUtils.isEmpty(content)) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br><br>        <span class="hljs-comment">//1.本地词库检测</span><br>        <span class="hljs-keyword">if</span> (SensitiveUtil.containsSensitiveWords(content)) &#123;<br>            <span class="hljs-comment">// 获取检测到的具体敏感词及其来源文件</span><br>            java.util.Map&lt;String, String&gt; localSensitiveWordsWithSource = SensitiveUtil.findSensitiveWordsWithSource(content);<br>            log.info(<span class="hljs-string">&quot;本地词库检测为敏感词（用户名/昵称），检测到的敏感词及来源: &#123;&#125;&quot;</span>, localSensitiveWordsWithSource);<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<br>        log.info(<span class="hljs-string">&quot;本地词库检测无敏感词（用户名/昵称） &gt;&gt;&gt;&gt;&gt; 进入开源词库检测&quot;</span>);<br>        <span class="hljs-comment">//2.开源词库检测</span><br>        <span class="hljs-keyword">if</span> (SensitiveWordHelper.contains(content)) &#123;<br>            <span class="hljs-comment">// 获取开源词库检测到的具体敏感词</span><br>            java.util.List&lt;String&gt; openSourceSensitiveWords = SensitiveWordHelper.findAll(content);<br>            log.info(<span class="hljs-string">&quot;开源词库检测为敏感词（用户名/昵称），检测到的敏感词: &#123;&#125;&quot;</span>, openSourceSensitiveWords);<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<br>        log.info(<span class="hljs-string">&quot;开源词库检测无敏感词（用户名/昵称） &gt;&gt;&gt;&gt;&gt; 进入多ai并行检测&quot;</span>);<br>        <span class="hljs-comment">//3.多AI并行检测</span><br>        <span class="hljs-type">DetectionStatusEnum</span> <span class="hljs-variable">aiStatus</span> <span class="hljs-operator">=</span> aiChatService.aiCheckWord(content);<br>        <span class="hljs-keyword">if</span> (aiStatus.shouldBlock()) &#123;<br>            log.info(<span class="hljs-string">&quot;多AI并行检测为敏感词（用户名/昵称），内容: &#123;&#125;&quot;</span>, content);<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<br>        log.info(<span class="hljs-string">&quot;多AI并行检测无敏感词（用户名/昵称） &gt;&gt;&gt;&gt;&gt; 检测通过&quot;</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br></code></pre></td></tr></table></figure>
 <hr>
 
 <p>SensitiveUtilService 添加接口方法</p>
@@ -2070,7 +2116,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2026年5月4日</div>
+          <div>2026年6月19日</div>
         </div>
       
       
